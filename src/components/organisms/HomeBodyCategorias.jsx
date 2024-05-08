@@ -6,7 +6,7 @@ import BodyCategoriasContainer from '../molecules/BodyCategoriasContainer'
 const HomeBodyCategorias = () => {
   return (
     <Box bgcolor={'#FFFFFF'} width={'100%'} >
-        <Typography variant='h5' color={'black'} sx={{marginBottom: "10px", paddingLeft: '5%'}}>Titulo de categorías</Typography>
+        <Typography variant='h5' color={'#511C29'} sx={{marginBottom: "10px", paddingLeft: '5%'}}>Titulo de categorías</Typography>
 
         <BodyCategoriasContainer/>
     </Box>
