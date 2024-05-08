@@ -1,8 +1,14 @@
 import React from 'react'
+import HomeBodyCategorias from '../../components/organisms/HomeBodyCategorias'
 
 const Home = () => {
   return (
-    <div>Home</div>
+    <>
+
+      <div className='body'>
+        <HomeBodyCategorias/>
+      </div>
+    </>
   )
 }
 
