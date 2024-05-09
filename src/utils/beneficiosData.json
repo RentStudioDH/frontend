@@ -1,0 +1,26 @@
+[
+    {
+      "id": 1,
+      "img": "rocket.png",
+      "title": "Arriendos + rápidos",
+      "textInfo": "Reserva tus equipos vía mail, y retira en un bloque horario reservado sólo para ti."
+    },
+    {
+      "id": 2,
+      "img": "smileFace.png",
+      "title": "Proceso fácil",
+      "textInfo": " Acceda a nuestro inventario, elija la cámara que desea arrendar, seleccione las fechas en el calendario, llene el formulario y ¡listo! "
+    },
+    {
+      "id": 3,
+      "img": "motorcycle.png",
+      "title": "Entregas y devoluciones a domicilio",
+      "textInfo": "Le entregamos y recogemos el equipo en su casa u oficina sin costo adicional."
+    },
+    {
+      "id": 4,
+      "img": "medalimage.png",
+      "title": "Equipo nuevo",
+      "textInfo": "Todos nuestros  productos son nuevos, asegurándonos así de mantener siempre un excelente control de calidad."
+    }
+]
