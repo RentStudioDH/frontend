@@ -5,10 +5,10 @@ import { Grid, Box } from '@mui/material';
 
 const BeneficiosSeccion = () => {
     return (
-        <Box display="flex" alignItems={"center"}>
+        <Box >
             <Grid container spacing={2}>
                 {beneficiosData.map((card) => (
-                    <Grid key={card.id} item xs={12} md={3}  justifyContent={'space-evenly'} alignItems={'center'}>
+                    <Grid key={card.id} item xs={6} md={3} >
                         <CardBeneficios key={card.id} title={card.title} img={card.img} textInfo={card.textInfo}/>
                     </Grid>
                 ))}

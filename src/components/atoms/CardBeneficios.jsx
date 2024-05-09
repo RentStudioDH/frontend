@@ -21,12 +21,14 @@ const CardBeneficios = ({ img, title, textInfo }) => {
   };
 
   return (
-    <Paper elevation={6} sx={appliedStyles}>
-        <img src={img} alt="cardImg" style={imageStyles} />
-      <Box width={'100%'} height={"60%"}  padding={"2px"}>
-        <Typography fontSize={'1rem'} fontWeight={'600'} color={"#56494E"} sx={{ textAlign: "center" }}>{title}</Typography>
-      </Box>
-    </Paper>
+    <Box display={"flex"} justifyContent={'center'} alignItems={'center'}>
+      <Paper elevation={6} sx={appliedStyles}>
+          <img src={img} alt="cardImg" style={imageStyles} />
+        <Box width={'100%'} height={"60%"}  padding={"2px"}>
+          <Typography fontSize={'1rem'} fontWeight={'600'} color={"#56494E"} sx={{ textAlign: "center" }}>{title}</Typography>
+        </Box>
+      </Paper>
+    </Box>
   );
 };
 
