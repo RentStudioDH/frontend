@@ -1,9 +1,13 @@
 import { Box, Container } from '@mui/material'
-import HomeBodyRecomendados from "../../Components/organisms/HomeBodyRecomendados";
-import MainBodyBeneficios from '../../Components/organisms/MainBodyBeneficios';
+import HomeBodyRecomendados from "../../components/organisms/HomeBodyRecomendados";
+import MainBodyBeneficios from '../../components/organisms/MainBodyBeneficios';
+import Footer from '../../components/organisms/Footer';
+import CategoriasTabs from '../../components/organisms/header/CategoriasTabs';
 const Main = () => {
   return (
-    <Box className={'body'}>
+    <Box>
+      <CategoriasTabs/>
+
       <Box>
         <MainBodyBeneficios/>
       </Box>
