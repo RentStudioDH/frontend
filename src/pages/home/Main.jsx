@@ -1,7 +1,6 @@
 import { Box, Container } from '@mui/material'
 import HomeBodyRecomendados from "../../components/organisms/HomeBodyRecomendados";
 import MainBodyBeneficios from '../../components/organisms/MainBodyBeneficios';
-import Footer from '../../components/organisms/Footer';
 import CategoriasTabs from '../../components/organisms/header/CategoriasTabs';
 const Main = () => {
   return (
