@@ -1,7 +1,8 @@
 import { Box, Container } from '@mui/material'
 import React from 'react'
-import HomeBodyRecomendados from "../../Components/organisms/HomeBodyRecomendados";
-import MainBodyBeneficios from '../../Components/organisms/MainBodyBeneficios';
+import HomeBodyRecomendados from '../../components/organisms/HomeBodyRecomendados';
+import MainBodyBeneficios from '../../components/organisms/MainBodyBeneficios';
+
 const Main = () => {
   return (
     <Box className={'body'}>
