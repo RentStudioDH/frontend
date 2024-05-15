@@ -6,7 +6,7 @@ const Navbar = () => {
   const location = useLocation()
   console.log(location.pathname)
   return (
-    <Box sx={{ background: '#A29C9B' }}>
+    <Box>
       <nav className='d-flex g-15'>
         <Link to={routes.categories.cameras} className={location.pathname === routes.categories.cameras ? 'active' : ''}>Cámaras</Link>
         <Link to={routes.categories.lents} className={location.pathname === routes.categories.lents ? 'active' : ''}>Lentes</Link>
