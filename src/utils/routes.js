@@ -13,4 +13,9 @@ export const routes = {
     professionals: '/category/professionals',
   },
   detail: '/producto/:id',
+  camaras:'/camaras',
+  lentes:'/lentes',
+  luces:'/luces',
+  audio:'/audio',
+  profesionales:'/profesionales'
 }

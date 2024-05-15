@@ -15,6 +15,11 @@ function App() {
         <main>
           <Routes>
             <Route path={routes.home} element={<Main/>}/>
+            <Route path={routes.camaras} element={<div></div>}/>
+            <Route path='/lentes'element={<div></div>}/>
+            <Route path='/luces' element={<div></div>}/>
+            <Route path='/audio' element={<div></div>}/>
+            <Route path='/profesionales' element={<div></div>}/>
           </Routes>
         </main>
         <Footer/>
