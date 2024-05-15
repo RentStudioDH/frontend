@@ -1,12 +1,13 @@
-import { Box } from "@mui/material"
 import Navbar from "../molecules/header/Navbar"
+import LogoLoginContainer from "../molecules/header/LogoLoginContainer"
 
 
 const Header = () => {
   return (
-    <Box component="header">
+    <header className="d-grid pi-center">
+      <LogoLoginContainer/>
       <Navbar/>
-    </Box>
+    </header>
   )
 }
 
