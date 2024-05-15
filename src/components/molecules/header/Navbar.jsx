@@ -4,15 +4,15 @@ import { routes } from '../../../utils/routes'
 
 const Navbar = () => {
   const location = useLocation()
-  console.log(location.pathname)
+  console.log(location.pathname);
+  const categories = Object.values(routes.categories)
+
   return (
     <Box sx={{ width: '100%' }}>
       <nav className='d-flex g-15'>
-        <Link to={routes.categories.cameras} className={location.pathname === routes.categories.cameras ? 'active' : ''}>Cámaras</Link>
-        <Link to={routes.categories.lents} className={location.pathname === routes.categories.lents ? 'active' : ''}>Lentes</Link>
-        <Link to={routes.categories.lights} className={location.pathname === routes.categories.lights ? 'active' : ''}>Luces</Link>
-        <Link to={routes.categories.audio} className={location.pathname === routes.categories.audio ? 'active' : ''}>Audio</Link>
-        <Link to={routes.categories.professionals} className={location.pathname === routes.categories.professionals ? 'active' : ''}>Profesionales</Link>
+        {categories.map((category) => (
+          <Link key={category.path} to={category.path} className={location.pathname === category.path ? 'active' : ''}>{category.label}</Link>
+        ))}
       </nav>
     </Box>
   )
