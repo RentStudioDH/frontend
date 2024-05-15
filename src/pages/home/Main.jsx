@@ -1,9 +1,7 @@
-import { Box, Container } from '@mui/material'
-import HomeBodyRecomendados from "../../components/organisms/HomeBodyRecomendados";
-import MainBodyBeneficios from '../../components/organisms/MainBodyBeneficios';
-import CategoriasTabs from '../../components/organisms/header/CategoriasTabs';
-import MainBodyBeneficios from '../../components/organisms/MainBodyBeneficios';
-import Footer from '../../components/organisms/Footer';
+import { Box } from '@mui/material'
+import HomeBodyRecomendados from "../../components/organisms/HomeBodyRecomendados"
+import MainBodyBeneficios from '../../components/organisms/MainBodyBeneficios'
+import CategoriasTabs from '../../components/organisms/header/CategoriasTabs'
 const Main = () => {
   return (
     <Box>
@@ -17,7 +15,6 @@ const Main = () => {
         <HomeBodyRecomendados/>
       </Box>
 
-      <Footer/>
     </Box>
   )
 }

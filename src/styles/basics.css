@@ -1,11 +1,58 @@
-/* styles.css */
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
+:root {
+  --color-primary: #A62639;    /* Rojo oscuro */
+  --color-secondary: #DB324D;  /* Rojo más vivo */
+  --color-tertiary: #56494E;   /* Gris oscuro */
+  --color-quaternary: #A29C9B; /* Gris claro */
+  --color-accent: #511C29;     /* Rojo muy oscuro */
+}
 
 /* Reseteo personalizado */
 *, *::before, *::after {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
+}
+
+.d-grid {
+  display: grid;
+}
+
+.d-flex {
+  display: flex;
+}
+
+.g-15 {
+  gap: 15px;
+}
+
+.txt-center {
+  text-align: center;
+}
+
+nav {
+  height: 40px;
+  background: var(--color-quaternary);
+  justify-content: center;
+}
+
+nav a {
+  color: var(--color-tertiary);
+  text-decoration: none;
+  font-family: 'Lato', sans-serif;
+  padding: 10px;
+}
+
+.active, nav a:hover {
+  color: var(--color-primary);
+  font-weight: 900;
+  border-bottom: 2px solid var(--color-primary);
+}
+
+footer {
+  background: var(--color-accent);
+}
+
+footer a {
+  font-size: 25px;
+  color: #fff;
 }

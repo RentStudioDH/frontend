@@ -1,29 +1,17 @@
-import React from 'react'
 import { Box, Typography } from '@mui/material'
-
+import { Link } from 'react-router-dom'
 
 const Footer = () => {
   return (
-    <Box
-    bgcolor={"#511C29"}
-    width={"100%"}
-    height={"70px"}
-    display={"flex"} 
-    justifyContent={"space-between"}
-    alignItems={'center'}
-    sx={{paddingX: {xs: "10px", md: "10%" }}}
-    marginTop={"1rem"}
-    >
-        <Typography color={"#FFFFFF"} variant='body1' 
-        sx={{width: {xs: "60%", md: "70%" }}}>
-            Todos los derechos reservados. Hecho por el Grupo7
-        </Typography>
-        <Box color={"#FFFFFF"} display={"flex"} justifyContent={"space-between"} 
-        sx={{width: {xs: "30%", md: "10%" }}}>
-            <img src="footer/facebook.svg" alt="facebook" />
-            <img src="footer/twitter.svg" alt="twitter" />
-            <img src="footer/instagram.svg" alt="instagram" />
+    <Box component="footer" className='d-grid' sx={{ placeItems: 'center' }}>
+      <Box className='d-flex g-15' sx={{ width: 'min(1280px, 100%)', flexDirection: { xs: 'column', md: 'row' }, justifyContent: 'space-between', alignItems: 'center', padding: '15px' }}>
+        <Typography variant='body1' className='txt-center' sx={{ color: '#fff'}}>Todos los derechos reservados. Hecho por el <strong>Grupo7</strong></Typography>
+        <Box className='d-flex social g-15'>
+          <Link><i className="fa-brands fa-square-facebook"></i></Link>
+          <Link><i className="fa-brands fa-instagram"></i></Link>
+          <Link><i className="fa-brands fa-twitter"></i></Link>
         </Box>
+      </Box>
     </Box>
   )
 }

@@ -1,7 +1,16 @@
 export const routes = {
   home: '/',
-  admin: '/admin',
-  adminListar: '/admin/listar',
-  adminCrear: '/admin/crear',
+  admin: {
+    dashboard: '/admin/dashboard',
+    listar: '/admin/listar',
+    crear: '/admin/crear',
+  },
+  categories: {
+    cameras: '/category/cameras',
+    lents: '/category/lents',
+    lights: '/category/lights',
+    audio: '/category/audio',
+    professionals: '/category/professionals',
+  },
   detail: '/producto/:id',
 }
