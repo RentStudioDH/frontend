@@ -16,7 +16,7 @@ function App() {
         <main>
           <Routes>
             <Route path={routes.home} element={<Main/>}/>
-            <Route path={routes.categories.cameras} element={<div></div>}/>
+            <Route path={routes.categories.cameras.path} element={<div></div>}/>
             <Route path='/lentes'element={<div></div>}/>
             <Route path='/luces' element={<div></div>}/>
             <Route path='/audio' element={<div></div>}/>
