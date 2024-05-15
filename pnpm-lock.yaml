@@ -23,6 +23,12 @@ dependencies:
   '@mui/material':
     specifier: ^5.15.17
     version: 5.15.17(@emotion/react@11.11.4)(@emotion/styled@11.11.5)(@types/react@18.3.2)(react-dom@18.3.1)(react@18.3.1)
+  '@mui/styled-engine':
+    specifier: ^5.15.14
+    version: 5.15.14(@emotion/react@11.11.4)(@emotion/styled@11.11.5)(react@18.3.1)
+  '@mui/system':
+    specifier: ^5.15.15
+    version: 5.15.15(@emotion/react@11.11.4)(@emotion/styled@11.11.5)(@types/react@18.3.2)(react@18.3.1)
   prop-types:
     specifier: ^15.8.1
     version: 15.8.1
