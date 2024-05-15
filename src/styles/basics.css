@@ -4,6 +4,7 @@
   --color-tertiary: #56494E;   /* Gris oscuro */
   --color-quaternary: #A29C9B; /* Gris claro */
   --color-accent: #511C29;     /* Rojo muy oscuro */
+  --color-base: #C6C6C6;     /* Rojo muy oscuro */
 }
 
 /* Reseteo personalizado */
@@ -11,6 +12,11 @@
   margin: 0;
   padding: 0;
   box-sizing: border-box;
+}
+
+a {
+  text-decoration: none;
+  font-family: 'Lato', sans-serif;
 }
 
 .d-grid {
@@ -25,8 +31,38 @@
   gap: 15px;
 }
 
+.pi-center {
+  place-items: center;
+}
+
 .txt-center {
   text-align: center;
+}
+
+.btn {
+  text-transform: capitalize;
+}
+
+.cont-wrap {
+  width: min(1280px, 100%);
+}
+
+header {
+  position: sticky;
+  background: var(--color-base);
+  top: 0;
+  z-index: 99;
+}
+
+header .logo {
+  gap: 10px;
+  align-items: center;
+  justify-content: center;
+}
+
+header .slogan {
+  color: var(--color-accent);
+  font-size: 14px;
 }
 
 nav {
@@ -37,8 +73,6 @@ nav {
 
 nav a {
   color: var(--color-tertiary);
-  text-decoration: none;
-  font-family: 'Lato', sans-serif;
   padding: 10px;
 }
 
