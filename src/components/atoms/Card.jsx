@@ -22,10 +22,22 @@ const Card = ({ type, data }) => {
         );
       case 'category':
         return (
-          <Link className={`d-flex card ${type}`} key={data.id} to={data.path}>
-            <img src={`${data.img}`} alt="" />
+          <Link className={`d-flex card ${type} br-15`} key={data.id} to={data.path}>
+            <img src={`${data.img}`} alt={`${data.title}`} />
             <div className='d-grid pi-center info p-15'>
-              <h3 className="txt-white txt-center txt-tertiary">{data.title}</h3>
+              <h3 className="txt-white txt-center">{data.title}</h3>
+            </div>
+          </Link>
+        );
+      case 'product':
+        return (
+          <Link className={`d-grid card ${type} br-15`} key={data.id} to={'/producto/' + data.id}>
+            <div className='image'>
+              <img src={`${data.img}`} alt="" />
+            </div>
+            <div className='d-grid pi-center info p-15'>
+              <h3 className="txt-primary txt-center">{data.title}</h3>
+              <p className="txt-tertiary txt-center paragraph">{data.textInfo}</p>
             </div>
           </Link>
         );
@@ -36,7 +48,7 @@ const Card = ({ type, data }) => {
 
   return (
     <>
-      {renderCard()}
+      { renderCard() }
     </>
   )
 }

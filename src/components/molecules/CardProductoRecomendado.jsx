@@ -1,14 +1,11 @@
 import {
   Box,
-  Button,
   Card,
-  CardActions,
   CardContent,
   CardMedia,
   Typography,
-} from "@mui/material";
-import React from "react";
-import PrimaryButton from "../atoms/PrimaryButton";
+} from "@mui/material"
+import PrimaryButton from "../atoms/PrimaryButton"
 
 const CardProductoRecomendado = ({ img, title, textInfo, price }) => {
   return (

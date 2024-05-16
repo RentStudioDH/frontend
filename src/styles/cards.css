@@ -18,8 +18,6 @@
   flex: 0 1 220px;
   position: relative;
   align-items: flex-end;
-  border-radius: 15px;
-  overflow: hidden;
 }
 
 .category img {
@@ -35,4 +33,30 @@
 
 .category:hover .info {
   height: 100%;
+}
+
+/* Estilos Card Productos */
+.product {
+  position: relative;
+  border: 1px solid rgba(162, 156, 155, .2);
+  box-shadow: 0 4px 4px 0 rgba(0, 0, 0, .25);
+}
+.product .image {
+  position: relative;
+  height: 220px;
+}
+
+.product .image img {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+}
+
+@media (min-width: 900px) {
+  .product {
+    grid-template-columns: 35% 1fr;
+  }
+  .product .image {
+    height: 100%;
+  }
 }

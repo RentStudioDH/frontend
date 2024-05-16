@@ -7,10 +7,10 @@ const BeneficiosContainer = () => {
       {beneficiosData.map(card => {
         return (
           <Card key={card.id} type="benefit" data={card} />
-        );
+        )
       })}
     </div>
-  );
+  )
 }
 
 export default BeneficiosContainer
