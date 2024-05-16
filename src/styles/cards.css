@@ -2,7 +2,6 @@
 .benefit {
   flex: 1 1 220px;
   flex: 0 1 220px;
-  display: grid;
   place-items: flex-start center;
   grid-template-rows: auto 1fr;
   gap: 5px;
@@ -13,4 +12,27 @@
   color: var(--color-quaternary);
 }
 
-/* Estilos Card Productos */
+/* Estilos Card Categorias */
+.category {
+  flex: 1 1 220px;
+  flex: 0 1 220px;
+  position: relative;
+  align-items: flex-end;
+  border-radius: 15px;
+  overflow: hidden;
+}
+
+.category img {
+  position: relative;
+  width: min(220px, 100%);
+}
+
+.category .info {
+  position: absolute;
+  width: 100%;
+  background: rgba(81, 28, 41, .7);
+}
+
+.category:hover .info {
+  height: 100%;
+}

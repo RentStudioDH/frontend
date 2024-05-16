@@ -1,0 +1,32 @@
+[
+    {
+        "id": 1,
+        "title" : "Cámaras",
+        "img":"/categorias/camaras.png",
+        "path": "/camaras"
+    },
+    {
+        "id": 2,
+        "title" : "Lentes",
+        "img":"/categorias/lentes.png",
+        "path": "/lentes"
+    },
+    {
+        "id": 3,
+        "title" : "Luces",
+        "img":"/categorias/luces.png",
+        "path": "/luces"
+    },
+    {
+        "id": 4,
+        "title" : "Audio",
+        "img":"/categorias/audio.png",
+        "path": "/audio"
+    },
+    {
+        "id": 5,
+        "title" : "Profesionales",
+        "img":"/categorias/profesionales.png",
+        "path": "/profesionales"
+    }
+]
