@@ -1,32 +1,48 @@
-import React from 'react'
+import { useEffect, useState } from 'react'
 import { Grid } from '@mui/material'
+import { useParams } from 'react-router-dom'
+import { useContextGlobal } from '../../contexts/global.context'
+import productosRecomendadosData from '../../utils/productosRecomendadosData.json'
 import ProductHeader from '../../components/organisms/product/ProductHeader'
 import ProductDetails from '../../components/organisms/product/ProductDetails'
-import PrductIdeas from '../../components/organisms/product/ProductIdeas'
 import ProductImages from '../../components/organisms/product/ProductImages'
+import ProductIdeas from '../../components/organisms/product/ProductIdeas'
 
 const Product = () => {
+  const params = useParams()
+  const { state, dispatch } = useContextGlobal()
 
-    const productDefault = {
-        title: "Cámara Canon C200, Cine Digital, 3 zoom Canon",
-        detail: "Lorem ipsum dolor sit amet consectetur adipiscing elit imperdiet ac phasellus, sodales venenatis quis pharetra torquent posuere tellus iaculis velit tempor nam, metus feugiat purus ornare gravida eleifend ut nec duis. Nisi auctor nascetur neque nulla urna egestas pharetra, integer fusce parturient fringilla commodo sociis phasellus, torquent ac cubilia ligula non platea. Faucibus euismod sociis montes tortor volutpat mus vulputate, aptent semper nullam cubilia tempus gravida, nostra sodales facilisi pulvinar donec facilisis."
+  const { id } = params
+  const [product, setProduct] = useState(null)
+  useEffect(() => {
+    const foundProduct = productosRecomendadosData.find(item => item.id === parseInt(id))
+    if (foundProduct) {
+      setProduct(foundProduct)
+    } else {
+      setProduct({
+        title: "Producto no encontrado"
+      })
     }
+  }, [id])
 
+  if (!product) {
+    return <div>Cargando...</div>
+  }
 
   return (
     <Grid container spacing={3} sx={{paddingX: {xs: "5%", md: "10%"}, marginBottom:"2rem", marginTop: "2px"}}>
-        <Grid item xs= {12} md= {12}>
-            <ProductHeader title={productDefault.title}/>
-        </Grid>
-        <Grid item xs= {12} md= {12}>
-            <ProductImages/>
-        </Grid>
-        <Grid item xs= {12} md= {9}>
-            <ProductDetails details={productDefault.detail}/>
-        </Grid>
-        <Grid item xs= {12} md= {3}>
-            <PrductIdeas/>
-        </Grid>
+      <Grid item xs={12} md={12}>
+        <ProductHeader title={product.title}/>
+      </Grid>
+      <Grid item xs={12} md={12}>
+        <ProductImages images={product.img}/>
+      </Grid>
+      <Grid item xs={12} md={9}>
+        <ProductDetails details={product.textInfo}/>
+      </Grid>
+      <Grid item xs={12} md={3}>
+        <ProductIdeas/>
+      </Grid>
     </Grid>
   )
 }

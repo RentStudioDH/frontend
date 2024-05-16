@@ -3,14 +3,7 @@ import React from 'react'
 import ProductGalery from '../../molecules/product/ProductGalery'
 
 const ProductImages = ({images}) => {
-
-    const imagesDefault = {
-        img: "camera.png"
-    }
-
-    function handleClick(params) {
-        
-    }
+  console.log(images);
 
   return (
     <Card elevation={4} sx={{ borderRadius: '15px', padding: "1.5rem"}}>
@@ -22,12 +15,12 @@ const ProductImages = ({images}) => {
         <Grid container display={"flex"} justifyContent={"space-between"} height={{xs: "100%", md: "100%"}} spacing={{xs: 2, md: 0}}>
           <Grid item xs={12} md={6}>
             <Box height={{xs: "100%", md: "100%"}} width={{xs: "100%", md: "98%"}} >
-              <img src= {imagesDefault.img} alt="Foto principal" style={{ width: '100%', height: '100%' }}/>
+              <img src={`../${images}`} alt="Foto principal" style={{ width: '100%', height: '100%' }}/>
             </Box>
           </Grid>
           <Grid item xs={12} md={6}>
             <Box height={{xs: "100%", md: "100%"}} width={{xs: "100%", md: "98%"}}>
-                <ProductGalery images={imagesDefault.img}/>
+                <ProductGalery images={images}/>
             </Box>
           </Grid>
         </Grid>
