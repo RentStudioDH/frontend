@@ -6,11 +6,11 @@ export const routes = {
     crear: { path: '/admin/crear', label: 'Crear producto' },
   },
   categories: {
-    cameras: { path: '/camaras', label: 'Cámaras' },
-    lents: { path: '/lentes', label: 'Lentes' },
-    lights: { path: '/luces', label: 'Luces' },
-    audio: { path: '/audio', label: 'Audio' },
-    professionals: { path: '/profesionales', label: 'Profesionales' },
+    cameras: { path: '/categoria/camaras', label: 'Cámaras' },
+    lents: { path: '/categoria/lentes', label: 'Lentes' },
+    lights: { path: '/categoria/luces', label: 'Luces' },
+    audio: { path: '/categoria/audio', label: 'Audio' },
+    professionals: { path: '/categoria/profesionales', label: 'Profesionales' },
   },
   detail: '/producto/:id'
 }

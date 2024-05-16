@@ -7,6 +7,7 @@ import Footer from './components/organisms/Footer'
 import Header from './components/organisms/Header'
 import Home from './pages/home/Home'
 import Product from './pages/product/Product'
+import Category from './pages/category/Category'
 
 function App() {
   return (
@@ -17,11 +18,7 @@ function App() {
           <Routes>
             <Route path={routes.home} element={<Home/>}/>
             <Route path={routes.detail} element={<Product/>}/>
-            <Route path={routes.categories.cameras.path} element={<div></div>}/>
-            <Route path='/lentes'element={<div></div>}/>
-            <Route path='/luces' element={<div></div>}/>
-            <Route path='/audio' element={<div></div>}/>
-            <Route path='/profesionales' element={<div></div>}/>
+            <Route path="/categoria/:category" element={<Category/>} />
           </Routes>
         </main>
         <Footer/>

@@ -1,4 +1,4 @@
-import categoriasData from '../../utils/categoriasData.json'
+import categoriasData from '../../utils/json/categoriasData.json'
 import Card from '../atoms/Card'
 
 const CategoriasContainer = () => {
