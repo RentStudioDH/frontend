@@ -4,7 +4,7 @@ import SearchIcon from '../../../public/searchIcon.png'; // Importa la imagen di
 
 export default function SearchInput({ searchHandler }) { // Desestructura las props
   return (
-    <Paper elevation={2} sx={{ width: 350, borderRadius: "28px", display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
+    <Paper elevation={2} sx={{ width: {xs:"80%", md: "30%"}, borderRadius: "28px", display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
       <InputBase  
         sx={{ ml: 2, flex: 1 }}
         placeholder="Buscar cámaras..."
