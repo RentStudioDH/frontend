@@ -1,30 +1,21 @@
-import React from 'react'
 import { Box, Typography } from '@mui/material'
-
+import { Link } from 'react-router-dom'
 
 const Footer = () => {
   return (
-    <Box
-    bgcolor={"#511C29"}
-    width={"100%"}
-    height={"70px"}
-    display={"flex"} 
-    justifyContent={"space-between"}
-    alignItems={'center'}
-    sx={{paddingX: {xs: "10px", md: "10%" }}}
-    marginTop={"1rem"}
-    >
-        <Typography color={"#FFFFFF"} variant='body1' 
-        sx={{width: {xs: "60%", md: "70%" }}}>
-            Todos los derechos reservados. Hecho por el Grupo7
-        </Typography>
-        <Box color={"#FFFFFF"} display={"flex"} justifyContent={"space-between"} 
-        sx={{width: {xs: "30%", md: "10%" }}}>
-            <img src="footer/facebook.svg" alt="facebook" />
-            <img src="footer/twitter.svg" alt="twitter" />
-            <img src="footer/instagram.svg" alt="instagram" />
+    <footer className='d-grid pi-center'>
+      <Box className='d-flex cont-wrap g-15' sx={{ flexDirection: { xs: 'column', md: 'row' }, justifyContent: 'space-between', alignItems: 'center', padding: '15px' }}>
+        <Box className='d-flex' sx={{ flexDirection: { xs: 'column', md: 'row' }, alignItems: 'center', gap: '10px'}}>
+          <img src="/logo/logo-min.png" alt='RS' title='RS' width={25} height={25}/>
+          <Typography variant='body1' className='txt-center' sx={{ color: '#fff', fontSize: '10px', lineHeight: '1' }}>2024 - Todos los derechos reservados. Hecho por el <strong>Grupo7</strong></Typography>
         </Box>
-    </Box>
+        <div className='d-flex social g-15'>
+          <Link><i className="fa-brands fa-square-facebook"></i></Link>
+          <Link><i className="fa-brands fa-instagram"></i></Link>
+          <Link><i className="fa-brands fa-twitter"></i></Link>
+        </div>
+      </Box>
+    </footer>
   )
 }
 

@@ -1,11 +1,131 @@
-/* styles.css */
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
+:root {
+  --color-primary: #A62639;    /* Rojo oscuro */
+  --color-secondary: #DB324D;  /* Rojo más vivo */
+  --color-tertiary: #56494E;   /* Gris oscuro */
+  --color-quaternary: #A29C9B; /* Gris claro */
+  --color-accent: #511C29;     /* Rojo muy oscuro */
+  --color-base: #C6C6C6;     /* Rojo muy oscuro */
+}
 
 /* Reseteo personalizado */
 *, *::before, *::after {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
+}
+
+a {
+  text-decoration: none;
+  font-family: 'Lato', sans-serif;
+  line-height: 1;
+}
+
+.d-grid {
+  display: grid;
+}
+
+.d-flex {
+  display: flex;
+}
+
+.g-15 {
+  gap: 15px;
+}
+
+.pi-center {
+  place-items: center;
+}
+
+.txt-center {
+  text-align: center;
+}
+
+.btn {
+  text-transform: capitalize;
+}
+
+.cont-wrap {
+  width: min(1280px, 100%);
+}
+
+header {
+  position: sticky;
+  background: var(--color-base);
+  top: 0;
+  z-index: 99;
+}
+
+header .logo {
+  gap: 5px;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+header .slogan {
+  color: var(--color-accent);
+  font-size: 14px;
+}
+
+nav {
+  height: 40px;
+  justify-content: center;
+  align-items: center;
+}
+
+nav a {
+  color: var(--color-tertiary);
+  padding: 10px;
+}
+
+.active, nav a:hover {
+  color: var(--color-primary);
+  font-weight: 900;
+  border-bottom: 2px solid var(--color-primary);
+}
+
+nav, .menuMobile {
+  background: var(--color-quaternary);
+}
+
+.menuMobile {
+  width: 100%;
+  flex-direction: column;
+  align-items: flex-end;
+  padding: 10px 15px;
+}
+
+.menuMobile .btnmenu {
+  background: none;
+  border: none;
+}
+
+.menuMobile .btnmenu i {
+  font-size: 16px;
+  color: var(--color-primary);
+}
+
+.menuMobile .itemsmenu {
+  width: 100%;
+  align-items: center;
+}
+
+.menuMobile .itemsmenu, .menuMobile .itemsmenu nav {
+  flex-direction: column;
+  height: auto;
+}
+
+footer {
+  background: var(--color-accent);
+}
+
+footer a {
+  font-size: 25px;
+  color: #fff;
+}
+
+@media (min-width: 900px) {
+  header .logo {
+    flex-direction: row;
+  }
 }
