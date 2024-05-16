@@ -1,12 +1,13 @@
-import { Box, Typography } from '@mui/material'
-import BodyCategoriasContainer from '../../molecules/BodyCategoriasContainer'
+import { Box } from '@mui/material'
+import CategoriasContainer from '../../molecules/CategoriasContainer'
 
 const SectionCategorias = () => {
   return (
-    <Box bgcolor={'#FFFFFF'} width={'100%'} >
-      <Typography variant='h5' color={'#511C29'} sx={{marginBottom: "10px", paddingLeft: '5%'}}>Titulo de categorías</Typography>
-      <BodyCategoriasContainer/>
-    </Box>
+    <section className='d-grid pi-center'>
+      <Box className='d-flex cont-wrap cont-category g-15 p-section'>
+        <CategoriasContainer/>
+      </Box>
+    </section>
   )
 }
 

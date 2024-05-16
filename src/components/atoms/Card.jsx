@@ -1,10 +1,9 @@
+import { Link } from 'react-router-dom'
 import '../../styles/cards.css'
 
 const Card = ({ type, data }) => {
-
-  console.log(type);
-  console.log(data);
-
+  // console.log(type);
+  // console.log(data);
   const renderCard = () => {
     if (!type || !data) {
       return <div>No hay información para mostrar.</div>
@@ -13,13 +12,22 @@ const Card = ({ type, data }) => {
     switch (type) {
       case 'benefit':
         return (
-          <>
+          <div className={`d-grid card ${type}`}>
             <i className={`fa-solid fa-${data.icon} icon`}></i>
             <div className="info">
               <h3 className="txt-center txt-tertiary">{data.title}</h3>
               <p className="txt-center txt-tertiary paragraph">{data.textInfo}</p>
             </div>
-          </>
+          </div>
+        );
+      case 'category':
+        return (
+          <Link className={`d-flex card ${type}`} key={data.id} to={data.path}>
+            <img src={`${data.img}`} alt="" />
+            <div className='d-grid pi-center info p-15'>
+              <h3 className="txt-white txt-center txt-tertiary">{data.title}</h3>
+            </div>
+          </Link>
         );
       default:
         return <div>Tipo no soportado.</div>;
@@ -27,7 +35,9 @@ const Card = ({ type, data }) => {
   }
 
   return (
-    <div className={`card ${type}`}>{renderCard()}</div>
+    <>
+      {renderCard()}
+    </>
   )
 }
 
