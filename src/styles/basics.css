@@ -191,7 +191,7 @@ footer a {
     padding: 30px;
   }
   .cont-products {
-    grid-template-columns: repeat(2, minmax(300px, 1fr));
+    grid-template-columns: repeat(2, minmax(250px, 1fr));
   }
   header .logo {
     flex-direction: row;
