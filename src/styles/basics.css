@@ -18,6 +18,11 @@
   font-family: 'Lato', sans-serif;
 }
 
+img {
+  display: block;
+  object-fit: cover;
+}
+
 a {
   text-decoration: none;
   line-height: 1;
@@ -50,6 +55,10 @@ a {
   border-bottom: 4px solid var(--color-primary);
   border-radius: 2px;
 }
+.br-15 {
+  border-radius: 15px;
+  overflow: hidden;
+}
 
 .txt-center {
   text-align: center;
@@ -81,13 +90,13 @@ a {
 .cont-wrap {
   width: min(1280px, 100%);
 }
-.cont-benefits {
+.cont-benefits, .cont-category {
   flex-wrap: wrap;
   justify-content: center;
 }
-.cont-category {
-  flex-wrap: wrap;
-  justify-content: center;
+
+.cont-products {
+
 }
 
 /* Textos */
@@ -180,6 +189,9 @@ footer a {
 @media (min-width: 640px) {
   .p-section {
     padding: 30px;
+  }
+  .cont-products {
+    grid-template-columns: repeat(2, minmax(300px, 1fr));
   }
   header .logo {
     flex-direction: row;

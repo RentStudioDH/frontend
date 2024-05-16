@@ -1,5 +1,6 @@
 import { createContext, useContext, useEffect, useReducer } from 'react'
 import { reducer } from '../reducers/reducer'
+import axios from 'axios'
 
 export const ContextGlobal = createContext()
 
@@ -13,7 +14,7 @@ export const initialState = {
 }
 
 export const ContextProvider = ({ children }) => {
-  const [state, dispatch] = useReducer(reducer, initialState);
+  const [state, dispatch] = useReducer(reducer, initialState)
 
   // Cambiar tema
   const toggleTheme = () => {
@@ -32,16 +33,16 @@ export const ContextProvider = ({ children }) => {
   }, [])
 
   // Cargar datos desde una API
-  // useEffect(() => {
-  //   const url = 'https://jsonplaceholder.typicode.com/users';
-  //   axios.get(url)
-  //     .then(res => {
-  //       dispatch({ type: 'GET_LIST', payload: res.data });
-  //     })
-  //     .catch(error => {
-  //       console.error('Error fetching data:', error);
-  //     });
-  // }, []);
+  useEffect(() => {
+    const url = 'https://api-digitalhouse.adksolutions.net.ar/product'
+    axios.get(url)
+      .then(res => {
+        dispatch({ type: 'GET_LIST', payload: res.data })
+      })
+      .catch(error => {
+        console.error('Error fetching data:', error)
+      })
+  }, [])
 
   // Aplicar el tema oscuro o claro
   useEffect(() => {

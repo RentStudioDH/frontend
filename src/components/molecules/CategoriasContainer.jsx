@@ -5,7 +5,6 @@ const CategoriasContainer = () => {
   return (
     <>
       {categoriasData.map(card => {
-        console.log(card);
         return (
           <Card key={card.id} type="category" data={card} />
         )
