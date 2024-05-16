@@ -1,7 +1,7 @@
 import { Button } from '@mui/material'
 import React from 'react'
 
-const PrimaryButton = ({text}) => {
+const PrimaryButton = ({text, onClick}) => {
   return (
     <Button
     sx={{
@@ -14,6 +14,7 @@ const PrimaryButton = ({text}) => {
       }
     }}
     variant='contained'
+    onClick={onClick}
   >
     {text}
     </Button>    
