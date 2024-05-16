@@ -2,7 +2,7 @@ import './styles/basics.css'
 import { Route, Routes } from "react-router-dom"
 import { routes } from './utils/routes'
 import { ThemeProvider } from '@mui/material/styles'
-import theme from './utils/theme'
+import theme from './utils/js/theme'
 import Footer from './components/organisms/Footer'
 import Header from './components/organisms/Header'
 import Home from './pages/home/Home'
