@@ -1,5 +1,6 @@
 import { Link } from 'react-router-dom'
 import '../../styles/cards.css'
+import Buttons from './Buttons'
 
 const Card = ({ type, data }) => {
   // console.log(type);
@@ -35,9 +36,11 @@ const Card = ({ type, data }) => {
             <div className='image'>
               <img src={`${data.img}`} alt="" />
             </div>
-            <div className='d-grid pi-center info p-15'>
-              <h3 className="txt-primary txt-center">{data.title}</h3>
-              <p className="txt-tertiary txt-center paragraph">{data.textInfo}</p>
+            <div className='d-flex info p-15'>
+              <h3 className="txt-primary">{data.title}</h3>
+              <p className="txt-tertiary paragraph">{data.textInfo}</p>
+              <p className="txt-primary paragraph" id='price'><strong>{data.price}</strong></p>
+              <Buttons text={'Cotizar'} bColor={'#A62639'} color={'#fff'} bgColor={'#A62639'}/>
             </div>
           </Link>
         );

@@ -1,72 +1,122 @@
 [
-    {
-        "id": 1,
-        "title" : "Cámara Canon C200, Cine Digital, 3 zoom Canon",
-        "textInfo": "La FX3 es una cámara compacta pensada primero para producciones de video.",
-        "price": "$230.000 / Día",
-        "img":"camera.png"
-    },
-    {
-        "id": 2,
-        "title" : "Cámara Canon C200, Cine Digital, 3 zoom Canon",
-        "textInfo": "La FX3 es una cámara compacta pensada primero para producciones de video.",
-        "price": "$230.000 / Día",
-        "img":"camera.png"
-    },
-    {
-        "id": 3,
-        "title" : "Cámara Canon C200, Cine Digital, 3 zoom Canon",
-        "textInfo": "La FX3 es una cámara compacta pensada primero para producciones de video.",
-        "price": "$230.000 / Día",
-        "img":"camera.png"
-    },
-    {
-        "id": 4,
-        "title" : "Cámara Canon C200, Cine Digital, 3 zoom Canon",
-        "textInfo": "La FX3 es una cámara compacta pensada primero para producciones de video.",
-        "price": "$230.000 / Día",
-        "img":"camera.png"
-    },
-    {
-        "id": 5,
-        "title" : "Cámara Canon C200, Cine Digital, 3 zoom Canon",
-        "textInfo": "La FX3 es una cámara compacta pensada primero para producciones de video.",
-        "price": "$230.000 / Día",
-        "img":"camera.png"
-    },
-    {
-        "id": 6,
-        "title" : "Cámara Canon C200, Cine Digital, 3 zoom Canon",
-        "textInfo": "La FX3 es una cámara compacta pensada primero para producciones de video.",
-        "price": "$230.000 / Día",
-        "img":"camera.png"
-    },
-    {
-        "id": 7,
-        "title" : "Cámara Canon C200, Cine Digital, 3 zoom Canon",
-        "textInfo": "La FX3 es una cámara compacta pensada primero para producciones de video.",
-        "price": "$230.000 / Día",
-        "img":"camera.png"
-    },
-    {
-        "id": 8,
-        "title" : "Cámara Canon C200, Cine Digital, 3 zoom Canon",
-        "textInfo": "La FX3 es una cámara compacta pensada primero para producciones de video.",
-        "price": "$230.000 / Día",
-        "img":"camera.png"
-    },
-    {
-        "id": 9,
-        "title" : "Cámara Canon C200, Cine Digital, 3 zoom Canon",
-        "textInfo": "La FX3 es una cámara compacta pensada primero para producciones de video.",
-        "price": "$230.000 / Día",
-        "img":"camera.png"
-    },
-    {
-        "id": 10,
-        "title" : "Cámara Canon C200, Cine Digital, 3 zoom Canon",
-        "textInfo": "La FX3 es una cámara compacta pensada primero para producciones de video.",
-        "price": "$230.000 / Día",
-        "img":"camera.png"
-    }
+  {
+    "id": 1,
+    "title": "Cámara Canon C200, Cine Digital, 3 zoom Canon",
+    "textInfo": "La FX3 es una cámara compacta pensada primero para producciones de video.",
+    "price": "$230.000 / Día",
+    "img": "camera.png",
+    "category": "Cámaras"
+  },
+  {
+    "id": 2,
+    "title": "Cámara Sony A7 III",
+    "textInfo": "Cámara de fotograma completo con capacidades de video 4K.",
+    "price": "$200.000 / Día",
+    "img": "camera.png",
+    "category": "Cámaras"
+  },
+  {
+    "id": 3,
+    "title": "Cámara Blackmagic Pocket 6K",
+    "textInfo": "Cámara de cine digital compacta con resolución 6K.",
+    "price": "$250.000 / Día",
+    "img": "camera.png",
+    "category": "Cámaras"
+  },
+  {
+    "id": 4,
+    "title": "Lente Canon EF 24-70mm f/2.8L II USM",
+    "textInfo": "Lente estándar de alta calidad con una apertura rápida y constante.",
+    "price": "$50.000 / Día",
+    "img": "camera.png",
+    "category": "Lentes"
+  },
+  {
+    "id": 5,
+    "title": "Lente Sigma 18-35mm f/1.8 DC HSM Art",
+    "textInfo": "Lente de zoom rápido y versátil con excelente calidad de imagen.",
+    "price": "$60.000 / Día",
+    "img": "camera.png",
+    "category": "Lentes"
+  },
+  {
+    "id": 6,
+    "title": "Lente Tamron 70-200mm f/2.8 Di VC USD G2",
+    "textInfo": "Lente teleobjetivo con estabilización de imagen y rápido enfoque.",
+    "price": "$70.000 / Día",
+    "img": "camera.png",
+    "category": "Lentes"
+  },
+  {
+    "id": 7,
+    "title": "Luz LED Neewer 660 RGB",
+    "textInfo": "Luz LED RGB con alto rendimiento y ajuste de brillo.",
+    "price": "$30.000 / Día",
+    "img": "camera.png",
+    "category": "Luces"
+  },
+  {
+    "id": 8,
+    "title": "Luz Aputure Light Storm C300d II",
+    "textInfo": "Luz LED de alta potencia y calidad para producciones cinematográficas.",
+    "price": "$100.000 / Día",
+    "img": "camera.png",
+    "category": "Luces"
+  },
+  {
+    "id": 9,
+    "title": "Luz Godox SL60W",
+    "textInfo": "Luz LED asequible y eficiente para fotografía y video.",
+    "price": "$25.000 / Día",
+    "img": "camera.png",
+    "category": "Luces"
+  },
+  {
+    "id": 10,
+    "title": "Micrófono Rode NTG5",
+    "textInfo": "Micrófono shotgun ligero y compacto para grabación profesional.",
+    "price": "$40.000 / Día",
+    "img": "camera.png",
+    "category": "Audio"
+  },
+  {
+    "id": 11,
+    "title": "Micrófono Sennheiser MKH 416",
+    "textInfo": "Micrófono shotgun profesional ampliamente utilizado en la industria.",
+    "price": "$45.000 / Día",
+    "img": "camera.png",
+    "category": "Audio"
+  },
+  {
+    "id": 12,
+    "title": "Micrófono Shure SM7B",
+    "textInfo": "Micrófono dinámico de estudio conocido por su calidad de sonido.",
+    "price": "$35.000 / Día",
+    "img": "camera.png",
+    "category": "Audio"
+  },
+  {
+    "id": 13,
+    "title": "Servicio de Fotógrafo Profesional",
+    "textInfo": "Fotógrafo profesional con experiencia en eventos y sesiones fotográficas.",
+    "price": "$150.000 / Día",
+    "img": "camera.png",
+    "category": "Profesionales"
+  },
+  {
+    "id": 14,
+    "title": "Servicio de Sonidista Profesional",
+    "textInfo": "Sonidista con equipo completo para grabaciones de alta calidad.",
+    "price": "$130.000 / Día",
+    "img": "camera.png",
+    "category": "Profesionales"
+  },
+  {
+    "id": 15,
+    "title": "Servicio de Camarógrafo Profesional",
+    "textInfo": "Camarógrafo con experiencia en cine y televisión, disponible para proyectos.",
+    "price": "$180.000 / Día",
+    "img": "camera.png",
+    "category": "Profesionales"
+  }
 ]

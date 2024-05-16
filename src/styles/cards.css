@@ -52,11 +52,24 @@
   height: 100%;
 }
 
+.product .info {
+  flex-direction: column;
+  gap: 10px;
+}
+
+.product .info #price, .product .info .btn {
+  align-self: flex-end;
+}
+
 @media (min-width: 900px) {
   .product {
     grid-template-columns: 35% 1fr;
   }
   .product .image {
     height: 100%;
+  }
+
+  .product .info {
+    justify-content: center;
   }
 }
