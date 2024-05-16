@@ -1,4 +1,4 @@
-import beneficiosData from '../../utils/beneficiosData.json'
+import beneficiosData from '../../utils/json/beneficiosData.json'
 import Card from '../atoms/Card'
 
 const BeneficiosContainer = () => {

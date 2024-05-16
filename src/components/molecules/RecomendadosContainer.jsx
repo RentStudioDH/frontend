@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react"
-import productosRecomendadosData from "../../utils/productosRecomendadosData.json"
+import productosRecomendadosData from "../../utils/json/productosRecomendadosData.json"
 import { useContextGlobal } from "../../contexts/global.context"
 import Card from "../atoms/Card"
 
