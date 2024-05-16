@@ -1,5 +1,5 @@
 import { useState } from 'react'
-import Navbar from '../../molecules/header/Navbar';
+import Navbar from './Navbar';
 import BtnLoginRegister from '../../atoms/header/BtnLoginRegister';
 
 const MenuMobile = () => {

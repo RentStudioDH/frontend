@@ -8,7 +8,7 @@ const LogoLoginContainer = () => {
   const { state } = useContextGlobal()
   const { isDesktop } = state
   return (
-    <Box className='d-flex cont-wrap g-15' sx={{ flexDirection: { xs: 'column', md: 'row' }, justifyContent: 'space-between', alignItems: 'center', padding: '15px' }}>
+    <Box className='d-flex cont-wrap g-15 p-15' sx={{ flexDirection: { xs: 'column', md: 'row' }, justifyContent: 'space-between', alignItems: 'center' }}>
       <div className='d-flex logo'>
         <Link to={routes.home}>
           <img src='/logo/logo.png' alt="logo" title="logo" width={150} height={30} />

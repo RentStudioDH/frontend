@@ -1,26 +1,26 @@
 [
-    {
-      "id": 1,
-      "icon": "PaidIcon",
-      "title": "Métodos de Pago",
-      "textInfo": "Efectivo, debito, crédito hasta 12 cuotas sin interés y transferencia."
-    },
-    {
-      "id": 2,
-      "icon": "SentimentSatisfiedAltIcon",
-      "title": "Proceso Simplificado",
-      "textInfo": "Elige lo que necesitas, selecciona las fechas y completa el formulario fácilmente."
-    },
-    {
-      "id": 3,
-      "icon": "LocalShippingIcon",
-      "title": "Envío Gratuito",
-      "textInfo": "Entregamos y recogemos todo en la ubicación que escojas, sin costos adicionales."
-    },
-    {
-      "id": 4,
-      "icon": "VerifiedUserIcon",
-      "title": "Equipos Garantizados",
-      "textInfo": "Todos nuestros equipos están sujetos a rigurosos controles de calidad."
-    }
+  {
+    "id": 1,
+    "icon": "comment-dollar",
+    "title": "Métodos de Pago",
+    "textInfo": "Efectivo, debito, crédito hasta 12 cuotas sin interés y transferencia."
+  },
+  {
+    "id": 2,
+    "icon": "face-laugh-wink",
+    "title": "Proceso Simplificado",
+    "textInfo": "Elige lo que necesitas, selecciona las fechas y completa el formulario fácilmente."
+  },
+  {
+    "id": 3,
+    "icon": "truck",
+    "title": "Envío Gratuito",
+    "textInfo": "Entregamos y recogemos todo en la ubicación que escojas, sin costos adicionales."
+  },
+  {
+    "id": 4,
+    "icon": "medal",
+    "title": "Equipos Garantizados",
+    "textInfo": "Todos nuestros equipos están sujetos a rigurosos controles de calidad."
+  }
 ]

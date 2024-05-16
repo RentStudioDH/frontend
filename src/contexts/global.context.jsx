@@ -4,13 +4,13 @@ import { reducer } from '../reducers/reducer'
 export const ContextGlobal = createContext()
 
 export const initialState = {
-  theme: localStorage.getItem('theme') || 'light', // Default theme is light
+  theme: localStorage.getItem('theme') || 'light',
   isDesktop: window.innerWidth > 640,
   data: [],
   productSelected: {},
   favs: JSON.parse(localStorage.getItem('favs')) || [],
-  user: JSON.parse(localStorage.getItem('user')) || null,  // Carga el usuario desde localStorage si existe
-};
+  user: JSON.parse(localStorage.getItem('user')) || null,
+}
 
 export const ContextProvider = ({ children }) => {
   const [state, dispatch] = useReducer(reducer, initialState);
@@ -45,8 +45,9 @@ export const ContextProvider = ({ children }) => {
 
   // Aplicar el tema oscuro o claro
   useEffect(() => {
-    state.theme === 'dark' ? document.body.classList.add('dark') : document.body.classList.remove('dark');
-  }, [state.theme]);
+    state.theme === 'dark' ? document.body.classList.add('dark') : document.body.classList.remove('dark')
+  }, [state.theme])
+
   const contextValue = {
     state,
     toggleTheme,

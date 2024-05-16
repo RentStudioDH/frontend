@@ -1,0 +1,16 @@
+/* Estilos Card Beneficios */
+.benefit {
+  flex: 1 1 220px;
+  flex: 0 1 220px;
+  display: grid;
+  place-items: flex-start center;
+  grid-template-rows: auto 1fr;
+  gap: 5px;
+}
+
+.benefit .icon {
+  font-size: 70px;
+  color: var(--color-quaternary);
+}
+
+/* Estilos Card Productos */

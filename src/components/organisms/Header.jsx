@@ -1,7 +1,7 @@
 import Navbar from "../molecules/header/Navbar"
 import LogoLoginContainer from "../molecules/header/LogoLoginContainer"
 import { useContextGlobal } from "../../contexts/global.context"
-import MenuMobile from "./header/MenuMobile"
+import MenuMobile from "../molecules/header/MenuMobile"
 
 const Header = () => {
   const { state } = useContextGlobal()
