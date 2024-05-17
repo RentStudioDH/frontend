@@ -8,6 +8,8 @@ import Header from './components/organisms/Header'
 import Home from './pages/home/Home'
 import Product from './pages/product/Product'
 import Category from './pages/category/Category'
+import FormAgregarProducto from './components/atoms/admin/FormAgregarProducto'
+import Admin from './pages/admin/Admin'
 
 function App() {
   return (
@@ -19,6 +21,8 @@ function App() {
             <Route path={routes.home} element={<Home/>}/>
             <Route path={routes.detail} element={<Product/>}/>
             <Route path="/categoria/:category" element={<Category/>} />
+            <Route path="/admin/:admin" element={<Admin/>}/>
+            <Route path="/admin/form" element={<FormAgregarProducto/>} />
           </Routes>
         </main>
         <Footer/>
