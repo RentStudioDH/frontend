@@ -16,21 +16,9 @@ const FormAgregarProducto = () => {
     const [productSize, setProductSize] = useState('');
     const [megapixeles, setMegapixeles] = useState('');
     const [route, setRoute] = useState('')
-    const [images, setImages] = useState([])
-
-    // const [error, setError] = useState({
-    //     name: '',
-    //     description: '',
-    //     price: 0.0,
-    //     priceType: 'BY_HOUR',
-    //     trademark: '',
-    //     model: '',
-    //     category: '',
-    //     stock: 0,
-    //     productSize: '',
-    //     megapixeles: '',
-
-    // })
+    const [images, setImages] = useState([{id: 0, route: ''}])
+    //const [selectedFiles, setSelectedFiles] = ([])
+    
 
     const {id} = useParams();
     const navigator = useNavigate();
@@ -56,9 +44,10 @@ const FormAgregarProducto = () => {
         }
     }, [id])
 
-    const handleImageChange = (index, value) => {
+    const handleImageChange = (index, file) => {
         const newImages = [...images];
-        newImages[index].route = value;
+        newImages[index].route = URL.createObjectURL(file);
+        //setSelectedFiles([...selectedFiles, file,name])
         setImages(newImages);
     }
 
@@ -67,17 +56,7 @@ const FormAgregarProducto = () => {
     };
     
 
-    // const handleChange = (e) => {
-    //     const {name, value} = e.target;
-    //     setProduct((prevProduct)=>({
-    //         ...prevProduct,[name]: value,
-    //     }))
-    // }
-
-    // const handleSubmit = (e) => {
-    //     e.preventDefault();
-    // }
-
+    
     const saveProduct = (e) => {
         e.preventDefault();
 
@@ -201,8 +180,8 @@ const FormAgregarProducto = () => {
                         <div key={index}>
                             <input 
                                 type="file"
-                                value={image.route} 
-                                onChange={(e) => handleImageChange(index, e.target.value)}
+                                //value={image.route} 
+                                onChange={(e) => handleImageChange(index, e.target.files[0])}
                             />
 
                         </div>
