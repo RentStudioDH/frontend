@@ -1,6 +1,5 @@
 import { useParams } from 'react-router-dom'
 import ListCategory from '../../components/organisms/categories/ListCategory'
-import { Box } from '@mui/material'
 import categoryMappings from '../../utils/js/categoriasMapping'
 
 const Category = () => {
@@ -12,13 +11,11 @@ const Category = () => {
   }
 
   return (
-    <section className='d-grid pi-center'>
-      <Box className='d-grid cont-wrap g-15 p-section'>
-        <h3 className='txt-accent bb-primary subtitle' style={{ textTransform: 'capitalize' }}>
-          {getFormattedCategoryName(category)}
-        </h3>
+    <section className='grid place-items-center'>
+      <div className='d-grid w-full max-w-screen-xl g-15 p-section'>
+        <h1 className='txt-accent bb-primary title' style={{ textTransform: 'capitalize' }}><strong>{getFormattedCategoryName(category)}</strong></h1>
         <ListCategory category={getFormattedCategoryName(category)}/>
-      </Box>
+      </div>
     </section>
   )
 }

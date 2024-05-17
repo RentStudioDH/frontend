@@ -1,4 +1,4 @@
-import './styles/basics.css'
+import './styles/basics.scss'
 import { Route, Routes } from "react-router-dom"
 import { routes } from './utils/routes'
 import { ThemeProvider } from '@mui/material/styles'
