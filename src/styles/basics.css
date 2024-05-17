@@ -186,6 +186,10 @@ footer a {
   color: #fff;
 }
 
+form label {
+  color: var(--color-accent);
+}
+
 @media (min-width: 640px) {
   .p-section {
     padding: 30px;
