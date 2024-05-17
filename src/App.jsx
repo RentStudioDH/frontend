@@ -4,6 +4,7 @@ import Main from './pages/home/Main';
 import { routes } from './utils/routes';
 import { ThemeProvider } from '@mui/material/styles';
 import theme from './utils/theme';
+import FormAgregarProducto from './components/atoms/FormAgregarProducto';
 
 
 
@@ -20,6 +21,7 @@ function App() {
             <Route path='/audio' element={<div></div>}/>
             <Route path='/profesionales' element={<div></div>}/>
           </Routes>
+          <FormAgregarProducto/>
         </main>
       </ThemeProvider>
     </>

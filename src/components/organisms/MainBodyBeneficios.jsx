@@ -1,6 +1,5 @@
-import { Box, Container, Typography } from '@mui/material'
-import React from 'react'
-import CardImgAndInfo from "../atoms/CardImgAndInfo";
+import { Box, Typography } from '@mui/material'
+
 import BeneficiosSeccion from '../molecules/BeneficiosSeccion';
 
 const MainBodyBeneficios = () => {
