@@ -1,20 +1,20 @@
-import { Box, Typography } from '@mui/material'
 import { Link } from 'react-router-dom'
+import { routes } from '../../utils/routes'
 
 const Footer = () => {
   return (
-    <footer className='d-grid pi-center'>
-      <Box className='d-flex cont-wrap g-15 p-15' sx={{ flexDirection: { xs: 'column', md: 'row' }, justifyContent: 'space-between', alignItems: 'center' }}>
-        <Box className='d-flex' sx={{ flexDirection: { xs: 'column', md: 'row' }, alignItems: 'center', gap: '5px'}}>
-          <img src="/logo/logo-min.png" alt='RS' title='RS' width={25} height={25}/>
-          <Typography variant='body1' className='txt-center' sx={{ color: '#fff', fontSize: '10px', lineHeight: '1' }}>2024 - Todos los derechos reservados. Hecho por el <strong>Grupo7</strong></Typography>
-        </Box>
-        <div className='d-flex social g-15'>
+    <footer className='grid place-items-center bg-accent'>
+      <div className='w-full max-w-screen-xl flex flex-col md:flex-row justify-between items-center g-15 p-15'>
+        <div className='flex flex-col md:flex-row items-center g-5'>
+          <Link to={routes.home}><img src="/logo/logo-min.png" alt='RS' title='RS' width={25} height={25}/></Link>
+          <p className='text-white text-center legal'>2024 - Todos los derechos reservados. Hecho por el <strong>Grupo7</strong></p>
+        </div>
+        <div className='flex social g-15'>
           <Link><i className="fa-brands fa-square-facebook"></i></Link>
           <Link><i className="fa-brands fa-instagram"></i></Link>
           <Link><i className="fa-brands fa-twitter"></i></Link>
         </div>
-      </Box>
+      </div>
     </footer>
   )
 }

@@ -1,13 +1,12 @@
-import { Box } from '@mui/material'
 import SearchInput from '../../molecules/SeachInput'
 
 const SectionSearch = () => {
   return (
-    <section className='d-grid pi-center bg-white'>
-      <Box className='d-grid pi-center cont-wrap g-15 p-section'>
-        <h1 className='txt-accent title'>¡Hola! ¿Qué estás buscando hoy?</h1>
+    <section className='grid place-items-center bg-white'>
+      <div className='grid place-items-center w-full max-w-screen-xl g-15 p-section'>
+        <h1 className='txt-accent bigtitle'><strong>¡Hola! ¿Qué estás buscando hoy?</strong></h1>
         <SearchInput/>
-      </Box>
+      </div>
     </section>
   )
 }

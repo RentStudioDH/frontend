@@ -1,0 +1,177 @@
+@import 'tailwindcss/base';
+@import 'tailwindcss/components';
+@import 'tailwindcss/utilities';
+@import 'colors';
+@import 'cards';
+
+/* Reseteo personalizado */
+*, *::before, *::after {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+img {
+  display: block;
+  object-fit: cover;
+}
+
+a {
+  text-decoration: none;
+  line-height: 1;
+}
+
+.d-grid {
+  display: grid;
+}
+
+.g {
+  &-15 {
+    gap: 15px;
+  }
+  &-5 {
+    gap: 5px;
+  }
+}
+
+.p {
+  &-15 {
+    padding: 15px;
+  }
+  &-section {
+    padding: 15px;
+  }
+}
+
+.bb-primary {
+  width: fit-content;
+  border-bottom: 4px solid $primary;
+  border-radius: 2px;
+}
+.br-15 {
+  border-radius: 15px;
+  overflow: hidden;
+}
+
+.txt {
+  &-accent {
+    color: $accent;
+  }
+  &-primary {
+    color: $primary;
+  }
+  &-tertiary {
+    color: $tertiary;
+  }
+  &-quaternary {
+    color: $quaternary;
+  }
+}
+.bg {
+  &-accent {
+    background: $accent;
+  }
+  &-base {
+    background: $base;
+  }
+  &-tertiary {
+    background: $tertiary;
+  }
+  &-quaternary {
+    background: $quaternary;
+  }
+  &-white {
+    background: #fff;
+  }
+}
+
+.btn {
+  text-transform: capitalize;
+}
+
+
+.cont {
+  &-benefits, &-category {
+    flex-wrap: wrap;
+    justify-content: center;
+  }
+}
+
+/* Textos */
+.bigtitle {
+  font-size: 28px;
+}
+.title {
+  font-size: 24px;
+}
+.subtitle {
+  font-size: 20px;
+}
+.paragraph {
+  font-size: 16px;
+}
+
+.legal {
+  font-size: 10px;
+}
+
+header {
+  position: sticky;
+  top: 0;
+  z-index: 99;
+  .logo {
+    .slogan {
+      font-size: 14px;
+    }
+  }
+}
+
+nav {
+  height: 40px;
+  align-items: center;
+  a {
+    padding: 10px;
+  }
+}
+
+.active, nav a:hover {
+  color: $primary;
+  font-weight: 900;
+  border-bottom: 2px solid $primary;
+}
+
+.menuMobile {
+  width: 100%;
+  padding: 10px 15px;
+  .btnmenu i {
+    font-size: 20px;
+  }
+  .itemsmenu {
+    &, & nav {
+      flex-direction: column;
+      height: auto;
+    }
+  }
+}
+
+footer {
+  a {
+    font-size: 25px;
+  }
+}
+
+form label {
+  color: $accent;
+}
+
+@media (min-width: 640px) {
+  .p-section {
+    padding: 30px;
+  }
+  .cont-products {
+    grid-template-columns: repeat(2, minmax(250px, 1fr));
+  }
+  nav {
+    align-items: initial;
+  }
+}

@@ -1,14 +1,13 @@
-import { Box } from '@mui/material'
 import RecomendadosContainer from '../../molecules/RecomendadosContainer'
 
 
 const SectionRecomendados = () => {
   return (
-    <section className='d-grid pi-center bg-white'>
-      <Box className='d-grid cont-wrap g-15 p-section'>
-        <h3 className='txt-accent bb-primary subtitle'>Productos recomendados</h3>
+    <section className='grid place-items-center bg-white'>
+      <div className='d-grid w-full max-w-screen-xl g-15 p-section'>
+        <h2 className='txt-accent bb-primary title'><strong>Productos recomendados</strong></h2>
         <RecomendadosContainer/>
-      </Box>
+      </div>
     </section>
   )
 }

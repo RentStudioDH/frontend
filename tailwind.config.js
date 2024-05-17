@@ -1,11 +1,14 @@
 /** @type {import('tailwindcss').Config} */
 export default {
-  content: ["./src/**/*.{html,js}"],
+  content: [
+    './index.html',
+    './src/**/*.{js,ts,jsx,tsx}',
+  ],
   theme: {
+    extend: {},
     fontFamily: {
       'sans': ['Lato', 'sans-serif'], // Utiliza 'Lato' como la fuente sans-serif por defecto
     },
   },
   plugins: [],
 }
-
