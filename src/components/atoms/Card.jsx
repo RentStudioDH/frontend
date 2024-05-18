@@ -15,7 +15,7 @@ const Card = ({ type, data }) => {
           <div className={`d-grid card ${type} g-5`}>
             <i className={`fa-solid fa-${data.icon} txt-quaternary icon`}></i>
             <div className="info">
-              <h3 className="text-center txt-tertiary"><strong>{data.title}</strong></h3>
+              <h3 className="text-center txt-tertiary subtitle"><strong>{data.title}</strong></h3>
               <p className="text-center txt-tertiary paragraph">{data.textInfo}</p>
             </div>
           </div>
@@ -23,7 +23,7 @@ const Card = ({ type, data }) => {
       case 'category':
         return (
           <Link className={`flex items-end card ${type} br-15`} key={data.id} to={data.path}>
-            <img src={`${data.img}`} alt={`${data.title}`} />
+            <img src={`${data.img}`} alt={`${data.title}`} loading='lazy' />
             <div className='grid place-items-center w-full info p-15'>
               <h3 className="text-white text-center subtitle"><strong>{data.title}</strong></h3>
             </div>
@@ -33,10 +33,10 @@ const Card = ({ type, data }) => {
         return (
           <Link className={`d-grid card ${type} br-15`} key={data.id} to={'/producto/' + data.id}>
             <div className='image'>
-              <img src={`${data.img}`} alt="" />
+              <img src={`${data.images[0]}`} alt={data.title} loading='lazy' width={210} height={210} />
             </div>
             <div className='flex flex-col lg:justify-center info p-15'>
-              <h3 className="txt-primary"><strong>{data.title}</strong></h3>
+              <h3 className="txt-primary subtitle"><strong>{data.title}</strong></h3>
               <p className="txt-tertiary paragraph">{data.textInfo}</p>
               <p className="txt-primary paragraph" id='price'><strong>{data.price}</strong></p>
               <Buttons text={'Cotizar'} bColor={'#A62639'} color={'#fff'} bgColor={'#A62639'}/>

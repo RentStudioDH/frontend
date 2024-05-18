@@ -2,7 +2,7 @@ import { useParams } from "react-router-dom";
 
 const Admin = () => {
   const { admin } = useParams()
-  console.log(admin);
+  // console.log(admin);
   return (
     <>
       <div>Admin</div>
