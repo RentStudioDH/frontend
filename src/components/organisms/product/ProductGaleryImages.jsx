@@ -10,15 +10,15 @@ const Gallery = ({ data }) => {
   const shouldShowMoreButton = totalImages > initialImagesCount;
 
   return (
-    <section className="grid place-items-center productGalery">
-      <div className="bg-white w-full max-w-screen-xl grid galery g-5 p-section">
+    <section className="bg-white grid place-items-center productGalery">
+      <div className="w-full max-w-screen-xl grid galery g-5 p-section">
         <div className="grid grid-cols-1 sm:grid-cols-2 principal g-5">
-          <picture className='image'>
+          <picture className='br-15 image shadow-lg'>
             <img src={data.images[0]} alt={data.title} loading='lazy'/>
           </picture>
-          <div className="grid grid-cols-2 gap-2 mini">
+          <div className="grid grid-cols-2 g-5 mini">
             {data.images.slice(1, initialImagesCount).map((src, index) => (
-              <picture key={index} className='image'>
+              <picture key={index} className='br-15 image shadow-lg'>
                 <img src={src} alt={`Imagen producto`} loading='lazy' />
               </picture>
             ))}
@@ -27,7 +27,7 @@ const Gallery = ({ data }) => {
         {showMore && (
           <div className="grid grid-cols-2 sm:grid-cols-4 g-5 others">
             {data.images.slice(5).map((src, index) => (
-              <picture key={index + 5} className='image'>
+              <picture key={index + 5} className='br-15 image shadow-lg'>
                 <img src={src} alt={`Imagen producto`} loading='lazy'/>
               </picture>
             ))}

@@ -12,7 +12,7 @@ const Category = () => {
 
   return (
     <section className='grid place-items-center'>
-      <div className='d-grid w-full max-w-screen-xl g-15 p-section'>
+      <div className='grid w-full max-w-screen-xl g-15 p-section'>
         <h1 className='txt-accent bb-primary title' style={{ textTransform: 'capitalize' }}><strong>{getFormattedCategoryName(category)}</strong></h1>
         <ListProductCategory category={getFormattedCategoryName(category)}/>
       </div>
