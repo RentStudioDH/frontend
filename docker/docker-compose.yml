@@ -1,0 +1,18 @@
+version: "3.8"
+
+services:
+  frontend:
+    container_name: dh-frontend-vite
+    build:
+      context: ..
+      dockerfile: docker/Dockerfile
+    ports:
+      - "3000:3000"
+    environment:
+      - NODE_ENV=production
+    networks:
+      - nginx_webnet
+
+networks:
+  nginx_webnet:
+    external: true
