@@ -1,0 +1,62 @@
+@import 'colors';
+
+/* Estilos Generales */
+.card {
+  flex: 1 1 220px;
+  flex: 0 1 220px;
+}
+
+/* Estilos Card Beneficios */
+.benefit {
+  place-items: flex-start center;
+  grid-template-rows: auto 1fr;
+  .icon {
+    font-size: 70px;
+  }
+}
+
+/* Estilos Card Categorias */
+.category {
+  position: relative;
+  img {
+    position: relative;
+    width: min(220px, 100%);
+  }
+  .info {
+    position: absolute;
+    background: rgba($accent, .7);
+  }
+  &:hover .info {
+    height: 100%;
+  }
+}
+
+/* Estilos Card Productos */
+.product {
+  position: relative;
+  border: 1px solid rgba($quaternary, .2);
+  .image {
+    position: relative;
+    height: 220px;
+    img {
+      position: absolute;
+      width: 100%;
+      height: 100%;
+    }
+  }
+  .info {
+    gap: 10px;
+    #price, .btn {
+      align-self: flex-end;
+    }
+  }
+}
+
+@media (min-width: 900px) {
+  .product {
+    grid-template-columns: 35% 1fr;
+    .image {
+      height: 100%;
+    }
+  }
+}

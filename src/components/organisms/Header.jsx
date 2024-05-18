@@ -1,15 +1,15 @@
-import Navbar from "../molecules/header/Navbar"
-import LogoLoginContainer from "../molecules/header/LogoLoginContainer"
+import NavCategoriasContainer from "../molecules/header/NavCategoriasContainer"
+import LogoUserContainer from "../molecules/header/LogoUserContainer"
 import { useContextGlobal } from "../../contexts/global.context"
-import MenuMobile from "../molecules/header/MenuMobile"
+import MenuMobileContainer from "../molecules/header/MenuMobileContainer"
 
 const Header = () => {
   const { state } = useContextGlobal()
   const { isDesktop } = state
   return (
-    <header className="d-grid pi-center">
-      <LogoLoginContainer/>
-      { isDesktop ? <Navbar/> : <MenuMobile/> }
+    <header className="grid place-items-center bg-base">
+      <LogoUserContainer/>
+      { isDesktop ? <NavCategoriasContainer/> : <MenuMobileContainer/> }
     </header>
   )
 }

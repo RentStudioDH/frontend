@@ -1,31 +1,20 @@
-import { Box, Grid, IconButton, Typography } from '@mui/material'
-import React from 'react'
-import { ArrowBack } from '@mui/icons-material'
-import PrimaryButton from '../../atoms/PrimaryButton'
+import { Link, useNavigate } from 'react-router-dom'
+import Buttons from '../../atoms/Buttons'
 
-const ProductHeader = ({title}) => {
-
-    function onClick(params) {
-        
-    }
-
-    return (
-    <Grid container spacing={3} alignItems="center" 
-    sx={{padding: "10px"}}>
-        <Grid item xs={2} md={2}>
-            <IconButton onClick={() => window.history.back()} aria-label="Volver">
-                <ArrowBack />
-            </IconButton>
-        </Grid>
-        <Grid item xs={10} md={8}>
-            <Box sx={{ borderBottom: '2px solid #DB324D', paddingBottom: '8px'}}>
-                <Typography variant="h5" color={"#A62639"} fontWeight={"700"}>{title}</Typography>
-            </Box>
-        </Grid>
-        <Grid item xs={12} md={2} display={"flex"} justifyContent={"center"}>
-            <PrimaryButton onClick={onClick}  text={"Rentar"}/>
-        </Grid>
-    </Grid>
+const ProductHeader = ({ data }) => {
+  // console.log(data);
+  const navigate = useNavigate()
+  
+  return (
+    <section className='bg-back grid place-items-center productHeader'>
+      <div className='w-full max-w-screen-xl flex flex-col sm:flex-row justify-between items-start sm:items-center g-15 p-15'>
+        <div className='flex items-center g-5'>
+          <Link onClick={() => navigate(-1)}><i className="fa-solid fa-arrow-left txt-primary title"></i></Link>
+          <h1 className='txt-primary title bb-primary'><strong>{data.title}</strong></h1>
+        </div>
+        <Buttons text={'Rentar'} bColor={'#A62639'} color={'#fff'} bgColor={'#A62639'}/>
+      </div>
+    </section>
   )
 }
 
