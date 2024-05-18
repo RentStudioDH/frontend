@@ -5,7 +5,7 @@ import { useContextGlobal } from '../../contexts/global.context'
 import productosRecomendadosData from '../../utils/json/productosRecomendadosData.json'
 import ProductHeader from '../../components/organisms/product/ProductHeader'
 import ProductDetails from '../../components/organisms/product/ProductDetails'
-import ProductImages from '../../components/organisms/product/ProductImages'
+import ProductGaleryImages from '../../components/organisms/product/ProductGaleryImages'
 import ProductIdeas from '../../components/organisms/product/ProductIdeas'
 
 const Product = () => {
@@ -28,22 +28,15 @@ const Product = () => {
   if (!product) {
     return <div>Cargando...</div>
   }
-
   return (
-    <Grid container spacing={3} sx={{paddingX: {xs: "5%", md: "10%"}, marginBottom:"2rem", marginTop: "2px"}}>
-      <Grid item xs={12} md={12}>
-        <ProductHeader title={product.title}/>
-      </Grid>
-      <Grid item xs={12} md={12}>
-        <ProductImages images={product.img}/>
-      </Grid>
-      <Grid item xs={12} md={9}>
-        <ProductDetails details={product.textInfo}/>
-      </Grid>
+    <>
+      <ProductHeader data={product}/>
+      <ProductGaleryImages data={product}/>
+      <ProductDetails data={product}/>
       <Grid item xs={12} md={3}>
-        <ProductIdeas/>
+        {/* <ProductIdeas/> */}
       </Grid>
-    </Grid>
+    </>
   )
 }
 

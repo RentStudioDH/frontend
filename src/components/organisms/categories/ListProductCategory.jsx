@@ -1,9 +1,8 @@
 import productosRecomendadosData from '../../../utils/json/productosRecomendadosData.json'
 import Card from '../../atoms/Card';
 
-const ListCategory = ({ category }) => {
-  console.log(category);
-  const filteredProducts = productosRecomendadosData.filter(product => product.category.toLowerCase() === category.toLowerCase());
+const ListProductCategory = ({ category }) => {
+  const filteredProducts = productosRecomendadosData.filter(product => product.category.toLowerCase() === category.toLowerCase())
   return (
     <div className="d-grid cont-products g-15">
       {filteredProducts.length > 0 ? (
@@ -17,4 +16,4 @@ const ListCategory = ({ category }) => {
   )
 }
 
-export default ListCategory
+export default ListProductCategory

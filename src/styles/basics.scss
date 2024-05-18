@@ -3,6 +3,7 @@
 @import 'tailwindcss/utilities';
 @import 'colors';
 @import 'cards';
+@import 'products';
 
 /* Reseteo personalizado */
 *, *::before, *::after {
@@ -71,6 +72,9 @@ a {
   &-accent {
     background: $accent;
   }
+  &-back {
+    background: $back;
+  }
   &-base {
     background: $base;
   }
@@ -79,9 +83,6 @@ a {
   }
   &-quaternary {
     background: $quaternary;
-  }
-  &-white {
-    background: #fff;
   }
 }
 
@@ -113,6 +114,10 @@ a {
 
 .legal {
   font-size: 10px;
+}
+
+body {
+  background: $back;
 }
 
 header {
