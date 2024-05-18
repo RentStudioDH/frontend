@@ -2,8 +2,10 @@
   {
     "id": 1,
     "title": "Cámara Canon C200, Cine Digital, 3 zoom Canon",
-    "textInfo": "La FX3 es una cámara compacta pensada primero para producciones de video.",
-    "price": "$230.000 / Día",
+    "description": "La FX3 es una cámara compacta pensada primero para producciones de video.",
+    "price": 230000,
+    "rentType": "Día",
+    "stock": 5,
     "images": [
       "/productos/camara1.jpeg",
       "/productos/camara1.jpeg",
@@ -17,8 +19,10 @@
   {
     "id": 2,
     "title": "Cámara Sony A7 III",
-    "textInfo": "Cámara de fotograma completo con capacidades de video 4K.",
-    "price": "$200.000 / Día",
+    "description": "Cámara de fotograma completo con capacidades de video 4K.",
+    "price": 200000,
+    "rentType": "Semana",
+    "stock": 3,
     "images": [
       "/productos/camara4.jpeg",
       "/productos/camara4.jpeg",
@@ -32,8 +36,10 @@
   {
     "id": 3,
     "title": "Cámara Blackmagic Pocket 6K",
-    "textInfo": "Cámara de cine digital compacta con resolución 6K.",
-    "price": "$250.000 / Día",
+    "description": "Cámara de cine digital compacta con resolución 6K.",
+    "price": 250000,
+    "rentType": "Mes",
+    "stock": 4,
     "images": [
       "/productos/camara3.jpeg",
       "/productos/camara3.jpeg",
@@ -47,8 +53,10 @@
   {
     "id": 4,
     "title": "Lente Canon EF 24-70mm f/2.8L II USM",
-    "textInfo": "Lente estándar de alta calidad con una apertura rápida y constante.",
-    "price": "$50.000 / Día",
+    "description": "Lente estándar de alta calidad con una apertura rápida y constante.",
+    "price": 50000,
+    "rentType": "Año",
+    "stock": 6,
     "images": [
       "/productos/camera.png",
       "/productos/camera.png",
@@ -62,8 +70,10 @@
   {
     "id": 5,
     "title": "Lente Sigma 18-35mm f/1.8 DC HSM Art",
-    "textInfo": "Lente de zoom rápido y versátil con excelente calidad de imagen.",
-    "price": "$60.000 / Día",
+    "description": "Lente de zoom rápido y versátil con excelente calidad de imagen.",
+    "price": 60000,
+    "rentType": "Día",
+    "stock": 7,
     "images": [
       "/productos/camara5.jpeg",
       "/productos/camara5.jpeg",
@@ -77,8 +87,10 @@
   {
     "id": 6,
     "title": "Lente Tamron 70-200mm f/2.8 Di VC USD G2",
-    "textInfo": "Lente teleobjetivo con estabilización de imagen y rápido enfoque.",
-    "price": "$70.000 / Día",
+    "description": "Lente teleobjetivo con estabilización de imagen y rápido enfoque.",
+    "price": 70000,
+    "rentType": "Semana",
+    "stock": 5,
     "images": [
       "/productos/camara6.jpeg",
       "/productos/camara6.jpeg",
@@ -92,8 +104,10 @@
   {
     "id": 7,
     "title": "Luz LED Neewer 660 RGB",
-    "textInfo": "Luz LED RGB con alto rendimiento y ajuste de brillo.",
-    "price": "$30.000 / Día",
+    "description": "Luz LED RGB con alto rendimiento y ajuste de brillo.",
+    "price": 30000,
+    "rentType": "Mes",
+    "stock": 8,
     "images": [
       "/productos/camara7.jpeg",
       "/productos/camara7.jpeg",
@@ -107,8 +121,10 @@
   {
     "id": 8,
     "title": "Luz Aputure Light Storm C300d II",
-    "textInfo": "Luz LED de alta potencia y calidad para producciones cinematográficas.",
-    "price": "$100.000 / Día",
+    "description": "Luz LED de alta potencia y calidad para producciones cinematográficas.",
+    "price": 100000,
+    "rentType": "Año",
+    "stock": 3,
     "images": [
       "/productos/camara2.jpeg",
       "/productos/camara2.jpeg",
@@ -122,8 +138,10 @@
   {
     "id": 9,
     "title": "Luz Godox SL60W",
-    "textInfo": "Luz LED asequible y eficiente para fotografía y video.",
-    "price": "$25.000 / Día",
+    "description": "Luz LED asequible y eficiente para fotografía y video.",
+    "price": 25000,
+    "rentType": "Día",
+    "stock": 9,
     "images": [
       "/productos/camara9.jpeg",
       "/productos/camara9.jpeg",
@@ -137,8 +155,10 @@
   {
     "id": 10,
     "title": "Micrófono Rode NTG5",
-    "textInfo": "Micrófono shotgun ligero y compacto para grabación profesional.",
-    "price": "$40.000 / Día",
+    "description": "Micrófono shotgun ligero y compacto para grabación profesional.",
+    "price": 40000,
+    "rentType": "Semana",
+    "stock": 5,
     "images": [
       "/productos/camara10.jpeg",
       "/productos/camara10.jpeg",
@@ -152,8 +172,10 @@
   {
     "id": 11,
     "title": "Micrófono Sennheiser MKH 416",
-    "textInfo": "Micrófono shotgun profesional ampliamente utilizado en la industria.",
-    "price": "$45.000 / Día",
+    "description": "Micrófono shotgun profesional ampliamente utilizado en la industria.",
+    "price": 45000,
+    "rentType": "Mes",
+    "stock": 4,
     "images": [
       "/productos/camara11.jpeg",
       "/productos/camara11.jpeg",
@@ -167,8 +189,10 @@
   {
     "id": 12,
     "title": "Micrófono Shure SM7B",
-    "textInfo": "Micrófono dinámico de estudio conocido por su calidad de sonido.",
-    "price": "$35.000 / Día",
+    "description": "Micrófono dinámico de estudio conocido por su calidad de sonido.",
+    "price": 35000,
+    "rentType": "Año",
+    "stock": 6,
     "images": [
       "/productos/camara12.jpeg",
       "/productos/camara12.jpeg",
@@ -182,8 +206,10 @@
   {
     "id": 13,
     "title": "Servicio de Fotógrafo Profesional",
-    "textInfo": "Fotógrafo profesional con experiencia en eventos y sesiones fotográficas.",
-    "price": "$150.000 / Día",
+    "description": "Fotógrafo profesional con experiencia en eventos y sesiones fotográficas.",
+    "price": 150000,
+    "rentType": "Día",
+    "stock": 2,
     "images": [
       "/productos/camera.png",
       "/productos/camera.png",
@@ -197,8 +223,10 @@
   {
     "id": 14,
     "title": "Servicio de Sonidista Profesional",
-    "textInfo": "Sonidista con equipo completo para grabaciones de alta calidad.",
-    "price": "$130.000 / Día",
+    "description": "Sonidista con equipo completo para grabaciones de alta calidad.",
+    "price": 130000,
+    "rentType": "Semana",
+    "stock": 2,
     "images": [
       "/productos/camera.png",
       "/productos/camera.png",
@@ -212,8 +240,10 @@
   {
     "id": 15,
     "title": "Servicio de Camarógrafo Profesional",
-    "textInfo": "Camarógrafo con experiencia en cine y televisión, disponible para proyectos.",
-    "price": "$180.000 / Día",
+    "description": "Camarógrafo con experiencia en cine y televisión, disponible para proyectos.",
+    "price": 180000,
+    "rentType": "Mes",
+    "stock": 2,
     "images": [
       "/productos/camera.png",
       "/productos/camera.png",

@@ -1,22 +1,18 @@
-import { Box, Paper, Typography } from '@mui/material'
-import React from 'react'
-import LightbulbOutlinedIcon from '@mui/icons-material/LightbulbOutlined';
-
-const ProductIdeas = () => {
+const ProductIdeas = ({ data }) => {
   return (
-    <Paper elevation={4}
-      sx={{ borderRadius: '15px', padding: "3rem", gap: "1rem", display:"flex", flexDirection:"column", alignItems: "center" }}>
-      <Box sx={{ borderBottom: '2px solid #DB324D', paddingBottom: '8px', display:"flex", justifyContent: "center", alignItems: "center" }}>
-        <LightbulbOutlinedIcon sx={{ color: '#DB324D', marginRight: '0.1rem', width: "35px", height:"35px" }} />
-        <Typography variant='h5' fontWeight={500} color={"#511C29"}>Ideal para:</Typography>
-      </Box>
-      <Box display={"flex"} flexDirection={{xs: "row", md: "column"}} justifyContent={"space-between"} gap={"1rem"}>
-        <Typography variant='h6' fontWeight={500} sx={{ marginBottom: { xs: '1rem', md: '0' } }}>Lore</Typography>
-        <Typography variant='h6' sx={{ marginBottom: { xs: '1rem', md: '0' } }}>Dolor</Typography>
-        <Typography variant='h6' sx={{ marginBottom: { xs: '1rem', md: '0' } }}>Ipsum</Typography>
-      </Box>
-    </Paper>
-  );
-};
+    <section className='grid place-items-center'>
+      <div className='w-full max-w-screen-xl p-section'>
+        <div className="bg-white shadow-lg grid br-15 p-15 g-15">
+          <h2 className='txt-accent bb-primary subtitle'><i className="fa-regular fa-lightbulb"></i><strong> Ideal para:</strong></h2>
+          <p className='txt-tertiary paragraph'>{data.description}</p>
+          <div className='grid g-5'>
+            <p className='txt-accent paragraph'><strong>Precio:</strong> ${data.price} / {data.rentType}</p>
+            <p className='txt-accent paragraph'><strong>Stock:</strong> {data.stock}</p>
+          </div>
+        </div>
+      </div>
+    </section>
+  )
+}
 
-export default ProductIdeas;
+export default ProductIdeas

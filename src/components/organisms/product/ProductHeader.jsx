@@ -12,7 +12,7 @@ const ProductHeader = ({ data }) => {
           <Link onClick={() => navigate(-1)}><i className="fa-solid fa-arrow-left txt-primary title"></i></Link>
           <h1 className='txt-primary title bb-primary'><strong>{data.title}</strong></h1>
         </div>
-        <Buttons text={'Crear cuenta'} bColor={'#A62639'} color={'#fff'} bgColor={'#A62639'}/>
+        <Buttons text={'Rentar'} bColor={'#A62639'} color={'#fff'} bgColor={'#A62639'}/>
       </div>
     </section>
   )

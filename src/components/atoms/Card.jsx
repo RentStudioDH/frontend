@@ -12,7 +12,7 @@ const Card = ({ type, data }) => {
     switch (type) {
       case 'benefit':
         return (
-          <div className={`d-grid card ${type} g-5`}>
+          <div className={`grid card ${type} g-5`}>
             <i className={`fa-solid fa-${data.icon} txt-quaternary icon`}></i>
             <div className="info">
               <h3 className="text-center txt-tertiary subtitle"><strong>{data.title}</strong></h3>
@@ -31,14 +31,14 @@ const Card = ({ type, data }) => {
         );
       case 'product':
         return (
-          <Link className={`d-grid card ${type} br-15`} key={data.id} to={'/producto/' + data.id}>
+          <Link className={`grid shadow-lg card ${type} br-15`} key={data.id} to={'/producto/' + data.id}>
             <div className='image'>
               <img src={`${data.images[0]}`} alt={data.title} loading='lazy' width={210} height={210} />
             </div>
             <div className='flex flex-col lg:justify-center info p-15'>
               <h3 className="txt-primary subtitle"><strong>{data.title}</strong></h3>
-              <p className="txt-tertiary paragraph">{data.textInfo}</p>
-              <p className="txt-primary paragraph" id='price'><strong>{data.price}</strong></p>
+              <p className="txt-tertiary paragraph">{data.description}</p>
+              <p className="txt-primary paragraph" id='price'><strong>{data.price} / {data.rentType}</strong></p>
               <Buttons text={'Cotizar'} bColor={'#A62639'} color={'#fff'} bgColor={'#A62639'}/>
             </div>
           </Link>

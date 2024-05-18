@@ -4,7 +4,7 @@ import Card from '../../atoms/Card';
 const ListProductCategory = ({ category }) => {
   const filteredProducts = productosRecomendadosData.filter(product => product.category.toLowerCase() === category.toLowerCase())
   return (
-    <div className="d-grid cont-products g-15">
+    <div className="grid cont-products g-15">
       {filteredProducts.length > 0 ? (
         filteredProducts.map(product => (
           <Card key={product.id} type="product" data={product} />

@@ -31,11 +31,9 @@ const Product = () => {
   return (
     <>
       <ProductHeader data={product}/>
-      <ProductGaleryImages data={product}/>
       <ProductDetails data={product}/>
-      <Grid item xs={12} md={3}>
-        {/* <ProductIdeas/> */}
-      </Grid>
+      <ProductGaleryImages data={product}/>
+      <ProductIdeas data={product} />
     </>
   )
 }
