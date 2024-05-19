@@ -3,6 +3,8 @@
 @import 'tailwindcss/utilities';
 @import 'colors';
 @import 'cards';
+@import 'products';
+@import 'admin';
 
 /* Reseteo personalizado */
 *, *::before, *::after {
@@ -21,16 +23,16 @@ a {
   line-height: 1;
 }
 
-.d-grid {
-  display: grid;
-}
-
+/* Clases personalizadas */
 .g {
-  &-15 {
-    gap: 15px;
-  }
   &-5 {
     gap: 5px;
+  }
+  &-10 {
+    gap: 10px;
+  }
+  &-15 {
+    gap: 15px;
   }
 }
 
@@ -41,16 +43,6 @@ a {
   &-section {
     padding: 15px;
   }
-}
-
-.bb-primary {
-  width: fit-content;
-  border-bottom: 4px solid $primary;
-  border-radius: 2px;
-}
-.br-15 {
-  border-radius: 15px;
-  overflow: hidden;
 }
 
 .txt {
@@ -67,28 +59,37 @@ a {
     color: $quaternary;
   }
 }
-.bg {
-  &-accent {
-    background: $accent;
+.b {
+  &b-primary {
+    width: fit-content;
+    border-bottom: 4px solid $primary;
+    border-radius: 2px;
   }
-  &-base {
-    background: $base;
+  &g {
+    &-accent {
+      background: $accent;
+    }
+    &-back {
+      background: $back;
+    }
+    &-base {
+      background: $base;
+    }
+    &-tertiary {
+      background: $tertiary;
+    }
+    &-primary {
+      background: $primary;
+    }
+    &-quaternary {
+      background: $quaternary;
+    }
   }
-  &-tertiary {
-    background: $tertiary;
-  }
-  &-quaternary {
-    background: $quaternary;
-  }
-  &-white {
-    background: #fff;
+  &r-15 {
+    border-radius: 15px;
+    overflow: hidden;
   }
 }
-
-.btn {
-  text-transform: capitalize;
-}
-
 
 .cont {
   &-benefits, &-category {
@@ -115,6 +116,10 @@ a {
   font-size: 10px;
 }
 
+body {
+  background: $back;
+}
+
 header {
   position: sticky;
   top: 0;
@@ -124,21 +129,21 @@ header {
       font-size: 14px;
     }
   }
-}
-
-nav {
-  height: 40px;
-  align-items: center;
-  a {
-    padding: 10px;
+  nav {
+    height: 40px;
+    align-items: center;
+    a {
+      padding: 10px;
+    }
+  }
+  .active, nav a:hover {
+    color: $primary;
+    font-weight: 900;
+    border-bottom: 2px solid $primary;
   }
 }
 
-.active, nav a:hover {
-  color: $primary;
-  font-weight: 900;
-  border-bottom: 2px solid $primary;
-}
+
 
 .menuMobile {
   width: 100%;

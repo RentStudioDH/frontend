@@ -1,18 +1,17 @@
 import { useEffect, useState } from 'react'
-import { Grid } from '@mui/material'
 import { useParams } from 'react-router-dom'
 import { useContextGlobal } from '../../contexts/global.context'
 import productosRecomendadosData from '../../utils/json/productosRecomendadosData.json'
-import ProductHeader from '../../components/organisms/product/ProductHeader'
-import ProductDetails from '../../components/organisms/product/ProductDetails'
-import ProductImages from '../../components/organisms/product/ProductImages'
-import ProductIdeas from '../../components/organisms/product/ProductIdeas'
+import SectionProducto from '../../components/organisms/sections/SectionProducto'
+import ProductHeader from '../../components/molecules/product/ProductHeader'
+import ProductDetails from '../../components/molecules/product/ProductDetails'
+import ProductGalery from '../../components/molecules/product/ProductGalery'
+import ProductIdeas from '../../components/molecules/product/ProductIdeas'
 
 const Product = () => {
   const params = useParams()
-  const { state, dispatch } = useContextGlobal()
-
   const { id } = params
+  const { state, dispatch } = useContextGlobal()
   const [product, setProduct] = useState(null)
   useEffect(() => {
     const foundProduct = productosRecomendadosData.find(item => item.id === parseInt(id))
@@ -24,26 +23,16 @@ const Product = () => {
       })
     }
   }, [id])
-
   if (!product) {
     return <div>Cargando...</div>
   }
-
   return (
-    <Grid container spacing={3} sx={{paddingX: {xs: "5%", md: "10%"}, marginBottom:"2rem", marginTop: "2px"}}>
-      <Grid item xs={12} md={12}>
-        <ProductHeader title={product.title}/>
-      </Grid>
-      <Grid item xs={12} md={12}>
-        <ProductImages images={product.img}/>
-      </Grid>
-      <Grid item xs={12} md={9}>
-        <ProductDetails details={product.textInfo}/>
-      </Grid>
-      <Grid item xs={12} md={3}>
-        <ProductIdeas/>
-      </Grid>
-    </Grid>
+    <main>
+      <SectionProducto data={product} Component={ProductHeader} sectionClass='bg-back productHeader' containerClass='flex flex-col sm:flex-row justify-between items-start sm:items-center p-15 g-15' />
+      <SectionProducto data={product} Component={ProductDetails} sectionClass='productDetails' containerClass='grid grid-cols-1 sm:grid-cols-2 p-section g-15' />
+      <SectionProducto data={product} Component={ProductGalery} sectionClass='bg-white productGalery' containerClass='grid p-section g-5' />
+      <SectionProducto data={product} Component={ProductIdeas} containerClass='p-section' />
+    </main>
   )
 }
 

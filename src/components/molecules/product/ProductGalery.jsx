@@ -1,31 +1,34 @@
-import { Box, Grid } from '@mui/material'
-import React from 'react'
+import { useState } from 'react'
+import Carousels from '../../atoms/Carousels'
 
-const ProductGalery = ({images}) => {
+const ProductGalery = ({ data }) => {
+  const [showMore, setShowMore] = useState(false)
+  const toggleShowMore = () => {
+    setShowMore(!showMore)
+  }
+  const initialImagesCount = 5
+  const totalImages = data.images.length
+  const shouldShowMoreButton = totalImages > initialImagesCount
 
   return (
-    <Grid container height={"100%"} spacing={2}>
-        <Grid item xs={6}  >
-            <Box height={{xs: "190", md: "290"}} width={{xs: "100", md: "90"}}> 
-                <img src={`../${images}`} alt="" style={{ width: '100%', height: '100%' }}/>
-            </Box>
-        </Grid>
-        <Grid item xs={6}  >
-            <Box height={{xs: "190", md: "290"}} width={{xs: "100", md: "90"}}> 
-                <img src={`../${images}`} alt="" style={{ width: '100%', height: '100%' }}/>
-            </Box>
-        </Grid>
-        <Grid item xs={6}  >
-            <Box height={{xs: "190", md: "290"}} width={{xs: "100", md: "90"}}> 
-                <img src={`../${images}`} alt="" style={{ width: '100%', height: '100%' }}/>
-            </Box>
-        </Grid>
-        <Grid item xs={6}  >
-            <Box height={{xs: "190", md: "290"}} width={{xs: "100", md: "90"}}> 
-                <img src={`../${images}`} alt="" style={{ width: '100%', height: '100%' }}/>
-            </Box>
-        </Grid>
-    </Grid>
+    <>
+      <div className="grid grid-cols-1 sm:grid-cols-2 principal g-5">
+        <picture className='br-15 image shadow-lg'>
+          <img src={data.images[0]} alt={data.title} loading='lazy'/>
+        </picture>
+        <div className="grid grid-cols-2 g-5 mini">
+          {data.images.slice(1, initialImagesCount).map((src, index) => (
+            <picture key={index} className='br-15 image shadow-lg'>
+              <img src={src} alt={`Imagen producto`} loading='lazy' />
+            </picture>
+          ))}
+        </div>
+      </div>
+      {/* Si hay más de 5 imágenes las cargará como un carrusel */}
+      { showMore && <Carousels images={data.images.slice(initialImagesCount)} /> }
+      {/* Si hay más de 5 imágenes mostrará el botón */}
+      { shouldShowMoreButton && <button onClick={toggleShowMore} className="txt-accent transition paragraph flex items-center btnmore hover:font-bold"><strong className="flex items-center">{showMore ? "Ver menos" : "Ver más"} <i className={`fa-solid ${showMore ? 'fa-chevron-up' : 'fa-chevron-down'}`}></i></strong></button> }
+    </>
   )
 }
 
