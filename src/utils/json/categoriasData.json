@@ -1,32 +1,32 @@
 [
   {
     "id": 1,
-    "title": "Cámaras",
-    "img": "/categorias/camaras.png",
-    "path": "/categoria/camaras"
+    "label": "Cámaras",
+    "path": "/categoria/camaras",
+    "img": "/categorias/camaras.png"
   },
   {
     "id": 2,
-    "title": "Lentes",
-    "img": "/categorias/lentes.png",
-    "path": "/categoria/lentes"
+    "label": "Lentes",
+    "path": "/categoria/lentes",
+    "img": "/categorias/lentes.png"
   },
   {
     "id": 3,
-    "title": "Luces",
-    "img": "/categorias/luces.png",
-    "path": "/categoria/luces"
+    "label": "Luces",
+    "path": "/categoria/luces",
+    "img": "/categorias/luces.png"
   },
   {
     "id": 4,
-    "title": "Audio",
-    "img": "/categorias/audio.png",
-    "path": "/categoria/audio"
+    "label": "Audio",
+    "path": "/categoria/audio",
+    "img": "/categorias/audio.png"
   },
   {
     "id": 5,
-    "title": "Profesionales",
-    "img": "/categorias/profesionales.png",
-    "path": "/categoria/profesionales"
+    "label": "Profesionales",
+    "path": "/categoria/profesionales",
+    "img": "/categorias/profesionales.png"
   }
 ]

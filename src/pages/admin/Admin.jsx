@@ -1,12 +1,18 @@
-import { useParams } from "react-router-dom"
+import { useContextGlobal } from "../../contexts/global.context"
+import SectionAdminMobile from "../../components/organisms/sections/SectionAdminMobile"
+import SectionAdmin from "../../components/organisms/sections/SectionAdmin"
 
 const Admin = () => {
-  const { admin } = useParams()
-  // console.log(admin)
+  const { state } = useContextGlobal()
+  const { isDesktop } = state
   return (
-    <>
-      <div>Admin</div>
-    </>
+    <main className="flex">
+      {isDesktop ? (
+        <SectionAdmin/>
+      ) : (
+        <SectionAdminMobile />
+      )}
+    </main>
   )
 }
 

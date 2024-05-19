@@ -1,0 +1,20 @@
+[
+  {
+    "id": 1,
+    "label": "Dashboard",
+    "path": "/admin/dashboard",
+    "icon": "fa-house"
+  },
+  {
+    "id": 2,
+    "label": "Listar productos",
+    "path": "/admin/listar-productos",
+    "icon": "fa-database"
+  },
+  {
+    "id": 3,
+    "label": "Crear productos",
+    "path": "/admin/crear",
+    "icon": "fa-circle-plus"
+  }
+]
