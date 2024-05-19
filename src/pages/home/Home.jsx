@@ -1,15 +1,16 @@
-import SectionSearch from '../../components/organisms/sections/SectionSearch'
-import SectionBeneficios from '../../components/organisms/sections/SectionBeneficios'
-import SectionRecomendados from '../../components/organisms/sections/SectionRecomendados'
-import SectionCategorias from '../../components/organisms/sections/SectionCategorias'
+import SectionHome from '../../components/organisms/sections/SectionHome'
+import HomeSearch from '../../components/molecules/home/HomeSearch'
+import HomeBenefits from '../../components/molecules/home/HomeBenefits'
+import HomeRecommended from '../../components/molecules/home/HomeRecommended'
+import HomeCategories from '../../components/molecules/home/HomeCategories'
 
 const Home = () => {
   return (
     <>
-      <SectionSearch/>  
-      <SectionBeneficios/>
-      <SectionRecomendados/>
-      <SectionCategorias/>
+      <SectionHome title='¡Hola! ¿Qué estás buscando hoy?' ContainerComponent={HomeSearch} background='bg-white' containerClass='grid place-items-center' />
+      <SectionHome title='Beneficios' ContainerComponent={HomeBenefits} containerClass='grid' />
+      <SectionHome title='Productos recomendados' ContainerComponent={HomeRecommended} background='bg-white' containerClass='grid' />
+      <SectionHome ContainerComponent={HomeCategories} containerClass='flex cont-category' />
     </>
   )
 }

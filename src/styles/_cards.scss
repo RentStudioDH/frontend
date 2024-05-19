@@ -6,7 +6,7 @@
   flex: 0 1 220px;
 }
 
-/* Estilos Card Beneficios */
+/* Estilos Beneficios */
 .benefit {
   place-items: flex-start center;
   grid-template-rows: auto 1fr;
@@ -15,7 +15,7 @@
   }
 }
 
-/* Estilos Card Categorias */
+/* Estilos Categorias */
 .category {
   position: relative;
   img {
@@ -31,7 +31,7 @@
   }
 }
 
-/* Estilos Card Productos */
+/* Estilos Productos */
 .product {
   position: relative;
   border: 1px solid rgba($quaternary, .2);

@@ -22,12 +22,16 @@ a {
   line-height: 1;
 }
 
+/* Clases personalizadas */
 .g {
-  &-15 {
-    gap: 15px;
-  }
   &-5 {
     gap: 5px;
+  }
+  &-10 {
+    gap: 10px;
+  }
+  &-15 {
+    gap: 15px;
   }
 }
 
@@ -38,16 +42,6 @@ a {
   &-section {
     padding: 15px;
   }
-}
-
-.bb-primary {
-  width: fit-content;
-  border-bottom: 4px solid $primary;
-  border-radius: 2px;
-}
-.br-15 {
-  border-radius: 15px;
-  overflow: hidden;
 }
 
 .txt {
@@ -64,28 +58,37 @@ a {
     color: $quaternary;
   }
 }
-.bg {
-  &-accent {
-    background: $accent;
+.b {
+  &b-primary {
+    width: fit-content;
+    border-bottom: 4px solid $primary;
+    border-radius: 2px;
   }
-  &-back {
-    background: $back;
+  &g {
+    &-accent {
+      background: $accent;
+    }
+    &-back {
+      background: $back;
+    }
+    &-base {
+      background: $base;
+    }
+    &-tertiary {
+      background: $tertiary;
+    }
+    &-primary {
+      background: $primary;
+    }
+    &-quaternary {
+      background: $quaternary;
+    }
   }
-  &-base {
-    background: $base;
-  }
-  &-tertiary {
-    background: $tertiary;
-  }
-  &-quaternary {
-    background: $quaternary;
+  &r-15 {
+    border-radius: 15px;
+    overflow: hidden;
   }
 }
-
-.btn {
-  text-transform: capitalize;
-}
-
 
 .cont {
   &-benefits, &-category {

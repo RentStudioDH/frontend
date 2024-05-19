@@ -1,9 +1,9 @@
 import { Link } from 'react-router-dom'
 import Buttons from './Buttons'
 
-const Card = ({ type, data }) => {
-  // console.log(type);
-  // console.log(data);
+const Cards = ({ type, data }) => {
+  // console.log(type)
+  // console.log(data)
   const renderCard = () => {
     if (!type || !data) {
       return <div>No hay información para mostrar.</div>
@@ -19,7 +19,7 @@ const Card = ({ type, data }) => {
               <p className="text-center txt-tertiary paragraph">{data.textInfo}</p>
             </div>
           </div>
-        );
+        )
       case 'category':
         return (
           <Link className={`flex items-end card ${type} br-15`} key={data.id} to={data.path}>
@@ -28,7 +28,7 @@ const Card = ({ type, data }) => {
               <h3 className="text-white text-center subtitle"><strong>{data.title}</strong></h3>
             </div>
           </Link>
-        );
+        )
       case 'product':
         return (
           <Link className={`grid shadow-lg card ${type} br-15`} key={data.id} to={'/producto/' + data.id}>
@@ -39,12 +39,12 @@ const Card = ({ type, data }) => {
               <h3 className="txt-primary subtitle"><strong>{data.title}</strong></h3>
               <p className="txt-tertiary paragraph">{data.description}</p>
               <p className="txt-primary paragraph" id='price'><strong>{data.price} / {data.rentType}</strong></p>
-              <Buttons text={'Cotizar'} bColor={'#A62639'} color={'#fff'} bgColor={'#A62639'}/>
+              <Buttons text='Cotizar' bColor='#A62639' color='#fff' bgColor='#A62639' />
             </div>
           </Link>
-        );
+        )
       default:
-        return <div>Tipo no soportado.</div>;
+        return <div>Tipo no soportado.</div>
     }
   }
 
@@ -55,4 +55,4 @@ const Card = ({ type, data }) => {
   )
 }
 
-export default Card
+export default Cards
