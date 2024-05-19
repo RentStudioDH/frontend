@@ -27,12 +27,12 @@ const Product = () => {
     return <div>Cargando...</div>
   }
   return (
-    <>
+    <main>
       <SectionProducto data={product} Component={ProductHeader} sectionClass='bg-back productHeader' containerClass='flex flex-col sm:flex-row justify-between items-start sm:items-center p-15 g-15' />
       <SectionProducto data={product} Component={ProductDetails} sectionClass='productDetails' containerClass='grid grid-cols-1 sm:grid-cols-2 p-section g-15' />
       <SectionProducto data={product} Component={ProductGalery} sectionClass='bg-white productGalery' containerClass='grid p-section g-5' />
       <SectionProducto data={product} Component={ProductIdeas} containerClass='p-section' />
-    </>
+    </main>
   )
 }
 

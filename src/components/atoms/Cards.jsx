@@ -5,8 +5,12 @@ const Cards = ({ type, data }) => {
   // console.log(type)
   // console.log(data)
   const renderCard = () => {
-    if (!type || !data) {
-      return <div>No hay información para mostrar.</div>
+    if (!type) {
+      return <div>No hay información para mostrar.</div>;
+    }
+
+    if ((type === 'benefit' || type === 'category' || type === 'product') && !data) {
+      return <div>No hay información para mostrar.</div>;
     }
 
     switch (type) {
@@ -22,10 +26,10 @@ const Cards = ({ type, data }) => {
         )
       case 'category':
         return (
-          <Link className={`flex items-end card ${type} br-15`} key={data.id} to={data.path}>
+          <Link className={`flex items-end shadow-lg card ${type} br-15`} key={data.id} to={data.path}>
             <img src={`${data.img}`} alt={`${data.title}`} loading='lazy' />
             <div className='grid place-items-center w-full info p-15'>
-              <h3 className="text-white text-center subtitle"><strong>{data.title}</strong></h3>
+              <h3 className="text-white text-center subtitle"><strong>{data.label}</strong></h3>
             </div>
           </Link>
         )
@@ -42,6 +46,18 @@ const Cards = ({ type, data }) => {
               <Buttons text='Cotizar' bColor='#A62639' color='#fff' bgColor='#A62639' />
             </div>
           </Link>
+        )
+      case 'error-admin':
+        return (
+          <section className='grid place-items-center p-8'>
+            <div className='bg-white grid place-items-center shadow-lg w-fit br-15 p-6 g-15'>
+              <img src="/errores/screen-error-mobile.png" alt='Error admin mobile' title='Error admin mobile' width={260} height={209} loading='lazy' />
+              <div className="info">
+                <h1 className='txt-tertiary text-center title'><strong>Mobile no disponible</strong></h1>
+                <p className='txt-quaternary text-center paragraph'>La versión móvil está en desarrollo. ¡Gracias por tu paciencia!</p>
+              </div>
+            </div>
+          </section>
         )
       default:
         return <div>Tipo no soportado.</div>

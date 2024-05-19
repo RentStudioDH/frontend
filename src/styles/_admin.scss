@@ -1,0 +1,13 @@
+.admin {
+  &Nav {
+    button:hover i {
+      color: $accent;
+    } 
+    ul {
+      .active a, li:hover a {
+        color: $accent;
+        font-weight: 900;
+      }
+    }
+  }
+}

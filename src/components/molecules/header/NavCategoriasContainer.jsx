@@ -1,4 +1,5 @@
 import { Link, useLocation } from 'react-router-dom'
+import categoriasData from '../../../utils/json/categoriasData.json'
 import { routes } from '../../../utils/routes'
 
 const NavCategoriasContainer = () => {
@@ -9,7 +10,7 @@ const NavCategoriasContainer = () => {
   return (
     <div className='w-full bg-quaternary flex justify-center'>
       <nav className='w-full max-w-screen-xl flex justify-center g-15'>
-        {categories.map((category) => (
+        {categoriasData.map((category) => (
           <Link key={category.path} to={category.path} className={`txt-tertiary paragraph ${location.pathname === category.path ? 'active' : ''}`}>{category.label}</Link>
         ))}
       </nav>

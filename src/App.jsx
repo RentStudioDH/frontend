@@ -16,15 +16,13 @@ function App() {
     <>
       <ThemeProvider theme={theme}>
         <Header/>
-        <main>
-          <Routes>
-            <Route path={routes.home} element={<Home/>}/>
-            <Route path={routes.detail} element={<Product/>}/>
-            <Route path="/categoria/:category" element={<Category/>} />
-            <Route path="/admin/:admin" element={<Admin/>}/>
-            <Route path="/admin/form" element={<FormAgregarProducto/>} />
-          </Routes>
-        </main>
+        <Routes>
+          <Route path={routes.home} element={<Home/>}/>
+          <Route path={routes.detail} element={<Product/>}/>
+          <Route path="/categoria/:category" element={<Category/>} />
+          <Route path="/admin/:admin" element={<Admin/>}/>
+          <Route path="/admin/form" element={<FormAgregarProducto/>} />
+        </Routes>
         <Footer/>
       </ThemeProvider>
     </>

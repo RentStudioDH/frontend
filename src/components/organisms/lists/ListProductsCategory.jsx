@@ -1,5 +1,5 @@
-import productosRecomendadosData from '../../../utils/json/productosRecomendadosData.json'
 import Cards from '../../atoms/Cards'
+import productosRecomendadosData from '../../../utils/json/productosRecomendadosData.json'
 
 const ListProductsCategory = ({ category }) => {
   const filteredProducts = productosRecomendadosData.filter(product => product.category.toLowerCase() === category.toLowerCase())

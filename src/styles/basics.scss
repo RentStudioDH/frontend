@@ -4,6 +4,7 @@
 @import 'colors';
 @import 'cards';
 @import 'products';
+@import 'admin';
 
 /* Reseteo personalizado */
 *, *::before, *::after {
@@ -128,21 +129,21 @@ header {
       font-size: 14px;
     }
   }
-}
-
-nav {
-  height: 40px;
-  align-items: center;
-  a {
-    padding: 10px;
+  nav {
+    height: 40px;
+    align-items: center;
+    a {
+      padding: 10px;
+    }
+  }
+  .active, nav a:hover {
+    color: $primary;
+    font-weight: 900;
+    border-bottom: 2px solid $primary;
   }
 }
 
-.active, nav a:hover {
-  color: $primary;
-  font-weight: 900;
-  border-bottom: 2px solid $primary;
-}
+
 
 .menuMobile {
   width: 100%;
