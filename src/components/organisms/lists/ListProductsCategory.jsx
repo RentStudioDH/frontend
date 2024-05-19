@@ -1,13 +1,13 @@
 import productosRecomendadosData from '../../../utils/json/productosRecomendadosData.json'
-import Card from '../../atoms/Card';
+import Cards from '../../atoms/Cards'
 
-const ListProductCategory = ({ category }) => {
+const ListProductsCategory = ({ category }) => {
   const filteredProducts = productosRecomendadosData.filter(product => product.category.toLowerCase() === category.toLowerCase())
   return (
     <div className="grid cont-products g-15">
       {filteredProducts.length > 0 ? (
         filteredProducts.map(product => (
-          <Card key={product.id} type="product" data={product} />
+          <Cards key={product.id} type="product" data={product} />
         ))
       ) : (
         <div>No hay productos disponibles en esta categoría.</div>
@@ -16,4 +16,4 @@ const ListProductCategory = ({ category }) => {
   )
 }
 
-export default ListProductCategory
+export default ListProductsCategory

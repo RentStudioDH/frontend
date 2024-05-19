@@ -62,7 +62,6 @@
       "/productos/camera.png",
       "/productos/camera.png",
       "/productos/camera.png",
-      "/productos/camera.png",
       "/productos/camera.png"
     ],
     "category": "Lentes"
@@ -75,6 +74,9 @@
     "rentType": "Día",
     "stock": 7,
     "images": [
+      "/productos/camara5.jpeg",
+      "/productos/camara5.jpeg",
+      "/productos/camara5.jpeg",
       "/productos/camara5.jpeg",
       "/productos/camara5.jpeg",
       "/productos/camara5.jpeg",

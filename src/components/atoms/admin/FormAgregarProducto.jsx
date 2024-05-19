@@ -1,20 +1,20 @@
 import { useEffect, useState } from 'react'
 import { useNavigate, useParams } from 'react-router-dom'
-import { createProduct, getProduct } from '../../../utils/js/ProductoService';
+import { createProduct, getProduct } from '../../../utils/js/ProductoService'
 
 
 const FormAgregarProducto = () => {
 
-  const [name, setName] = useState('');
-  const [description, setDescription] = useState('');
-  const [price, setPrice] = useState(0.0);
-  const [priceType, setPriceType] = useState('BY_HOUR');
-  const [trademark, setTrademark] = useState('');
-  const [model, setModel] = useState('');
-  const [category, setCategory] = useState('');
-  const [stock, setStock] = useState(0);
-  const [productSize, setProductSize] = useState('');
-  const [megapixeles, setMegapixeles] = useState('');
+  const [name, setName] = useState('')
+  const [description, setDescription] = useState('')
+  const [price, setPrice] = useState(0.0)
+  const [priceType, setPriceType] = useState('BY_HOUR')
+  const [trademark, setTrademark] = useState('')
+  const [model, setModel] = useState('')
+  const [category, setCategory] = useState('')
+  const [stock, setStock] = useState(0)
+  const [productSize, setProductSize] = useState('')
+  const [megapixeles, setMegapixeles] = useState('')
   const [route, setRoute] = useState('')
   const [images, setImages] = useState([])
 
