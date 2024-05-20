@@ -1,6 +1,6 @@
 import { useContextGlobal } from "../../contexts/global.context"
-import SectionAdminMobile from "../../components/organisms/sections/SectionAdminMobile"
 import SectionAdmin from "../../components/organisms/sections/SectionAdmin"
+import Cards from "../../components/atoms/Cards"
 
 const Admin = () => {
   const { state } = useContextGlobal()
@@ -10,7 +10,7 @@ const Admin = () => {
       {isDesktop ? (
         <SectionAdmin/>
       ) : (
-        <SectionAdminMobile />
+        <Cards type="error-admin" data='' />
       )}
     </main>
   )

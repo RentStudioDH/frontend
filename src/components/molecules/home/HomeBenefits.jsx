@@ -5,7 +5,7 @@ const HomeBenefits = ({ title }) => {
   return (
     <>
       { title && <h2 className='txt-accent bb-primary title'><strong>{title}</strong></h2> }
-      <div className="flex cont-benefits g-10">
+      <div className="flex cont-benefits g-15">
         {beneficiosData.map(card => {
           return (
             <Cards key={card.id} type="benefit" data={card} />

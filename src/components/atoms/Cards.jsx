@@ -39,17 +39,21 @@ const Cards = ({ type, data }) => {
             <div className='image'>
               <img src={`${data.images[0]}`} alt={data.title} loading='lazy' width={210} height={210} />
             </div>
-            <div className='flex flex-col lg:justify-center info p-15'>
-              <h3 className="txt-primary subtitle"><strong>{data.title}</strong></h3>
-              <p className="txt-tertiary paragraph">{data.description}</p>
-              <p className="txt-primary paragraph" id='price'><strong>{data.price} / {data.rentType}</strong></p>
-              <Buttons text='Cotizar' bColor='#A62639' color='#fff' bgColor='#A62639' />
+            <div className='flex flex-col justify-between info p-15 g-10'>
+              <div className='flex flex-col details g-5'>
+                <h3 className="txt-primary subtitle"><strong>{data.title}</strong></h3>
+                <p className="txt-tertiary paragraph">{data.description}</p>
+              </div>
+              <div className='flex flex-col rent g-10'>
+                <p className="txt-primary paragraph" id='price'><strong>{data.price} / {data.rentType}</strong></p>
+                <Buttons text='Cotizar' bColor='#A62639' color='#fff' bgColor='#A62639' />
+              </div>
             </div>
           </Link>
         )
       case 'error-admin':
         return (
-          <section className='grid place-items-center p-8'>
+          <section className='w-full grid place-items-center p-8'>
             <div className='bg-white grid place-items-center shadow-lg w-fit br-15 p-6 g-15'>
               <img src="/errores/screen-error-mobile.png" alt='Error admin mobile' title='Error admin mobile' width={260} height={209} loading='lazy' />
               <div className="info">
