@@ -91,13 +91,6 @@ a {
   }
 }
 
-.cont {
-  &-benefits, &-category {
-    flex-wrap: wrap;
-    justify-content: center;
-  }
-}
-
 /* Textos */
 .bigtitle {
   font-size: 28px;
@@ -125,37 +118,18 @@ header {
   top: 0;
   z-index: 99;
   .logo {
-    .slogan {
-      font-size: 14px;
+    .mobile {
+      display: block;
     }
   }
   nav {
-    height: 40px;
     align-items: center;
-    a {
-      padding: 10px;
-    }
+    
   }
-  .active, nav a:hover {
+  .active, .navCategorias a:hover {
     color: $primary;
     font-weight: 900;
     border-bottom: 2px solid $primary;
-  }
-}
-
-
-
-.menuMobile {
-  width: 100%;
-  padding: 10px 15px;
-  .btnmenu i {
-    font-size: 20px;
-  }
-  .itemsmenu {
-    &, & nav {
-      flex-direction: column;
-      height: auto;
-    }
   }
 }
 
@@ -173,8 +147,12 @@ form label {
   .p-section {
     padding: 30px;
   }
-  .cont-products {
-    grid-template-columns: repeat(2, minmax(250px, 1fr));
+  header {
+    .logo {
+      .mobile {
+        display: none;
+      }
+    }
   }
   nav {
     align-items: initial;

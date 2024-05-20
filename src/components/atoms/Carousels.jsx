@@ -15,8 +15,8 @@ const Carousels = ({ images }) => {
           {images.map((src, index) => <img key={index} src={src} alt={`Imagen ${index + 1}`} className="w-full flex-shrink-0" />)}
         </div>
       </div>
-      <button onClick={handlePrev} className="absolute top-1/2 left-0 transform -translate-y-1/2 p-2 bigtitle"><i className="text-white fa-solid fa-angle-left"></i></button>
-      <button onClick={handleNext} className="absolute top-1/2 right-0 transform -translate-y-1/2 p-2 bigtitle"><i className="text-white fa-solid fa-angle-right"></i></button>
+      <button onClick={handlePrev} className="absolute top-1/2 left-0 transform -translate-y-1/2 p-2 bigtitle" type="button"><i className="text-white fa-solid fa-angle-left"></i></button>
+      <button onClick={handleNext} className="absolute top-1/2 right-0 transform -translate-y-1/2 p-2 bigtitle" type="button"><i className="text-white fa-solid fa-angle-right"></i></button>
       <div className="absolute bottom-0 left-1/2 transform -translate-x-1/2 flex space-x-2 p-2">
         {images.map((_, index) => <button key={index} onClick={() => setCurrentIndex(index)} className={`w-3 h-3 rounded-full ${currentIndex === index ? 'bg-primary' : 'bg-base'}`} />)}
       </div>

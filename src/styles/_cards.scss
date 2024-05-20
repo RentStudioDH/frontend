@@ -6,10 +6,20 @@
   flex: 0 1 220px;
 }
 
+.benefit, .product {
+  grid-template-rows: auto 1fr;
+}
+
+.cont {
+  &-benefits, &-category {
+    flex-wrap: wrap;
+    justify-content: center;
+  }
+}
+
 /* Estilos Beneficios */
 .benefit {
   place-items: flex-start center;
-  grid-template-rows: auto 1fr;
   .icon {
     font-size: 70px;
   }
@@ -45,16 +55,21 @@
     }
   }
   .info {
-    gap: 10px;
     #price, .btn {
       align-self: flex-end;
     }
   }
 }
 
+@media (min-width: 640px) {
+  .cont-products {
+    grid-template-columns: repeat(2, minmax(250px, 1fr));
+  }
+}
 @media (min-width: 900px) {
   .product {
     grid-template-columns: 35% 1fr;
+    grid-template-rows: auto;
     .image {
       height: 100%;
     }
