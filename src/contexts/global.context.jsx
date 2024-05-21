@@ -1,6 +1,6 @@
 import { createContext, useContext, useEffect, useReducer } from 'react'
 import { reducer } from '../reducers/reducer'
-import axios from 'axios'
+import { apiRequest } from '../utils/js/apiRequest'
 
 export const ContextGlobal = createContext()
 
@@ -36,14 +36,16 @@ export const ContextProvider = ({ children }) => {
 
   // Cargar datos desde una API
   useEffect(() => {
-    const url = 'https://apidh.jackmoon.dev/products'
-    axios.get(url)
-      .then(res => {
-        dispatch({ type: 'GET_LIST', payload: res.data })
-      })
-      .catch(error => {
+    const fetchData = async () => {
+      try {
+        const data = await apiRequest('get', '/products')
+        dispatch({ type: 'GET_LIST', payload: data })
+      } catch (error) {
         console.error('Error fetching data:', error)
-      })
+      }
+    };
+
+    fetchData()
   }, [])
 
   // Aplicar el tema oscuro o claro
