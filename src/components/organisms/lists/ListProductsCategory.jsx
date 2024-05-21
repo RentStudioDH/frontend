@@ -1,8 +1,12 @@
 import Cards from '../../atoms/Cards'
-import productosRecomendadosData from '../../../utils/json/productosRecomendadosData.json'
+import { useContextGlobal } from '../../../contexts/global.context'
 
 const ListProductsCategory = ({ category }) => {
-  const filteredProducts = productosRecomendadosData.filter(product => product.category.toLowerCase() === category.toLowerCase())
+  const { state } = useContextGlobal()
+  const { data } = state
+  // console.log(data)
+  const filteredProducts = data ? data.filter(product => product.categoryName.toLowerCase() === category.toLowerCase()) : []
+
   return (
     <div className="grid cont-products g-15">
       {filteredProducts.length > 0 ? (

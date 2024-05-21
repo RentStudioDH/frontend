@@ -1,8 +1,8 @@
-import React, { useState, useEffect } from "react";
+import { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
 import { createProduct, getProduct } from "../../../utils/js/ProductoService";
 
-const ProductForm = () => {
+const FormProduct = () => {
   const initialProductState = {
     name: "",
     description: "",
@@ -188,4 +188,4 @@ const ProductForm = () => {
   );
 };
 
-export default ProductForm;
+export default FormProduct;

@@ -1,6 +1,5 @@
 import { useEffect, useState } from 'react'
 import { useParams } from 'react-router-dom'
-import { useContextGlobal } from '../../contexts/global.context'
 import productosRecomendadosData from '../../utils/json/productosRecomendadosData.json'
 import SectionProducto from '../../components/organisms/sections/SectionProducto'
 import ProductHeader from '../../components/molecules/product/ProductHeader'
@@ -11,7 +10,7 @@ import ProductIdeas from '../../components/molecules/product/ProductIdeas'
 const Product = () => {
   const params = useParams()
   const { id } = params
-  const { state, dispatch } = useContextGlobal()
+  // const { state, dispatch } = useContextGlobal()
   const [product, setProduct] = useState(null)
   useEffect(() => {
     const foundProduct = productosRecomendadosData.find(item => item.id === parseInt(id))

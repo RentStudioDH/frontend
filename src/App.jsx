@@ -6,11 +6,11 @@ import theme from './utils/js/theme'
 import Header from './components/organisms/Header'
 import Home from './pages/home/Home'
 import Product from './pages/product/Product'
-import ListProducts from './pages/product/ListProducts'
+import Products from './pages/product/Products'
 import Admin from './pages/admin/Admin'
-import Footer from './components/organisms/Footer'
+import FormProduct from './components/atoms/admin/FormProduct'
 import Category from './pages/category/Category'
-import FormAgregarProducto from './components/atoms/admin/FormAgregarProducto'
+import Footer from './components/organisms/Footer'
 
 function App() {
   return (
@@ -20,9 +20,9 @@ function App() {
         <Routes>
           <Route path={routes.home} element={<Home/>}/>
           <Route path={routes.detail} element={<Product/>}/>
-          <Route path={routes.products} element={<ListProducts/>}/>
+          <Route path={routes.products} element={<Products/>}/>
           <Route path="/admin/:admin" element={<Admin/>}/>
-          <Route path="/admin/form" element={<FormAgregarProducto/>} />
+          <Route path="/admin/form" element={<FormProduct/>} />
           <Route path="/categoria/:category" element={<Category/>} />
         </Routes>
         <Footer/>
