@@ -36,7 +36,7 @@ export const ContextProvider = ({ children }) => {
 
   // Cargar datos desde una API
   useEffect(() => {
-    const url = 'https://api-digitalhouse.adksolutions.net.ar/product'
+    const url = 'https://apidh.jackmoon.dev/products'
     axios.get(url)
       .then(res => {
         dispatch({ type: 'GET_LIST', payload: res.data })

@@ -37,15 +37,15 @@ const Cards = ({ type, data }) => {
         return (
           <Link className={`grid shadow-lg card ${type} br-15`} key={data.id} to={'/producto/' + data.id}>
             <div className='image'>
-              <img src={`${data.images[0]}`} alt={data.title} loading='lazy' width={210} height={210} />
+              <img src={`${data.attachments[0]}`} alt={data.name} loading='lazy' width={210} height={210} />
             </div>
             <div className='flex flex-col justify-between info p-15 g-10'>
               <div className='flex flex-col details g-5'>
-                <h3 className="txt-primary subtitle"><strong>{data.title}</strong></h3>
+                <h3 className="txt-primary subtitle"><strong>{data.name}</strong></h3>
                 <p className="txt-tertiary paragraph">{data.description}</p>
               </div>
               <div className='flex flex-col rent g-10'>
-                <p className="txt-primary paragraph" id='price'><strong>{data.price} / {data.rentType}</strong></p>
+                <p className="txt-primary paragraph" id='price'><strong>${data.price} / {data.rentType}</strong></p>
                 <Buttons text='Cotizar' bColor='#A62639' color='#fff' bgColor='#A62639' />
               </div>
             </div>
