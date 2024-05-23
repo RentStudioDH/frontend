@@ -17,7 +17,7 @@ export const fetchData = async ({ method, endpoint, data = null, headers = {}, d
     })
     return response.data
   } catch (error) {
-    console.error('Error making request:', error)
+    console.error(`Error ${method}ing data to ${endpoint}:`, error)
     throw error
   }
 }
