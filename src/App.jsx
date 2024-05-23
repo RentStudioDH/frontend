@@ -11,6 +11,7 @@ import Admin from './pages/admin/Admin'
 import FormProduct from './components/atoms/admin/FormProduct'
 import Category from './pages/category/Category'
 import Footer from './components/organisms/Footer'
+import LoginForm from './components/atoms/header/LoginForm'
 
 function App() {
   return (
@@ -24,6 +25,8 @@ function App() {
           <Route path="/admin/:admin" element={<Admin/>}/>
           <Route path="/admin/form" element={<FormProduct/>} />
           <Route path="/categoria/:category" element={<Category/>} />
+          <Route path={routes.usuario.login} element={<LoginForm/>} />
+
         </Routes>
         <Footer/>
       </ThemeProvider>
