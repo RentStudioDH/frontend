@@ -6,11 +6,11 @@ const Cards = ({ type, data }) => {
   // console.log(data)
   const renderCard = () => {
     if (!type) {
-      return <div>No hay información para mostrar.</div>;
+      return <div>No hay información para mostrar.</div>
     }
 
     if ((type === 'benefit' || type === 'category' || type === 'product') && !data) {
-      return <div>No hay información para mostrar.</div>;
+      return <div>No hay información para mostrar.</div>
     }
 
     switch (type) {

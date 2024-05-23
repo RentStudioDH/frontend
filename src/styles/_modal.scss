@@ -1,0 +1,8 @@
+.cont-modal {
+  background: rgba($tertiary, .5);
+  z-index: 99;
+  .modal {
+    height: 90%;
+    overflow-y: auto;
+  }
+}

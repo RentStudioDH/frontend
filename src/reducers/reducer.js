@@ -21,6 +21,7 @@ export const reducer = (state, action) => {
     case 'LOGOUT_USER':
       localStorage.removeItem('user')
       localStorage.removeItem('role')
+      localStorage.removeItem('favs')
       return { 
         ...state, 
         user: null, 
