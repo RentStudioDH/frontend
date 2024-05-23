@@ -1,7 +1,7 @@
-import { useState, useEffect } from "react"
-import { useParams } from "react-router-dom"
-import ListImages from "../form/ListImages"
-import { fetchData } from "../../../utils/js/apiRequest"
+import { useState, useEffect } from 'react'
+import { useParams } from 'react-router-dom'
+import ListImages from '../form/ListImages'
+import { fetchData } from '../../../utils/js/apiRequest'
 
 const FormProduct = ({ type }) => {
   const initialProductState = {
@@ -11,7 +11,7 @@ const FormProduct = ({ type }) => {
     price: 0,
     rentType: "DAILY",
     categoryId: 0,
-    attachments: [] // Cambiado de images a attachments
+    attachments: []
   }
 
   const [product, setProduct] = useState(initialProductState)
@@ -21,11 +21,11 @@ const FormProduct = ({ type }) => {
 
   useEffect(() => {
     if (type === "update" && id) {
-      fetchData({ method: 'get', endpoint: `/products/${id}` })
+      fetchData({ method: "get", endpoint: `/products/${id}` })
         .then((response) => {
           setProduct({
             ...response,
-            attachments: response.attachments || [] // Cambiado de images a attachments
+            attachments: response.attachments || []
           })
         })
         .catch((error) => {
@@ -40,12 +40,7 @@ const FormProduct = ({ type }) => {
   }
 
   const handleImageChange = (images) => {
-    const attachments = images.map(image => ({
-      id: image.id, // Asegúrate de mantener el id
-      url: image.url, // Utiliza 'url' en lugar de 'route' si ese es el campo correcto
-      fileName: image.name || "" // Ajusta según tu lógica
-    }))
-    setProduct((prevProduct) => ({ ...prevProduct, attachments }))
+    setProduct((prevProduct) => ({ ...prevProduct, attachments: images }))
   }
 
   const validateForm = () => {
@@ -60,50 +55,62 @@ const FormProduct = ({ type }) => {
     return formErrors
   }
 
-  const saveProduct = (e) => {
+  const saveProduct = async (e) => {
     e.preventDefault()
-
+  
     const formErrors = validateForm()
     if (Object.keys(formErrors).length > 0) {
       setError(formErrors)
       return
     }
-
+  
     const productData = {
       name: product.name,
       description: product.description,
       stock: parseInt(product.stock),
       price: parseFloat(product.price),
       rentType: product.rentType,
-      categoryId: parseInt(product.categoryId),
-      attachments: product.attachments.filter(att => att.url && att.fileName) // Asegúrate de enviar solo attachments válidos
+      categoryId: parseInt(product.categoryId)
     }
-
-    console.log(productData);
-    
-    if (type === "update" && id) {
-      fetchData({ method: 'put', endpoint: `/products/${id}`, data: productData })
-        .then((response) => {
-          console.log(response)
-          setSuccessMessage("Producto actualizado correctamente")
-          setError({})
-          alert("Producto actualizado correctamente")
-        })
-        .catch((error) => {
-          console.error(error)
-        })
-    } else {
-      fetchData({ method: 'post', endpoint: '/products', data: productData })
-        .then((response) => {
-          console.log(response)
-          setSuccessMessage("Producto registrado correctamente")
-          setError({})
-          setProduct(initialProductState)
-          alert("Producto registrado correctamente")
-        })
-        .catch((error) => {
-          console.error(error)
-        })
+  
+    try {
+      let response
+      if (type === "update" && id) {
+        response = await fetchData({ method: "put", endpoint: `/products/${id}`, data: productData })
+        await uploadImages(id)
+        setSuccessMessage("Producto actualizado correctamente")
+      } else {
+        response = await fetchData({ method: "post", endpoint: "/products", data: productData })
+        await uploadImages(response.id)
+        setSuccessMessage("Producto registrado correctamente")
+        setProduct(initialProductState)
+      }
+      setError({})
+    } catch (error) {
+      console.error(error)
+    }
+  }
+  
+  const uploadImages = async (productId) => {
+    const formData = new FormData()
+    product.attachments.forEach((attachment) => {
+      if (attachment.file) {
+        formData.append("files", attachment.file) // Cambiar a "files"
+      }
+    })
+  
+    try {
+      const response = await fetchData({
+        method: "post",
+        endpoint: `/products/${productId}/attachments`,
+        data: formData,
+        isFormData: true,
+      })
+      console.log("Images uploaded successfully:", response)
+      setSuccessMessage("Producto y imágenes registradas correctamente")
+    } catch (error) {
+      console.error("Error uploading images:", error)
+      setError({ images: "Error al cargar las imágenes" })
     }
   }
 
@@ -147,7 +154,7 @@ const FormProduct = ({ type }) => {
         </div>
         <div className="grid g-15">
           <label className="txt-tertiary">Imágenes del producto:</label>
-          <ListImages images={product.attachments.map(att => ({ id: att.id, url: att.url, name: att.fileName }))} onImageChange={handleImageChange} />
+          <ListImages images={product.attachments} onImageChange={handleImageChange} multiple />
         </div>
         <div className="col-span-1 md:col-span-2 flex justify-center mt-4">
           <button type="submit" className="bg-red-800 text-white px-4 py-2 rounded">

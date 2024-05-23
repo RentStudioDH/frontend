@@ -1,5 +1,5 @@
 const ProductDetails = ({ data }) => {
-  // console.log(data);
+  // console.log(data)
   return (
     <>
       <div className='grid info g-15'>
@@ -13,7 +13,7 @@ const ProductDetails = ({ data }) => {
         </div>
       </div>
       <div className='br-15 image shadow-lg'>
-        {/* <img src={data.attachments} alt={data.title} width={450} height={450} loading='lazy' /> */}
+        <img src={data.attachments[0].url} alt={data.title} width={450} height={450} loading='lazy' />
       </div>
     </>
   )
