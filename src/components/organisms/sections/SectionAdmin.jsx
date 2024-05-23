@@ -1,14 +1,9 @@
-import { useParams } from 'react-router-dom'
-import AdminMenu from '../../molecules/admin/AdminMenu'
-
-const SectionAdmin = () => {
-  const { admin } = useParams()
-  console.log(admin)
+const SectionAdmin = ({ title, ContainerComponent }) => {
   return (
     <>
-      <AdminMenu />
       <section className='w-full p-section'>
-
+        <h1 className="txt-accent bigtitle"><strong>{title}</strong></h1>
+        <ContainerComponent/>
       </section>
     </>
   )

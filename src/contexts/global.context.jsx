@@ -1,6 +1,6 @@
 import { createContext, useContext, useEffect, useReducer } from 'react'
 import { reducer } from '../reducers/reducer'
-import axios from 'axios'
+import { fetchData } from '../utils/js/apiRequest'
 
 export const ContextGlobal = createContext()
 
@@ -34,17 +34,18 @@ export const ContextProvider = ({ children }) => {
     return () => window.removeEventListener('resize', handleResize)
   }, [])
 
-  // Cargar datos desde una API
+  // Cargar productos desde una API
   useEffect(() => {
-    const url = 'https://apidh.jackmoon.dev/products'
-    axios.get(url)
-      .then(res => {
-        dispatch({ type: 'GET_LIST', payload: res.data })
-      })
-      .catch(error => {
-        console.error('Error fetching data:', error)
-      })
-  }, [])
+    const getProducts = async () => {
+      try {
+        const products = await fetchData({method: 'get', endpoint: '/products'})
+        dispatch({ type: 'GET_LIST', payload: products })
+      } catch (error) {
+        console.error('Error fetching products:', error)
+      }
+    }
+    getProducts()
+  }, [dispatch])
 
   // Aplicar el tema oscuro o claro
   useEffect(() => {
@@ -54,7 +55,7 @@ export const ContextProvider = ({ children }) => {
   // User
   /* Login */
   const loginUser = (userData, role) => {
-    dispatch({ type: 'LOGIN_USER', payload: { user: userData, role } });
+    dispatch({ type: 'LOGIN_USER', payload: { user: userData, role } })
   }
 
    /* Logout */

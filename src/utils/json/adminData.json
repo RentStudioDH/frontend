@@ -7,14 +7,14 @@
   },
   {
     "id": 2,
-    "label": "Listar productos",
-    "path": "/admin/listar-productos",
+    "label": "Productos",
+    "path": "/admin/productos",
     "icon": "fa-database"
   },
   {
     "id": 3,
-    "label": "Crear productos",
-    "path": "/admin/crear",
+    "label": "Categorias",
+    "path": "/admin/categorias",
     "icon": "fa-circle-plus"
   }
 ]

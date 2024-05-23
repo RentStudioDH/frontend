@@ -9,7 +9,7 @@ const ProductHeader = ({ data }) => {
     <>
       <div className='flex items-center g-5'>
         <Link onClick={() => navigate(-1)}><i className="fa-solid fa-arrow-left txt-primary title"></i></Link>
-        <h1 className='txt-primary title bb-primary'><strong>{data.title}</strong></h1>
+        <h1 className='txt-primary title bb-primary'><strong>{data.name}</strong></h1>
       </div>
       <Buttons text={'Rentar'} bColor={'#A62639'} color={'#fff'} bgColor={'#A62639'}/>
     </>
