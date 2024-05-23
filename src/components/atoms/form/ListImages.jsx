@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react'
 
-const ListImages = ({ images, onImageChange }) => {
+const ListImages = ({ images, onImageChange, multiple }) => {
   const [imageList, setImageList] = useState(images || [])
 
   useEffect(() => {
@@ -9,21 +9,19 @@ const ListImages = ({ images, onImageChange }) => {
 
   const changeInput = (e) => {
     const newImgsToState = readmultifiles(e, imageList.length)
-    const newImgsState = [...imageList, ...newImgsToState]
+    const newImgsState = multiple ? [...imageList, ...newImgsToState] : newImgsToState
     setImageList(newImgsState)
     onImageChange(newImgsState)
   }
 
-  const readmultifiles = (e, indexInicial) => {
+  const readmultifiles = (e, idInicial) => {
     const files = e.currentTarget.files
     const arrayImages = []
     Object.keys(files).forEach((i) => {
       const file = files[i]
-      // console.log("File:", file) // Verifica que el archivo esté siendo leído correctamente
       const url = URL.createObjectURL(file)
-      // console.log("Generated URL:", url) // Verifica que la URL esté siendo generada correctamente
       arrayImages.push({
-        id: indexInicial++, // Usar 'id' en lugar de 'index'
+        id: idInicial++,
         name: file.name,
         url,
         file,
@@ -55,7 +53,7 @@ const ListImages = ({ images, onImageChange }) => {
           ))}
           <label className="bg-yellow-500 text-white py-2 px-4 rounded cursor-pointer inline-block">
             <span>Seleccionar archivos</span>
-            <input hidden type="file" multiple onChange={changeInput} />
+            <input hidden type="file" multiple={multiple} onChange={changeInput} />
           </label>
         </div>
       </div>

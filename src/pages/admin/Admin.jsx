@@ -14,11 +14,11 @@ const Admin = () => {
   const renderSectionAdmin = () => {
     switch (admin) {
       case 'dashboard':
-        return <SectionAdmin title="Dashboard" />
+        return <SectionAdmin title="Dashboard" ContainerComponent={AdminProducts} />
       case 'productos':
         return <SectionAdmin title="Productos" ContainerComponent={AdminProducts} />
       case 'categorias':
-        return <SectionAdmin title="Categorías" />
+        return <SectionAdmin title="Categorías" ContainerComponent={AdminProducts} />
     }
   }
   return (
