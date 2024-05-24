@@ -4,9 +4,12 @@ import { useContextGlobal } from '../../../contexts/global.context'
 const ListProductsCategory = ({ category }) => {
   const { state } = useContextGlobal()
   const { data } = state
-  // console.log(data)
-  const filteredProducts = data ? data.filter(product => product.categoryName.toLowerCase() === category.toLowerCase()) : []
-
+  const filteredProducts = data && Array.isArray(data)
+    ? data.filter(product => {
+      console.log(product);
+        return product.category.name && product.category.name.toLowerCase() === category.toLowerCase()
+      })
+    : []
   return (
     <div className="grid cont-products g-15">
       {filteredProducts.length > 0 ? (
