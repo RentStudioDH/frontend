@@ -13,12 +13,16 @@ import Category from './pages/category/Category'
 import Footer from './components/organisms/Footer'
 import Modals from './components/atoms/Modals'
 import ListImages from './components/atoms/form/ListImages'
+import LoginForm from './components/atoms/header/LoginForm'
+import FormLogin from './components/molecules/header/FormLogin'
+
 
 function App() {
   return (
     <>
       <ThemeProvider theme={theme}>
         <Header/>
+       
         <Routes>
           <Route path={routes.home} element={<Home/>}/>
           <Route path={routes.detail} element={<Product/>}/>
@@ -27,7 +31,7 @@ function App() {
           <Route path="/admin/form" element={<FormProduct/>} />
           <Route path="/categoria/:category" element={<Category/>} />
           <Route path="/modal" element={<Modals type='crearProduct' />} />
-          <Route path="/images" element={<ListImages/>} />
+          
         </Routes>
         <Footer/>
       </ThemeProvider>
