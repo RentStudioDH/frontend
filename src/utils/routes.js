@@ -13,5 +13,9 @@ export const routes = {
     audio: '/categoria/audio',
     professionals: '/categoria/profesionales',
   },
-  detail: '/producto/:id'
+  detail: '/producto/:id',
+  
+  usuario:{
+    login:'/login'
+  }
 }
