@@ -24,7 +24,7 @@ const HeaderNavUser = () => {
       <div className='flex flex-col xl:flex-row justify-center items-start xl:items-center logo g-5 p-15'>
         <Link to={routes.home} onClick={closeMenu}>
           <img className='hidden sm:block' src='/logo/logo.png' alt="logo" title="logo" width={150} height={30} loading='lazy' />
-          <img className='sm:hidden 450px:block' src='/rs.svg' type='svg' alt="logo" title="logo" width={25} height={25} loading='lazy' />
+          <img className='sm:hidden 450px:block' src='/rs.svg' type='svg' alt="logo" title="logo" width={30} height={30} loading='lazy' />
         </Link>
         <Link className='txt-accent legal' to={routes.home} onClick={closeMenu}>Captura tus recuerdos</Link>
       </div>

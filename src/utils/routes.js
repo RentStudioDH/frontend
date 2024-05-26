@@ -14,8 +14,7 @@ export const routes = {
     professionals: '/categoria/profesionales',
   },
   detail: '/producto/:id',
-  
-  usuario:{
+  usuario: {
     login:'/login'
   }
 }
