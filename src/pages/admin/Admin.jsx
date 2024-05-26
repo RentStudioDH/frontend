@@ -14,11 +14,13 @@ const Admin = () => {
   const renderSectionAdmin = () => {
     switch (admin) {
       case 'dashboard':
-        return <SectionAdmin title="Dashboard" ContainerComponent={AdminProducts} />
+        return <SectionAdmin title="Dashboard" type="dashboard" ContainerComponent={AdminProducts} />
       case 'productos':
-        return <SectionAdmin title="Productos" ContainerComponent={AdminProducts} />
+        return <SectionAdmin title="Productos" type="product" ContainerComponent={AdminProducts} />
       case 'categorias':
-        return <SectionAdmin title="Categorías" ContainerComponent={AdminProducts} />
+        return <SectionAdmin title="Categorías" type="category" ContainerComponent={AdminProducts} />
+      default:
+        return <h1>NO hay nada que mostrar</h1>
     }
   }
   return (

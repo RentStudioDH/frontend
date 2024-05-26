@@ -1,5 +1,6 @@
 const ProductDetails = ({ data }) => {
-  // console.log(data)
+  console.log(data)
+
   return (
     <>
       <div className='grid info g-15'>
