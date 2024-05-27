@@ -18,7 +18,7 @@ const FormProduct = ({ type, id }) => {
   const [categories, setCategories] = useState([])
   const [error, setError] = useState({})
   const [successMessage, setSuccessMessage] = useState("")
-  const [allImagesUploaded, setAllImagesUploaded] = useState(false)
+  const [allImagesUploaded, setAllImagesUploaded] = useState(true)
 
   useEffect(() => {
     fetchData({ method: "get", endpoint: "/categories" })
@@ -27,13 +27,14 @@ const FormProduct = ({ type, id }) => {
   }, [])
 
   useEffect(() => {
-    if (type === "update" && id) {
+    if (type === "editarProduct" && id) {
       fetchData({ method: "get", endpoint: `/products/${id}` })
         .then((response) => {
           setProduct({
             ...response,
             attachments: response.attachments || []
           })
+          console.log("Imágenes iniciales del producto:", response.attachments)
         })
         .catch((error) => console.error(error))
     }
@@ -46,10 +47,13 @@ const FormProduct = ({ type, id }) => {
 
   const handleImageChange = (images) => {
     setProduct((prevProduct) => ({ ...prevProduct, attachments: images }))
+    console.log("Imágenes actualizadas del producto:", images)
   }
 
   const onAllImagesUploaded = (status) => {
-    setAllImagesUploaded(status)
+    if (type !== "editarProduct") {
+      setAllImagesUploaded(status)
+    }
   }
 
   const validateForm = () => {
@@ -80,14 +84,14 @@ const FormProduct = ({ type, id }) => {
       price: parseFloat(product.price),
       rentType: product.rentType,
       categoryId: parseInt(product.categoryId),
-      attachments: product.attachments.map(image => image.id) // Solo extrae los IDs de las imágenes
+      attachments: product.attachments.map(image => image.id)
     }
 
     console.log(productData);
 
     try {
       let response
-      if (type === "update" && id) {
+      if (type === "editarProduct" && id) {
         response = await fetchData({ method: "put", endpoint: `/products/${id}`, data: productData })
         setSuccessMessage("Producto actualizado correctamente")
       } else {
@@ -105,6 +109,7 @@ const FormProduct = ({ type, id }) => {
     <>
       {successMessage && <div className="alert alert-success">{successMessage}</div>}
       <form className="grid grid-cols-1 md:grid-cols-2 modalInfo g-15" onSubmit={saveProduct}>
+        {id && (<span className="txt-accent paragraph"><strong>ID:</strong> {id}</span>)}
         <div className="grid col-span-1 md:col-span-2 g-5">
           <label className="txt-accent paragraph"><strong>Nombre:</strong></label>
           <input type="text" name="name" value={product.name} onChange={handleInputChange} className="w-full p-2 border rounded bg-white txt-tertiary" />
@@ -115,12 +120,12 @@ const FormProduct = ({ type, id }) => {
           <input type="text" name="description" value={product.description} onChange={handleInputChange} className="w-full p-2 border rounded bg-white txt-tertiary" />
           {error.description && <p className="text-red-500 text-xs italic">{error.description}</p>}
         </div>
-        <div>
+        <div className='grid g-5'>
           <label className="txt-accent paragraph"><strong>Precio:</strong></label>
           <input type="text" name="price" value={product.price} onChange={handleInputChange} className="w-full p-2 border rounded bg-white txt-tertiary" />
           {error.price && <p className="text-red-500 text-xs italic">{error.price}</p>}
         </div>
-        <div>
+        <div className='grid g-5'>
           <label className="txt-accent paragraph"><strong>Tipo de renta:</strong></label>
           <select name="rentType" value={product.rentType} onChange={handleInputChange} className="w-full p-2 border rounded bg-white txt-tertiary">
             <option value="DAILY">Diario</option>
@@ -128,12 +133,12 @@ const FormProduct = ({ type, id }) => {
             <option value="MONTHLY">Mensual</option>
           </select>
         </div>
-        <div>
+        <div className='grid g-5'>
           <label className="txt-accent paragraph"><strong>Stock:</strong></label>
           <input type="text" name="stock" value={product.stock} onChange={handleInputChange} className="w-full p-2 border rounded bg-white txt-tertiary" />
           {error.stock && <p className="text-red-500 text-xs italic">{error.stock}</p>}
         </div>
-        <div>
+        <div className='grid g-5'>
           <label className="txt-accent paragraph"><strong>Categoría:</strong></label>
           <select name="categoryId" value={product.categoryId} onChange={handleInputChange} className="w-full p-2 border rounded bg-white txt-tertiary">
             <option value="">Seleccione una categoría</option>
@@ -147,11 +152,11 @@ const FormProduct = ({ type, id }) => {
         <div className="col-span-1 md:col-span-2 grid g-5">
           <ListImages images={product.attachments} onImageChange={handleImageChange} onAllImagesUploaded={onAllImagesUploaded} multiple />
         </div>
-        {allImagesUploaded && (
+        {allImagesUploaded || type === "editarProduct" ? (
           <div className="col-span-1 md:col-span-2 flex justify-center">
-            <Buttons text={type === "update" ? "Actualizar" : "Crear"} type="submit" bColor='#A62639' color='#fff' bgColor='#A62639' />
+            <Buttons text={type === "editarProduct" ? "Actualizar" : "Crear"} type="submit" bColor='#A62639' color='#fff' bgColor='#A62639' />
           </div>
-        )}
+        ) : null}
       </form>
     </>
   )

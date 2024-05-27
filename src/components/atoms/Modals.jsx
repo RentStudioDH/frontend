@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react'
 import FormProduct from "./admin/FormProduct"
 import LoginForm from './header/LoginForm'
 
-const Modals = ({ type, visible, onClose }) => {
+const Modals = ({ id, type, visible, onClose }) => {
   const [isVisible, setIsVisible] = useState(visible)
   useEffect(() => {
     setIsVisible(visible)
@@ -12,14 +12,14 @@ const Modals = ({ type, visible, onClose }) => {
     setIsVisible(false)
     onClose()
   }
-  // console.log(type)
+  // console.log(type, id)
 
   const renderModal = () => {
     if (!type) {
       return <div>Que tipo de modal necesitas?.</div>
     }
 
-    if ((type === 'category' || type === 'product') && !data) {
+    if ((type === 'editarProduct') && !id) {
       return <div>No hay información para mostrar.</div>
     }
 
@@ -32,6 +32,16 @@ const Modals = ({ type, visible, onClose }) => {
               <button className="close hover:brightness-50" onClick={closeModal}><i className="txt-primary fa-solid fa-xmark title"></i></button>
             </div>
             <FormProduct type={type} />
+          </div>
+        )
+      case 'editarProduct':
+        return (
+          <div className="bg-back shadow-lg modal br-15">
+            <div className='sticky w-full bg-back flex flex-wrap justify-between modalHeader top-0 p-15 g-5'>
+              <h3 className="txt-accent bb-primary title"><strong>Editar producto</strong></h3>
+              <button className="close hover:brightness-50" onClick={closeModal}><i className="txt-primary fa-solid fa-xmark title"></i></button>
+            </div>
+            <FormProduct type={type} id={id} />
           </div>
         )
       case 'loginUser':

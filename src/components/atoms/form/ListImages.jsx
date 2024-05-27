@@ -5,10 +5,11 @@ const ListImages = ({ images, onImageChange, multiple, onAllImagesUploaded }) =>
   const [imageList, setImageList] = useState(images || [])
   const [newImages, setNewImages] = useState([])
   const [uploading, setUploading] = useState(false)
-  const [uploadedImageIds, setUploadedImageIds] = useState([])
+  const [uploadedImageIds, setUploadedImageIds] = useState(images.map(img => img.id))
 
   useEffect(() => {
     setImageList(images)
+    setUploadedImageIds(images.map(img => img.id))
   }, [images])
 
   useEffect(() => {
@@ -20,7 +21,7 @@ const ListImages = ({ images, onImageChange, multiple, onAllImagesUploaded }) =>
   }, [uploadedImageIds, imageList, onAllImagesUploaded])
 
   const changeInput = (e) => {
-    const newImgsToState = readmultifiles(e, imageList.length)
+    const newImgsToState = readmultifiles(e, imageList.length + newImages.length)
     const newImgsState = multiple ? [...newImages, ...newImgsToState] : newImgsToState
     setNewImages(newImgsState)
     setImageList((prev) => [...prev, ...newImgsToState])
@@ -34,8 +35,8 @@ const ListImages = ({ images, onImageChange, multiple, onAllImagesUploaded }) =>
       const file = files[i]
       const url = URL.createObjectURL(file)
       arrayImages.push({
-        id: idInicial++,
-        name: file.name,
+        id: idInicial++,  // Use unique numeric identifier for new images
+        fileName: file.name,
         url,
         file,
       })
@@ -67,12 +68,18 @@ const ListImages = ({ images, onImageChange, multiple, onAllImagesUploaded }) =>
         isFormData: true
       })
 
-      const updatedImages = imageList.map((img) => {
-        const uploadedImage = result.find((res) => res.name === img.name)
-        return uploadedImage ? { ...img, id: uploadedImage.id, url: uploadedImage.url } : img
-      })
+      const newUploadedImages = result.map(uploadedImage => ({
+        id: uploadedImage.id,
+        fileName: uploadedImage.fileName,  // Ensure the fileName is correctly set
+        url: uploadedImage.url
+      }))
 
-      const newUploadedIds = result.map(item => item.id)
+      const updatedImages = [
+        ...imageList.filter(img => !newImages.some(newImg => newImg.id === img.id)),
+        ...newUploadedImages
+      ]
+
+      const newUploadedIds = newUploadedImages.map(item => item.id)
       setImageList(updatedImages)
       setUploadedImageIds((prev) => [...prev, ...newUploadedIds])
       setNewImages([])
@@ -84,8 +91,8 @@ const ListImages = ({ images, onImageChange, multiple, onAllImagesUploaded }) =>
     }
   }
 
-  const notUploadedCount = imageList.length - uploadedImageIds.length
-  const uploadedCount = uploadedImageIds.length
+  const notUploadedCount = newImages.length
+  const uploadedCount = uploadedImageIds.length - newImages.length
   const allUploaded = uploadedCount > 0 && notUploadedCount === 0
 
   return (
@@ -96,7 +103,7 @@ const ListImages = ({ images, onImageChange, multiple, onAllImagesUploaded }) =>
           {imageList.length === 0 && <>Subamos las imágenes de este producto</>}
           {imageList.length > 0 && (
             <>
-              {allUploaded ? "Todas subidas estamos OK" : `${uploadedCount} subidas - ${notUploadedCount} sin subir`}
+              {allUploaded ? "Todas las imágenes están subidas. ¿Deseas cambiar alguna?" : `${uploadedCount} subidas - ${notUploadedCount} por subir`}
             </>
           )}
         </span>

@@ -1,9 +1,11 @@
+import { useParams } from "react-router-dom"
 import { useContextGlobal } from "../../contexts/global.context"
 import SectionAdmin from "../../components/organisms/sections/SectionAdmin"
+import AdminDashboard from "../../components/molecules/admin/AdminDashboard"
+import AdminProducts from "../../components/molecules/admin/AdminProducts"
+import AdminCategories from "../../components/molecules/admin/AdminCategories"
 import Cards from "../../components/atoms/Cards"
 import AdminMenu from "../../components/molecules/admin/AdminMenu"
-import { useParams } from "react-router-dom"
-import AdminProducts from "../../components/molecules/admin/AdminProducts"
 
 const Admin = () => {
   const { state } = useContextGlobal()
@@ -14,11 +16,11 @@ const Admin = () => {
   const renderSectionAdmin = () => {
     switch (admin) {
       case 'dashboard':
-        return <SectionAdmin title="Dashboard" type="dashboard" ContainerComponent={AdminProducts} />
+        return <SectionAdmin title="Dashboard" type="dashboard" ContainerComponent={AdminDashboard} />
       case 'productos':
         return <SectionAdmin title="Productos" type="product" ContainerComponent={AdminProducts} />
       case 'categorias':
-        return <SectionAdmin title="Categorías" type="category" ContainerComponent={AdminProducts} />
+        return <SectionAdmin title="Categorías" type="category" ContainerComponent={AdminCategories} />
       default:
         return <h1>NO hay nada que mostrar</h1>
     }
