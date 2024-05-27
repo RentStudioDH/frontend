@@ -1,7 +1,7 @@
 import { Link } from 'react-router-dom'
 import Buttons from './Buttons'
 
-const Cards = ({ type, data }) => {
+const Cards = ({ type, data, openModal }) => {
   // console.log(type)
   // console.log(data)
   const renderCard = () => {
@@ -9,7 +9,7 @@ const Cards = ({ type, data }) => {
       return <div>No hay información para mostrar.</div>
     }
 
-    if ((type === 'benefit' || type === 'category' || type === 'product') && !data) {
+    if ((type === 'benefit' || type === 'category' || type === 'product' || type === 'adminListProduct') && !data) {
       return <div>No hay información para mostrar.</div>
     }
 
@@ -50,6 +50,32 @@ const Cards = ({ type, data }) => {
               </div>
             </div>
           </Link>
+        )
+      case 'adminListProduct':
+        return (
+          <tr className="bg-white hover:bg-accent txt-quaternary border-b paragraph">
+            <td className="w-4 p-15">
+              <div className="flex items-center">
+                <input id={`checkbox-table-search-${data.id}`} type="checkbox" className="w-4 h-4 txt-primary bg-white border-gray-300 rounded focus:ring-blue-500 focus:ring-2" />
+                <label htmlFor={`checkbox-table-search-${data.id}`} className="sr-only">checkbox</label>
+              </div>
+            </td>
+            <th scope="row" className="p-15">#{data.id}</th>
+            <td className="p-15">{data.name}</td>
+            <td className="p-15">{data.category.name}</td>
+            <td className="p-15">{data.stock}</td>
+            <td className="flex items-center p-15 g-5">
+              <button className="txt-primary subtitle hover:brightness-50 focus:outline-none" onClick={() => openModal('editarProduct', data.id)}>
+                <i className="fa-solid fa-pen-to-square"></i>
+              </button>
+              <Link className='txt-primary subtitle hover:brightness-50 focus:outline-none' key={data.id} to={'/producto/' + data.id}>
+                <i className="fa-solid fa-eye"></i>
+              </Link>
+              <button className="txt-primary subtitle hover:brightness-50 focus:outline-none">
+                <i className="fa-solid fa-trash"></i>
+              </button>
+            </td>
+          </tr>
         )
       case 'error-admin':
         return (

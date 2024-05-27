@@ -10,7 +10,7 @@ const ProductGallery = ({ data }) => {
   const initialImagesCount = 5
   const totalImages = attachments.length
   const shouldShowMoreButton = totalImages > initialImagesCount
-  console.log(attachments)
+  // console.log(attachments)
 
   return (
     <>
