@@ -71,7 +71,7 @@ const Cards = ({ type, data, openModal }) => {
               <Link className='txt-primary subtitle hover:brightness-50 focus:outline-none' key={data.id} to={'/producto/' + data.id}>
                 <i className="fa-solid fa-eye"></i>
               </Link>
-              <button className="txt-primary subtitle hover:brightness-50 focus:outline-none">
+              <button className="txt-primary subtitle hover:brightness-50 focus:outline-none" onClick={() => openModal('eliminarProduct', data.id)}>
                 <i className="fa-solid fa-trash"></i>
               </button>
             </td>
