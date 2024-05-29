@@ -1,9 +1,11 @@
 import { useEffect, useState } from 'react'
 import FormProduct from "./admin/FormProduct"
 import LoginForm from './header/LoginForm'
+import ModalDelete from './admin/ModalDelete'
 
 const Modals = ({ id, type, visible, onClose }) => {
   const [isVisible, setIsVisible] = useState(visible)
+
   useEffect(() => {
     setIsVisible(visible)
   }, [visible])
@@ -44,12 +46,22 @@ const Modals = ({ id, type, visible, onClose }) => {
             <FormProduct type={type} id={id} />
           </div>
         )
+      case 'eliminarProduct':
+        return (
+          <div className="bg-back shadow-lg modal br-15">
+            <div className='sticky w-full bg-back flex flex-wrap justify-between modalHeader top-0 p-15 g-5'>
+              <h3 className="txt-accent bb-primary title"><strong>Eliminar producto</strong></h3>
+              <button className="close hover:brightness-50" onClick={closeModal}><i className="txt-primary fa-solid fa-xmark title"></i></button>
+            </div>
+            <ModalDelete type={type} id={id} closeModal={closeModal} />
+          </div>
+        )
       case 'loginUser':
         return(
           <div className="bg-back shadow-lg modal br-15 p-15 g-5 relative">
-          <button className="absolute top-2 right-2 hover:brightness-50 p-2" onClick={closeModal}><i className="txt-primary fa-solid fa-xmark title"></i></button>
-          <LoginForm type={type} />
-        </div>
+            <button className="absolute top-2 right-2 hover:brightness-50 p-2" onClick={closeModal}><i className="txt-primary fa-solid fa-xmark title"></i></button>
+            <LoginForm type={type} />
+          </div>
         )
       default:
         return <div>Tipo no soportado.</div>

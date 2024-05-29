@@ -11,6 +11,7 @@ import Admin from './pages/admin/Admin'
 import FormProduct from './components/atoms/admin/FormProduct'
 import Category from './pages/category/Category'
 import Footer from './components/organisms/Footer'
+import Modals from './components/atoms/Modals'
 
 
 function App() {
@@ -25,6 +26,7 @@ function App() {
           <Route path="/admin/:admin" element={<Admin/>}/>
           <Route path="/admin/form" element={<FormProduct/>} />
           <Route path="/categoria/:category" element={<Category/>} />
+          <Route path="/eliminar" element={<Modals type={'eliminarProduct'} visible={true}/>} />
         </Routes>
         <Footer/>
       </ThemeProvider>
