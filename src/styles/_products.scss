@@ -1,7 +1,7 @@
 .product {
   &Header {
     position: sticky;
-    top: 79px;
+    top: 75px;
     z-index: 10;
     .btn {
       align-self: center;
@@ -47,7 +47,7 @@
 
 @media (min-width: 768px) {
   .productHeader {
-    top: 125px;
+    top: 121px;
   }
 }
 @media (min-width: 1280px) {

@@ -2,8 +2,8 @@ import { Link, useNavigate } from 'react-router-dom'
 import Buttons from '../../atoms/Buttons'
 
 const ProductHeader = ({ data }) => {
-  // console.log(data)
   const navigate = useNavigate()
+  // console.log(data)
   
   return (
     <>

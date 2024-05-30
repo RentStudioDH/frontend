@@ -8,13 +8,9 @@ import Home from './pages/home/Home'
 import Product from './pages/product/Product'
 import Products from './pages/product/Products'
 import Admin from './pages/admin/Admin'
-import FormProduct from './components/atoms/admin/FormProduct'
 import Category from './pages/category/Category'
 import Footer from './components/organisms/Footer'
-import Modals from './components/atoms/Modals'
-import ListImages from './components/atoms/form/ListImages'
-import LoginForm from './components/atoms/header/LoginForm'
-import FormLogin from './components/molecules/header/FormLogin'
+import ProtectedRoute from './pages/ProtectedRoute'
 
 
 function App() {
@@ -22,16 +18,12 @@ function App() {
     <>
       <ThemeProvider theme={theme}>
         <Header/>
-       
         <Routes>
           <Route path={routes.home} element={<Home/>}/>
           <Route path={routes.detail} element={<Product/>}/>
           <Route path={routes.products} element={<Products/>}/>
-          <Route path="/admin/:admin" element={<Admin/>}/>
-          <Route path="/admin/form" element={<FormProduct/>} />
+          <Route path="/admin/:admin" element={<ProtectedRoute element={<Admin />} />} />
           <Route path="/categoria/:category" element={<Category/>} />
-          <Route path="/modal" element={<Modals type='crearProduct' />} />
-          
         </Routes>
         <Footer/>
       </ThemeProvider>

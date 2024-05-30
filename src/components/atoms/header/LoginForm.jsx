@@ -3,28 +3,25 @@ import { useState } from "react"
 import { Link } from "react-router-dom"
  
 const LoginForm = () => {
-
-const [usuario, setUsuario] = useState({
+  const [usuario, setUsuario] = useState({
     email:'',
     password:''
-})
-const [show, setShow] = useState()
-const [error, seterror] = useState()
-
-
-
-const handleSubmit = (e) =>{
+  })
+  const [show, setShow] = useState()
+  const [error, seterror] = useState()
+  
+  const handleSubmit = (e) =>{
     e.preventDefault()
     if (usuario.email && usuario.password ){
     setShow(true)
     console.log('paso');
     }
     else{
-        seterror(true)
-        console.log('nopaso');
+      seterror(true)
+      console.log('nopaso');
     }
-} 
- console.log(usuario);
+  } 
+  console.log(usuario);
   return (
     <div className="bg-gray-100 p-8 rounded-lg max-w-4xl mx-auto flex, pt-4, text-center">
         <img className="object-none object-top w-100 h-20 mx-3" src="/public/logo/logo.png" alt="logo" />
@@ -49,9 +46,7 @@ const handleSubmit = (e) =>{
     {show && <p>exitoso</p> }
     {error && <p>Por favor verifique su información nuevamente</p>}
     </div>
-   
   )
-  
 }
 
 export default LoginForm

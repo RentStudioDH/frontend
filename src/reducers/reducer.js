@@ -9,6 +9,8 @@ export const reducer = (state, action) => {
       return { ...state, data: action.payload }
     case 'GET_PRODUCT':
       return { ...state, productSelected: action.payload }
+    case 'GET_CATEGORIES':
+      return { ...state, categories: action.payload }
     case 'LOGIN_USER':
       localStorage.setItem('user', JSON.stringify(action.payload.user))
       localStorage.setItem('role', action.payload.role)

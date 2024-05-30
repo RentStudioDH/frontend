@@ -1,8 +1,34 @@
-.cont-modal {
-  background: rgba($tertiary, .5);
-  z-index: 99;
-  .modal {
-    height: 90%;
-    overflow-y: auto;
+.cont {
+  &-modal {
+    background: rgba($tertiary, .5);
+    z-index: 99;
+    .modal {
+      width: min(640px, 90%);
+      height: fit-content;
+      max-height: 80%;
+      overflow-y: auto;
+      &Header {
+        z-index: 20;
+      }
+      &Info {
+        padding: 0 30px 30px;
+      }
+      form {
+        input:focus {
+          outline: none
+        }
+      }
+    }
+  }
+  &-listimages {
+    button {
+      width: auto;
+      height: auto;
+      padding: 10px;
+    }
+    & > * {
+      width: 100%;
+      height: 150px;
+    }
   }
 }

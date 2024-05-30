@@ -1,7 +1,7 @@
 import Cards from '../../atoms/Cards'
 
 const ProductLists = ({ data }) => {
-  console.log(data)
+  // console.log(data)
   return (
     <>
       <h1 className='txt-accent bb-primary bigtitle'><strong>Lista de productos</strong></h1>

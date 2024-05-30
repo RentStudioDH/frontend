@@ -12,11 +12,12 @@ const ProductGallery = ({ data }) => {
   const shouldShowMoreButton = totalImages > initialImagesCount
   // console.log(attachments)
 
+  const firstImage = attachments && attachments.length > 0 ? attachments[0].url : 'https://digitalhouse-e7-pi.s3.amazonaws.com/-Rhd-l2yWTj6iEqg7EhN9Q%3D%3D.png';
   return (
     <>
       <div className="grid grid-cols-1 sm:grid-cols-2 principal g-5">
         <picture className='br-15 image shadow-lg'>
-          <img src={attachments[0].url} alt={data.title} loading='lazy'/>
+          <img src={firstImage} alt={data.title} loading='lazy'/>
         </picture>
         <div className="grid grid-cols-2 g-5 mini">
           {attachments.slice(1, initialImagesCount).map((attachment, index) => (

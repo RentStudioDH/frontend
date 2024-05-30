@@ -1,5 +1,6 @@
 const ProductDetails = ({ data }) => {
   // console.log(data)
+  const firstImage = data.attachments && data.attachments.length > 0 ? data.attachments[0].url : 'https://digitalhouse-e7-pi.s3.amazonaws.com/-Rhd-l2yWTj6iEqg7EhN9Q%3D%3D.png';
   return (
     <>
       <div className='grid info g-15'>
@@ -13,7 +14,7 @@ const ProductDetails = ({ data }) => {
         </div>
       </div>
       <div className='br-15 image shadow-lg'>
-        <img src={data.attachments[0].url} alt={data.title} width={450} height={450} loading='lazy' />
+        <img src={firstImage} alt={data.title} width={450} height={450} loading='lazy' />
       </div>
     </>
   )

@@ -1,40 +1,23 @@
+import { useEffect } from 'react'
 import { useParams } from 'react-router-dom'
+import { useContextGlobal } from '../../contexts/global.context'
 import ListProductsCategory from '../../components/organisms/lists/ListProductsCategory'
-import { useEffect, useState } from 'react'
-import { fetchData } from '../../utils/js/apiRequest'
 
 const Category = () => {
   const { category } = useParams()
-  const [categories, setCategories] = useState([])
-  const [loading, setLoading] = useState(true)
-  const [error, setError] = useState(null)
-  // console.log(category)
+  const { state, getCategories } = useContextGlobal()
+  const { categories } = state
+  // console.log(categories)
 
   useEffect(() => {
-    const getCategories = async () => {
-      try {
-        const categoriesData = await fetchData({ method: 'get', endpoint: '/categories' })
-        setCategories(categoriesData)
-      } catch (error) {
-        setError(error)
-      } finally {
-        setLoading(false)
-      }
-    }
     getCategories()
   }, [])
-
-  if (loading) return <div>Loading...</div>
-  if (error) return <div>Error fetching categories: {error.message}</div>
-
-  console.log(categories)
 
   const getFormattedCategoryName = (category) => {
     const foundCategory = categories.find(cat => cat.slug.includes(category))
     return foundCategory ? foundCategory.name : category
   }
-
-  console.log(getFormattedCategoryName(category));
+  // console.log(getFormattedCategoryName(category))
 
   return (
     <main>
