@@ -68,11 +68,16 @@ const Modals = ({ id, type, visible, onClose }) => {
           </div>
           )
           case 'RegistrarUser':
-            return(
-              <div className="bg-back shadow-lg modal br-15 p-15 g-5 relative">
-              <button className="absolute top-2 right-2 hover:brightness-50 p-2" onClick={closeModal}><i className="txt-primary fa-solid fa-xmark title"></i></button>
-              <RegistrarForm type={type} />
-            </div>
+            return (
+                <div className="bg-back shadow-lg modal br-15">
+                  <div
+                      className='sticky w-full bg-back flex flex-wrap justify-center modalHeader top-0 p-15 g-5 relative'>
+                    <img src='/logo/logo.png' alt="logo" title="logo" width={150} height={30} loading='lazy'/>
+                    <button className="absolute close hover:brightness-50 right-[15px]" onClick={closeModal}><i
+                        className="txt-primary fa-solid fa-xmark title"></i></button>
+                  </div>
+                  <RegistrarForm type={type}/>
+                </div>
             )
       default:
         return <div>Tipo no soportado.</div>
@@ -84,9 +89,10 @@ const Modals = ({ id, type, visible, onClose }) => {
   }
 
   return (
-    <section className="fixed left-0 top-0 w-screen h-screen grid place-items-center cont-modal bg-black bg-opacity-50">
-      {renderModal()}
-    </section>
+      <section
+          className="fixed left-0 top-0 w-screen h-screen grid place-items-center cont-modal bg-black bg-opacity-50">
+        {renderModal()}
+      </section>
   )
 }
 
