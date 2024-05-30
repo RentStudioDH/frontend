@@ -9,6 +9,8 @@ const Cards = ({ type, data, openModal }) => {
       return <div>No hay información para mostrar.</div>
     }
 
+    const firstImage = data.attachments && data.attachments.length > 0 ? data.attachments[0].url : 'https://digitalhouse-e7-pi.s3.amazonaws.com/-Rhd-l2yWTj6iEqg7EhN9Q%3D%3D.png';
+
     if ((type === 'benefit' || type === 'category' || type === 'product' || type === 'adminListProduct') && !data) {
       return <div>No hay información para mostrar.</div>
     }
@@ -35,9 +37,9 @@ const Cards = ({ type, data, openModal }) => {
         )
       case 'product':
         return (
-          <Link className={`grid shadow-lg card ${type} br-15`} key={data.id} to={'/producto/' + data.id}>
+          <Link className={`bg-white grid shadow-lg card ${type} br-15`} key={data.id} to={'/producto/' + data.id}>
             <div className='image'>
-              <img src={`${data.attachments[0]}`} alt={data.name} loading='lazy' width={210} height={210} />
+              <img src={firstImage} alt={data.name} loading='lazy' width={210} height={210} />
             </div>
             <div className='flex flex-col justify-between info p-15 g-10'>
               <div className='flex flex-col details g-5'>

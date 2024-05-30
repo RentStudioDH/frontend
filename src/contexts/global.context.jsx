@@ -8,7 +8,8 @@ export const initialState = {
   theme: localStorage.getItem('theme') || 'light',
   isDesktop: window.innerWidth > 767,
   data: [],
-  productSelected: {},
+  productSelected: [],
+  categories: [],
   favs: JSON.parse(localStorage.getItem('favs')) || [],
   user: JSON.parse(localStorage.getItem('user')) || null,
   isLoggedIn: !!localStorage.getItem('user'),
@@ -35,17 +36,32 @@ export const ContextProvider = ({ children }) => {
   }, [])
 
   // Cargar productos desde una API
-  useEffect(() => {
-    const getProducts = async () => {
-      try {
-        const products = await fetchData({method: 'get', endpoint: '/products'})
-        dispatch({ type: 'GET_LIST', payload: products })
-      } catch (error) {
-        console.error('Error fetching products:', error)
-      }
+  const getProducts = async () => {
+    try {
+      const products = await fetchData({ method: 'get', endpoint: '/products' })
+      dispatch({ type: 'GET_LIST', payload: products })
+    } catch (error) {
+      console.error('Error fetching products:', error)
     }
+  }
+  useEffect(() => {
     getProducts()
-  }, [dispatch])
+  }, [])
+
+  // Función para obtener las categorías
+  const getCategories = async () => {
+    try {
+      const categories = await fetchData({ method: 'get', endpoint: '/categories' })
+      dispatch({ type: 'GET_CATEGORIES', payload: categories })
+    } catch (error) {
+      console.error('Error fetching categories:', error)
+    }
+  }
+
+  // Llamada inicial para obtener categorías
+  useEffect(() => {
+    getCategories()
+  }, [])
 
   // Aplicar el tema oscuro o claro
   useEffect(() => {
@@ -55,20 +71,26 @@ export const ContextProvider = ({ children }) => {
   // User
   /* Login */
   const loginUser = (userData, role) => {
+    localStorage.setItem('user', JSON.stringify(userData))
+    localStorage.setItem('role', role)
     dispatch({ type: 'LOGIN_USER', payload: { user: userData, role } })
   }
 
    /* Logout */
   const logoutUser = () => {
+    localStorage.removeItem('user')
+    localStorage.removeItem('role')
     dispatch({ type: 'LOGOUT_USER' })
   }
 
   const contextValue = {
     state,
-    toggleTheme,
+    dispatch,
+    getProducts,
+    getCategories,
     loginUser,
     logoutUser,
-    dispatch,
+    toggleTheme,
   }
 
   return (
