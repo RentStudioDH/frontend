@@ -3,6 +3,7 @@ import FormProduct from "./admin/FormProduct"
 import LoginForm from './header/LoginForm'
 import RegistrarForm from './header/RegistrarForm'
 import ModalDelete from './admin/ModalDelete'
+import FormCategory from './admin/FormCategory'
 
 const Modals = ({ id, type, visible, onClose }) => {
   const [isVisible, setIsVisible] = useState(visible)
@@ -57,8 +58,18 @@ const Modals = ({ id, type, visible, onClose }) => {
             <ModalDelete type={type} id={id} closeModal={closeModal} />
           </div>
         )
+      case 'crearCategory':
+        return (
+          <div className="bg-back shadow-lg modal br-15">
+            <div className='sticky w-full bg-back flex flex-wrap justify-between modalHeader top-0 p-15 g-5'>
+              <h3 className="txt-accent bb-primary title"><strong>Nueva categoria</strong></h3>
+              <button className="close hover:brightness-50" onClick={closeModal}><i className="txt-primary fa-solid fa-xmark title"></i></button>
+            </div>
+            <FormCategory type={type} />
+          </div>
+        )
       case 'loginUser':
-        return(
+        return (
           <div className="bg-back shadow-lg modal br-15">
             <div className='sticky w-full bg-back flex flex-wrap justify-center modalHeader top-0 p-15 g-5 relative'>
               <img src='/logo/logo.png' alt="logo" title="logo" width={150} height={30} loading='lazy' />
@@ -66,14 +77,14 @@ const Modals = ({ id, type, visible, onClose }) => {
             </div>
             <LoginForm type={type} closeModal={closeModal} />
           </div>
-          )
-          case 'RegistrarUser':
-            return(
-              <div className="bg-back shadow-lg modal br-15 p-15 g-5 relative">
-              <button className="absolute top-2 right-2 hover:brightness-50 p-2" onClick={closeModal}><i className="txt-primary fa-solid fa-xmark title"></i></button>
-              <RegistrarForm type={type} />
-            </div>
-            )
+        )
+      case 'RegistrarUser':
+        return (
+          <div className="bg-back shadow-lg modal br-15 p-15 g-5 relative">
+            <button className="absolute top-2 right-2 hover:brightness-50 p-2" onClick={closeModal}><i className="txt-primary fa-solid fa-xmark title"></i></button>
+            <RegistrarForm type={type} />
+          </div>
+        )
       default:
         return <div>Tipo no soportado.</div>
     }

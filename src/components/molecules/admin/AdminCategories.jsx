@@ -20,7 +20,7 @@ const AdminCategories = ({ title, type }) => {
       <>
         <div className="flex g-15">
           <h1 className="txt-accent bigtitle"><strong>{title}</strong></h1>
-          <Buttons text={<i className="paragraph fa-solid fa-plus"></i>} onClick={() => openModal('crearProduct')} bColor='#A62639' color='#fff' bgColor='#A62639' />
+          <Buttons text={<i className="paragraph fa-solid fa-plus"></i>} onClick={() => openModal('crearCategory')} bColor='#A62639' color='#fff' bgColor='#A62639' />
           {isModalVisible && type !== null && (
             <Modals type={modalType} visible={isModalVisible} onClose={closeModal} />
           )}
