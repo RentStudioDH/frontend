@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react'
 import FormProduct from "./admin/FormProduct"
 import LoginForm from './header/LoginForm'
+import RegistrarForm from './header/RegistrarForm'
 import ModalDelete from './admin/ModalDelete'
 
 const Modals = ({ id, type, visible, onClose }) => {
@@ -62,7 +63,14 @@ const Modals = ({ id, type, visible, onClose }) => {
             <button className="absolute top-2 right-2 hover:brightness-50 p-2" onClick={closeModal}><i className="txt-primary fa-solid fa-xmark title"></i></button>
             <LoginForm type={type} />
           </div>
-        )
+          )
+          case 'RegistrarUser':
+            return(
+              <div className="bg-back shadow-lg modal br-15 p-15 g-5 relative">
+              <button className="absolute top-2 right-2 hover:brightness-50 p-2" onClick={closeModal}><i className="txt-primary fa-solid fa-xmark title"></i></button>
+              <RegistrarForm type={type} />
+            </div>
+            )
       default:
         return <div>Tipo no soportado.</div>
     }
