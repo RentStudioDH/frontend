@@ -16,6 +16,7 @@ const ModalDelete = ({ type, id, closeModal }) => {
       console.error('Error eliminando el producto:', error)
     }
   }
+
   return (
     <>
       <div className='grid modalInfo g--5'>

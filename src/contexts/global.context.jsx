@@ -12,7 +12,7 @@ export const initialState = {
   categories: [],
   favs: JSON.parse(localStorage.getItem('favs')) || [],
   user: JSON.parse(localStorage.getItem('user')) || null,
-  isLoggedIn: !!localStorage.getItem('user'),
+  isLoggedIn: !!localStorage.getItem('token'),
   role: localStorage.getItem('role') || 'admin',
 }
 
@@ -57,8 +57,6 @@ export const ContextProvider = ({ children }) => {
       console.error('Error fetching categories:', error)
     }
   }
-
-  // Llamada inicial para obtener categorías
   useEffect(() => {
     getCategories()
   }, [])
@@ -70,16 +68,26 @@ export const ContextProvider = ({ children }) => {
 
   // User
   /* Login */
-  const loginUser = (userData, role) => {
-    localStorage.setItem('user', JSON.stringify(userData))
-    localStorage.setItem('role', role)
-    dispatch({ type: 'LOGIN_USER', payload: { user: userData, role } })
+  const loginUser = (token) => {
+    localStorage.setItem('token', token)  // Guardar el token
+    dispatch({ type: 'LOGIN_USER', payload: { user: null, token } })
+    // fetchUserData(token)
   }
 
-   /* Logout */
+  // const fetchUserData = async (token) => {
+  //   try {
+  //     const userData = await fetchData({ method: 'get', endpoint: '/auth/user', headers: { 'Authorization': `Bearer ${token}` } })
+  //     localStorage.setItem('user', JSON.stringify(userData))
+  //     dispatch({ type: 'SET_USER_DATA', payload: userData })
+  //   } catch (error) {
+  //     console.error('Error fetching user data:', error)
+  //   }
+  // }
+
+  /* Logout */
   const logoutUser = () => {
     localStorage.removeItem('user')
-    localStorage.removeItem('role')
+    localStorage.removeItem('token')  // Remover el token
     dispatch({ type: 'LOGOUT_USER' })
   }
 

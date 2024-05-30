@@ -143,6 +143,11 @@ form label {
   color: $accent;
 }
 
+input:-webkit-autofill{
+  -webkit-text-fill-color: $tertiary !important;
+  background-color: $back !important;
+}
+
 @media (min-width: 640px) {
   .p-section {
     padding: 30px;

@@ -12,8 +12,9 @@ export const reducer = (state, action) => {
     case 'GET_CATEGORIES':
       return { ...state, categories: action.payload }
     case 'LOGIN_USER':
-      localStorage.setItem('user', JSON.stringify(action.payload.user))
-      localStorage.setItem('role', action.payload.role)
+      localStorage.setItem('user', JSON.stringify(action.payload.user));
+      localStorage.setItem('role', action.payload.role);
+      localStorage.setItem('token', action.payload.token);
       return { 
         ...state, 
         user: action.payload.user, 
@@ -21,9 +22,9 @@ export const reducer = (state, action) => {
         role: action.payload.role 
       }
     case 'LOGOUT_USER':
-      localStorage.removeItem('user')
-      localStorage.removeItem('role')
-      localStorage.removeItem('favs')
+      localStorage.removeItem('user');
+      localStorage.removeItem('role');
+      localStorage.removeItem('token'); // Remover el token
       return { 
         ...state, 
         user: null, 

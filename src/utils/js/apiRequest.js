@@ -9,16 +9,17 @@ const delay = (ms) => new Promise((resolve) => setTimeout(resolve, ms))
 export const fetchData = async ({ method, endpoint, data = null, headers = {}, isFormData = false, delayTime = 1000 }) => {
   try {
     await delay(delayTime)
+    const token = localStorage.getItem('token') // Obtener el token del local storage
+
     const config = {
       url: endpoint,
       method,
       data,
-      headers: isFormData ? { ...headers } : { 'Content-Type': 'application/json', ...headers },
-    }
-
-    // Si los datos son de tipo FormData, no se debe establecer el header 'Content-Type'
-    if (isFormData) {
-      config.headers = { ...headers }
+      headers: {
+        'Content-Type': isFormData ? undefined : 'application/json',
+        'Authorization': `Bearer ${token}`, // Incluir el token en los headers
+        ...headers,
+      },
     }
 
     const response = await api.request(config)

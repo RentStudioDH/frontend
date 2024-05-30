@@ -2,7 +2,6 @@ import { useState, useEffect } from 'react'
 import { Link } from 'react-router-dom'
 import { routes } from '../../../utils/routes'
 import { useContextGlobal } from '../../../contexts/global.context'
-import categoriasData from '../../../utils/json/categoriasData.json'
 import NavUser from '../../atoms/header/NavUser'
 
 const HeaderNavUser = () => {
