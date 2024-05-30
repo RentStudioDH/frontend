@@ -1,12 +1,12 @@
-import Cards from '../../atoms/Cards'
 import { useContextGlobal } from '../../../contexts/global.context'
+import Cards from '../../atoms/Cards'
 
 const ListProductsCategory = ({ category }) => {
   const { state } = useContextGlobal()
   const { data } = state
   const filteredProducts = data && Array.isArray(data)
     ? data.filter(product => {
-      console.log(product);
+      // console.log(product)
         return product.category.name && product.category.name.toLowerCase() === category.toLowerCase()
       })
     : []

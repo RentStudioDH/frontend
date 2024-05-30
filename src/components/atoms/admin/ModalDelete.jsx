@@ -2,7 +2,7 @@ import { useContextGlobal } from '../../../contexts/global.context'
 import { fetchData } from '../../../utils/js/apiRequest'
 
 const ModalDelete = ({ type, id, closeModal }) => {
-  const { state, dispatch } = useContextGlobal()
+  const { state, getProducts } = useContextGlobal()
 
   const product = state.data.find(product => product.id === id)
   const productName = product ? product.name : "este producto"
@@ -10,7 +10,7 @@ const ModalDelete = ({ type, id, closeModal }) => {
   const onConfirm = async () => {
     try {
       await fetchData({ method: 'delete', endpoint: `/products/${id}` })
-      dispatch({ type: 'DELETE_PRODUCT', payload: id })
+      await getProducts()
       closeModal()
     } catch (error) {
       console.error('Error eliminando el producto:', error)

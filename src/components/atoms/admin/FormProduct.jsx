@@ -16,23 +16,21 @@ const FormProduct = ({ type, id }) => {
     features: []
   }
 
-  const { state } = useContextGlobal()
+  const { state, getProducts, getCategories } = useContextGlobal()
+  const { data, categories } = state
   const [product, setProduct] = useState(initialProductState)
-  const [categories, setCategories] = useState([])
   const [error, setError] = useState({})
   const [successMessage, setSuccessMessage] = useState('')
   const [allImagesUploaded, setAllImagesUploaded] = useState(true)
   const [initialData, setInitialData] = useState(initialProductState)
 
   useEffect(() => {
-    fetchData({ method: 'get', endpoint: '/categories' })
-      .then((response) => setCategories(response))
-      .catch((error) => console.error('Error fetching categories:', error))
+    getCategories()
   }, [])
 
   useEffect(() => {
     if (type === 'editarProduct' && id) {
-      const productToEdit = state.data.find(product => product.id === id)
+      const productToEdit = data.find(product => product.id === id)
       if (productToEdit) {
         setProduct({
           ...productToEdit,
@@ -47,7 +45,7 @@ const FormProduct = ({ type, id }) => {
         console.log('Imágenes iniciales del producto:', productToEdit.attachments)
       }
     }
-  }, [id, type, state.data])
+  }, [id, type, data])
 
   const handleInputChange = (e) => {
     const { name, value } = e.target
@@ -129,6 +127,7 @@ const FormProduct = ({ type, id }) => {
         setSuccessMessage('Producto registrado correctamente')
         setProduct(initialProductState)
       }
+      await getProducts()
       setError({})
     } catch (error) {
       console.error(error)
