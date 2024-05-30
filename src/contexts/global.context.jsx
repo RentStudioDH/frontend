@@ -10,10 +10,11 @@ export const initialState = {
   data: [],
   productSelected: [],
   categories: [],
-  favs: JSON.parse(localStorage.getItem('favs')) || [],
   user: JSON.parse(localStorage.getItem('user')) || null,
   isLoggedIn: !!localStorage.getItem('token'),
-  role: localStorage.getItem('role') || 'admin',
+  role: localStorage.getItem('role') || 'user',
+  token: localStorage.getItem('token') || '',
+  favs: JSON.parse(localStorage.getItem('favs')) || [],
 }
 
 export const ContextProvider = ({ children }) => {
@@ -39,7 +40,7 @@ export const ContextProvider = ({ children }) => {
   const getProducts = async () => {
     try {
       const products = await fetchData({ method: 'get', endpoint: '/products' })
-      dispatch({ type: 'GET_LIST', payload: products })
+      dispatch({ type: 'SET_PRODUCTS', payload: products })
     } catch (error) {
       console.error('Error fetching products:', error)
     }

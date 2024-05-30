@@ -3,13 +3,15 @@ import { fetchData } from '../../../utils/js/apiRequest'
 
 const ModalDelete = ({ type, id, closeModal }) => {
   const { state, getProducts } = useContextGlobal()
-
-  const product = state.data.find(product => product.id === id)
+  const { data, token } = state
+  const product = data.find(product => product.id === id)
   const productName = product ? product.name : "este producto"
 
   const onConfirm = async () => {
     try {
-      await fetchData({ method: 'delete', endpoint: `/products/${id}` })
+      console.log('Token:', token)
+      const response = await fetchData({ method: 'delete', endpoint: `/products/${id}`, headers: { 'Authorization': `Bearer ${token}` } })
+      console.log('Delete response:', response)
       await getProducts()
       closeModal()
     } catch (error) {

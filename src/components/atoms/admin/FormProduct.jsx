@@ -17,7 +17,7 @@ const FormProduct = ({ type, id }) => {
   }
 
   const { state, getProducts, getCategories } = useContextGlobal()
-  const { data, categories } = state
+  const { data, categories, token } = state
   const [product, setProduct] = useState(initialProductState)
   const [error, setError] = useState({})
   const [successMessage, setSuccessMessage] = useState('')
@@ -120,10 +120,10 @@ const FormProduct = ({ type, id }) => {
     try {
       let response
       if (type === 'editarProduct' && id) {
-        response = await fetchData({ method: 'put', endpoint: `/products/${id}`, data: productData })
+        response = await fetchData({ method: 'put', endpoint: `/products/${id}`, data: productData, headers: { 'Authorization': `Bearer ${token}` } })
         setSuccessMessage('Producto actualizado correctamente')
       } else {
-        response = await fetchData({ method: 'post', endpoint: '/products', data: productData })
+        response = await fetchData({ method: 'post', endpoint: '/products', data: productData, headers: { 'Authorization': `Bearer ${token}` } })
         setSuccessMessage('Producto registrado correctamente')
         setProduct(initialProductState)
       }

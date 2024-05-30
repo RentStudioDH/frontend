@@ -9,7 +9,6 @@ const delay = (ms) => new Promise((resolve) => setTimeout(resolve, ms))
 export const fetchData = async ({ method, endpoint, data = null, headers = {}, isFormData = false, delayTime = 1000 }) => {
   try {
     await delay(delayTime)
-    const token = localStorage.getItem('token') // Obtener el token del local storage
 
     const config = {
       url: endpoint,
@@ -17,7 +16,6 @@ export const fetchData = async ({ method, endpoint, data = null, headers = {}, i
       data,
       headers: {
         'Content-Type': isFormData ? undefined : 'application/json',
-        'Authorization': `Bearer ${token}`, // Incluir el token en los headers
         ...headers,
       },
     }
