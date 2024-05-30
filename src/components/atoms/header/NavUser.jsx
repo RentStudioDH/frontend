@@ -34,7 +34,7 @@ const NavUser = () => {
     <>
    
      <Buttons text='Iniciar sesión' onClick={() => openModal('loginUser')} bColor='#A62639' color='#A62639' bgColor='#fff' /> 
-      <Buttons text='Crear cuenta' bColor='#A62639' color='#fff' bgColor='#A62639' />
+      <Buttons text='Crear cuenta' onClick={()=> openModal('RegistrarUser')} bColor='#A62639' color='#fff' bgColor='#A62639' />
       {isModalVisible && (
         <Modals type={modalType} visible={isModalVisible} onClose={closeModal} />
       )}
