@@ -87,7 +87,7 @@ const LoginForm = ({ closeModal }) => {
       </form>
       {errors.general && <p className="text-red-500 paragraph">{errors.general}</p>}
     </div>
-  )
+  );
 }
 
-export default LoginForm
+export default LoginForm;
