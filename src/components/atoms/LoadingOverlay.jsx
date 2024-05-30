@@ -1,5 +1,3 @@
-// src/components/LoadingOverlay.js
-import React, { useEffect } from 'react'
 import CircularProgress from '@mui/material/CircularProgress'
 import Backdrop from '@mui/material/Backdrop'
 
