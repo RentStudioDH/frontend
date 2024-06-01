@@ -39,7 +39,7 @@ export const ContextProvider = ({ children }) => {
   // Cargar productos desde una API
   const getProducts = async () => {
     try {
-      const products = await fetchData({ method: 'get', endpoint: '/products' })
+      const products = await fetchData({ method: 'get', endpoint: '/public/products' })
       dispatch({ type: 'SET_PRODUCTS', payload: products })
     } catch (error) {
       console.error('Error fetching products:', error)
@@ -52,7 +52,7 @@ export const ContextProvider = ({ children }) => {
   // Función para obtener las categorías
   const getCategories = async () => {
     try {
-      const categories = await fetchData({ method: 'get', endpoint: '/categories' })
+      const categories = await fetchData({ method: 'get', endpoint: '/public/categories' })
       dispatch({ type: 'GET_CATEGORIES', payload: categories })
     } catch (error) {
       console.error('Error fetching categories:', error)
