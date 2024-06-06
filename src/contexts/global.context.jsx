@@ -11,7 +11,7 @@ export const initialState = {
   data: [],
   productSelected: [],
   categories: [],
-  //user: JSON.parse(Cookies.get('user')) || null,
+  user: JSON.parse(Cookies.get('user') || '{}'),
   isLoggedIn: !!Cookies.get('token'),
   role: Cookies.get('role') || 'user',
   token: Cookies.get('token') || '',
@@ -37,6 +37,11 @@ export const ContextProvider = ({ children }) => {
     return () => window.removeEventListener('resize', handleResize)
   }, [])
 
+  // Aplicar el tema oscuro o claro
+  useEffect(() => {
+    state.theme === 'dark' ? document.body.classList.add('dark') : document.body.classList.remove('dark')
+  }, [state.theme])
+
   // Productos
   const urlProducts = '/products'
   // Cargar productos
@@ -51,7 +56,7 @@ export const ContextProvider = ({ children }) => {
   useEffect(() => {
     getProducts()
   }, [])
-  // Obtener un producto específico
+  // Obtener producto específico
   const getProductById = async (id) => {
     try {
       const productData = await fetchData({ method: 'get', endpoint: `/public${urlProducts}/${id}`, requireAuth: false })
@@ -69,7 +74,7 @@ export const ContextProvider = ({ children }) => {
       console.error('Error adding product:', error)
     }
   }
-  // Actualizar un producto
+  // Actualizar producto
   const updateProduct = async (product) => {
     try {
       const updatedProduct = await fetchData({ method: 'put', endpoint: `${urlProducts}/${product.id}`, data: product, requireAuth: true })
@@ -78,7 +83,7 @@ export const ContextProvider = ({ children }) => {
       console.error('Error updating product:', error)
     }
   }
-  // Eliminar un producto
+  // Eliminar producto
   const removeProduct = async (productId) => {
     try {
       await fetchData({ method: 'delete', endpoint: `${urlProducts}/${productId}`, requireAuth: true })
@@ -124,16 +129,15 @@ export const ContextProvider = ({ children }) => {
   const loginRequest = async (usuario) => {
     try {
       const response = await fetchData({ method: 'post', endpoint: '/auth/login', data: usuario, requireAuth: false })
-      const { token, role, user } = response
-      loginUser(token, role, user)
+      const { token } = response
+      loginUser(token, 'user', usuario)
       return response
     } catch (error) {
       console.error('Error during login:', error)
       throw error
     }
   }
-
-  // Función para iniciar la renovación del token
+  // Iniciar renovación del token
   const startTokenRenewal = () => {
     const interval = 15 * 60 * 1000 // 15 minutos
     setInterval(async () => {
@@ -145,10 +149,19 @@ export const ContextProvider = ({ children }) => {
     }, interval)
   }
 
-  // Aplicar el tema oscuro o claro
-  useEffect(() => {
-    state.theme === 'dark' ? document.body.classList.add('dark') : document.body.classList.remove('dark')
-  }, [state.theme])
+  // Usuarios
+  const urlUsers = '/users'
+  // Registro
+  const registerUser = async (userData) => {
+    try {
+      const response = await fetchData({ method: 'post', endpoint: urlUsers, data: userData, requireAuth: false })
+      return response
+    } catch (error) {
+      console.error('Error during registration:', error)
+      throw error
+    }
+  }
+
 
   // User
   const loginUser = (token, role, user) => {
@@ -156,7 +169,7 @@ export const ContextProvider = ({ children }) => {
     Cookies.set('role', role, { secure: true, sameSite: 'Strict' })
     Cookies.set('user', JSON.stringify(user), { secure: true, sameSite: 'Strict' })
     dispatch({ type: 'LOGIN_USER', payload: { user, token, role } })
-    startTokenRenewal() // Iniciar la renovación del token después del inicio de sesión
+    startTokenRenewal()
   }
 
   // const fetchUserData = async (token) => {
@@ -188,6 +201,7 @@ export const ContextProvider = ({ children }) => {
     getCategories,
     uploadImage,
     loginRequest,
+    registerUser,
     loginUser,
     logoutUser,
     toggleTheme,

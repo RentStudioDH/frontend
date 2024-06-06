@@ -8,7 +8,7 @@ const ModalDelete = ({ id, closeModal }) => {
 
   const onConfirm = async () => {
     try {
-      console.log('Token:', state.token)
+      // console.log('Token:', state.token)
       await removeProduct(id)
       closeModal()
     } catch (error) {

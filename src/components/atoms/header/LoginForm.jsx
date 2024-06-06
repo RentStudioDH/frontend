@@ -60,15 +60,7 @@ const LoginForm = ({ closeModal }) => {
         <form className="grid g-15" onSubmit={handleSubmit}>
           <div className="grid g-5">
             <label htmlFor="email" className="txt-tertiary paragraph">E-mail</label>
-            <input
-              className={`bg-back block w-full border ${errors.email ? 'border-red-500' : 'border-gray-300'} txt-tertiary paragraph rounded-lg focus:ring-red-500 focus:border-red-500 p-2`}
-              placeholder="Ingresa tu correo electrónico"
-              type="email"
-              name="email"
-              id="email"
-              role="email"
-              onChange={handleChange}
-            />
+            <input className={`bg-back block w-full border ${errors.email ? 'border-red-500' : 'border-gray-300'} txt-tertiary paragraph rounded-lg focus:ring-red-500 focus:border-red-500 p-2`} placeholder="Ingresa tu correo electrónico" type="email" name="email" id="email" role="email" onChange={handleChange} />
             {errors.email && <p className="text-red-500 legal">{errors.email}</p>}
           </div>
           <div className="grid g-5">
@@ -76,13 +68,7 @@ const LoginForm = ({ closeModal }) => {
               <label htmlFor="password" className="txt-tertiary paragraph">Contraseña</label>
               <Link to="/forgot-password" className="txt-primary underline decoration-solid legal">Olvidé mi contraseña</Link>
             </div>
-            <input
-              className={`bg-back block w-full border ${errors.password ? 'border-red-500' : 'border-gray-300'} txt-tertiary paragraph rounded-lg focus:ring-red-500 focus:border-red-500 p-2`}
-              placeholder="Ingrese su contraseña"
-              type="password"
-              name="password"
-              onChange={handleChange}
-            />
+            <input className={`bg-back block w-full border ${errors.password ? 'border-red-500' : 'border-gray-300'} txt-tertiary paragraph rounded-lg focus:ring-red-500 focus:border-red-500 p-2`} placeholder="Ingrese su contraseña" type="password" name="password" onChange={handleChange} />
             {errors.password && <p className="text-red-500 legal">{errors.password}</p>}
           </div>
           <div className="flex justify-center">
