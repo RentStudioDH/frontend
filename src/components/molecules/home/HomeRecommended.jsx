@@ -6,11 +6,9 @@ const HomeRecommended = ({ title }) => {
   const { state } = useContextGlobal()
   const { data } = state
   // console.log(data)
-
   const [shuffledData, setShuffledData] = useState([])
   useEffect(() => {
     const shuffleArray = (array) => { return array.sort(() => Math.random() - 0.5) }
-    
     if (data && data.length > 0) {
       setShuffledData(shuffleArray([...data]))
     }
