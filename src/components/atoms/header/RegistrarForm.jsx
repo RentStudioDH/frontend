@@ -1,9 +1,9 @@
-import React, {useState} from 'react';
-import {Link} from 'react-router-dom';
-import * as Yup from 'yup';
-import {fetchData} from "../../../utils/js/apiRequest";
-import Buttons from "../Buttons";
-import LoadingOverlay from "../LoadingOverlay.jsx";
+import {useState} from 'react'
+import {Link} from 'react-router-dom'
+import * as Yup from 'yup'
+import {fetchData} from "../../../utils/js/apiRequest"
+import Buttons from "../Buttons"
+import LoadingOverlay from "../LoadingOverlay.jsx"
 
 const validationSchema = Yup.object().shape({
   firstName: Yup.string().required('El nombre es obligatorio'),
@@ -11,7 +11,7 @@ const validationSchema = Yup.object().shape({
   email: Yup.string().email('El correo electrónico no es válido').required('El correo electrónico es obligatorio'),
   password: Yup.string().min(6, 'La contraseña debe tener al menos 6 caracteres').required('La contraseña es obligatoria'),
   confirmPassword: Yup.string().oneOf([Yup.ref('password'), null], 'Las contraseñas deben coincidir').required('Confirmar contraseña es obligatorio'),
-});
+})
 
 const RegistrarForm = ({closeModal}) => {
   const [usuario, setUsuario] = useState({
@@ -20,57 +20,53 @@ const RegistrarForm = ({closeModal}) => {
     email: '',
     password: '',
     confirmPassword: ''
-  });
+  })
 
-  const [errors, setErrors] = useState({});
-  const [successMessage, setSuccessMessage] = useState('');
-  const [loading, setLoading] = useState(false);
+  const [errors, setErrors] = useState({})
+  const [successMessage, setSuccessMessage] = useState('')
+  const [loading, setLoading] = useState(false)
 
   const handleChange = ({target}) => {
-    const {name, value} = target;
-    setUsuario({ ...usuario, [name]: value });
+    const {name, value} = target
+    setUsuario({ ...usuario, [name]: value })
 
     if (errors[name]) {
-      setErrors({...errors, [name]: ''});
+      setErrors({...errors, [name]: ''})
     }
-  };
+  }
 
   const handleSubmit = async (e) => {
-    e.preventDefault();
+    e.preventDefault()
     setErrors({})
     setLoading(true)
     try {
-      await validationSchema.validate(usuario, {abortEarly: false});
-      const {firstName, lastName, email, password} = usuario;
-      const response = await fetchData({
-        method: 'post',
-        endpoint: '/users/create',
-        data: {firstName, lastName, email, password}
-      });
+      await validationSchema.validate(usuario, {abortEarly: false})
+      const {firstName, lastName, email, password} = usuario
+      const response = await fetchData({ method: 'post', endpoint: '/users/create', data: {firstName, lastName, email, password}, requireAuth: false })
 
       console.log(response.status)
-      setSuccessMessage('Registro exitoso. Por favor, inicie sesión.');
+      setSuccessMessage('Registro exitoso. Por favor, inicie sesión.')
       setUsuario({
         firstName: '',
         lastName: '',
         email: '',
         password: '',
         confirmPassword: ''
-      });
+      })
     } catch (error) {
       if (error.name === 'ValidationError') {
-        const newErrors = {};
+        const newErrors = {}
         error.inner.forEach((err) => {
-          newErrors[err.path] = err.message;
-        });
-        setErrors(newErrors);
+          newErrors[err.path] = err.message
+        })
+        setErrors(newErrors)
       } else {
-        setErrors({general: error.response?.data?.message || 'Error al registrar. Por favor, intente de nuevo.'});
+        setErrors({general: error.response?.data?.message || 'Error al registrar. Por favor, intente de nuevo.'})
       }
     } finally {
       setLoading(false)
     }
-  };
+  }
 
   return (
       <>
@@ -162,7 +158,7 @@ const RegistrarForm = ({closeModal}) => {
               </div>}
         </div>
       </>
-  );
-};
+  )
+}
 
-export default RegistrarForm;
+export default RegistrarForm
