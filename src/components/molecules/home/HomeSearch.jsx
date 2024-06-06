@@ -3,7 +3,7 @@ import { IconButton, InputBase, Paper, Dialog, DialogTitle, DialogContent, FormC
 import DatePicker from 'react-datepicker';
 import "react-datepicker/dist/react-datepicker.css";
 
-const HomeSearch = () => {
+const HomeSearch = ({title}) => {
   const data = [
     { id: 1, title: 'Producto 1', category: 'Categoría 1', availableFrom: new Date('2024-06-01'), availableTo: new Date('2024-06-10') },
     { id: 2, title: 'Producto 2', category: 'Categoría 2', availableFrom: new Date('2024-07-01'), availableTo: new Date('2024-07-10') },
@@ -53,9 +53,7 @@ const HomeSearch = () => {
 
   return (
     <>
-      <Typography variant="h4" color="primary" align="center" gutterBottom>
-        <strong>Buscador de Productos</strong>
-      </Typography>
+      <h1 className='txt-accent bigtitle'><strong>{title}</strong></h1>
       <Box sx={{ width: { xs: "100%", md: "60%" }, mb: 2, mx: 'auto' }}>
         <Paper 
           elevation={2} 
