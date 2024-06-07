@@ -43,6 +43,12 @@ export const reducer = (state, action) => {
         role: 'user',
         token: ''
       }
+
+    case 'ADD_FAV':
+      return {
+          ...state, 
+          favs: [...state.favs, action.payload]
+      }  
     case 'UPDATE_USER':
       localStorage.setItem('user', JSON.stringify(action.payload))
       return { ...state, user: action.payload }

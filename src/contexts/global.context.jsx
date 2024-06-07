@@ -67,6 +67,11 @@ export const ContextProvider = ({ children }) => {
     state.theme === 'dark' ? document.body.classList.add('dark') : document.body.classList.remove('dark')
   }, [state.theme])
 
+  //FAVS
+  useEffect(() => {
+    localStorage.setItem('favs', JSON.stringify(state.favs))
+}, [state.favs])
+
   // User
   /* Login */
   const loginUser = (token) => {

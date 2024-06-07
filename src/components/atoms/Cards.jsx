@@ -1,7 +1,11 @@
 import { Link } from 'react-router-dom'
 import Buttons from './Buttons'
+import { useContextGlobal } from '../../contexts/global.context';
+
+
 
 const Cards = ({ type, data, openModal }) => {
+   const {dispatch}= useContextGlobal()
   // console.log(type)
   // console.log(data)
   const renderCard = () => {
@@ -49,6 +53,7 @@ const Cards = ({ type, data, openModal }) => {
               <div className='flex flex-col rent g-10'>
                 <p className="txt-primary paragraph" id='price'><strong>${data.price} / {data.rentType}</strong></p>
                 <Buttons text='Cotizar' bColor='#A62639' color='#fff' bgColor='#A62639' />
+                <button onClick={()=>dispatch({type:'ADD_FAV', payload:item})}><i class="fa-regular fa-heart"></i></button>
               </div>
             </div>
           </Link>
