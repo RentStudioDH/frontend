@@ -104,6 +104,7 @@ export const ContextProvider = ({ children }) => {
     try {
       const categories = await fetchData({ method: 'get', endpoint: `/public${urlCategories}`, requireAuth: false })
       dispatch({ type: 'LIST_CATEGORIES', payload: categories })
+      //console.log(categories)
     } catch (error) {
       console.error('Error fetching categories:', error)
     }
@@ -111,7 +112,7 @@ export const ContextProvider = ({ children }) => {
   useEffect(() => {
     getCategories()
   }, [])
-
+  
   // Imágenes
   const urlAttachments = '/attachments'
   // Subir imágenes
