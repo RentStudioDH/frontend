@@ -41,7 +41,7 @@ const Cards = ({ type, data, openModal }) => {
         )
       case 'product':
         return (
-          <Link className={`bg-white grid shadow-lg card ${type} br-15`} key={data.id} to={'/producto/' + data.id}>
+          <div className={`bg-white grid shadow-lg card ${type} br-15`} key={data.id} to={'/producto/' + data.id}>
             <div className='image'>
               <img src={firstImage} alt={data.name} loading='lazy' width={210} height={210} />
             </div>
@@ -53,10 +53,10 @@ const Cards = ({ type, data, openModal }) => {
               <div className='flex flex-col rent g-10'>
                 <p className="txt-primary paragraph" id='price'><strong>${data.price} / {data.rentType}</strong></p>
                 <Buttons text='Cotizar' bColor='#A62639' color='#fff' bgColor='#A62639' />
-                <button onClick={()=>dispatch({type:'ADD_FAV', payload:item})}><i class="fa-regular fa-heart"></i></button>
+                <button onClick={()=> dispatch({type:'ADD_FAV' , payload:item})}><i class="fa-regular fa-heart"></i>gdgdg</button>
               </div>
             </div>
-          </Link>
+          </div>
         )
       case 'adminListProduct':
         return (

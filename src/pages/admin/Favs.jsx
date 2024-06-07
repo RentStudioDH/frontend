@@ -3,8 +3,8 @@ import { useContextGlobal } from '../../contexts/global.context'
 import Cards from '../../components/atoms/Cards';
 
 const Favs = () => {
-    const{state}= useContextGlobal()
-    
+const{state} = useContextGlobal()
+    console.log(state);
   return (
     <div>
         <h1>Favs</h1>
