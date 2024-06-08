@@ -2,8 +2,9 @@ import React, { useState, useEffect } from 'react';
 import { useContextGlobal } from '../../../contexts/global.context';
 import { ThemeProvider, createTheme } from '@mui/material/styles';
 import { IconButton, InputBase, Paper, Dialog, DialogTitle, DialogContent, FormControl, InputLabel, MenuItem, Select, Button, Box, Typography } from '@mui/material';
-import DatePicker from 'react-datepicker';
-import "react-datepicker/dist/react-datepicker.css";
+import { Calendar } from 'react-date-range';
+import "react-date-range/dist/styles.css";
+import "react-date-range/dist/theme/default.css";
 
 const HomeSearch = ({ title }) => {
   const { state } = useContextGlobal();
@@ -111,13 +112,11 @@ const HomeSearch = ({ title }) => {
       <Dialog open={openDateDialog} onClose={handleCloseDateDialog}>
         <DialogTitle>Seleccionar Fechas</DialogTitle>
         <DialogContent>
-          <DatePicker
-            selected={dateRange[0]}
-            onChange={(update) => setDateRange(update)}
-            startDate={dateRange[0]}
-            endDate={dateRange[1]}
-            selectsRange
-            inline
+          <Calendar
+            dateRange={dateRange}
+            onChange={(ranges) => setDateRange([ranges.selection])}
+            showSelectionPreview={true}
+            moveRangeOnFirstSelection={false}
           />
           <Box sx={{ mt: 2 }}>
             <Button variant="contained" color="primary" onClick={handleCloseDateDialog}>Aplicar</Button>
@@ -139,4 +138,4 @@ const HomeSearch = ({ title }) => {
   );
 };
 
-export default HomeSearch;
+export default HomeSearch
