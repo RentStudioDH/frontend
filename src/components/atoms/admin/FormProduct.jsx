@@ -1,8 +1,7 @@
 import { useState, useEffect } from 'react'
-import ListImages from '../form/ListImages'
-import { fetchData } from '../../../utils/js/apiRequest'
-import Buttons from '../Buttons'
 import { useContextGlobal } from '../../../contexts/global.context'
+import ListImages from '../form/ListImages'
+import Buttons from '../Buttons'
 
 const FormProduct = ({ type, id }) => {
   const initialProductState = {
@@ -13,11 +12,11 @@ const FormProduct = ({ type, id }) => {
     rentType: 'DAILY',
     categoryId: 0,
     attachments: [],
-    features: []
+    features: [],
   }
 
-  const { state, getProducts, getCategories } = useContextGlobal()
-  const { data, categories, token } = state
+  const { state, getProducts, getCategories, addProduct, updateProduct } = useContextGlobal()
+  const { data, categories } = state
   const [product, setProduct] = useState(initialProductState)
   const [error, setError] = useState({})
   const [successMessage, setSuccessMessage] = useState('')
@@ -35,12 +34,12 @@ const FormProduct = ({ type, id }) => {
         setProduct({
           ...productToEdit,
           attachments: productToEdit.attachments || [],
-          features: productToEdit.features || []
+          features: productToEdit.features || [],
         })
         setInitialData({
           ...productToEdit,
           attachments: productToEdit.attachments || [],
-          features: productToEdit.features || []
+          features: productToEdit.features || [],
         })
         console.log('Imágenes iniciales del producto:', productToEdit.attachments)
       }
@@ -100,7 +99,7 @@ const FormProduct = ({ type, id }) => {
       productData = {
         ...updatedFields,
         attachmentsIds: product.attachments.map((image) => image.id),
-        features: product.features
+        features: product.features,
       }
     } else {
       productData = {
@@ -111,19 +110,16 @@ const FormProduct = ({ type, id }) => {
         rentType: product.rentType,
         categoryId: parseInt(product.categoryId),
         attachments: product.attachments.map((image) => image.id),
-        features: product.features
+        features: product.features,
       }
     }
 
-    console.log(productData)
-
     try {
-      let response
       if (type === 'editarProduct' && id) {
-        response = await fetchData({ method: 'put', endpoint: `/products/${id}`, data: productData, headers: { 'Authorization': `Bearer ${token}` } })
+        await updateProduct({ ...productData, id })
         setSuccessMessage('Producto actualizado correctamente')
       } else {
-        response = await fetchData({ method: 'post', endpoint: '/products', data: productData, headers: { 'Authorization': `Bearer ${token}` } })
+        await addProduct(productData)
         setSuccessMessage('Producto registrado correctamente')
         setProduct(initialProductState)
       }
@@ -131,6 +127,7 @@ const FormProduct = ({ type, id }) => {
       setError({})
     } catch (error) {
       console.error(error)
+      setError({ message: 'Ocurrió un error al procesar la solicitud.' })
     }
   }
 

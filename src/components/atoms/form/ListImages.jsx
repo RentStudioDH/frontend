@@ -1,7 +1,8 @@
 import { useState, useEffect } from 'react'
-import { fetchData } from '../../../utils/js/apiRequest'
+import { useContextGlobal } from '../../../contexts/global.context'
 
 const ListImages = ({ images, onImageChange, multiple, onAllImagesUploaded }) => {
+  const { uploadImage } = useContextGlobal()
   const [imageList, setImageList] = useState(images || [])
   const [newImages, setNewImages] = useState([])
   const [uploading, setUploading] = useState(false)
@@ -35,7 +36,7 @@ const ListImages = ({ images, onImageChange, multiple, onAllImagesUploaded }) =>
       const file = files[i]
       const url = URL.createObjectURL(file)
       arrayImages.push({
-        id: idInicial++,  // Use unique numeric identifier for new images
+        id: idInicial++,
         fileName: file.name,
         url,
         file,
@@ -57,20 +58,13 @@ const ListImages = ({ images, onImageChange, multiple, onAllImagesUploaded }) =>
     setUploading(true)
     try {
       const formData = new FormData()
-      newImages.forEach((image) => {
-        formData.append('files', image.file)
-      })
+      newImages.forEach((image) => formData.append('files', image.file))
 
-      const result = await fetchData({
-        method: 'POST',
-        endpoint: '/attachments/upload',
-        data: formData,
-        isFormData: true
-      })
+      const result = await uploadImage(formData)
 
       const newUploadedImages = result.map(uploadedImage => ({
         id: uploadedImage.id,
-        fileName: uploadedImage.fileName,  // Ensure the fileName is correctly set
+        fileName: uploadedImage.fileName,
         url: uploadedImage.url
       }))
 
