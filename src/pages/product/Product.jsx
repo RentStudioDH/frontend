@@ -8,6 +8,7 @@ import ProductIdeas from '../../components/molecules/product/ProductIdeas'
 import ProductGallery from '../../components/molecules/product/ProductGallery'
 import LoadingOverlay from "../../components/atoms/LoadingOverlay.jsx"
 import ErrorDialog from '../../components/atoms/ErrorDialog'
+import ProductCalendar from '../../components/molecules/product/ProductCalendar.jsx'
 
 const Product = () => {
   const { id } = useParams()
@@ -65,6 +66,7 @@ const Product = () => {
         <>
           <SectionProducto data={product} Component={ProductHeader} sectionClass='bg-back productHeader' containerClass='flex flex-col sm:flex-row justify-between items-start sm:items-center p-15 g-15' />
           <SectionProducto data={product} Component={ProductDetails} sectionClass='productDetails' containerClass='grid grid-cols-1 sm:grid-cols-2 p-section g-15' />
+          <SectionProducto data={product} Component={ProductCalendar} sectionClass='productCalendar' containerClass='grid grid-cols-1 sm:grid-cols-2 p-section g-15' />
           <SectionProducto data={{...product, attachments: images}} Component={ProductGallery} sectionClass='bg-white productGallery' containerClass='grid p-section g-5' />
           <SectionProducto data={product} Component={ProductIdeas} containerClass='p-section' />
         </>
