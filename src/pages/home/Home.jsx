@@ -8,7 +8,7 @@ import HomeSearch2 from '../../components/molecules/home/HomeSearch2'
 const Home = () => {
   return (
     <main>
-      <SectionHome title='¡Hola! ¿Qué estás buscando hoy?' ContainerComponent={HomeSearch} containerClass='grid place-items-center' />
+      {/* <SectionHome title='¡Hola! ¿Qué estás buscando hoy?' ContainerComponent={HomeSearch} containerClass='grid place-items-center' /> */}
       <SectionHome title='¡Hola! ¿Qué estás buscando hoy?' ContainerComponent={HomeSearch2} containerClass='grid place-items-center' />
       <SectionHome title='Beneficios' ContainerComponent={HomeBenefits} background='bg-white' containerClass='grid' />
       <SectionHome title='Productos recomendados' ContainerComponent={HomeRecommended} containerClass='grid' />
