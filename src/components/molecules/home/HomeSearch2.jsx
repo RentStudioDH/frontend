@@ -1,10 +1,10 @@
 import { useEffect, useState } from 'react';
 import { useContextGlobal } from '../../../contexts/global.context';
-import { Link, useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import SearchCategory from '../../atoms/search/SearchCategory';
 import SearchDate from '../../atoms/search/SearchDate';
 import SearchText from '../../atoms/search/SearchText';
-import SearchSuggestions from '../../atoms/search/SearchSuggestions';  // Importa el nuevo componente
+import SearchSuggestions from '../../atoms/search/SearchSuggestions';
 
 const HomeSearch2 = ({ title }) => {
   const { state } = useContextGlobal();
@@ -12,17 +12,16 @@ const HomeSearch2 = ({ title }) => {
   const [selectedCategory, setSelectedCategory] = useState('');
   const [dates, setDates] = useState({ startDate: null, endDate: null });
   const [searchText, setSearchText] = useState('');
+
   const [buttonText, setButtonText] = useState('');
   const [isFocused, setIsFocused] = useState(false);
   const [results, setResults] = useState([]);
   const [suggestions, setSuggestions] = useState([]);
 
-  // Esto es para ponerlo en mobile
   const isMobile = !state.isDesktop;
   const handleFocus = () => isMobile && setIsFocused(true);
   const handleBlur = () => isMobile && setIsFocused(false);
 
-  // Esta funcion deberia estar en el contexto global
   const handleSearch = async (e) => {
     e.preventDefault();
     try {
@@ -35,7 +34,6 @@ const HomeSearch2 = ({ title }) => {
     }
   };
 
-  // Esta funcion deberia estar en el contexto global
   useEffect(() => {
     const fetchSuggestions = async () => {
       if (searchText) {
@@ -53,7 +51,6 @@ const HomeSearch2 = ({ title }) => {
 
     fetchSuggestions();
   }, [searchText]);
-
 
   const handleSuggestionClick = (suggestion) => {
     setSearchText(suggestion.name);
@@ -93,7 +90,7 @@ const HomeSearch2 = ({ title }) => {
       </form>
       <SearchSuggestions suggestions={suggestions} onSuggestionClick={handleSuggestionClick} />
     </div>
-  )
-}
+  );
+};
 
 export default HomeSearch2;
