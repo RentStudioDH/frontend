@@ -1,58 +1,68 @@
-import { useEffect, useState } from 'react'
-import { useContextGlobal } from '../../../contexts/global.context'
-import SearchCategory from '../../atoms/search/SearchCategory'
-import SearchDate from '../../atoms/search/SearchDate'
-import SearchText from '../../atoms/search/SearchText'
+import { useEffect, useState } from 'react';
+import { useContextGlobal } from '../../../contexts/global.context';
+import { Link, useNavigate } from 'react-router-dom';
+import SearchCategory from '../../atoms/search/SearchCategory';
+import SearchDate from '../../atoms/search/SearchDate';
+import SearchText from '../../atoms/search/SearchText';
+import SearchSuggestions from '../../atoms/search/SearchSuggestions';  // Importa el nuevo componente
 
 const HomeSearch2 = ({ title }) => {
-  const { state } = useContextGlobal()
-  const [selectedCategory, setSelectedCategory] = useState('')
-  const [dates, setDates] = useState({ startDate: null, endDate: null })
-  const [searchText, setSearchText] = useState('')
-  const [buttonText, setButtonText] = useState('')
-  const [isFocused, setIsFocused] = useState(false)
-  const [isMobile, setIsMobile] = useState(window.innerWidth <= 768)
+  const { state } = useContextGlobal();
+  const navigate = useNavigate();
+  const [selectedCategory, setSelectedCategory] = useState('');
+  const [dates, setDates] = useState({ startDate: null, endDate: null });
+  const [searchText, setSearchText] = useState('');
+  const [buttonText, setButtonText] = useState('');
+  const [isFocused, setIsFocused] = useState(false);
+  const [results, setResults] = useState([]);
+  const [suggestions, setSuggestions] = useState([]);
 
-  const handleSearch = (e) => {
-    e.preventDefault()
-    console.log('Buscar con:', {
-      category: selectedCategory,
-      dates,
-      searchText,
-    })
-  }
+  // Esto es para ponerlo en mobile
+  const isMobile = !state.isDesktop;
+  const handleFocus = () => isMobile && setIsFocused(true);
+  const handleBlur = () => isMobile && setIsFocused(false);
+
+  // Esta funcion deberia estar en el contexto global
+  const handleSearch = async (e) => {
+    e.preventDefault();
+    try {
+      const response = await fetch(`https://apidh.jackmoon.dev/public/products/search/?searchText=${searchText}`);
+      const data = await response.json();
+      setResults(data);
+      navigate('/productos', { state: { results: data } });
+    } catch (error) {
+      console.error('Error fetching search results:', error);
+    }
+  };
+
+  // Esta funcion deberia estar en el contexto global
+  useEffect(() => {
+    const fetchSuggestions = async () => {
+      if (searchText) {
+        try {
+          const response = await fetch(`https://apidh.jackmoon.dev/public/products/search/?searchText=${searchText}`);
+          const data = await response.json();
+          setSuggestions(data);
+        } catch (error) {
+          console.error('Error fetching suggestions:', error);
+        }
+      } else {
+        setSuggestions([]);
+      }
+    };
+
+    fetchSuggestions();
+  }, [searchText]);
+
+
+  const handleSuggestionClick = (suggestion) => {
+    setSearchText(suggestion.name);
+    handleSearch(new Event('submit'));
+  };
 
   useEffect(() => {
-    const handleResize = () => {
-      setIsMobile(window.innerWidth <= 768)
-    }
-
-    window.addEventListener('resize', handleResize)
-
-    return () => {
-      window.removeEventListener('resize', handleResize)
-    }
-  }, [])
-
-  useEffect(() => {
-    if (selectedCategory || dates.startDate || dates.endDate || searchText) {
-      setButtonText('Buscar')
-    } else {
-      setButtonText('')
-    }
-  }, [selectedCategory, dates, searchText])
-
-  const handleFocus = () => {
-    if (isMobile) {
-      setIsFocused(true)
-    }
-  }
-
-  const handleBlur = () => {
-    if (isMobile) {
-      setIsFocused(false)
-    }
-  }
+    setButtonText(selectedCategory || dates.startDate || dates.endDate || searchText ? 'Buscar' : '');
+  }, [selectedCategory, dates, searchText]);
 
   return (
     <div className="grid g-15">
@@ -64,7 +74,8 @@ const HomeSearch2 = ({ title }) => {
         style={{
           flexDirection: isMobile && isFocused ? 'column' : 'row',
           alignItems: isMobile && isFocused ? 'stretch' : 'center',
-          justifyContent: isMobile && isFocused ? 'flex-start' : 'space-between'
+          justifyContent: isMobile && isFocused ? 'flex-start' : 'space-between',
+          position: 'relative'
         }}
       >
         <div style={{ marginBottom: isMobile && isFocused ? '15px' : '0' }}>
@@ -80,8 +91,9 @@ const HomeSearch2 = ({ title }) => {
           <i className="fa-solid fa-magnifying-glass"></i> {buttonText}
         </button>
       </form>
+      <SearchSuggestions suggestions={suggestions} onSuggestionClick={handleSuggestionClick} />
     </div>
   )
 }
 
-export default HomeSearch2
+export default HomeSearch2;
