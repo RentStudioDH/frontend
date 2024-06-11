@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 import { useContextGlobal } from '../../../contexts/global.context';
-import { useNavigate } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import SearchCategory from '../../atoms/search/SearchCategory';
 import SearchDate from '../../atoms/search/SearchDate';
 import SearchText from '../../atoms/search/SearchText';
@@ -18,10 +18,12 @@ const HomeSearch2 = ({ title }) => {
   const [results, setResults] = useState([]);
   const [suggestions, setSuggestions] = useState([]);
 
+  // Esto es para ponerlo en mobile
   const isMobile = !state.isDesktop;
   const handleFocus = () => isMobile && setIsFocused(true);
   const handleBlur = () => isMobile && setIsFocused(false);
 
+  // Esta funcion deberia estar en el contexto global
   const handleSearch = async (e) => {
     e.preventDefault();
     try {
@@ -34,6 +36,7 @@ const HomeSearch2 = ({ title }) => {
     }
   };
 
+  // Esta funcion deberia estar en el contexto global
   useEffect(() => {
     const fetchSuggestions = async () => {
       if (searchText) {
@@ -72,17 +75,34 @@ const HomeSearch2 = ({ title }) => {
           flexDirection: isMobile && isFocused ? 'column' : 'row',
           alignItems: isMobile && isFocused ? 'stretch' : 'center',
           justifyContent: isMobile && isFocused ? 'flex-start' : 'space-between',
-          position: 'relative'
+          position: 'relative',
+          padding: '10px 20px' // Increase padding-x here
         }}
       >
-        <div style={{ marginBottom: isMobile && isFocused ? '15px' : '0' }}>
-          <SearchText onSearchTextChange={setSearchText} onFocus={handleFocus} onBlur={handleBlur} />
+        <div style={{ marginBottom: isMobile && isFocused ? '15px' : '0', flexGrow: 1 }}>
+          <SearchText 
+            onSearchTextChange={setSearchText} 
+            onFocus={handleFocus} 
+            onBlur={handleBlur} 
+            style={{ width: '100%' }} // Increase input width
+          />
         </div>
-        <div style={{ marginBottom: isMobile && isFocused ? '15px' : '0', display: isMobile && isFocused ? 'block' : isMobile ? 'none' : 'block' }}>
-          <SearchDate onDatesChange={setDates} onFocus={handleFocus} onBlur={handleBlur} />
+        <div style={{ marginBottom: isMobile && isFocused ? '15px' : '0', display: isMobile && isFocused ? 'block' : isMobile ? 'none' : 'block', flexGrow: 1 }}>
+          <SearchDate 
+            onDatesChange={setDates} 
+            onFocus={handleFocus} 
+            onBlur={handleBlur} 
+            style={{ width: '100%' }} // Increase input width
+          />
         </div>
-        <div style={{ marginBottom: isMobile && isFocused ? '15px' : '0', display: isMobile && isFocused ? 'block' : isMobile ? 'none' : 'block' }}>
-          <SearchCategory onSelectCategory={setSelectedCategory} data={state} onFocus={handleFocus} onBlur={handleBlur} />
+        <div style={{ marginBottom: isMobile && isFocused ? '15px' : '0', display: isMobile && isFocused ? 'block' : isMobile ? 'none' : 'block', flexGrow: 1 }}>
+          <SearchCategory 
+            onSelectCategory={setSelectedCategory} 
+            data={state} 
+            onFocus={handleFocus} 
+            onBlur={handleBlur} 
+            style={{ width: '100%' }} // Increase input width
+          />
         </div>
         <button onClick={handleBlur} type="submit" className="p-2 bg-primary text-white rounded-full">
           <i className="fa-solid fa-magnifying-glass"></i> {buttonText}
@@ -90,7 +110,7 @@ const HomeSearch2 = ({ title }) => {
       </form>
       <SearchSuggestions suggestions={suggestions} onSuggestionClick={handleSuggestionClick} />
     </div>
-  );
-};
+  )
+}
 
 export default HomeSearch2;
