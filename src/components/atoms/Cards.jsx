@@ -1,18 +1,29 @@
-import { Link } from 'react-router-dom'
-import Buttons from './Buttons'
+import { Link } from 'react-router-dom';
+import Buttons from './Buttons';
+import { useContextGlobal } from '../../contexts/global.context';
 
 const Cards = ({ type, data, openModal }) => {
-  // console.log(type)
-  // console.log(data)
+  const { state, dispatch } = useContextGlobal();
+
+  const handleToggleFav = (item) => {
+    if (isFavorite) {
+      dispatch({ type: 'REMOVE_FAV', payload: item.id });
+    } else {
+      dispatch({ type: 'ADD_FAV', payload: item });
+    }
+  };
+
+  const isFavorite = state.favs.some(fav => fav.id === data.id);
+
   const renderCard = () => {
     if (!type) {
-      return <div>No hay información para mostrar.</div>
+      return <div>No hay información para mostrar.</div>;
     }
 
     const firstImage = data.attachments && data.attachments.length > 0 ? data.attachments[0].url : 'https://digitalhouse-e7-pi.s3.amazonaws.com/-Rhd-l2yWTj6iEqg7EhN9Q%3D%3D.png';
 
-    if ((type === 'benefit' || type === 'category' || type === 'product' || type === 'adminListProduct') && !data) {
-      return <div>No hay información para mostrar.</div>
+    if ((type === 'benefit' || type === 'category' || type === 'product' || type === 'adminListProduct' ||type ==='favorite') && !data) {
+      return <div>No hay información para mostrar.</div>;
     }
 
     switch (type) {
@@ -25,7 +36,7 @@ const Cards = ({ type, data, openModal }) => {
               <p className="text-center txt-tertiary paragraph">{data.textInfo}</p>
             </div>
           </div>
-        )
+        );
       case 'category':
         return (
           <Link className={`flex items-end shadow-lg card ${type} br-15`} key={data.id} to={data.path}>
@@ -34,10 +45,10 @@ const Cards = ({ type, data, openModal }) => {
               <h3 className="text-white text-center subtitle"><strong>{data.label}</strong></h3>
             </div>
           </Link>
-        )
+        );
       case 'product':
         return (
-          <Link className={`bg-white grid shadow-lg card ${type} br-15`} key={data.id} to={'/producto/' + data.id}>
+          <Link className={`bg-white grid shadow-lg card ${type} br-15`} key={data.id} to={'/producto/' + data.id} >
             <div className='image'>
               <img src={firstImage} alt={data.name} loading='lazy' width={210} height={210} />
             </div>
@@ -49,10 +60,33 @@ const Cards = ({ type, data, openModal }) => {
               <div className='flex flex-col rent g-10'>
                 <p className="txt-primary paragraph" id='price'><strong>${data.price} / {data.rentType}</strong></p>
                 <Buttons text='Cotizar' bColor='#A62639' color='#fff' bgColor='#A62639' />
+                <button
+                  onClick={() => handleToggleFav(data)}
+                  style={{
+                    display: 'flex',
+                    alignItems: 'center',
+                    justifyContent: 'center',
+                    padding: '10px',
+                    backgroundColor: isFavorite ? '#A62639' : '#f5f5f5',
+                    border: 'none',
+                    cursor: 'pointer',
+                    color: isFavorite ? '#fff' : '#A62639',
+                    marginTop: '10px'
+                    }}
+                    >
+                  <i className={`fa fa-heart`} style={{
+                    marginRight: '5px',
+                    color: isFavorite ? '#fff' : '#A62639',
+                    fill: isFavorite ? '#fff' : 'none'
+                    }}></i>
+                  {isFavorite ? 'Eliminar de tus favoritos' : 'Agregar a Favoritos'}
+                </button>               
               </div>
             </div>
           </Link>
-        )
+                    
+          
+        );
       case 'adminListProduct':
         return (
           <tr className="bg-white hover:bg-accent txt-quaternary border-b paragraph">
@@ -78,7 +112,7 @@ const Cards = ({ type, data, openModal }) => {
               </button>
             </td>
           </tr>
-        )
+        );
       case 'error-admin':
         return (
           <section className='w-full grid place-items-center p-8'>
@@ -90,17 +124,18 @@ const Cards = ({ type, data, openModal }) => {
               </div>
             </div>
           </section>
-        )
+        );
+        
       default:
-        return <div>Tipo no soportado.</div>
+        return <div>Tipo no soportado.</div>;
     }
-  }
+  };
 
   return (
     <>
-      { renderCard() }
+      {renderCard()}
     </>
-  )
-}
+  );
+};
 
-export default Cards
+export default Cards;

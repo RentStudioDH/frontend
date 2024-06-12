@@ -1,6 +1,8 @@
 import { useEffect, useState } from "react"
 import { useContextGlobal } from "../../../contexts/global.context"
 import Cards from "../../atoms/Cards"
+import { Button } from "@headlessui/react"
+import Buttons from "../../atoms/Buttons"
 
 const HomeRecommended = ({ title }) => {
   const { state } = useContextGlobal()
@@ -18,7 +20,8 @@ const HomeRecommended = ({ title }) => {
       { title && <h2 className='txt-accent bb-primary title'><strong>{title}</strong></h2> }
       <div className="grid cont-products g-10">
         {shuffledData.slice(0, 6).map(product => (
-          <Cards key={product.id} type="product" data={product} />
+          <Cards key={product.id} type="product" data={product}  />
+          
         ))}
       </div>
     </>

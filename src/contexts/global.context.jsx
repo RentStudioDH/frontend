@@ -165,6 +165,11 @@ export const ContextProvider = ({ children }) => {
   }
 
 
+  //FAVS
+  useEffect(() => {
+    localStorage.setItem('favs', JSON.stringify(state.favs))
+}, [state.favs])
+
   // User
   const loginUser = (token, role, user) => {
     Cookies.set('token', token, { secure: true, sameSite: 'Strict' })

@@ -11,6 +11,7 @@ import Admin from './pages/admin/Admin'
 import Category from './pages/category/Category'
 import Footer from './components/organisms/Footer'
 import ProtectedRoute from './pages/ProtectedRoute'
+import Favs from './pages/admin/Favs'
 
 
 function App() {
@@ -24,6 +25,7 @@ function App() {
           <Route path={routes.products} element={<Products/>}/>
           <Route path="/admin/:admin" element={<ProtectedRoute element={<Admin />} />} />
           <Route path="/categoria/:category" element={<Category/>} />
+          <Route path="/favs" element={<Favs/>} />
         </Routes>
         <Footer/>
       </ThemeProvider>
