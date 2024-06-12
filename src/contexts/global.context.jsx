@@ -49,6 +49,7 @@ export const ContextProvider = ({ children }) => {
     try {
       const products = await fetchData({ method: 'get', endpoint: `/public${urlProducts}`, requireAuth: false })
       dispatch({ type: 'LIST_PRODUCTS', payload: products })
+      console.log(products)
     } catch (error) {
       console.error('Error fetching products:', error)
     }
@@ -104,7 +105,7 @@ export const ContextProvider = ({ children }) => {
     try {
       const categories = await fetchData({ method: 'get', endpoint: `/public${urlCategories}`, requireAuth: false })
       dispatch({ type: 'LIST_CATEGORIES', payload: categories })
-      //console.log(categories)
+      console.log(categories)
     } catch (error) {
       console.error('Error fetching categories:', error)
     }

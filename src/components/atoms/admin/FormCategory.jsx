@@ -1,13 +1,16 @@
 import React, { useState, useEffect } from 'react';
 import { fetchData } from '../../../utils/js/apiRequest';
 import Buttons from '../Buttons';
+import ListImages from '../form/ListImages';
 import { useContextGlobal } from '../../../contexts/global.context';
 
 const FormCategory = ({ type, id }) => {
   const initialCategoryState = {
     name: '',
     description: '',
-    slug: ''
+    slug: '',
+    attachmentId: null,
+    attachments: [] 
   };
 
   const { state, getCategories } = useContextGlobal();
@@ -15,12 +18,16 @@ const FormCategory = ({ type, id }) => {
   const [category, setCategory] = useState(initialCategoryState);
   const [error, setError] = useState({});
   const [successMessage, setSuccessMessage] = useState('');
+  const [allImagesUploaded, setAllImagesUploaded] = useState(true);
 
   useEffect(() => {
     if (type === 'editarCategoria' && id) {
       const categoryToEdit = categories.find((category) => category.id === id);
       if (categoryToEdit) {
-        setCategory(categoryToEdit);
+        setCategory({
+          ...categoryToEdit,
+          attachments: categoryToEdit.attachments || (categoryToEdit.attachment ? [categoryToEdit.attachment] : [])
+        });
       }
     }
   }, [id, type, categories]);
@@ -36,11 +43,23 @@ const FormCategory = ({ type, id }) => {
     setCategory((prevCategory) => ({ ...prevCategory, [name]: value }));
   };
 
+  const handleImageChange = (images) => {
+    setCategory((prevCategory) => ({
+      ...prevCategory,
+      attachments: images,
+      attachmentId: images.length > 0 ? images[0].id : null
+    }));
+  };
+
+  const onAllImagesUploaded = (status) => {
+    setAllImagesUploaded(status);
+  };
+
   const generateSlug = (name) => {
-    let slug = name.trim().toLowerCase(); // Convertir a minúsculas y quitar espacios al inicio y al final
-    slug = slug.replace(/\s+/g, '-'); // Reemplazar espacios con guiones
-    slug = slug.replace(/[^\w-]/g, ''); // Eliminar caracteres especiales excepto guiones y letras/numeros
-    return `/categoria/${slug}`; // Agregar "/categoria/" al principio
+    let slug = name.trim().toLowerCase();
+    slug = slug.replace(/\s+/g, '-');
+    slug = slug.replace(/[^\w-]/g, '');
+    return `/categoria/${slug}`;
   };
 
   const validateForm = () => {
@@ -60,13 +79,22 @@ const FormCategory = ({ type, id }) => {
     }
 
     try {
-      console.log('Datos enviados:', category);
+      const categoryData = {
+        name: category.name,
+        description: category.description,
+        slug: category.slug,
+        attachmentId: category.attachmentId
+      };
+
+      console.log('Datos enviados:', categoryData);
+
       let response;
+
       if (type === 'editarCategoria' && id) {
         response = await fetchData({
           method: 'put',
           endpoint: `/categories/${id}`,
-          data: category,
+          data: categoryData,
           headers: { Authorization: `Bearer ${token}` }
         });
         setSuccessMessage('Categoría actualizada correctamente');
@@ -74,13 +102,12 @@ const FormCategory = ({ type, id }) => {
         response = await fetchData({
           method: 'post',
           endpoint: '/categories',
-          data: category,
+          data: categoryData,
           headers: { Authorization: `Bearer ${token}` }
         });
         setSuccessMessage('Categoría registrada correctamente');
         setCategory(initialCategoryState);
       }
-      console.log('Respuesta del servidor:', response);
       await getCategories();
       setError({});
     } catch (error) {
@@ -114,16 +141,21 @@ const FormCategory = ({ type, id }) => {
           />
           {error.description && <p className="text-red-500 text-xs italic">{error.description}</p>}
         </div>
-        <span className="bg-base col-span-1 md:col-span-2 grid w-full h-px"></span>
-        <div className="col-span-1 md:col-span-2 flex justify-center">
-          <Buttons 
-            text={type === 'editarCategoria' ? 'Actualizar' : 'Crear'} 
-            type="submit" 
-            bColor='#A62639' 
-            color='#fff' 
-            bgColor='#A62639' 
-          />
+        <div className="col-span-1 md:col-span-2 grid g-5">
+          <ListImages images={category.attachments} onImageChange={handleImageChange} onAllImagesUploaded={onAllImagesUploaded} message="Subamos la imagen de esta categoría"/>
         </div>
+        <span className="bg-base col-span-1 md:col-span-2 grid w-full h-px"></span>
+        {allImagesUploaded && (
+          <div className="col-span-1 md:col-span-2 flex justify-center">
+            <Buttons 
+              text={type === 'editarCategoria' ? 'Actualizar' : 'Crear'} 
+              type="submit" 
+              bColor='#A62639' 
+              color='#fff' 
+              bgColor='#A62639' 
+            />
+          </div>
+        )}
       </form>
     </>
   );
