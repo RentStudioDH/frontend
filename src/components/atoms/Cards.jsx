@@ -22,7 +22,7 @@ const Cards = ({ type, data, openModal }) => {
 
     const firstImage = data.attachments && data.attachments.length > 0 ? data.attachments[0].url : 'https://digitalhouse-e7-pi.s3.amazonaws.com/-Rhd-l2yWTj6iEqg7EhN9Q%3D%3D.png';
 
-    if ((type === 'benefit' || type === 'category' || type === 'product' || type === 'adminListProduct') && !data) {
+    if ((type === 'benefit' || type === 'category' || type === 'product' || type === 'adminListProduct' ||type ==='favorite') && !data) {
       return <div>No hay información para mostrar.</div>;
     }
 
@@ -48,7 +48,7 @@ const Cards = ({ type, data, openModal }) => {
         );
       case 'product':
         return (
-          <div className={`bg-white grid shadow-lg card ${type} br-15`} key={data.id}>
+          <Link className={`bg-white grid shadow-lg card ${type} br-15`} key={data.id} to={'/producto/' + data.id} >
             <div className='image'>
               <img src={firstImage} alt={data.name} loading='lazy' width={210} height={210} />
             </div>
@@ -72,18 +72,20 @@ const Cards = ({ type, data, openModal }) => {
                     cursor: 'pointer',
                     color: isFavorite ? '#fff' : '#A62639',
                     marginTop: '10px'
-                  }}
-                >
+                    }}
+                    >
                   <i className={`fa fa-heart`} style={{
                     marginRight: '5px',
                     color: isFavorite ? '#fff' : '#A62639',
                     fill: isFavorite ? '#fff' : 'none'
-                  }}></i>
-                  {isFavorite ? 'Entre tus favoritos' : 'Agregar a Favoritos'}
-                </button>
+                    }}></i>
+                  {isFavorite ? 'Eliminar de tus favoritos' : 'Agregar a Favoritos'}
+                </button>               
               </div>
             </div>
-          </div>
+          </Link>
+                    
+          
         );
       case 'adminListProduct':
         return (
@@ -123,6 +125,7 @@ const Cards = ({ type, data, openModal }) => {
             </div>
           </section>
         );
+        
       default:
         return <div>Tipo no soportado.</div>;
     }
