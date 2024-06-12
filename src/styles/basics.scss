@@ -4,6 +4,7 @@
 @import 'colors';
 @import 'cards';
 @import 'modal';
+@import 'search';
 @import 'products';
 @import 'admin';
 
@@ -22,6 +23,10 @@ img {
 a {
   text-decoration: none;
   line-height: 1;
+}
+
+.btn {
+  font-size: 14px;
 }
 
 /* Clases personalizadas */
@@ -106,7 +111,7 @@ a {
   font-size: 16px;
 }
 .legal {
-  font-size: 14px;
+  font-size: 12px;
 }
 
 body {
