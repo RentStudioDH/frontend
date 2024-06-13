@@ -1,0 +1,80 @@
+[
+  {
+    "id": 1,
+    "name": "Resolución del Sensor",
+    "description": "Sensor Super 35 con resolución de 6K (6144 x 3456)",
+    "icon": "camera"
+  },
+  {
+    "id": 2,
+    "name": "Montura de Lente",
+    "description": "Montura EF compatible con lentes Canon",
+    "icon": "camera-retro"
+  },
+  {
+    "id": 3,
+    "name": "Rango Dinámico",
+    "description": "13 stops de rango dinámico",
+    "icon": "chart-line"
+  },
+  {
+    "id": 4,
+    "name": "Grabación en RAW y ProRes",
+    "description": "Admite Blackmagic RAW y Apple ProRes",
+    "icon": "file-video"
+  },
+  {
+    "id": 5,
+    "name": "Formatos de Grabación",
+    "description": "Grabación en 6K a 50 fps, 4K DCI a 60 fps, y 2.8K a 120 fps en RAW",
+    "icon": "video"
+  },
+  {
+    "id": 6,
+    "name": "Pantalla Táctil",
+    "description": "Pantalla LCD de 5 pulgadas",
+    "icon": "tv"
+  },
+  {
+    "id": 7,
+    "name": "Entradas y Salidas",
+    "description": "HDMI, XLR, micrófono 3.5mm y salida de auriculares",
+    "icon": "plug"
+  },
+  {
+    "id": 8,
+    "name": "Medios de Almacenamiento",
+    "description": "Ranuras para CFast 2.0, SD UHS-II y grabación en discos USB-C",
+    "icon": "sd-card"
+  },
+  {
+    "id": 9,
+    "name": "Control Remoto y Conectividad",
+    "description": "Compatibilidad con Bluetooth",
+    "icon": "bluetooth"
+  },
+  {
+    "id": 10,
+    "name": "Batería",
+    "description": "Utiliza baterías LP-E6 de Canon",
+    "icon": "battery-full"
+  },
+  {
+    "id": 11,
+    "name": "Diseño y Construcción",
+    "description": "Cuerpo de fibra de carbono y policarbonato",
+    "icon": "cube"
+  },
+  {
+    "id": 12,
+    "name": "Software Incluido",
+    "description": "Incluye DaVinci Resolve Studio",
+    "icon": "code"
+  },
+  {
+    "id": 13,
+    "name": "ISO Dual Nativo",
+    "description": "ISO dual nativo de 400 y 3200",
+    "icon": "adjust"
+  }
+]
