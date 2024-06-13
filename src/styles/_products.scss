@@ -21,6 +21,39 @@
       }
     }
   }
+  &Availability {
+    .react-datepicker__day--highlighted-range {
+      border-radius: 50%;
+      background-color: $tertiary; /* Color naranja */
+      color: #ffffff; /* Color blanco */
+    }
+    .dato {
+      &::before {
+        content: '#';
+        width: 30px;
+        height: 30px;
+        display: grid;
+        place-items: center;
+        border-radius: 50%;
+        font-weight: 600;
+      }
+      &-disponible {
+        @extend .dato;
+        &::before {
+          box-shadow: 1px 1px 5px 0px rgba($tertiary, .5);
+          background: #fff;
+          color: $tertiary;
+        }
+        }
+        &-ocupado {
+          @extend .dato;
+          &::before {
+          background: $tertiary;
+          color: #fff;
+        }
+      }
+    }
+  }
   &Gallery {
     picture {
       width: 100%;
