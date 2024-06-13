@@ -1,46 +1,46 @@
-import { useState } from "react";
-import { useContextGlobal } from "../../../contexts/global.context";
-import Cards from "../Cards";
-import Modals from "../Modals";
+import { useState } from "react"
+import { useContextGlobal } from "../../../contexts/global.context"
+import Cards from "../Cards"
+import Modals from "../Modals"
 
 const ListProducts = () => {
-  const { state } = useContextGlobal();
-  const products = state.data || [];
-  const [isModalVisible, setModalVisible] = useState(false);
-  const [modalType, setModalType] = useState(null);
-  const [idProduct, setIdProduct] = useState(null);
+  const { state } = useContextGlobal()
+  const products = state.data || []
+  const [isModalVisible, setModalVisible] = useState(false)
+  const [modalType, setModalType] = useState(null)
+  const [idProduct, setIdProduct] = useState(null)
 
-  const [currentPage, setCurrentPage] = useState(1);
-  const [productsPerPage, setProductsPerPage] = useState(2); // Valor inicial del selector
+  const [currentPage, setCurrentPage] = useState(1)
+  const [productsPerPage, setProductsPerPage] = useState(5) // Valor inicial del selector
 
-  const totalProducts = products.length;
-  const totalPages = Math.ceil(totalProducts / productsPerPage);
-  const indexOfLastProduct = currentPage * productsPerPage;
-  const indexOfFirstProduct = indexOfLastProduct - productsPerPage;
-  const currentProducts = products.slice(indexOfFirstProduct, indexOfLastProduct);
+  const totalProducts = products.length
+  const totalPages = Math.ceil(totalProducts / productsPerPage)
+  const indexOfLastProduct = currentPage * productsPerPage
+  const indexOfFirstProduct = indexOfLastProduct - productsPerPage
+  const currentProducts = products.slice(indexOfFirstProduct, indexOfLastProduct)
 
   const openModal = (type, id) => {
-    setModalType(type);
-    setIdProduct(id);
-    setModalVisible(true);
-  };
+    setModalType(type)
+    setIdProduct(id)
+    setModalVisible(true)
+  }
 
   const closeModal = () => {
-    setModalVisible(false);
-    setIdProduct(null);
-  };
+    setModalVisible(false)
+    setIdProduct(null)
+  }
 
   const handlePageChange = (pageNumber) => {
     if (pageNumber > 0 && pageNumber <= totalPages) {
-      setCurrentPage(pageNumber);
+      setCurrentPage(pageNumber)
     }
-  };
+  }
 
   const handleProductsPerPageChange = (event) => {
-    const newProductsPerPage = Number(event.target.value);
-    setProductsPerPage(newProductsPerPage);
-    setCurrentPage(1); // Reset to first page
-  };
+    const newProductsPerPage = Number(event.target.value)
+    setProductsPerPage(newProductsPerPage)
+    setCurrentPage(1) // Reset to first page
+  }
 
   return (
     <div className="bg-white relative overflow-x-auto shadow-md br-15">
@@ -102,9 +102,9 @@ const ListProducts = () => {
           </li>
           <li>
             <select name="cantProducts" value={productsPerPage} onChange={handleProductsPerPageChange} className="w-full p-1 border rounded bg-white txt-tertiary">
-              <option value="2">2</option>
-              <option value="4">4</option>
               <option value="5">5</option>
+              <option value="10">10</option>
+              <option value="15">15</option>
             </select>
           </li>
         </ul>
@@ -113,7 +113,7 @@ const ListProducts = () => {
         <Modals type={modalType} visible={isModalVisible} onClose={closeModal} id={idProduct} />
       )}
     </div>
-  );
-};
+  )
+}
 
-export default ListProducts;
+export default ListProducts

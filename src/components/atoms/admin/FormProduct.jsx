@@ -176,7 +176,7 @@ const FormProduct = ({ type, id }) => {
         </div>
         <span className="bg-base col-span-1 md:col-span-2 grid w-full h-px"></span>
         <div className="col-span-1 md:col-span-2 grid g-5">
-          <ListImages images={product.attachments} onImageChange={handleImageChange} onAllImagesUploaded={onAllImagesUploaded} multiple message="Subamos las imágenes de este producto" />
+          <ListImages images={product.attachments} onImageChange={handleImageChange} onAllImagesUploaded={onAllImagesUploaded} multiple />
         </div>
         {allImagesUploaded || type === 'editarProduct' ? (
           <div className="col-span-1 md:col-span-2 flex justify-center">
