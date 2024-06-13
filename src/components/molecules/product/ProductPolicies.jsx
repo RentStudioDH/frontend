@@ -1,17 +1,17 @@
-import { useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
-import { useContextGlobal } from "../../../contexts/global.context";
+import { useEffect, useState } from "react"
+import { useParams } from "react-router-dom"
+import { useContextGlobal } from "../../../contexts/global.context"
 
 const ProductPolicies = ({ data }) => {
-  const { id } = useParams();
-  const { getProductById } = useContextGlobal();
-  const [showPolicies, setShowPolicies] = useState(false);
+  const { id } = useParams()
+  const { getProductById } = useContextGlobal()
+  const [showPolicies, setShowPolicies] = useState(false)
 
   useEffect(() => {
     if (data.policies.length !== 0) {
-      setShowPolicies(true);
+      setShowPolicies(true)
     }
-  }, [id, getProductById]);
+  }, [id, getProductById])
 
   return (
     <>
@@ -33,7 +33,7 @@ const ProductPolicies = ({ data }) => {
         </div>
       )}
     </>
-  );
-};
+  )
+}
 
-export default ProductPolicies;
+export default ProductPolicies
