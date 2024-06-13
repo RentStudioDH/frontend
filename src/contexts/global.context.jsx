@@ -49,6 +49,7 @@ export const ContextProvider = ({ children }) => {
     try {
       const products = await fetchData({ method: 'get', endpoint: `/public${urlProducts}`, requireAuth: false })
       dispatch({ type: 'LIST_PRODUCTS', payload: products })
+      console.log(products)
     } catch (error) {
       console.error('Error fetching products:', error)
     }
@@ -104,6 +105,7 @@ export const ContextProvider = ({ children }) => {
     try {
       const categories = await fetchData({ method: 'get', endpoint: `/public${urlCategories}`, requireAuth: false })
       dispatch({ type: 'LIST_CATEGORIES', payload: categories })
+      console.log(categories)
     } catch (error) {
       console.error('Error fetching categories:', error)
     }
@@ -111,7 +113,7 @@ export const ContextProvider = ({ children }) => {
   useEffect(() => {
     getCategories()
   }, [])
-
+  
   // Imágenes
   const urlAttachments = '/attachments'
   // Subir imágenes
@@ -162,6 +164,11 @@ export const ContextProvider = ({ children }) => {
     }
   }
 
+
+  //FAVS
+  useEffect(() => {
+    localStorage.setItem('favs', JSON.stringify(state.favs))
+}, [state.favs])
 
   // User
   const loginUser = (token, role, user) => {

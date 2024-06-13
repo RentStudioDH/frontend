@@ -1,79 +1,108 @@
-import { useEffect, useState } from 'react'
-import { useParams, useNavigate } from 'react-router-dom'
-import { useContextGlobal } from '../../contexts/global.context.jsx'
-import SectionProducto from '../../components/organisms/sections/SectionProducto'
-import ProductHeader from '../../components/molecules/product/ProductHeader'
-import ProductDetails from '../../components/molecules/product/ProductDetails'
-import ProductIdeas from '../../components/molecules/product/ProductIdeas'
-import ProductGallery from '../../components/molecules/product/ProductGallery'
-import LoadingOverlay from "../../components/atoms/LoadingOverlay.jsx"
-import ErrorDialog from '../../components/atoms/ErrorDialog'
+import { useEffect, useState } from "react";
+import { useParams, useNavigate } from "react-router-dom";
+import { useContextGlobal } from "../../contexts/global.context.jsx";
+import SectionProducto from "../../components/organisms/sections/SectionProducto";
+import ProductHeader from "../../components/molecules/product/ProductHeader";
+import ProductDetails from "../../components/molecules/product/ProductDetails";
+import ProductIdeas from "../../components/molecules/product/ProductIdeas";
+import ProductPolicies from "../../components/molecules/product/ProductPolicies";
+import ProductGallery from "../../components/molecules/product/ProductGallery";
+import LoadingOverlay from "../../components/atoms/LoadingOverlay.jsx";
+import ErrorDialog from "../../components/atoms/ErrorDialog";
 import ProductCalendar from '../../components/molecules/product/ProductCalendar.jsx'
 
 const Product = () => {
-  const { id } = useParams()
-  const navigate = useNavigate()
-  const { getProductById } = useContextGlobal()
-  const [product, setProduct] = useState(null)
-  const [loading, setLoading] = useState(true)
-  const [error, setError] = useState(null)
-  const [images, setImages] = useState([])
-  const [openDialog, setOpenDialog] = useState(false)
+  const { id } = useParams();
+  const navigate = useNavigate();
+  const { getProductById } = useContextGlobal();
+  const [product, setProduct] = useState(null);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
+  const [images, setImages] = useState([]);
+  const [openDialog, setOpenDialog] = useState(false);
 
   useEffect(() => {
     const fetchProduct = async () => {
       try {
-        const productData = await getProductById(id)
+        const productData = await getProductById(id);
         if (!productData.attachments || productData.attachments.length === 0) {
-          throw new Error('El producto no tiene imágenes disponibles aún.')
+          throw new Error("El producto no tiene imágenes disponibles aún.");
         }
-        setProduct(productData)
-        transformAndSetImages(productData.attachments)
+        setProduct(productData);
+        transformAndSetImages(productData.attachments);
       } catch (error) {
-        setError(new Error('No se pudo obtener el producto.'))
-        setOpenDialog(true)
+        setError(new Error("No se pudo obtener el producto."));
+        setOpenDialog(true);
       } finally {
-        setLoading(false)
+        setLoading(false);
       }
-    }
-    fetchProduct()
-  }, [id, getProductById])
+    };
+    fetchProduct();
+  }, [id, getProductById]);
 
   const transformAndSetImages = (attachments) => {
     const transformedImages = attachments.map((attachment, index) => ({
       ...attachment,
-      id: index
-    }))
-    setImages(transformedImages)
-  }
+      id: index,
+    }));
+    setImages(transformedImages);
+  };
 
   const handleCloseDialog = () => {
-    setOpenDialog(false)
-    navigate(-1)
-  }
+    setOpenDialog(false);
+    navigate(-1);
+  };
 
   if (loading) {
     return (
       <div className="min-h-screen">
         <LoadingOverlay open={loading} />
       </div>
-    )
+    );
   }
 
   return (
     <main>
       {product && (
         <>
-          <SectionProducto data={product} Component={ProductHeader} sectionClass='bg-back productHeader' containerClass='flex flex-col sm:flex-row justify-between items-start sm:items-center p-15 g-15' />
-          <SectionProducto data={product} Component={ProductDetails} sectionClass='productDetails' containerClass='grid grid-cols-1 sm:grid-cols-2 p-section g-15' />
+          <SectionProducto
+            data={product}
+            Component={ProductHeader}
+            sectionClass="bg-back productHeader"
+            containerClass="flex flex-col sm:flex-row justify-between items-start sm:items-center p-15 g-15"
+          />
+          <SectionProducto
+            data={product}
+            Component={ProductDetails}
+            sectionClass="productDetails"
+            containerClass="grid grid-cols-1 sm:grid-cols-2 p-section g-15"
+          />
           <SectionProducto data={product} Component={ProductCalendar} sectionClass='productCalendar' containerClass='grid grid-cols-1 sm:grid-cols-2 p-section g-15' />
-          <SectionProducto data={{...product, attachments: images}} Component={ProductGallery} sectionClass='bg-white productGallery' containerClass='grid p-section g-5' />
-          <SectionProducto data={product} Component={ProductIdeas} containerClass='p-section' />
+          <SectionProducto
+            data={{ ...product, attachments: images }}
+            Component={ProductGallery}
+            sectionClass="bg-white productGallery"
+            containerClass="grid p-section g-5"
+          />
+          <SectionProducto
+            data={product}
+            Component={ProductIdeas}
+            containerClass="p-section"
+          />
+          <SectionProducto
+            data={product}
+            Component={ProductPolicies}
+            containerClass="p-section"
+          />
         </>
       )}
-      <ErrorDialog open={openDialog} handleClose={handleCloseDialog} message={error ? error.message : 'No se pudo obtener el producto'} />
+      <ErrorDialog
+        open={openDialog}
+        handleClose={handleCloseDialog}
+        message={error ? error.message : "No se pudo obtener el producto"}
+      />
     </main>
-  )
-}
+  );
+};
 
-export default Product
+export default Product;

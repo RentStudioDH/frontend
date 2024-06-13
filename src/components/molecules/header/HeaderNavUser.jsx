@@ -65,6 +65,9 @@ const HeaderNavUser = () => {
         <li>
           <Link to={routes.products} className="txt-tertiary paragraph" onClick={closeMenu}>Productos</Link>
         </li>
+        <li>
+          <Link to='/favs' className="txt-tertiary paragraph" onClick={closeMenu}>Favoritos</Link>
+        </li>
         {state.isLoggedIn && 
           <>
             <li>

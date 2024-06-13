@@ -2,12 +2,13 @@ import { useEffect } from 'react'
 import { useParams } from 'react-router-dom'
 import { useContextGlobal } from '../../contexts/global.context'
 import ListProductsCategory from '../../components/organisms/lists/ListProductsCategory'
+import Cards from "../../components/atoms/Cards"
 
 const Category = () => {
   const { category } = useParams()
   const { state, getCategories } = useContextGlobal()
   const { categories } = state
-  // console.log(categories)
+  /// console.log(categories)
 
   useEffect(() => {
     getCategories()
@@ -17,7 +18,7 @@ const Category = () => {
     const foundCategory = categories.find(cat => cat.slug.includes(category))
     return foundCategory ? foundCategory.name : category
   }
-  // console.log(getFormattedCategoryName(category))
+
 
   return (
     <main>
