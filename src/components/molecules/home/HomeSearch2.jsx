@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useState, useRef } from 'react';
 import { useContextGlobal } from '../../../contexts/global.context';
 import { useNavigate } from 'react-router-dom';
 import SearchCategory from '../../atoms/search/SearchCategory';
@@ -17,12 +17,12 @@ const HomeSearch2 = ({ title }) => {
   const [isFocused, setIsFocused] = useState(false);
   const [results, setResults] = useState([]);
   const [suggestions, setSuggestions] = useState([]);
+  const suggestionsRef = useRef(null);
 
   const isMobile = !state.isDesktop;
   const handleFocus = () => isMobile && setIsFocused(true);
   const handleBlur = () => isMobile && setIsFocused(false);
 
-  // las consultas a la API deberian estar en el global context
   const handleSearch = async (e) => {
     e.preventDefault();
     try {
@@ -33,7 +33,7 @@ const HomeSearch2 = ({ title }) => {
       } else if (searchText) {
         url += `searchText=${searchText}`;
       } else if (selectedCategory) {
-        url += `searchText=${searchText}&categoryId=${selectedCategory}`;
+        url += `categoryId=${selectedCategory}`;
       } else {
         return; // No hay criterios de búsqueda
       }
@@ -76,6 +76,10 @@ const HomeSearch2 = ({ title }) => {
 
   const handleSuggestionClick = (suggestion) => {
     navigate(`/producto/${suggestion.id}`);
+  };
+
+  const handleOutsideClick = () => {
+    setSuggestions([]);
   };
 
   useEffect(() => {
@@ -126,9 +130,13 @@ const HomeSearch2 = ({ title }) => {
           <i className="fa-solid fa-magnifying-glass"></i> {buttonText}
         </button>
       </form>
-      <SearchSuggestions suggestions={suggestions} onSuggestionClick={handleSuggestionClick} />
+      <SearchSuggestions 
+        suggestions={suggestions} 
+        onSuggestionClick={handleSuggestionClick} 
+        onOutsideClick={handleOutsideClick}
+      />
     </div>
-  )
+  );
 }
 
 export default HomeSearch2;

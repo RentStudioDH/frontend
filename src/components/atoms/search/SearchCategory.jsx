@@ -26,7 +26,7 @@ const SearchCategory = ({ onSelectCategory, data }) => {
   };
 
   return (
-    <div style={{ position: 'relative', zIndex: 1000 }}>
+    <div style={{ position: 'relative', zIndex: 1 }}>
       <button
         type="button"
         className="flex items-center txt-tertiary btn g-5"
