@@ -22,15 +22,33 @@ const HomeSearch2 = ({ title }) => {
   const handleFocus = () => isMobile && setIsFocused(true);
   const handleBlur = () => isMobile && setIsFocused(false);
 
+  // las consultas a la API deberian estar en el global context
   const handleSearch = async (e) => {
     e.preventDefault();
     try {
-      const response = await fetch(`https://apidh.jackmoon.dev/public/products/search/?searchText=${searchText}`);
+      let url = 'https://apidh.jackmoon.dev/public/products/search/?';
+      
+      if (searchText && selectedCategory) {
+        url += `searchText=${searchText}&categoryId=${selectedCategory}`;
+      } else if (searchText) {
+        url += `searchText=${searchText}`;
+      } else if (selectedCategory) {
+        url += `searchText=${searchText}&categoryId=${selectedCategory}`;
+      } else {
+        return; // No hay criterios de búsqueda
+      }
+
+      const response = await fetch(url);
+      if (!response.ok) {
+        throw new Error('Error en la solicitud al servidor');
+      }
       const data = await response.json();
       setResults(data);
       navigate('/productos', { state: { results: data } });
     } catch (error) {
       console.error('Error fetching search results:', error);
+      setResults([]); // Clear results on error
+      navigate('/productos', { state: { results: [], error: error.message } });
     }
   };
 
@@ -39,10 +57,14 @@ const HomeSearch2 = ({ title }) => {
       if (searchText) {
         try {
           const response = await fetch(`https://apidh.jackmoon.dev/public/products/search/?searchText=${searchText}`);
+          if (!response.ok) {
+            throw new Error('Error en la solicitud al servidor');
+          }
           const data = await response.json();
           setSuggestions(data);
         } catch (error) {
           console.error('Error fetching suggestions:', error);
+          setSuggestions([]);
         }
       } else {
         setSuggestions([]);
