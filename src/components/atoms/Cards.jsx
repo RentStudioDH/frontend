@@ -48,7 +48,8 @@ const Cards = ({ type, data, openModal }) => {
         );
       case 'product':
         return (
-          <Link className={`bg-white grid shadow-lg card ${type} br-15`} key={data.id} to={'/producto/' + data.id} >
+          <div >
+          <Link className={`bg-white grid h-full card ${type} br-15`} key={data.id} to={'/producto/' + data.id} >
             <div className='image'>
               <img src={firstImage} alt={data.name} loading='lazy' width={210} height={210} />
             </div>
@@ -60,9 +61,16 @@ const Cards = ({ type, data, openModal }) => {
               <div className='flex flex-col rent g-10'>
                 <p className="txt-primary paragraph" id='price'><strong>${data.price} / {data.rentType}</strong></p>
                 <Buttons text='Cotizar' bColor='#A62639' color='#fff' bgColor='#A62639' />
+              </div>
+            </div>
+          </Link>
                 <button
                   onClick={() => handleToggleFav(data)}
                   style={{
+                    position:'relative',
+                    bottom: '24%',
+                    left: '44%',
+                    zIndex:0,
                     display: 'flex',
                     alignItems: 'center',
                     justifyContent: 'center',
@@ -71,7 +79,8 @@ const Cards = ({ type, data, openModal }) => {
                     border: 'none',
                     cursor: 'pointer',
                     color: isFavorite ? '#fff' : '#A62639',
-                    marginTop: '10px'
+                    marginTop: '10px',
+                     
                     }}
                     >
                   <i className={`fa fa-heart`} style={{
@@ -81,10 +90,7 @@ const Cards = ({ type, data, openModal }) => {
                     }}></i>
                   {isFavorite ? 'Eliminar de tus favoritos' : 'Agregar a Favoritos'}
                 </button>               
-              </div>
-            </div>
-          </Link>
-                    
+             </div>       
           
         );
       case 'adminListProduct':
