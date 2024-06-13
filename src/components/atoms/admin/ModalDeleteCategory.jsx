@@ -23,8 +23,8 @@ const ModalDeleteCategory = ({ id, type, closeModal }) => {
     <div className="p-5">
       <p className="txt-primary text-center mb-5">¿Estás seguro de que quieres eliminar esta categoría?</p>
       <div className="flex justify-center gap-5">
-        <button className="btn btn-danger" onClick={deleteCategory}>Eliminar</button>
-        <button className="btn btn-secondary" onClick={closeModal}>Cancelar</button>
+        <button className="w-6/12 bg-primary text-white hover:brightness-50 py-2 px-4" onClick={deleteCategory}>Eliminar</button>
+        <button className="w-6/12 bg-gray-300 txt-accent hover:brightness-50 py-2 px-4" onClick={closeModal}>Cancelar</button>
       </div>
     </div>
   );
