@@ -1,141 +1,142 @@
-import React, { useState, useEffect } from 'react';
-import { useContextGlobal } from '../../../contexts/global.context';
-import { ThemeProvider, createTheme } from '@mui/material/styles';
-import { IconButton, InputBase, Paper, Dialog, DialogTitle, DialogContent, FormControl, InputLabel, MenuItem, Select, Button, Box, Typography } from '@mui/material';
-import { Calendar } from 'react-date-range';
-import "react-date-range/dist/styles.css";
-import "react-date-range/dist/theme/default.css";
+import { useEffect, useState, useRef } from 'react'
+import { useContextGlobal } from '../../../contexts/global.context'
+import { useNavigate } from 'react-router-dom'
+import SearchCategory from '../../atoms/search/SearchCategory'
+import SearchDate from '../../atoms/search/SearchDate'
+import SearchText from '../../atoms/search/SearchText'
+import SearchSuggestions from '../../atoms/search/SearchSuggestions'
 
 const HomeSearch = ({ title }) => {
-  const { state } = useContextGlobal();
-  const { categories, data: products } = state;
+  const { state } = useContextGlobal()
+  const navigate = useNavigate()
+  const [selectedCategory, setSelectedCategory] = useState('')
+  const [dates, setDates] = useState({ startDate: null, endDate: null })
+  const [searchText, setSearchText] = useState('')
 
-  const [searchTerm, setSearchTerm] = useState('');
-  const [category, setCategory] = useState('');
-  const [dateRange, setDateRange] = useState([null, null]);
-  const [filteredData, setFilteredData] = useState(products);
-  const [openCategoryDialog, setOpenCategoryDialog] = useState(false);
-  const [openDateDialog, setOpenDateDialog] = useState(false);
+  const [buttonText, setButtonText] = useState('')
+  const [isFocused, setIsFocused] = useState(false)
+  const [results, setResults] = useState([])
+  const [suggestions, setSuggestions] = useState([])
+  const suggestionsRef = useRef(null)
+
+  const isMobile = !state.isDesktop
+  const handleFocus = () => isMobile && setIsFocused(true)
+  const handleBlur = () => isMobile && setIsFocused(false)
+
+  const handleSearch = async (e) => {
+    e.preventDefault()
+    try {
+      let url = 'https://apidh.jackmoon.dev/public/products/search/?'
+      
+      if (searchText && selectedCategory) {
+        url += `searchText=${searchText}&categoryId=${selectedCategory}`
+      } else if (searchText) {
+        url += `searchText=${searchText}`
+      } else if (selectedCategory) {
+        url += `categoryId=${selectedCategory}`
+      } else {
+        return // No hay criterios de búsqueda
+      }
+
+      const response = await fetch(url)
+      if (!response.ok) {
+        throw new Error('Error en la solicitud al servidor')
+      }
+      const data = await response.json()
+      setResults(data)
+      navigate('/productos', { state: { results: data } })
+    } catch (error) {
+      console.error('Error fetching search results:', error)
+      setResults([]) // Clear results on error
+      navigate('/productos', { state: { results: [], error: error.message } })
+    }
+  }
 
   useEffect(() => {
-    handleSearch();
-  }, [searchTerm, category, dateRange, products]);
+    const fetchSuggestions = async () => {
+      if (searchText) {
+        try {
+          const response = await fetch(`https://apidh.jackmoon.dev/public/products/search/?searchText=${searchText}`)
+          if (!response.ok) {
+            throw new Error('Error en la solicitud al servidor')
+          }
+          const data = await response.json()
+          setSuggestions(data)
+        } catch (error) {
+          console.error('Error fetching suggestions:', error)
+          setSuggestions([])
+        }
+      } else {
+        setSuggestions([])
+      }
+    }
 
-  const handleSearch = () => {
-    const [startDate, endDate] = dateRange;
-    const filtered = products.filter(product => {
-      const matchesTitle = product.name.toLowerCase().includes(searchTerm.toLowerCase());
-      const matchesCategory = category ? product.category.name === category : true;
-      const matchesDate = startDate && endDate ? 
-        (new Date('2024-06-01') <= endDate && new Date('2024-06-10') >= startDate) : true; // Ajustar según los datos reales
-      return matchesTitle && matchesCategory && matchesDate;
-    });
-    setFilteredData(filtered);
-  };
+    fetchSuggestions()
+  }, [searchText])
 
-  const handleOpenCategoryDialog = () => {
-    setOpenCategoryDialog(true);
-  };
+  const handleSuggestionClick = (suggestion) => {
+    navigate(`/producto/${suggestion.id}`)
+  }
 
-  const handleCloseCategoryDialog = () => {
-    setOpenCategoryDialog(false);
-  };
+  const handleOutsideClick = () => {
+    setSuggestions([])
+  }
 
-  const handleOpenDateDialog = () => {
-    setOpenDateDialog(true);
-  };
-
-  const handleCloseDateDialog = () => {
-    setOpenDateDialog(false);
-  };
-
-  const theme = createTheme({
-    palette: {
-      primary: {
-        main: '#A62639',
-      },
-    },
-  });
+  useEffect(() => {
+    setButtonText(selectedCategory || dates.startDate || dates.endDate || searchText ? 'Buscar' : '')
+  }, [selectedCategory, dates, searchText])
 
   return (
-    <ThemeProvider theme={theme}>
-      <Typography variant="h4" color="primary" align="center" gutterBottom>
-        <strong>{title}</strong>
-      </Typography>
-      <Box sx={{ width: { xs: "100%", md: "60%" }, mb: 2, mx: 'auto' }}>
-        <Paper 
-          elevation={2} 
-          sx={{ borderRadius: "28px", display: 'flex', alignItems: 'center', justifyContent: 'space-between', p: 1 }}
-        >
-          <InputBase 
-            sx={{ ml: 2, flex: 1 }} 
-            placeholder="Buscar productos..." 
-            inputProps={{ 'aria-label': 'Buscar productos...' }} 
-            value={searchTerm}
-            onChange={(e) => setSearchTerm(e.target.value)}
+    <div className="grid g-15">
+      <h2 className='txt-primary text-center bigtitle'><strong>{title}</strong></h2>
+      <form 
+        onSubmit={handleSearch} 
+        className="flex bg-white search p-search g-5"
+        onFocus={handleFocus} 
+        style={{
+          flexDirection: isMobile && isFocused ? 'column' : 'row',
+          alignItems: isMobile && isFocused ? 'stretch' : 'center',
+          justifyContent: isMobile && isFocused ? 'flex-start' : 'space-between',
+          position: 'relative',
+          padding: '10px 20px'
+        }}
+      >
+        <div style={{ marginBottom: isMobile && isFocused ? '15px' : '0', flexGrow: 1 }}>
+          <SearchText 
+            onSearchTextChange={setSearchText} 
+            onFocus={handleFocus} 
+            onBlur={handleBlur} 
+            style={{ width: '100%' }}
           />
-          <IconButton onClick={handleOpenCategoryDialog} sx={{ p: '10px' }} aria-label="categoría">
-            <i className="fa-solid fa-tags" style={{ color: theme.palette.primary.main }}></i>
-          </IconButton>
-          <IconButton onClick={handleOpenDateDialog} sx={{ p: '10px' }} aria-label="calendario">
-            <i className="fa-solid fa-calendar" style={{ color: theme.palette.primary.main }}></i>
-          </IconButton>
-          <IconButton onClick={handleSearch} sx={{ p: '10px' }} aria-label="buscar">
-            <i className="fa-solid fa-magnifying-glass" style={{ color: theme.palette.primary.main }}></i>
-          </IconButton> 
-        </Paper>
-      </Box>
-
-      <Dialog open={openCategoryDialog} onClose={handleCloseCategoryDialog}>
-        <DialogTitle>Seleccionar Categoría</DialogTitle>
-        <DialogContent>
-          <FormControl fullWidth sx={{ mb: 2 }}>
-            <InputLabel id="category-select-label">Categoría</InputLabel>
-            <Select
-              labelId="category-select-label"
-              value={category}
-              label="Categoría"
-              onChange={(e) => setCategory(e.target.value)}
-            >
-              <MenuItem value=""><em>Todas las categorías</em></MenuItem>
-              {categories.map(cat => (
-                <MenuItem key={cat.slug} value={cat.name}>{cat.name}</MenuItem>
-              ))}
-            </Select>
-          </FormControl>
-          <Box sx={{ mt: 2 }}>
-            <Button variant="contained" color="primary" onClick={handleCloseCategoryDialog}>Aplicar</Button>
-          </Box>
-        </DialogContent>
-      </Dialog>
-
-      <Dialog open={openDateDialog} onClose={handleCloseDateDialog}>
-        <DialogTitle>Seleccionar Fechas</DialogTitle>
-        <DialogContent>
-          <Calendar
-            dateRange={dateRange}
-            onChange={(ranges) => setDateRange([ranges.selection])}
-            showSelectionPreview={true}
-            moveRangeOnFirstSelection={false}
+        </div>
+        <div style={{ marginBottom: isMobile && isFocused ? '15px' : '0', display: isMobile && isFocused ? 'block' : isMobile ? 'none' : 'block', flexGrow: 1 }}>
+          <SearchDate 
+            onDatesChange={setDates} 
+            onFocus={handleFocus} 
+            onBlur={handleBlur} 
+            style={{ width: '100%' }}
           />
-          <Box sx={{ mt: 2 }}>
-            <Button variant="contained" color="primary" onClick={handleCloseDateDialog}>Aplicar</Button>
-          </Box>
-        </DialogContent>
-      </Dialog>
-
-      <Typography variant="h6" color="primary" align="center" gutterBottom>
-        Resultados
-      </Typography>
-      <Box sx={{ width: { xs: "100%", md: "60%" }, mx: 'auto' }}>
-        <ul>
-          {filteredData.map(product => (
-            <li key={product.id}>{product.name} - {product.category.name}</li>
-          ))}
-        </ul>
-      </Box>
-    </ThemeProvider>
-  );
-};
+        </div>
+        <div style={{ marginBottom: isMobile && isFocused ? '15px' : '0', display: isMobile && isFocused ? 'block' : isMobile ? 'none' : 'block', flexGrow: 1 }}>
+          <SearchCategory 
+            onSelectCategory={setSelectedCategory} 
+            data={state} 
+            onFocus={handleFocus} 
+            onBlur={handleBlur} 
+            style={{ width: '100%' }}
+          />
+        </div>
+        <button onClick={handleBlur} type="submit" className="p-2 bg-primary text-white rounded-full">
+          <i className="fa-solid fa-magnifying-glass"></i> {buttonText}
+        </button>
+      </form>
+      <SearchSuggestions 
+        suggestions={suggestions} 
+        onSuggestionClick={handleSuggestionClick} 
+        onOutsideClick={handleOutsideClick}
+      />
+    </div>
+  )
+}
 
 export default HomeSearch

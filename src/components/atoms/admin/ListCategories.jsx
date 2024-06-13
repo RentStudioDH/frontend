@@ -1,45 +1,44 @@
-import { useState } from "react";
-import { useContextGlobal } from "../../../contexts/global.context";
-import Modals from "../Modals";
+import { useState } from "react"
+import { useContextGlobal } from "../../../contexts/global.context"
+import Modals from "../Modals"
 
 const ListCategories = () => {
-  const { state } = useContextGlobal();
-  const categories = state.categories || [];
-  const [isModalVisible, setModalVisible] = useState(false);
-  const [modalType, setModalType] = useState(null);
-  const [idCategory, setIdCategory] = useState(null);
+  const { state } = useContextGlobal()
+  const categories = state.categories || []
+  const [isModalVisible, setModalVisible] = useState(false)
+  const [modalType, setModalType] = useState(null)
+  const [idCategory, setIdCategory] = useState(null)
 
-  const [currentPage, setCurrentPage] = useState(1);
-  const [categoriesPerPage, setCategoriesPerPage] = useState(2); // Valor inicial del selector
-
-  const totalCategories = categories.length;
-  const totalPages = Math.ceil(totalCategories / categoriesPerPage);
-  const indexOfLastCategory = currentPage * categoriesPerPage;
-  const indexOfFirstCategory = indexOfLastCategory - categoriesPerPage;
-  const currentCategories = categories.slice(indexOfFirstCategory, indexOfLastCategory);
+  const [currentPage, setCurrentPage] = useState(1)
+  const [categoriesPerPage, setCategoriesPerPage] = useState(5) // Valor inicial del selector10
+  const totalCategories = categories.length
+  const totalPages = Math.ceil(totalCategories / categoriesPerPage)
+  const indexOfLastCategory = currentPage * categoriesPerPage
+  const indexOfFirstCategory = indexOfLastCategory - categoriesPerPage
+  const currentCategories = categories.slice(indexOfFirstCategory, indexOfLastCategory)
 
   const openModal = (type, id) => {
-    setModalType(type);
-    setIdCategory(id);
-    setModalVisible(true);
-  };
+    setModalType(type)
+    setIdCategory(id)
+    setModalVisible(true)
+  }
 
   const closeModal = () => {
-    setModalVisible(false);
-    setIdCategory(null);
-  };
+    setModalVisible(false)
+    setIdCategory(null)
+  }
 
   const handlePageChange = (pageNumber) => {
     if (pageNumber > 0 && pageNumber <= totalPages) {
-      setCurrentPage(pageNumber);
+      setCurrentPage(pageNumber)
     }
-  };
+  }
 
   const handleCategoriesPerPageChange = (event) => {
-    const newCategoriesPerPage = Number(event.target.value);
-    setCategoriesPerPage(newCategoriesPerPage);
-    setCurrentPage(1); // Reset to first page
-  };
+    const newCategoriesPerPage = Number(event.target.value)
+    setCategoriesPerPage(newCategoriesPerPage)
+    setCurrentPage(1) // Reset to first page
+  }
 
   return (
     <div className="bg-white relative overflow-x-auto shadow-md br-15">
@@ -120,9 +119,9 @@ const ListCategories = () => {
           </li>
           <li>
             <select name="cantCategories" value={categoriesPerPage} onChange={handleCategoriesPerPageChange} className="w-full p-1 border rounded bg-white txt-tertiary">
-              <option value="2">2</option>
-              <option value="4">4</option>
               <option value="5">5</option>
+              <option value="10">10</option>
+              <option value="15">15</option>
             </select>
           </li>
         </ul>
@@ -131,10 +130,7 @@ const ListCategories = () => {
         <Modals type={modalType} visible={isModalVisible} onClose={closeModal} id={idCategory} />
       )}
     </div>
-  );
-};
+  )
+}
 
-export default ListCategories;
-
-
-
+export default ListCategories

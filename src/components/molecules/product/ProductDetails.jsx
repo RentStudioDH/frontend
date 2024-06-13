@@ -1,12 +1,12 @@
-import featuresData from "../../../utils/json/featuresData.json";
+import featuresData from "../../../utils/json/featuresData.json"
 
 const ProductDetails = ({ data }) => {
   // console.log(data)
-  const initialFeatureCount = 4;
+  const initialFeatureCount = 4
   const firstImage =
     data.attachments && data.attachments.length > 0
       ? data.attachments[0].url
-      : "https://digitalhouse-e7-pi.s3.amazonaws.com/-Rhd-l2yWTj6iEqg7EhN9Q%3D%3D.png";
+      : "https://digitalhouse-e7-pi.s3.amazonaws.com/-Rhd-l2yWTj6iEqg7EhN9Q%3D%3D.png"
   return (
     <>
       <div className="grid info g-15">
@@ -63,7 +63,7 @@ const ProductDetails = ({ data }) => {
         />
       </div>
     </>
-  );
-};
+  )
+}
 
-export default ProductDetails;
+export default ProductDetails

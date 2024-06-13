@@ -1,29 +1,29 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect } from 'react'
 
 const SearchCategory = ({ onSelectCategory, data }) => {
-  const { categories } = data;
-  const [selectedCategory, setSelectedCategory] = useState(null);
-  const [showDropdown, setShowDropdown] = useState(false);
-  const [buttonText, setButtonText] = useState('Elige una categoría');
+  const { categories } = data
+  const [selectedCategory, setSelectedCategory] = useState(null)
+  const [showDropdown, setShowDropdown] = useState(false)
+  const [buttonText, setButtonText] = useState('Elige una categoría')
 
   useEffect(() => {
     if (!selectedCategory) {
-      setButtonText('Elige una categoría');
+      setButtonText('Elige una categoría')
     } else {
-      const selectedName = categories.find(category => category.id === selectedCategory)?.name;
-      setButtonText(selectedName || 'Elige una categoría');
+      const selectedName = categories.find(category => category.id === selectedCategory)?.name
+      setButtonText(selectedName || 'Elige una categoría')
     }
-  }, [selectedCategory, categories]);
+  }, [selectedCategory, categories])
 
   const handleCheckboxChange = (categoryId) => {
-    setSelectedCategory(categoryId);
-    onSelectCategory(categoryId);
-    setShowDropdown(false); // Close the dropdown after selection
-  };
+    setSelectedCategory(categoryId)
+    onSelectCategory(categoryId)
+    setShowDropdown(false) // Close the dropdown after selection
+  }
 
   const handleButtonClick = () => {
-    setShowDropdown(!showDropdown);
-  };
+    setShowDropdown(!showDropdown)
+  }
 
   return (
     <div style={{ position: 'relative', zIndex: 1 }}>
@@ -65,7 +65,7 @@ const SearchCategory = ({ onSelectCategory, data }) => {
         </div>
       )}
     </div>
-  );
-};
+  )
+}
 
-export default SearchCategory;
+export default SearchCategory

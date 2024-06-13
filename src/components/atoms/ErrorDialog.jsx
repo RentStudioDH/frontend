@@ -1,5 +1,5 @@
-import { Dialog, DialogContent, DialogActions, Typography, Button, Box } from '@mui/material';
-import ErrorIcon from '@mui/icons-material/Error';
+import { Dialog, DialogContent, DialogActions, Typography, Button, Box } from '@mui/material'
+import ErrorIcon from '@mui/icons-material/Error'
 
 const ErrorDialog = ({ open, handleClose, message }) => {
     return (
@@ -27,7 +27,7 @@ const ErrorDialog = ({ open, handleClose, message }) => {
                 </Button>
             </DialogActions>
         </Dialog>
-    );
-};
+    )
+}
 
-export default ErrorDialog;
+export default ErrorDialog

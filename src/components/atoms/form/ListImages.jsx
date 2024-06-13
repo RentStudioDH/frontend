@@ -1,93 +1,93 @@
 import { useState, useEffect } from 'react'
 import { useContextGlobal } from '../../../contexts/global.context'
 
-const ListImages = ({ images, onImageChange, multiple, onAllImagesUploaded, message }) => {
-  const { uploadImage } = useContextGlobal();
-  const [imageList, setImageList] = useState(images || []);
-  const [newImages, setNewImages] = useState([]);
-  const [uploading, setUploading] = useState(false);
-  const [uploadedImageIds, setUploadedImageIds] = useState(images.map((img) => img.id));
+const ListImages = ({ images, onImageChange, multiple = false, onAllImagesUploaded, message }) => {
+  const { uploadImage } = useContextGlobal()
+  const [imageList, setImageList] = useState(images || [])
+  const [newImages, setNewImages] = useState([])
+  const [uploading, setUploading] = useState(false)
+  const [uploadedImageIds, setUploadedImageIds] = useState(images.map((img) => img.id))
 
   useEffect(() => {
-    setImageList(images);
-    setUploadedImageIds(images.map((img) => img.id));
-  }, [images]);
+    setImageList(images)
+    setUploadedImageIds(images.map((img) => img.id))
+  }, [images])
 
   useEffect(() => {
     if (imageList.length > 0 && uploadedImageIds.length === imageList.length) {
-      onAllImagesUploaded(true);
+      onAllImagesUploaded(true)
     } else {
-      onAllImagesUploaded(false);
+      onAllImagesUploaded(false)
     }
-  }, [uploadedImageIds, imageList, onAllImagesUploaded]);
+  }, [uploadedImageIds, imageList, onAllImagesUploaded])
 
   const changeInput = (e) => {
-    const newImgsToState = readmultifiles(e, imageList.length + newImages.length);
-    const newImgsState = multiple ? [...newImages, ...newImgsToState] : newImgsToState;
-    setNewImages(newImgsState);
-    setImageList((prev) => [...prev, ...newImgsToState]);
-    onImageChange([...imageList, ...newImgsToState], uploadedImageIds);
-  };
+    const newImgsToState = readmultifiles(e, imageList.length + newImages.length)
+    const newImgsState = multiple ? [...newImages, ...newImgsToState] : newImgsToState
+    setNewImages(newImgsState)
+    setImageList((prev) => [...prev, ...newImgsToState])
+    onImageChange([...imageList, ...newImgsToState], uploadedImageIds)
+  }
 
   const readmultifiles = (e, idInicial) => {
-    const files = e.currentTarget.files;
-    const arrayImages = [];
+    const files = e.currentTarget.files
+    const arrayImages = []
     Object.keys(files).forEach((i) => {
-      const file = files[i];
-      const url = URL.createObjectURL(file);
+      const file = files[i]
+      const url = URL.createObjectURL(file)
       arrayImages.push({
         id: idInicial++,
         fileName: file.name,
         url,
         file,
-      });
-    });
-    return arrayImages;
-  };
+      })
+    })
+    return arrayImages
+  }
 
   const deleteImg = (id) => {
-    const newImgs = imageList.filter((element) => element.id !== id);
-    setImageList(newImgs);
-    const newUploadedIds = uploadedImageIds.filter((uploadedId) => uploadedId !== id);
-    setUploadedImageIds(newUploadedIds);
-    setNewImages(newImages.filter((image) => image.id !== id));
-    onImageChange(newImgs, newUploadedIds);
-  };
+    const newImgs = imageList.filter((element) => element.id !== id)
+    setImageList(newImgs)
+    const newUploadedIds = uploadedImageIds.filter((uploadedId) => uploadedId !== id)
+    setUploadedImageIds(newUploadedIds)
+    setNewImages(newImages.filter((image) => image.id !== id))
+    onImageChange(newImgs, newUploadedIds)
+  }
 
   const uploadImages = async () => {
-    setUploading(true);
+    setUploading(true)
     try {
-      const formData = new FormData();
-      newImages.forEach((image) => formData.append('files', image.file));
+      const formData = new FormData()
+      newImages.forEach((image) => formData.append('files', image.file))
 
-      const result = await uploadImage(formData);
+      const result = await uploadImage(formData)
 
       const newUploadedImages = result.map((uploadedImage) => ({
         id: uploadedImage.id,
         fileName: uploadedImage.fileName,
         url: uploadedImage.url,
-      }));
+      }))
 
       const updatedImages = [
         ...imageList.filter((img) => !newImages.some((newImg) => newImg.id === img.id)),
         ...newUploadedImages,
-      ];
+      ]
 
-      const newUploadedIds = newUploadedImages.map((item) => item.id);
-      setImageList(updatedImages);
-      setUploadedImageIds((prev) => [...prev, ...newUploadedIds]);
-      setNewImages([]);
-      onImageChange(updatedImages, [...uploadedImageIds, ...newUploadedIds]);
+      const newUploadedIds = newUploadedImages.map((item) => item.id)
+      setImageList(updatedImages)
+      setUploadedImageIds((prev) => [...prev, ...newUploadedIds])
+      setNewImages([])
+      onImageChange(updatedImages, [...uploadedImageIds, ...newUploadedIds])
     } catch (error) {
-      console.error('Error uploading images:', error);
+      console.error('Error uploading images:', error)
     } finally {
-      setUploading(false);
+      setUploading(false)
     }
-  };
+  }
 
-  const notUploadedCount = newImages.length;
-  const uploadedCount = uploadedImageIds.length - newImages.length;
-  const allUploaded = uploadedCount > 0 && notUploadedCount === 0;
+  const notUploadedCount = newImages.length
+  const uploadedCount = uploadedImageIds.length - newImages.length
+  const allUploaded = uploadedCount > 0 && notUploadedCount === 0
 
   return (
     <>
@@ -144,7 +144,7 @@ const ListImages = ({ images, onImageChange, multiple, onAllImagesUploaded, mess
         </div>
       </div>
     </>
-  );
-};
+  )
+}
 
-export default ListImages;
+export default ListImages
