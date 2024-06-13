@@ -9,6 +9,7 @@ import ProductPolicies from "../../components/molecules/product/ProductPolicies"
 import ProductGallery from "../../components/molecules/product/ProductGallery";
 import LoadingOverlay from "../../components/atoms/LoadingOverlay.jsx";
 import ErrorDialog from "../../components/atoms/ErrorDialog";
+import ProductCalendar from '../../components/molecules/product/ProductCalendar.jsx'
 
 const Product = () => {
   const { id } = useParams();
@@ -76,6 +77,7 @@ const Product = () => {
             sectionClass="productDetails"
             containerClass="grid grid-cols-1 sm:grid-cols-2 p-section g-15"
           />
+          <SectionProducto data={product} Component={ProductCalendar} sectionClass='productCalendar' containerClass='grid grid-cols-1 sm:grid-cols-2 p-section g-15' />
           <SectionProducto
             data={{ ...product, attachments: images }}
             Component={ProductGallery}
