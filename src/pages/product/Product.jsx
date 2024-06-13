@@ -1,64 +1,65 @@
-import { useEffect, useState } from "react";
-import { useParams, useNavigate } from "react-router-dom";
-import { useContextGlobal } from "../../contexts/global.context.jsx";
-import SectionProducto from "../../components/organisms/sections/SectionProducto";
-import ProductHeader from "../../components/molecules/product/ProductHeader";
-import ProductDetails from "../../components/molecules/product/ProductDetails";
-import ProductIdeas from "../../components/molecules/product/ProductIdeas";
-import ProductPolicies from "../../components/molecules/product/ProductPolicies";
-import ProductGallery from "../../components/molecules/product/ProductGallery";
-import LoadingOverlay from "../../components/atoms/LoadingOverlay.jsx";
-import ErrorDialog from "../../components/atoms/ErrorDialog";
-import ProductAvailability from "../../components/molecules/product/ProductAvailability.jsx";
+import { useEffect, useState } from "react"
+import { useParams, useNavigate } from "react-router-dom"
+import { useContextGlobal } from "../../contexts/global.context.jsx"
+import SectionProducto from "../../components/organisms/sections/SectionProducto"
+import ProductHeader from "../../components/molecules/product/ProductHeader"
+import ProductDetails from "../../components/molecules/product/ProductDetails"
+import ProductIdeas from "../../components/molecules/product/ProductIdeas"
+import ProductPolicies from "../../components/molecules/product/ProductPolicies"
+import ProductGallery from "../../components/molecules/product/ProductGallery"
+import LoadingOverlay from "../../components/atoms/LoadingOverlay.jsx"
+import ErrorDialog from "../../components/atoms/ErrorDialog"
+import ProductAvailability from "../../components/molecules/product/ProductAvailability.jsx"
+import ProductCalendar from '../../components/molecules/product/ProductCalendar.jsx'
 
 const Product = () => {
-  const { id } = useParams();
-  const navigate = useNavigate();
-  const { getProductById } = useContextGlobal();
-  const [product, setProduct] = useState(null);
-  const [loading, setLoading] = useState(true);
-  const [error, setError] = useState(null);
-  const [images, setImages] = useState([]);
-  const [openDialog, setOpenDialog] = useState(false);
+  const { id } = useParams()
+  const navigate = useNavigate()
+  const { getProductById } = useContextGlobal()
+  const [product, setProduct] = useState(null)
+  const [loading, setLoading] = useState(true)
+  const [error, setError] = useState(null)
+  const [images, setImages] = useState([])
+  const [openDialog, setOpenDialog] = useState(false)
 
   useEffect(() => {
     const fetchProduct = async () => {
       try {
-        const productData = await getProductById(id);
+        const productData = await getProductById(id)
         if (!productData.attachments || productData.attachments.length === 0) {
-          throw new Error("El producto no tiene imágenes disponibles aún.");
+          throw new Error("El producto no tiene imágenes disponibles aún.")
         }
-        setProduct(productData);
-        transformAndSetImages(productData.attachments);
+        setProduct(productData)
+        transformAndSetImages(productData.attachments)
       } catch (error) {
-        setError(new Error("No se pudo obtener el producto."));
-        setOpenDialog(true);
+        setError(new Error("No se pudo obtener el producto."))
+        setOpenDialog(true)
       } finally {
-        setLoading(false);
+        setLoading(false)
       }
-    };
-    fetchProduct();
-  }, [id, getProductById]);
+    }
+    fetchProduct()
+  }, [id, getProductById])
 
   const transformAndSetImages = (attachments) => {
     const transformedImages = attachments.map((attachment, index) => ({
       ...attachment,
       id: index,
-    }));
-    setImages(transformedImages);
-  };
+    }))
+    setImages(transformedImages)
+  }
 
   const handleCloseDialog = () => {
-    setOpenDialog(false);
-    navigate(-1);
-  };
+    setOpenDialog(false)
+    navigate(-1)
+  }
 
   if (loading) {
     return (
       <div className="min-h-screen">
         <LoadingOverlay open={loading} />
       </div>
-    );
+    )
   }
 
   return (
@@ -77,6 +78,7 @@ const Product = () => {
             sectionClass="productDetails"
             containerClass="grid grid-cols-1 sm:grid-cols-2 p-section g-15"
           />
+          <SectionProducto data={product} Component={ProductCalendar} sectionClass='productCalendar' containerClass='grid grid-cols-1 sm:grid-cols-2 p-section g-15' />
           <SectionProducto
             data={product}
             Component={ProductAvailability}
@@ -107,7 +109,7 @@ const Product = () => {
         message={error ? error.message : "No se pudo obtener el producto"}
       />
     </main>
-  );
-};
+  )
+}
 
-export default Product;
+export default Product
