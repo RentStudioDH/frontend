@@ -1,12 +1,12 @@
-import featuresData from "../../../utils/json/featuresData.json"
+import featuresData from "../../../utils/json/featuresData.json";
 
 const ProductDetails = ({ data }) => {
-  // console.log(data)
-  const initialFeatureCount = 4
+  console.log(data.features);
+  const initialFeatureCount = 4;
   const firstImage =
     data.attachments && data.attachments.length > 0
       ? data.attachments[0].url
-      : "https://digitalhouse-e7-pi.s3.amazonaws.com/-Rhd-l2yWTj6iEqg7EhN9Q%3D%3D.png"
+      : "https://digitalhouse-e7-pi.s3.amazonaws.com/-Rhd-l2yWTj6iEqg7EhN9Q%3D%3D.png";
   return (
     <>
       <div className="grid info g-15">
@@ -30,7 +30,7 @@ const ProductDetails = ({ data }) => {
             <strong>Características</strong>
           </h2>
           <div className="grid grid-flow-row place-items-center md:place-items-start g-5">
-            {featuresData.slice(1, initialFeatureCount).map((feature) => (
+            {data.features.slice(1, initialFeatureCount).map((feature) => (
               <div
                 key={feature.id}
                 className="grid grid-flow-row md:grid-flow-col place-items-center g-5"
@@ -63,7 +63,7 @@ const ProductDetails = ({ data }) => {
         />
       </div>
     </>
-  )
-}
+  );
+};
 
-export default ProductDetails
+export default ProductDetails;
