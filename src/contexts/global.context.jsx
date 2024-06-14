@@ -152,7 +152,7 @@ export const ContextProvider = ({ children }) => {
   }
 
   // Usuarios
-  const urlUsers = '/users'
+  const urlUsers = '/public/users'
   // Registro
   const registerUser = async (userData) => {
     try {
