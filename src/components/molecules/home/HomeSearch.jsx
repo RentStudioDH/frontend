@@ -33,7 +33,7 @@ const HomeSearch = ({ title }) => {
       } else if (searchText) {
         url += `searchText=${searchText}`
       } else if (selectedCategory) {
-        url += `categoryId=${selectedCategory}`
+        url += `searchText=${searchText}&categoryId=${selectedCategory}`
       } else {
         return // No hay criterios de búsqueda
       }
