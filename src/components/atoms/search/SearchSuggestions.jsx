@@ -1,24 +1,24 @@
-import React, { useEffect, useRef } from 'react';
-import Paper from '@mui/material/Paper';
-import List from '@mui/material/List';
-import ListItem from '@mui/material/ListItem';
-import ListItemText from '@mui/material/ListItemText';
+import { useEffect, useRef } from 'react'
+import Paper from '@mui/material/Paper'
+import List from '@mui/material/List'
+import ListItem from '@mui/material/ListItem'
+import ListItemText from '@mui/material/ListItemText'
 
 const SearchSuggestions = ({ suggestions, onSuggestionClick, onOutsideClick }) => {
-  const wrapperRef = useRef(null);
+  const wrapperRef = useRef(null)
 
   useEffect(() => {
     const handleClickOutside = (event) => {
       if (wrapperRef.current && !wrapperRef.current.contains(event.target)) {
-        onOutsideClick();
+        onOutsideClick()
       }
-    };
+    }
 
-    document.addEventListener('mousedown', handleClickOutside);
+    document.addEventListener('mousedown', handleClickOutside)
     return () => {
-      document.removeEventListener('mousedown', handleClickOutside);
-    };
-  }, [onOutsideClick]);
+      document.removeEventListener('mousedown', handleClickOutside)
+    }
+  }, [onOutsideClick])
 
   return (
     <div ref={wrapperRef} className="search-suggestions" style={{ position: 'relative', zIndex: 1 }}>
@@ -48,7 +48,7 @@ const SearchSuggestions = ({ suggestions, onSuggestionClick, onOutsideClick }) =
         </Paper>
       )}
     </div>
-  );
-};
+  )
+}
 
-export default SearchSuggestions;
+export default SearchSuggestions

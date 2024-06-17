@@ -1,16 +1,15 @@
 import { useEffect, useState } from "react"
 import { useParams, useNavigate } from "react-router-dom"
 import { useContextGlobal } from "../../contexts/global.context.jsx"
+import LoadingOverlay from "../../components/atoms/LoadingOverlay.jsx"
+import ErrorDialog from "../../components/atoms/ErrorDialog"
 import SectionProducto from "../../components/organisms/sections/SectionProducto"
 import ProductHeader from "../../components/molecules/product/ProductHeader"
 import ProductDetails from "../../components/molecules/product/ProductDetails"
 import ProductIdeas from "../../components/molecules/product/ProductIdeas"
-import ProductPolicies from "../../components/molecules/product/ProductPolicies"
-import ProductGallery from "../../components/molecules/product/ProductGallery"
-import LoadingOverlay from "../../components/atoms/LoadingOverlay.jsx"
-import ErrorDialog from "../../components/atoms/ErrorDialog"
 import ProductAvailability from "../../components/molecules/product/ProductAvailability.jsx"
-import ProductCalendar from '../../components/molecules/product/ProductCalendar.jsx'
+import ProductGallery from "../../components/molecules/product/ProductGallery"
+import ProductPolicies from "../../components/molecules/product/ProductPolicies"
 
 const Product = () => {
   const { id } = useParams()
@@ -78,7 +77,6 @@ const Product = () => {
             sectionClass="productDetails"
             containerClass="grid grid-cols-1 sm:grid-cols-2 p-section g-15"
           />
-          <SectionProducto data={product} Component={ProductCalendar} sectionClass='productCalendar' containerClass='grid grid-cols-1 sm:grid-cols-2 p-section g-15' />
           <SectionProducto
             data={product}
             Component={ProductAvailability}
@@ -91,11 +89,11 @@ const Product = () => {
             sectionClass="bg-white productGallery"
             containerClass="grid p-section g-5"
           />
-          <SectionProducto
+          {/* <SectionProducto
             data={product}
             Component={ProductIdeas}
             containerClass="p-section"
-          />
+          /> */}
           <SectionProducto
             data={product}
             Component={ProductPolicies}

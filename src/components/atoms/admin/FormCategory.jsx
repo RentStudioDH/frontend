@@ -1,8 +1,8 @@
-import React, { useState, useEffect } from 'react';
-import { fetchData } from '../../../utils/js/apiRequest';
-import Buttons from '../Buttons';
-import ListImages from '../form/ListImages';
-import { useContextGlobal } from '../../../contexts/global.context';
+import { useState, useEffect } from 'react'
+import { fetchData } from '../../../utils/js/apiRequest'
+import Buttons from '../Buttons'
+import ListImages from '../form/ListImages'
+import { useContextGlobal } from '../../../contexts/global.context'
 
 const FormCategory = ({ type, id }) => {
   const initialCategoryState = {
@@ -11,71 +11,71 @@ const FormCategory = ({ type, id }) => {
     slug: '',
     attachmentId: null,
     attachments: [] 
-  };
+  }
 
-  const { state, getCategories } = useContextGlobal();
-  const { token, categories } = state;
-  const [category, setCategory] = useState(initialCategoryState);
-  const [error, setError] = useState({});
-  const [successMessage, setSuccessMessage] = useState('');
-  const [allImagesUploaded, setAllImagesUploaded] = useState(true);
+  const { state, getCategories } = useContextGlobal()
+  const { token, categories } = state
+  const [category, setCategory] = useState(initialCategoryState)
+  const [error, setError] = useState({})
+  const [successMessage, setSuccessMessage] = useState('')
+  const [allImagesUploaded, setAllImagesUploaded] = useState(true)
 
   useEffect(() => {
     if (type === 'editarCategoria' && id) {
-      const categoryToEdit = categories.find((category) => category.id === id);
+      const categoryToEdit = categories.find((category) => category.id === id)
       if (categoryToEdit) {
         setCategory({
           ...categoryToEdit,
           attachments: categoryToEdit.attachments || (categoryToEdit.attachment ? [categoryToEdit.attachment] : [])
-        });
+        })
       }
     }
-  }, [id, type, categories]);
+  }, [id, type, categories])
 
   const handleNameChange = (e) => {
-    const name = e.target.value;
-    const slug = generateSlug(name);
-    setCategory((prevCategory) => ({ ...prevCategory, name, slug }));
-  };
+    const name = e.target.value
+    const slug = generateSlug(name)
+    setCategory((prevCategory) => ({ ...prevCategory, name, slug }))
+  }
 
   const handleInputChange = (e) => {
-    const { name, value } = e.target;
-    setCategory((prevCategory) => ({ ...prevCategory, [name]: value }));
-  };
+    const { name, value } = e.target
+    setCategory((prevCategory) => ({ ...prevCategory, [name]: value }))
+  }
 
   const handleImageChange = (images) => {
     setCategory((prevCategory) => ({
       ...prevCategory,
       attachments: images,
       attachmentId: images.length > 0 ? images[0].id : null
-    }));
-  };
+    }))
+  }
 
   const onAllImagesUploaded = (status) => {
-    setAllImagesUploaded(status);
-  };
+    setAllImagesUploaded(status)
+  }
 
   const generateSlug = (name) => {
-    let slug = name.trim().toLowerCase();
-    slug = slug.replace(/\s+/g, '-');
-    slug = slug.replace(/[^\w-]/g, '');
-    return `/categoria/${slug}`;
-  };
+    let slug = name.trim().toLowerCase()
+    slug = slug.replace(/\s+/g, '-')
+    slug = slug.replace(/[^\w-]/g, '')
+    return `/categoria/${slug}`
+  }
 
   const validateForm = () => {
-    let formErrors = {};
-    if (!category.name.trim()) formErrors.name = 'Por favor complete este campo.';
-    if (!category.description.trim()) formErrors.description = 'Por favor complete este campo.';
-    return formErrors;
-  };
+    let formErrors = {}
+    if (!category.name.trim()) formErrors.name = 'Por favor complete este campo.'
+    if (!category.description.trim()) formErrors.description = 'Por favor complete este campo.'
+    return formErrors
+  }
 
   const saveCategory = async (e) => {
-    e.preventDefault();
+    e.preventDefault()
 
-    const formErrors = validateForm();
+    const formErrors = validateForm()
     if (Object.keys(formErrors).length > 0) {
-      setError(formErrors);
-      return;
+      setError(formErrors)
+      return
     }
 
     try {
@@ -84,11 +84,11 @@ const FormCategory = ({ type, id }) => {
         description: category.description,
         slug: category.slug,
         attachmentId: category.attachmentId
-      };
+      }
 
-      console.log('Datos enviados:', categoryData);
+      console.log('Datos enviados:', categoryData)
 
-      let response;
+      let response
 
       if (type === 'editarCategoria' && id) {
         response = await fetchData({
@@ -96,25 +96,25 @@ const FormCategory = ({ type, id }) => {
           endpoint: `/categories/${id}`,
           data: categoryData,
           headers: { Authorization: `Bearer ${token}` }
-        });
-        setSuccessMessage('Categoría actualizada correctamente');
+        })
+        setSuccessMessage('Categoría actualizada correctamente')
       } else {
         response = await fetchData({
           method: 'post',
           endpoint: '/categories',
           data: categoryData,
           headers: { Authorization: `Bearer ${token}` }
-        });
-        setSuccessMessage('Categoría registrada correctamente');
-        setCategory(initialCategoryState);
+        })
+        setSuccessMessage('Categoría registrada correctamente')
+        setCategory(initialCategoryState)
       }
-      await getCategories();
-      setError({});
+      await getCategories()
+      setError({})
     } catch (error) {
-      console.error('Error posting data to /categories:', error.response?.data || error.message);
-      setError({ message: error.response?.data?.message || error.message || 'Ha ocurrido un error al procesar la solicitud.' });
+      console.error('Error posting data to /categories:', error.response?.data || error.message)
+      setError({ message: error.response?.data?.message || error.message || 'Ha ocurrido un error al procesar la solicitud.' })
     }
-  };
+  }
 
   return (
     <>
@@ -158,7 +158,7 @@ const FormCategory = ({ type, id }) => {
         )}
       </form>
     </>
-  );
-};
+  )
+}
 
-export default FormCategory;
+export default FormCategory
