@@ -8,6 +8,7 @@ import Home from './pages/home/Home'
 import Product from './pages/product/Product'
 import Products from './pages/product/Products'
 import Admin from './pages/admin/Admin'
+import User from './pages/user/User'
 import Category from './pages/category/Category'
 import Footer from './components/organisms/Footer'
 import ProtectedRoute from './pages/ProtectedRoute'
@@ -24,6 +25,7 @@ function App() {
           <Route path={routes.detail} element={<Product/>}/>
           <Route path={routes.products} element={<Products/>}/>
           <Route path="/admin/:admin" element={<ProtectedRoute element={<Admin />} />} />
+          <Route path="/user/:user" element={<ProtectedRoute element={<User />} />} />
           <Route path="/categoria/:category" element={<Category/>} />
           <Route path="/favs" element={<Favs/>} />
         </Routes>

@@ -1,0 +1,32 @@
+[
+    {
+      "id": 1,
+      "label": "Mi Perfil",
+      "path": "/user/MiPerfil",
+      "icon": "fa-house"
+    },
+    {
+      "id": 2,
+      "label": "Direcciones",
+      "path": "/user/Direcciones",
+      "icon": "fa-database"
+    },
+    {
+      "id": 3,
+      "label": "Reservas",
+      "path": "/user/reservas",
+      "icon": "fa-circle-plus"
+    },
+    {
+      "id": 4,
+      "label": "Favoritos",
+      "path": "/user/favoritos",
+      "icon": "fa-circle-plus"
+    },
+    {
+      "id": 5,
+      "label": "Tarjetas",
+      "path": "/user/tarjetas",
+      "icon": "fa-circle-plus"
+    }
+  ]
