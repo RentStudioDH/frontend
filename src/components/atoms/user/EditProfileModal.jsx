@@ -1,74 +1,63 @@
-import { Button, Dialog, DialogActions, DialogContent, DialogTitle, TextField } from '@mui/material';
 import React, { useState } from 'react';
+import { Modal, Box, TextField, Button } from '@mui/material';
 
 const EditProfileModal = ({ open, handleClose, userData, handleSave }) => {
-  const [editedData, setEditedData] = useState(userData);
+  const [formData, setFormData] = useState(userData);
 
   const handleChange = (e) => {
-    const { name, value } = e.target;
-    setEditedData(prevData => ({
-      ...prevData,
-      [name]: value
-    }));
+    setFormData({ ...formData, [e.target.name]: e.target.value });
   };
 
-  const handleSaveChanges = () => {
-    handleSave(editedData);
+  const handleSubmit = () => {
+    // Aquí puedes hacer una llamada a la API para actualizar los datos del usuario
+    handleSave(formData);
     handleClose();
   };
 
   return (
-    <Dialog open={open} onClose={handleClose}>
-      <DialogTitle>Editar Perfil</DialogTitle>
-      <DialogContent>
+    <Modal open={open} onClose={handleClose}>
+      <Box sx={{ ...modalStyle }}>
         <TextField
-          label="Nombre"
-          name="nombre"
-          value={editedData.nombre}
+          name='nombre'
+          label='Nombre'
+          value={formData.nombre}
           onChange={handleChange}
           fullWidth
-          margin="normal"
+          sx={{ marginBottom: 2 }}
         />
         <TextField
-          label="Apellido"
-          name="apellido"
-          value={editedData.apellido}
+          name='apellido'
+          label='Apellido'
+          value={formData.apellido}
           onChange={handleChange}
           fullWidth
-          margin="normal"
+          sx={{ marginBottom: 2 }}
         />
         <TextField
-          label="Email"
-          name="email"
-          value={editedData.email}
-          fullWidth
-          margin="normal"
-          disabled // Campo de correo electrónico deshabilitado
-        />
-        <TextField
-          label="Teléfono"
-          name="telefono"
-          value={editedData.telefono}
+          name='telefono'
+          label='Telefono'
+          value={formData.telefono}
           onChange={handleChange}
           fullWidth
-          margin="normal"
+          sx={{ marginBottom: 2 }}
         />
-        <TextField
-          label="Nueva Contraseña"
-          type="password"
-          name="password"
-          value={editedData.password}
-          onChange={handleChange}
-          fullWidth
-          margin="normal"
-        />
-      </DialogContent>
-      <DialogActions>
-        <Button onClick={handleClose} color='warning'>Cancelar</Button>
-        <Button onClick={handleSaveChanges} variant="contained" color="success">Guardar</Button>
-      </DialogActions>
-    </Dialog>
+        <Button variant='contained' onClick={handleSubmit} sx={{ bgcolor: '#A62639', color: 'white' }}>
+          Guardar
+        </Button>
+      </Box>
+    </Modal>
   );
+};
+
+const modalStyle = {
+  position: 'absolute',
+  top: '50%',
+  left: '50%',
+  transform: 'translate(-50%, -50%)',
+  width: 400,
+  bgcolor: 'background.paper',
+  boxShadow: 24,
+  p: 4,
 };
 
 export default EditProfileModal;

@@ -72,6 +72,9 @@ export const reducer = (state, action) => {
         token: '',
       };
 
+    case 'SET_USER_DATA':
+      return { ...state, user: action.payload };  
+
     // Favoritos
     case 'ADD_FAV':
       return {

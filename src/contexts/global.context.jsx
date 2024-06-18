@@ -179,6 +179,19 @@ export const ContextProvider = ({ children }) => {
     startTokenRenewal()
   }
 
+  // Fetch user data
+const fetchUserData = async () => {
+  try {
+    const userData = await fetchData({ method: 'get', endpoint: '/users/me', requireAuth: true });
+    dispatch({ type: 'SET_USER_DATA', payload: userData });
+    return userData;
+  } catch (error) {
+    console.error('Error fetching user data:', error);
+    throw error;
+  }
+};
+
+
   // const fetchUserData = async (token) => {
   //   try {
   //     const userData = await fetchData({ method: 'get', endpoint: '/auth/user', requireAuth: true })
@@ -229,6 +242,7 @@ export const ContextProvider = ({ children }) => {
     logoutUser,
     toggleTheme,
     getUserReservations,
+    fetchUserData
   }
 
   return (
