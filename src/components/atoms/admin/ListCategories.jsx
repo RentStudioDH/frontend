@@ -41,7 +41,7 @@ const ListCategories = () => {
   }
 
   return (
-    <div className="bg-white relative overflow-x-auto shadow-md br-15">
+    <div className="bg-white relative overflow-x-auto shadow-lg br-15">
       <div className="p-15">
         <label htmlFor="table-search" className="sr-only">Buscar</label>
         <div className="relative flex items-center">

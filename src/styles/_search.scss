@@ -1,14 +1,11 @@
 .p-search {
-  padding: 10px 5px 10px 10px;
+  padding: 15px;
 }
 
 .search {
-  border: 1px solid $base;
-  border-radius: 30px;
   &Category {
-    width: 160px;
     .listcategory {
-      margin: 20px 0 0;
+      margin: 5px 0 0;
     }
     .truncate {
       max-width: 160px; /* Ajusta este valor según sea necesario */
@@ -18,15 +15,16 @@
     }
   }
   &Date {
-    padding: 0 5px;
+    padding: 10px 0;
+    border-top: 1px solid $base;
+    border-bottom: 1px solid $base;
     .calendar {
-      margin: 20px 0 0;
+      position: relative;
+      margin: 5px auto 0;
     }
   }
 }
-.category, .calendar {
-  margin: 20px 0 0;
-}
+
 .calendar {
   .react-datepicker__children-container {
     width: fit-content !important;
@@ -48,5 +46,36 @@
   .react-datepicker__day--range-start, .react-datepicker__day--range-end {
     background-color: #A62639 !important;
     color: #fff !important;
+  }
+}
+
+@media (min-width: 767px) {
+  .p-search {
+    padding: 10px 5px 10px 25px;
+  }
+  .search {
+    border: 1px solid $base;
+    border-radius: 30px;
+    &Text, &Category {
+      width: 160px;
+    }
+    &Category {
+      .listcategory {
+        position: absolute;
+        margin: 20px 0 0;
+        z-index: 20;
+      }
+    }
+    &Date {
+      border-left: 1px solid $base;
+      border-right: 1px solid $base;
+      border-top: 0;
+      border-bottom: 0;
+      padding: 0 5px;
+      .calendar {
+        position: absolute;
+        margin: 20px 0 0;
+      }
+    }
   }
 }
