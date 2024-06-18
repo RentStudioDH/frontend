@@ -14,19 +14,19 @@
     {
       "id": 3,
       "label": "Reservas",
-      "path": "/user/reservas",
+      "path": "/user/Reservas",
       "icon": "fa-circle-plus"
     },
     {
       "id": 4,
       "label": "Favoritos",
-      "path": "/user/favoritos",
+      "path": "/user/Favoritos",
       "icon": "fa-circle-plus"
     },
     {
       "id": 5,
       "label": "Tarjetas",
-      "path": "/user/tarjetas",
+      "path": "/user/Tarjetas",
       "icon": "fa-circle-plus"
     }
   ]

@@ -5,6 +5,7 @@ import Cards from "../../components/atoms/Cards"
 import UserMenu from "../../components/molecules/user/UserMenu"
 import UserPerfil from "../../components/molecules/user/UserPerfil"
 import DireccionesUsuario from "../../components/atoms/user/DireccionesUsuario"
+import UserReservas from "../../components/molecules/user/UserReservas"
 
 const User = () => {
   const { state } = useContextGlobal()
@@ -18,7 +19,7 @@ const User = () => {
       case 'Direcciones':
         return <SectionAdmin title="Direcciones" type="Direcciones" ContainerComponent={DireccionesUsuario} />
       case 'Reservas':
-        return <SectionAdmin title="Reservas" type="Reservas" ContainerComponent={""} />
+        return <SectionAdmin title="Reservas" type="Reservas" ContainerComponent={UserReservas} />
       case 'Favoritos':
         return <SectionAdmin title="Favoritos" type="Favoritos" ContainerComponent={""} />
       case 'Tarjetas':

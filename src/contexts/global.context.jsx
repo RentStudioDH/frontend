@@ -197,6 +197,22 @@ export const ContextProvider = ({ children }) => {
     dispatch({ type: 'LOGOUT_USER' })
   }
 
+  // Mostrar reservas 
+  const getUserReservations = async () => {
+    try {
+      const response = await fetchData({ method: 'get', endpoint: '/user/reservations', requireAuth: true });
+      return response.map(reservation => ({
+        ...reservation,
+        image: reservation.product.image, // Asegúrate de que la imagen está en el objeto de reserva
+      }));
+    } catch (error) {
+      console.error('Error fetching user reservations:', error);
+      throw error;
+    }
+  };
+  
+  
+
   const contextValue = {
     state,
     dispatch,
@@ -212,6 +228,7 @@ export const ContextProvider = ({ children }) => {
     loginUser,
     logoutUser,
     toggleTheme,
+    getUserReservations,
   }
 
   return (
