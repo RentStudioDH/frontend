@@ -1,0 +1,26 @@
+[
+    {
+      "id": 1,
+      "label": "Mi Perfil",
+      "path": "/user/MiPerfil",
+      "icon": "fa-user"
+    },
+    {
+      "id": 2,
+      "label": "Direcciones",
+      "path": "/user/Direcciones",
+      "icon": "fa-map-marker-alt"
+    },
+    {
+      "id": 3,
+      "label": "Reservas",
+      "path": "/user/Reservas",
+      "icon": "fa-calendar-alt"
+    },
+    {
+      "id": 4,
+      "label": "Favoritos",
+      "path": "/user/Favoritos",
+      "icon": "fa-heart"
+    }
+  ]

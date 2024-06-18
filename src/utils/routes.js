@@ -15,6 +15,7 @@ export const routes = {
   },
   detail: '/producto/:id',
   usuario: {
-    login:'/login'
+    login:'/login',
+    dashboard: "/user/MiPerfil"
   }
 }

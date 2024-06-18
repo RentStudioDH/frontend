@@ -181,6 +181,19 @@ export const ContextProvider = ({ children }) => {
     startTokenRenewal()
   }
 
+  // Fetch user data
+const fetchUserData = async () => {
+  try {
+    const userData = await fetchData({ method: 'get', endpoint: '/users/me', requireAuth: true });
+    dispatch({ type: 'SET_USER_DATA', payload: userData });
+    return userData;
+  } catch (error) {
+    console.error('Error fetching user data:', error);
+    throw error;
+  }
+};
+
+
   // const fetchUserData = async (token) => {
   //   try {
   //     const userData = await fetchData({ method: 'get', endpoint: '/auth/user', requireAuth: true })
@@ -198,6 +211,22 @@ export const ContextProvider = ({ children }) => {
     Cookies.remove('user')
     dispatch({ type: 'LOGOUT_USER' })
   }
+
+  // Mostrar reservas 
+  const getUserReservations = async () => {
+    try {
+      const response = await fetchData({ method: 'get', endpoint: '/user/reservations', requireAuth: true });
+      return response.map(reservation => ({
+        ...reservation,
+        image: reservation.product.image, // Asegúrate de que la imagen está en el objeto de reserva
+      }));
+    } catch (error) {
+      console.error('Error fetching user reservations:', error);
+      throw error;
+    }
+  };
+  
+  
 
   // Función para obtener sugerencias
   const urlSearch = '/public/products/search'
@@ -237,6 +266,8 @@ export const ContextProvider = ({ children }) => {
     loginUser,
     logoutUser,
     fetchSuggestions,
+    getUserReservations,
+    fetchUserData
   }
 
   return (
