@@ -5,8 +5,11 @@ import RegistrarForm from './header/RegistrarForm'
 import ModalDelete from './admin/ModalDelete'
 import FormCategory from './admin/FormCategory'
 import ModalDeleteCategory from './admin/ModalDeleteCategory'
+import SearchCategory from './search/SearchCategory'
+import SearchDate from './search/SearchDate'
+import SearchText from './search/SearchText'
 
-const Modals = ({ id, type, visible, onClose }) => {
+const Modals = ({ id, type, visible, onClose, searchProps }) => {
   const [isVisible, setIsVisible] = useState(visible)
 
   useEffect(() => {
@@ -98,7 +101,7 @@ const Modals = ({ id, type, visible, onClose }) => {
             <LoginForm type={type} closeModal={closeModal} />
           </div>
         )
-      case 'RegistrarUser':
+      case 'registrarUser':
         return (
           <div className="bg-back shadow-lg modal br-15">
             <div className='sticky w-full bg-back flex flex-wrap justify-center modalHeader top-0 p-15 g-5 relative'>
@@ -107,7 +110,22 @@ const Modals = ({ id, type, visible, onClose }) => {
             </div>
             <RegistrarForm type={type}/>
           </div>
-        )  
+        )
+      case 'search':
+        return (
+          <div className="relative bg-back shadow-lg modal br-15">
+            <div className='sticky w-full bg-back flex flex-wrap justify-between modalHeader top-0 p-15 g-5'>
+              <h3 className="txt-accent bb-primary title"><strong>{searchProps.title}</strong></h3>
+              <button className="close hover:brightness-50" onClick={closeModal}><i className="txt-primary fa-solid fa-xmark title"></i></button>
+            </div>
+            <form onSubmit={searchProps.handleSearch} className="grid search p-search g-15">
+              <SearchText onSearchTextChange={searchProps.setSearchText} />
+              <SearchDate onDatesChange={searchProps.setDates} />
+              <SearchCategory onSelectCategory={searchProps.setSelectedCategory} categories={searchProps.categories} />
+              <button type="submit" className="p-2 w-fit m-auto bg-primary text-white rounded-full"><i className="fa-solid fa-magnifying-glass"></i> {searchProps.buttonText}</button>
+            </form>
+          </div>
+        )
       default:
         return <div>Tipo no soportado.</div>
     }

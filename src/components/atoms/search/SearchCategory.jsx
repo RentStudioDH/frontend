@@ -1,24 +1,24 @@
 import { useState, useEffect } from 'react'
+import { useContextGlobal } from '../../../contexts/global.context'
 
-const SearchCategory = ({ onSelectCategory, data }) => {
-  const { categories } = data
+const SearchCategory = ({ onSelectCategory, categories }) => {
   const [selectedCategory, setSelectedCategory] = useState(null)
   const [showDropdown, setShowDropdown] = useState(false)
-  const [buttonText, setButtonText] = useState('Elige una categoría')
+  const [buttonText, setButtonText] = useState('Una categoría')
 
   useEffect(() => {
-    if (!selectedCategory) {
-      setButtonText('Elige una categoría')
+    if (selectedCategory === null) {
+      setButtonText('Una categoría')
     } else {
-      const selectedName = categories.find(category => category.id === selectedCategory)?.name
-      setButtonText(selectedName || 'Elige una categoría')
+      const selectedName = categories.find(category => category.id === selectedCategory)?.name || 'Una categoría'
+      setButtonText(selectedName)
     }
   }, [selectedCategory, categories])
 
-  const handleCheckboxChange = (categoryId) => {
-    setSelectedCategory(categoryId)
-    onSelectCategory(categoryId)
-    setShowDropdown(false) // Close the dropdown after selection
+  const handleRadioChange = (category) => {
+    setSelectedCategory(category)
+    setShowDropdown(false)
+    onSelectCategory(category)
   }
 
   const handleButtonClick = () => {
@@ -26,39 +26,18 @@ const SearchCategory = ({ onSelectCategory, data }) => {
   }
 
   return (
-    <div style={{ position: 'relative', zIndex: 1 }}>
-      <button
-        type="button"
-        className="flex items-center txt-tertiary btn g-5"
-        onClick={handleButtonClick}
-      >
+    <div className="relative searchCategory">
+      <button type="button" className="flex items-center txt-tertiary btn g-5" onClick={handleButtonClick}>
         <i className="txt-primary fa-solid fa-tags title"></i>
-        <span className="grid place-items-start truncate">
+        <span className='grid place-items-start truncate'>
           <strong>Elige</strong> {buttonText}
         </span>
       </button>
       {showDropdown && (
-        <div
-          style={{
-            position: 'absolute',
-            zIndex: 1010,
-            backgroundColor: 'white',
-            boxShadow: '0 4px 8px rgba(0,0,0,0.1)',
-            borderRadius: '15px',
-            padding: '15px',
-            marginTop: '5px',
-            width: '250px', // Adjust width to fit long category names
-          }}
-        >
+        <div className="w-fit shadow-lg bg-white br-15 p-15 listcategory">
           {categories.map((category) => (
             <label key={category.id} className="block">
-              <input
-                type="radio"
-                value={category.id}
-                checked={selectedCategory === category.id}
-                onChange={() => handleCheckboxChange(category.id)}
-                className="mr-2"
-              />
+              <input type="radio" value={category.id} checked={selectedCategory === category.id} onChange={() => handleRadioChange(category.id)} className="mr-2" />
               {category.name}
             </label>
           ))}

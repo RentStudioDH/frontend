@@ -1,7 +1,7 @@
 import { useState } from 'react'
+import { es } from 'date-fns/locale'
 import DatePicker from 'react-datepicker'
 import 'react-datepicker/dist/react-datepicker.css'
-import { es } from 'date-fns/locale'
 import Buttons from '../Buttons'
 
 const SearchDate = ({ onDatesChange }) => {
@@ -14,9 +14,13 @@ const SearchDate = ({ onDatesChange }) => {
     setStartDate(start)
     setEndDate(end)
     onDatesChange({ startDate: start, endDate: end })
+    console.log("Fecha seleccionada:", { start, end })
   }
 
-  const toggleCalendar = () => setShowCalendar(!showCalendar)
+  const toggleCalendar = () => {
+    setShowCalendar(!showCalendar)
+    console.log("Calendario toggled, estado:", !showCalendar)
+  }
 
   const formatDate = (date) => {
     if (!date) return 'Agregar fecha'
@@ -30,15 +34,17 @@ const SearchDate = ({ onDatesChange }) => {
     setEndDate(end)
     onDatesChange({ startDate: start, endDate: end })
     setShowCalendar(false)
+    console.log("Día seleccionado:", { start, end })
   }
 
   const selectWeek = () => {
     const start = startDate || new Date()
-    const end = new Date(start.getTime() + 5 * 24 * 60 * 60 * 1000)
+    const end = new Date(start.getTime() + 7 * 24 * 60 * 60 * 1000) // 7 días para una semana
     setStartDate(start)
     setEndDate(end)
     onDatesChange({ startDate: start, endDate: end })
     setShowCalendar(false)
+    console.log("Semana seleccionada:", { start, end })
   }
 
   const selectMonth = () => {
@@ -48,26 +54,27 @@ const SearchDate = ({ onDatesChange }) => {
     setEndDate(end)
     onDatesChange({ startDate: start, endDate: end })
     setShowCalendar(false)
+    console.log("Mes seleccionado:", { start, end })
   }
 
   return (
-    <div className="relative border-x searchDate">
-      <div className="flex flex-col md:flex-row space-y-2 md:space-y-0 md:space-x-4">
+    <div className="relative searchDate">
+      <div className="flex flex-col md:flex-row justify-center g-15">
         <button type="button" className="flex items-center txt-tertiary btn g-5" onClick={toggleCalendar}>
-          <i className="txt-primary fa-solid fa-calendar title"></i>
+          <i className="txt-primary fa-solid fa-calendar subtitle"></i>
           <span className="grid place-items-start">
             <strong>Entrega</strong> {startDate ? formatDate(startDate) : 'Ingresa fecha'}
           </span>
         </button>
         <button type="button" className="flex items-center txt-tertiary btn g-5" onClick={toggleCalendar}>
-          <i className="txt-primary fa-solid fa-calendar title"></i>
+          <i className="txt-primary fa-solid fa-calendar subtitle"></i>
           <span className="grid place-items-start">
             <strong>Devolución</strong> { endDate ? formatDate(endDate) : 'Ingresa fecha' }
           </span>
         </button>
       </div>
       {showCalendar && (
-        <div className="absolute bg-white shadow-lg br-15 z-10 w-full md:w-auto calendar">
+        <div className="bg-white shadow-lg br-15 z-10 w-fit calendar">
           <DatePicker
             selected={startDate}
             onChange={handleDateChange}
@@ -80,10 +87,9 @@ const SearchDate = ({ onDatesChange }) => {
             placeholderText="Selecciona un rango de fechas"
             inline  // Mostrar calendario embebido
             locale={es}
-            // closeOnScroll={toggleCalendar}
             calendarContainer={({ children }) => (
               <div className="grid rounded-lg">
-                <div className='flex flex-col md:flex-row g-5'>
+                <div className='flex md:justify-center overflow-x-auto md:overflow-clip g-5'>
                   {children}
                 </div>
                 <div className="flex justify-center p-15 g-5">
