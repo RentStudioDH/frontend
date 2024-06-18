@@ -6,6 +6,7 @@ import UserMenu from "../../components/molecules/user/UserMenu"
 import UserPerfil from "../../components/molecules/user/UserPerfil"
 import DireccionesUsuario from "../../components/atoms/user/DireccionesUsuario"
 import UserReservas from "../../components/molecules/user/UserReservas"
+import UserFavoritos from "../../components/molecules/user/UserFavoritos"
 
 const User = () => {
   const { state } = useContextGlobal()
@@ -21,9 +22,7 @@ const User = () => {
       case 'Reservas':
         return <SectionAdmin title="Reservas" type="Reservas" ContainerComponent={UserReservas} />
       case 'Favoritos':
-        return <SectionAdmin title="Favoritos" type="Favoritos" ContainerComponent={""} />
-      case 'Tarjetas':
-        return <SectionAdmin title="Tarjetas" type="Tarjetas" ContainerComponent={""} />
+        return <SectionAdmin title="Favoritos" type="Favoritos" ContainerComponent={UserFavoritos} />
       default:
         return <h1>NO hay nada que mostrar</h1>
     }

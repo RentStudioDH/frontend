@@ -3,30 +3,24 @@
       "id": 1,
       "label": "Mi Perfil",
       "path": "/user/MiPerfil",
-      "icon": "fa-house"
+      "icon": "fa-user"
     },
     {
       "id": 2,
       "label": "Direcciones",
       "path": "/user/Direcciones",
-      "icon": "fa-database"
+      "icon": "fa-map-marker-alt"
     },
     {
       "id": 3,
       "label": "Reservas",
       "path": "/user/Reservas",
-      "icon": "fa-circle-plus"
+      "icon": "fa-calendar-alt"
     },
     {
       "id": 4,
       "label": "Favoritos",
       "path": "/user/Favoritos",
-      "icon": "fa-circle-plus"
-    },
-    {
-      "id": 5,
-      "label": "Tarjetas",
-      "path": "/user/Tarjetas",
-      "icon": "fa-circle-plus"
+      "icon": "fa-heart"
     }
   ]
