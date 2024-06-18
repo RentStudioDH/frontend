@@ -86,8 +86,8 @@ const EditAddressModal = ({ open, handleClose, handleSave }) => {
         />
       </DialogContent>
       <DialogActions>
-        <Button onClick={handleClose}>Cancelar</Button>
-        <Button onClick={handleSaveAddress} variant="contained" color="primary">Guardar</Button>
+        <Button onClick={handleClose} color='warning'>Cancelar</Button>
+        <Button onClick={handleSaveAddress} variant="contained" color="success">Guardar</Button>
       </DialogActions>
     </Dialog>
   );

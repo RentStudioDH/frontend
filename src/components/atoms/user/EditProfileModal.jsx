@@ -64,8 +64,8 @@ const EditProfileModal = ({ open, handleClose, userData, handleSave }) => {
         />
       </DialogContent>
       <DialogActions>
-        <Button onClick={handleClose}>Cancelar</Button>
-        <Button onClick={handleSaveChanges} variant="contained" color="primary">Guardar</Button>
+        <Button onClick={handleClose} color='warning'>Cancelar</Button>
+        <Button onClick={handleSaveChanges} variant="contained" color="success">Guardar</Button>
       </DialogActions>
     </Dialog>
   );

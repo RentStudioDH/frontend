@@ -3,6 +3,7 @@ import { Button, Grid, Paper, Typography } from '@mui/material';
 import { Add as AddIcon, Home as HomeIcon, Delete as DeleteIcon } from '@mui/icons-material';
 import InfoUser from './InfoUser';
 import EditAddressModal from './EditAddressModal';
+import ConfirmDeleteModal from './ConfirmDeleteModal';
 
 const DireccionesUsuario = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -18,6 +19,8 @@ const DireccionesUsuario = () => {
     },
     // Agrega más direcciones si es necesario
   ]);
+  const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false);
+  const [addressToDelete, setAddressToDelete] = useState(null);
 
   const handleOpenModal = () => {
     setIsModalOpen(true);
@@ -32,8 +35,19 @@ const DireccionesUsuario = () => {
     setIsModalOpen(false);
   };
 
-  const handleDeleteAddress = (id) => {
-    setAddresses(addresses.filter(address => address.id !== id));
+  const handleDeleteClick = (id) => {
+    setAddressToDelete(id);
+    setIsDeleteModalOpen(true);
+  };
+
+  const handleCloseDeleteModal = () => {
+    setIsDeleteModalOpen(false);
+    setAddressToDelete(null);
+  };
+
+  const handleConfirmDelete = () => {
+    setAddresses(addresses.filter(address => address.id !== addressToDelete));
+    handleCloseDeleteModal();
   };
 
   return (
@@ -43,30 +57,25 @@ const DireccionesUsuario = () => {
       </Typography>
       <Paper elevation={4} sx={{ padding: 2, borderRadius: "9px" }}>
         <Grid container spacing={2} alignItems="center">
-          <Grid item xs={12} sx={{ display: 'flex', alignItems: 'center' }}>
-            <Button variant="contained" startIcon={<AddIcon />} onClick={handleOpenModal} sx={{ marginLeft: 'auto' }}>
-              Agregar Dirección
-            </Button>
-          </Grid>
           {addresses.map(address => (
             <Grid item xs={12} key={address.id}>
               <Paper elevation={2} sx={{ padding: 2, borderRadius: "9px" }}>
                 <Grid container spacing={2} alignItems="center">
                   <Grid item xs={1}><HomeIcon /></Grid>
                   <Grid item xs={9}>
-                    <InfoUser title="Dirección" subtitle={address.address} />
-                    <InfoUser title="Provincia" subtitle={address.city} />
-                    <InfoUser title="País" subtitle={address.country} />
-                    <InfoUser title="Nombre" subtitle={`${address.firstName} ${address.lastName}`} />
-                    <InfoUser title="Teléfono" subtitle={address.phone} />
+                    <Typography variant='h4' color={"#56494E"} fontWeight={500}>{address.address} </Typography>
+                    <Typography variant='h6' fontWeight={400}>{address.city}, {address.country} </Typography>
+                    <Typography variant='h6' fontWeight={400}>{`${address.firstName} ${address.lastName}`} - {address.phone} </Typography>
                   </Grid>
                   <Grid item xs={1}>
                     {/* Botón para editar dirección */}
-                    <Button variant="contained" onClick={handleOpenModal}>Editar</Button>
+                    <Button sx={{ color: "#A62639", '&:hover': { bgcolor: "#A62639", color: "white" } }} onClick={handleOpenModal}>
+                      Editar
+                    </Button>
                   </Grid>
                   <Grid item xs={1}>
                     {/* Botón para eliminar dirección */}
-                    <Button variant="contained" color="error" onClick={() => handleDeleteAddress(address.id)}>
+                    <Button color="error" onClick={() => handleDeleteClick(address.id)}>
                       <DeleteIcon />
                     </Button>
                   </Grid>
@@ -74,8 +83,15 @@ const DireccionesUsuario = () => {
               </Paper>
             </Grid>
           ))}
+
+          <Grid item xs={12} sx={{ display: 'flex', alignItems: 'center' }}>
+            <Button variant="contained" startIcon={<AddIcon />} onClick={handleOpenModal} sx={{ marginLeft: 'auto', bgcolor: "#A62639", color: "white", '&:hover': { bgcolor: "#A62639" } }}>
+              Agregar Domicilio
+            </Button>
+          </Grid>
         </Grid>
         <EditAddressModal open={isModalOpen} handleClose={handleCloseModal} handleSave={handleSaveAddress} />
+        <ConfirmDeleteModal open={isDeleteModalOpen} handleClose={handleCloseDeleteModal} handleConfirm={handleConfirmDelete} />
       </Paper>
     </>
   );
