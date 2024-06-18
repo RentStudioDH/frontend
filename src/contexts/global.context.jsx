@@ -1,7 +1,8 @@
-import { createContext, useContext, useEffect, useReducer } from 'react'
+import { createContext, useContext, useEffect, useReducer, useCallback } from 'react'
 import { reducer } from '../reducers/reducer'
 import { fetchData } from '../utils/js/apiRequest'
 import Cookies from 'js-cookie'
+import { debounce } from '../utils/js/debounce'
 
 export const ContextGlobal = createContext()
 
@@ -16,6 +17,7 @@ export const initialState = {
   role: Cookies.get('role') || 'user',
   token: Cookies.get('token') || '',
   favs: JSON.parse(localStorage.getItem('favs')) || [],
+  suggestions: [],
 }
 
 export const ContextProvider = ({ children }) => {
@@ -226,9 +228,32 @@ const fetchUserData = async () => {
   
   
 
+  // Función para obtener sugerencias
+  const urlSearch = '/public/products/search'
+  const fetchSuggestions = useCallback(debounce(async ({ searchText, categoryId }) => {
+    if (!searchText && !categoryId) {
+      dispatch({ type: 'SET_SUGGESTIONS', payload: [] })
+      return
+    }
+    const query = [`searchText=${searchText || ''}`]
+    if (categoryId) {
+      query.push(`categoryId=${categoryId}`)
+    }
+    try {
+      console.log(`Fetching suggestions with query: ${query.join('&')}`)
+      const data = await fetchData({ method: 'get', endpoint: `${urlSearch}/?${query.join('&')}`, requireAuth: false })
+      console.log('Suggestions received:', data)
+      dispatch({ type: 'SET_SUGGESTIONS', payload: data })
+    } catch (error) {
+      console.error('Error fetching suggestions:', error)
+      dispatch({ type: 'SET_SUGGESTIONS', payload: [] })
+    }
+  }, 500), [dispatch])
+
   const contextValue = {
     state,
     dispatch,
+    toggleTheme,
     getProducts,
     getProductById,
     addProduct,
@@ -240,7 +265,7 @@ const fetchUserData = async () => {
     registerUser,
     loginUser,
     logoutUser,
-    toggleTheme,
+    fetchSuggestions,
     getUserReservations,
     fetchUserData
   }

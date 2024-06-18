@@ -109,13 +109,8 @@ const HomeSearch = ({ title }) => {
             style={{ width: '100%' }}
           />
         </div>
+        <SearchDate onDatesChange={setDates} />
         <div style={{ marginBottom: isMobile && isFocused ? '15px' : '0', display: isMobile && isFocused ? 'block' : isMobile ? 'none' : 'block', flexGrow: 1 }}>
-          <SearchDate 
-            onDatesChange={setDates} 
-            onFocus={handleFocus} 
-            onBlur={handleBlur} 
-            style={{ width: '100%' }}
-          />
         </div>
         <div style={{ marginBottom: isMobile && isFocused ? '15px' : '0', display: isMobile && isFocused ? 'block' : isMobile ? 'none' : 'block', flexGrow: 1 }}>
           <SearchCategory 
