@@ -73,6 +73,9 @@ const HeaderNavUser = () => {
             <li>
               <Link to={routes.admin.dashboard} className="txt-tertiary paragraph" onClick={closeMenu}>Admin</Link>
             </li>
+            <li>
+              <Link to={routes.usuario.dashboard} className="txt-tertiary paragraph" onClick={closeMenu}>Mi Perfil</Link>
+            </li>
           </>
         }
         {!state.isDesktop && 
