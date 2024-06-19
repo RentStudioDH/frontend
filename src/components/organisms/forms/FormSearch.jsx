@@ -2,11 +2,11 @@ import { useState, useEffect } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { useContextGlobal } from '../../../contexts/global.context'
 import Modals from '../../atoms/Modals'
-import SearchCategory from '../../atoms/search/SearchCategory'
-import SearchDate from '../../atoms/search/SearchDate'
-import SearchText from '../../atoms/search/SearchText'
+import SearchText from '../../molecules/search/SearchText'
+import SearchDate from '../../molecules/search/SearchDate'
+import SearchCategory from '../../molecules/search/SearchCategory'
 
-const HomeSearch2 = ({ title }) => {
+const FormSearch = ({ title }) => {
   const { state, fetchSuggestions } = useContextGlobal()
   const { categories, isDesktop } = state
   const navigate = useNavigate()
@@ -19,7 +19,7 @@ const HomeSearch2 = ({ title }) => {
   const handleSearch = (e) => {
     e.preventDefault()
     console.log('Buscar con:', {
-      category: selectedCategory,
+      categoryId: selectedCategory,
       dates,
       searchText,
     })
@@ -78,4 +78,4 @@ const HomeSearch2 = ({ title }) => {
   )
 }
 
-export default HomeSearch2
+export default FormSearch

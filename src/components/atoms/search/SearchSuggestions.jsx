@@ -1,10 +1,10 @@
 import { useEffect, useRef } from 'react'
+import { Link } from 'react-router-dom'
+import { useContextGlobal } from '../../../contexts/global.context'
 import Paper from '@mui/material/Paper'
 import List from '@mui/material/List'
 import ListItem from '@mui/material/ListItem'
 import ListItemText from '@mui/material/ListItemText'
-import { Link } from 'react-router-dom'
-import { useContextGlobal } from '../../../contexts/global.context'
 
 const SearchSuggestions = ({ searchText, onSuggestionClick }) => {
   const { state } = useContextGlobal()

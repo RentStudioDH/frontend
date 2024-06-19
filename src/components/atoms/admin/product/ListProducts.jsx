@@ -1,7 +1,7 @@
 import { useState } from "react"
-import { useContextGlobal } from "../../../contexts/global.context"
-import Cards from "../Cards"
-import Modals from "../Modals"
+import { useContextGlobal } from "../../../../contexts/global.context"
+import Cards from "../../Cards"
+import Modals from "../../Modals"
 
 const ListProducts = () => {
   const { state } = useContextGlobal()
@@ -71,11 +71,11 @@ const ListProducts = () => {
                 <label htmlFor="checkbox-all-search" className="sr-only">checkbox</label>
               </div>
             </th>
-            <th scope="col" className="p-15" style={{ color: 'white' }}>ID</th>
-            <th scope="col" className="p-15" style={{ color: 'white' }}>Nombre</th>
-            <th scope="col" className="p-15" style={{ color: 'white' }}>Categoría</th>
-            <th scope="col" className="p-15" style={{ color: 'white' }}>Stock</th>
-            <th scope="col" className="p-15" style={{ color: 'white' }}>Acciones</th>
+            <th scope="col" className="text-white p-15">ID</th>
+            <th scope="col" className="text-white p-15">Nombre</th>
+            <th scope="col" className="text-white p-15">Categoría</th>
+            <th scope="col" className="text-white p-15">Stock</th>
+            <th scope="col" className="text-white p-15">Acciones</th>
           </tr>
         </thead>
         <tbody>

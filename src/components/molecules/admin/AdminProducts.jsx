@@ -1,7 +1,7 @@
 import { useState } from 'react'
 import Buttons from '../../atoms/Buttons'
 import Modals from '../../atoms/Modals'
-import ListProducts from '../../atoms/admin/ListProducts'
+import ListProducts from '../../atoms/admin/product/ListProducts'
 
 const AdminProducts = ({ title, type }) => {
   const [isModalVisible, setIsModalVisible] = useState(false)

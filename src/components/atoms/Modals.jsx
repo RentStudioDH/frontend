@@ -1,13 +1,13 @@
 import { useEffect, useState } from 'react'
-import FormProduct from './admin/FormProduct'
+import FormProduct from './admin/product/FormProduct'
 import LoginForm from './header/LoginForm'
 import RegistrarForm from './header/RegistrarForm'
-import ModalDelete from './admin/ModalDelete'
-import FormCategory from './admin/FormCategory'
-import ModalDeleteCategory from './admin/ModalDeleteCategory'
-import SearchCategory from './search/SearchCategory'
-import SearchDate from './search/SearchDate'
-import SearchText from './search/SearchText'
+import DeleteProduct from './admin/product/DeleteProduct'
+import FormCategory from './admin/category/FormCategory'
+import DeleteCategory from './admin/category/DeleteCategory'
+import SearchText from '../molecules/search/SearchText'
+import SearchDate from '../molecules/search/SearchDate'
+import SearchCategory from '../molecules/search/SearchCategory'
 
 const Modals = ({ id, type, visible, onClose, searchProps }) => {
   const [isVisible, setIsVisible] = useState(visible)
@@ -58,7 +58,7 @@ const Modals = ({ id, type, visible, onClose, searchProps }) => {
               <h3 className="txt-accent bb-primary title"><strong>Eliminar producto</strong></h3>
               <button className="close hover:brightness-50" onClick={closeModal}><i className="txt-primary fa-solid fa-xmark title"></i></button>
             </div>
-            <ModalDelete type={type} id={id} closeModal={closeModal} />
+            <DeleteProduct type={type} id={id} closeModal={closeModal} />
           </div>
         )
       case 'crearCategoria':
@@ -88,7 +88,7 @@ const Modals = ({ id, type, visible, onClose, searchProps }) => {
               <h3 className="txt-accent bb-primary title"><strong>Eliminar categoría</strong></h3>
               <button className="close hover:brightness-50" onClick={closeModal}><i className="txt-primary fa-solid fa-xmark title"></i></button>
             </div>
-            <ModalDeleteCategory type={type} id={id} closeModal={closeModal} />
+            <DeleteCategory type={type} id={id} closeModal={closeModal} />
           </div>
         )
       case 'loginUser':

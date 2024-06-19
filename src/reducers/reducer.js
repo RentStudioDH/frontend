@@ -30,6 +30,11 @@ export const reducer = (state, action) => {
     // Categorías
     case 'LIST_CATEGORIES':
       return { ...state, categories: action.payload }
+    case 'REMOVE_CATEGORY':
+      return {
+        ...state,
+        categories: state.categories.filter(category => category.id !== action.payload)
+      }
     // Sugerencias de búsqueda
     case 'SET_SUGGESTIONS':
       return { ...state, suggestions: action.payload }

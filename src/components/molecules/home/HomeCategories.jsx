@@ -1,10 +1,13 @@
-import categoriasData from '../../../utils/json/categoriasData.json'
+import { useContextGlobal } from '../../../contexts/global.context'
 import Cards from '../../atoms/Cards'
 
 const HomeCategories = () => {
+  const { state } = useContextGlobal()
+  const { categories } = state
+  // console.log(categories);
   return (
     <>
-      {categoriasData.map(card => {
+      {categories.map(card => {
         return (
           <Cards key={card.id} type="category" data={card} />
         )
