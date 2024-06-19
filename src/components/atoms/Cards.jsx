@@ -39,10 +39,10 @@ const Cards = ({ type, data, openModal }) => {
         )
       case 'category':
         return (
-          <Link className={`flex items-end shadow-lg card ${type} br-15`} key={data.id} to={data.path}>
-            <img src={`${data.img}`} alt={`${data.title}`} loading='lazy' />
+          <Link className={`flex items-end shadow-lg card ${type} br-15`} key={data.id} to={data.slug}>
+            <img src={`${data.attachment.url}`} alt={`${data.name}`} loading='lazy' />
             <div className='grid place-items-center w-full info p-15'>
-              <h3 className="text-white text-center subtitle"><strong>{data.label}</strong></h3>
+              <h3 className="text-white text-center subtitle"><strong>{data.name}</strong></h3>
             </div>
           </Link>
         )

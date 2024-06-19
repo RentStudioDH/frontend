@@ -1,8 +1,8 @@
 import { useState, useEffect } from "react";
-import { useContextGlobal } from "../../../contexts/global.context";
-import ListImages from "../form/ListImages";
-import Buttons from "../Buttons";
-import FeatureInput from "../admin/FeatureInput";
+import { useContextGlobal } from "../../../../contexts/global.context";
+import ListImages from "../../form/ListImages";
+import Buttons from "../../Buttons";
+import FeatureInput from "../FeatureInput";
 
 const FormProduct = ({ type, id }) => {
   const initialProductState = {

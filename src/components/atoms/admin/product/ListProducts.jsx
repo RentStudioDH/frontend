@@ -1,7 +1,7 @@
 import { useState } from "react"
-import { useContextGlobal } from "../../../contexts/global.context"
-import Cards from "../Cards"
-import Modals from "../Modals"
+import { useContextGlobal } from "../../../../contexts/global.context"
+import Cards from "../../Cards"
+import Modals from "../../Modals"
 
 const ListProducts = () => {
   const { state } = useContextGlobal()

@@ -9,12 +9,17 @@ const SearchDate = ({ onDatesChange }) => {
   const [endDate, setEndDate] = useState(null)
   const [showCalendar, setShowCalendar] = useState(false)
 
+  const formatDate = (date) => {
+    if (!date) return 'Agregar fecha'
+    return date.toISOString().split('T')[0] // Formato YYYY-MM-DD
+  }
+
   const handleDateChange = (dates) => {
     const [start, end] = dates
     setStartDate(start)
     setEndDate(end)
-    onDatesChange({ startDate: start, endDate: end })
-    console.log("Fecha seleccionada:", { start, end })
+    onDatesChange({ startDate: formatDate(start), endDate: formatDate(end) })
+    console.log("Fecha seleccionada:", { start: formatDate(start), end: formatDate(end) })
   }
 
   const toggleCalendar = () => {
@@ -22,19 +27,14 @@ const SearchDate = ({ onDatesChange }) => {
     console.log("Calendario toggled, estado:", !showCalendar)
   }
 
-  const formatDate = (date) => {
-    if (!date) return 'Agregar fecha'
-    return new Intl.DateTimeFormat('es-ES').format(date)
-  }
-
   const selectSingleDay = () => {
     const start = startDate || new Date()
     const end = new Date(start.getTime() + 24 * 60 * 60 * 1000)
     setStartDate(start)
     setEndDate(end)
-    onDatesChange({ startDate: start, endDate: end })
+    onDatesChange({ startDate: formatDate(start), endDate: formatDate(end) })
     setShowCalendar(false)
-    console.log("Día seleccionado:", { start, end })
+    console.log("Día seleccionado:", { start: formatDate(start), end: formatDate(end) })
   }
 
   const selectWeek = () => {
@@ -42,9 +42,9 @@ const SearchDate = ({ onDatesChange }) => {
     const end = new Date(start.getTime() + 7 * 24 * 60 * 60 * 1000) // 7 días para una semana
     setStartDate(start)
     setEndDate(end)
-    onDatesChange({ startDate: start, endDate: end })
+    onDatesChange({ startDate: formatDate(start), endDate: formatDate(end) })
     setShowCalendar(false)
-    console.log("Semana seleccionada:", { start, end })
+    console.log("Semana seleccionada:", { start: formatDate(start), end: formatDate(end) })
   }
 
   const selectMonth = () => {
@@ -52,9 +52,9 @@ const SearchDate = ({ onDatesChange }) => {
     const end = new Date(start.getTime() + 30 * 24 * 60 * 60 * 1000)
     setStartDate(start)
     setEndDate(end)
-    onDatesChange({ startDate: start, endDate: end })
+    onDatesChange({ startDate: formatDate(start), endDate: formatDate(end) })
     setShowCalendar(false)
-    console.log("Mes seleccionado:", { start, end })
+    console.log("Mes seleccionado:", { start: formatDate(start), end: formatDate(end) })
   }
 
   return (

@@ -1,10 +1,9 @@
 import { useEffect, useState } from 'react'
 import { useLocation } from 'react-router-dom'
 import { useContextGlobal } from '../../contexts/global.context'
-import SectionHome from '../../components/organisms/sections/SectionHome'
 import SectionProducto from '../../components/organisms/sections/SectionProducto'
+import HomeSearch from '../../components/molecules/home/HomeSearch'
 import ProductLists from '../../components/molecules/product/ProductLists'
-import HomeSearch2 from '../../components/molecules/home/HomeSearch2'
 
 const Products = () => {
   const { state } = useContextGlobal()
@@ -22,7 +21,7 @@ const Products = () => {
 
   return (
     <main>
-      <SectionProducto Component={HomeSearch2} containerClass='grid place-items-center' />
+      <SectionProducto Component={HomeSearch} containerClass='grid place-items-center' />
       <SectionProducto data={displayData} Component={ProductLists} containerClass='grid p-section g-15' />
     </main>
   )

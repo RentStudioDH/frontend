@@ -1,4 +1,4 @@
-import { useContextGlobal } from '../../../contexts/global.context'
+import { useContextGlobal } from '../../../../contexts/global.context'
 
 const ModalDelete = ({ id, closeModal }) => {
   const { state, removeProduct } = useContextGlobal()

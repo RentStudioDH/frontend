@@ -1,8 +1,8 @@
 import { useEffect, useState } from 'react'
-import FormProduct from './admin/FormProduct'
+import FormProduct from './admin/product/FormProduct'
 import LoginForm from './header/LoginForm'
 import RegistrarForm from './header/RegistrarForm'
-import ModalDelete from './admin/ModalDelete'
+import DeleteProduct from './admin/product/DeleteProduct'
 import FormCategory from './admin/FormCategory'
 import ModalDeleteCategory from './admin/ModalDeleteCategory'
 import SearchCategory from './search/SearchCategory'
@@ -58,7 +58,7 @@ const Modals = ({ id, type, visible, onClose, searchProps }) => {
               <h3 className="txt-accent bb-primary title"><strong>Eliminar producto</strong></h3>
               <button className="close hover:brightness-50" onClick={closeModal}><i className="txt-primary fa-solid fa-xmark title"></i></button>
             </div>
-            <ModalDelete type={type} id={id} closeModal={closeModal} />
+            <DeleteProduct type={type} id={id} closeModal={closeModal} />
           </div>
         )
       case 'crearCategoria':

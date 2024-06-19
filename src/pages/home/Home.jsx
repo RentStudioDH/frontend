@@ -1,13 +1,13 @@
 import SectionHome from '../../components/organisms/sections/SectionHome'
+import HomeSearch from '../../components/molecules/home/HomeSearch'
 import HomeBenefits from '../../components/molecules/home/HomeBenefits'
 import HomeRecommended from '../../components/molecules/home/HomeRecommended'
 import HomeCategories from '../../components/molecules/home/HomeCategories'
-import HomeSearch2 from '../../components/molecules/home/HomeSearch2'
 
 const Home = () => {
   return (
     <main>
-      <SectionHome title='¡Hola! ¿Qué estás buscando hoy?' ContainerComponent={HomeSearch2} containerClass='grid place-items-center' />
+      <SectionHome title='¡Hola! ¿Qué estás buscando hoy?' ContainerComponent={HomeSearch} containerClass='grid place-items-center' />
       <SectionHome title='Beneficios' ContainerComponent={HomeBenefits} background='bg-white' containerClass='grid' />
       <SectionHome title='Productos recomendados' ContainerComponent={HomeRecommended} containerClass='grid' />
       <SectionHome ContainerComponent={HomeCategories} background='bg-white' containerClass='flex cont-category' />
