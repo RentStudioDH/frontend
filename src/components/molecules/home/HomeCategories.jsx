@@ -4,7 +4,7 @@ import Cards from '../../atoms/Cards'
 const HomeCategories = () => {
   const { state } = useContextGlobal()
   const { categories } = state
-  console.log(categories);
+  // console.log(categories);
   return (
     <>
       {categories.map(card => {

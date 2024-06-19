@@ -115,6 +115,19 @@ export const ContextProvider = ({ children }) => {
   useEffect(() => {
     getCategories()
   }, [])
+  // Eliminar categoría
+  const removeCategory = async (categoryId) => {
+    try {
+      await fetchData({ method: 'delete', endpoint: `${urlCategories}/${categoryId}`, requireAuth: true })
+      dispatch({ type: 'REMOVE_CATEGORY', payload: categoryId })
+    } catch (error) {
+      console.error('Error removing category:', error)
+      if (error.response && error.response.status === 500) {
+        console.error('Internal Server Error:', error.response.data)
+      }
+      throw error
+    }
+  }
   
   // Imágenes
   const urlAttachments = '/attachments'
@@ -260,6 +273,7 @@ const fetchUserData = async () => {
     updateProduct,
     removeProduct,
     getCategories,
+    removeCategory,
     uploadImage,
     loginRequest,
     registerUser,

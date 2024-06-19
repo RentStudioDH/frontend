@@ -2,7 +2,7 @@ import { useState } from 'react'
 import { es } from 'date-fns/locale'
 import DatePicker from 'react-datepicker'
 import 'react-datepicker/dist/react-datepicker.css'
-import Buttons from '../Buttons'
+import Buttons from '../../atoms/Buttons'
 
 const SearchDate = ({ onDatesChange }) => {
   const [startDate, setStartDate] = useState(null)

@@ -15,6 +15,12 @@
     "id": 3,
     "label": "Categorias",
     "path": "/admin/categorias",
-    "icon": "fa-circle-plus"
+    "icon": "fa-tags"
+  },
+  {
+    "id": 4,
+    "label": "Permisos",
+    "path": "/admin/permisos",
+    "icon": "fa-users"
   }
 ]

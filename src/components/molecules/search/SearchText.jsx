@@ -1,6 +1,6 @@
 import { useState, useRef, useEffect } from 'react'
 import { useContextGlobal } from '../../../contexts/global.context'
-import SearchSuggestions from './SearchSuggestions'
+import SearchSuggestions from '../../atoms/search/SearchSuggestions'
 
 const SearchText = ({ onSearchTextChange }) => {
   const { fetchSuggestions } = useContextGlobal()

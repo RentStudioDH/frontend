@@ -1,7 +1,7 @@
 import { useState } from "react"
 import Buttons from "../../atoms/Buttons"
 import Modals from "../../atoms/Modals"
-import ListCategories from '../../atoms/admin/ListCategories'
+import ListCategories from "../../atoms/admin/category/ListCategories"
 
 const AdminCategories = ({ title, type }) => {
   const [isModalVisible, setIsModalVisible] = useState(false)

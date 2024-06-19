@@ -1,8 +1,8 @@
 import { useState, useEffect } from 'react'
-import { fetchData } from '../../../utils/js/apiRequest'
-import Buttons from '../Buttons'
-import ListImages from '../form/ListImages'
-import { useContextGlobal } from '../../../contexts/global.context'
+import { fetchData } from '../../../../utils/js/apiRequest'
+import Buttons from '../../Buttons'
+import ListImages from '../../form/ListImages'
+import { useContextGlobal } from '../../../../contexts/global.context'
 
 const FormCategory = ({ type, id }) => {
   const initialCategoryState = {
