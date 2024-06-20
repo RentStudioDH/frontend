@@ -1,12 +1,12 @@
-import { Avatar, Grid, Paper, Typography, Button } from '@mui/material';
-import React, { useState, useEffect } from 'react';
+import { Avatar, Grid, Paper, Button } from '@mui/material';
+import { useState, useEffect } from 'react';
 import { useContextGlobal } from '../../../contexts/global.context';
 import InfoUserPassword from './InfoUserPassword';
 import InfoUser from './InfoUser';
 import EditProfileModal from './EditProfileModal';
 
 const MiPerfil = () => {
-  const { state, fetchUserData } = useContextGlobal();
+  const { state, getUserData } = useContextGlobal();
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [userData, setUserData] = useState({
     firstName: '',
@@ -18,7 +18,7 @@ const MiPerfil = () => {
   useEffect(() => {
     const loadUserData = async () => {
       try {
-        const data = await fetchUserData();
+        const data = await getUserData();
         setUserData(data);
         console.log(data);
       } catch (error) {
@@ -41,10 +41,10 @@ const MiPerfil = () => {
     setUserData(newData);
   };
 
-    // Obtener las primeras letras del nombre y apellido
-    const getInitials = (firstName, lastName) => {
-      return `${firstName.charAt(0)}${lastName.charAt(0)}`.toUpperCase();
-    };
+  // Obtener las primeras letras del nombre y apellido
+  const getInitials = (firstName, lastName) => {
+    return `${firstName.charAt(0)}${lastName.charAt(0)}`.toUpperCase();
+  };
 
   return (
     <Paper elevation={4} sx={{ padding: 2, borderRadius: '9px' }}>
