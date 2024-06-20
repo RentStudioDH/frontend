@@ -223,6 +223,7 @@ const fetchUserData = async () => {
     Cookies.remove('role')
     Cookies.remove('user')
     dispatch({ type: 'LOGOUT_USER' })
+    window.location.reload()
   }
 
   // Mostrar reservas 
