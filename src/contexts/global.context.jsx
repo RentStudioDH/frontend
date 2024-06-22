@@ -20,7 +20,7 @@ export const initialState = {
   token: Cookies.get('token') || '',
   favs: JSON.parse(localStorage.getItem('favs')) || [],
   suggestions: [],
-  lastTokenRefresh: null, // Agregar un estado para la última actualización del token
+  lastTokenRefresh: null,
 }
 
 export const ContextProvider = ({ children }) => {
@@ -160,33 +160,6 @@ export const ContextProvider = ({ children }) => {
     Cookies.set('role', role, { secure: true, sameSite: 'Strict' })
     Cookies.set('user', JSON.stringify(user), { secure: true, sameSite: 'Strict' })
     dispatch({ type: 'LOGIN_USER', payload: { user, token, role } })
-    startTokenRenewal(refreshToken)
-  }
-  const refreshTokenRequest = async (refreshToken) => {
-    try {
-      console.log('Refreshing token...')
-      const response = await fetchData({
-        method: 'post',
-        endpoint: '/auth/refresh-token',
-        data: { refreshToken },
-        requireAuth: false
-      })
-      const { token, refreshToken: newRefreshToken } = response
-      console.log('Token refreshed successfully', token)
-      Cookies.set('refreshToken', newRefreshToken, { secure: true, sameSite: 'Strict' }) // Guardar el nuevo refreshToken en las cookies
-      dispatch({ type: 'REFRESH_TOKEN', payload: token })
-      dispatch({ type: 'SET_LAST_TOKEN_REFRESH', payload: new Date().toISOString() }) // Actualizar la hora de la última renovación
-      startTokenRenewal(newRefreshToken) // Reiniciar la renovación del token con el nuevo refreshToken
-    } catch (error) {
-      console.error('Error refreshing token:', error)
-      // Aquí puedes decidir si quieres desloguear al usuario, mostrar un mensaje, etc.
-    }
-  }
-  const startTokenRenewal = (refreshToken) => {
-    const interval = 15 * 60 * 1000 // 15 minutos
-    setInterval(async () => {
-      await refreshTokenRequest(refreshToken)
-    }, interval)
   }
   // Registro
   const registerUser = async (userData) => {
