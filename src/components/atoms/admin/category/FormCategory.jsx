@@ -1,8 +1,10 @@
-import { useState, useEffect } from 'react'
-import { fetchData } from '../../../../utils/js/apiRequest'
-import Buttons from '../../Buttons'
-import ListImages from '../../form/ListImages'
-import { useContextGlobal } from '../../../../contexts/global.context'
+import { useState, useEffect } from 'react';
+import { fetchData } from '../../../../utils/js/apiRequest';
+import Buttons from '../../Buttons';
+import ListImages from '../../form/ListImages';
+import { useContextGlobal } from '../../../../contexts/global.context';
+import Swal from 'sweetalert2';
+import {ColorRing} from 'react-loader-spinner'
 
 const FormCategory = ({ type, id }) => {
   const initialCategoryState = {
@@ -11,72 +13,72 @@ const FormCategory = ({ type, id }) => {
     slug: '',
     attachmentId: null,
     attachments: [] 
-  }
-
-  const { state, getCategories } = useContextGlobal()
-  const { token, categories } = state
-  const [category, setCategory] = useState(initialCategoryState)
-  const [error, setError] = useState({})
-  const [successMessage, setSuccessMessage] = useState('')
-  const [allImagesUploaded, setAllImagesUploaded] = useState(true)
+  };
+  const [loading, setLoading] = useState(false);
+  const { state, getCategories } = useContextGlobal();
+  const { token, categories } = state;
+  const [category, setCategory] = useState(initialCategoryState);
+  const [error, setError] = useState({});
+  const [allImagesUploaded, setAllImagesUploaded] = useState(true);
 
   useEffect(() => {
     if (type === 'editarCategoria' && id) {
-      const categoryToEdit = categories.find((category) => category.id === id)
+      const categoryToEdit = categories.find((category) => category.id === id);
       if (categoryToEdit) {
         setCategory({
           ...categoryToEdit,
           attachments: categoryToEdit.attachments || (categoryToEdit.attachment ? [categoryToEdit.attachment] : [])
-        })
+        });
       }
     }
-  }, [id, type, categories])
+  }, [id, type, categories]);
 
   const handleNameChange = (e) => {
-    const name = e.target.value
-    const slug = generateSlug(name)
-    setCategory((prevCategory) => ({ ...prevCategory, name, slug }))
-  }
+    const name = e.target.value;
+    const slug = generateSlug(name);
+    setCategory((prevCategory) => ({ ...prevCategory, name, slug }));
+  };
 
   const handleInputChange = (e) => {
-    const { name, value } = e.target
-    setCategory((prevCategory) => ({ ...prevCategory, [name]: value }))
-  }
+    const { name, value } = e.target;
+    setCategory((prevCategory) => ({ ...prevCategory, [name]: value }));
+  };
 
   const handleImageChange = (images) => {
     setCategory((prevCategory) => ({
       ...prevCategory,
       attachments: images,
       attachmentId: images.length > 0 ? images[0].id : null
-    }))
-  }
+    }));
+  };
 
   const onAllImagesUploaded = (status) => {
-    setAllImagesUploaded(status)
-  }
+    setAllImagesUploaded(status);
+  };
 
   const generateSlug = (name) => {
-    let slug = name.trim().toLowerCase()
-    slug = slug.replace(/\s+/g, '-')
-    slug = slug.replace(/[^\w-]/g, '')
-    return `/categoria/${slug}`
-  }
+    let slug = name.trim().toLowerCase();
+    slug = slug.replace(/\s+/g, '-');
+    slug = slug.replace(/[^\w-]/g, '');
+    return `/categoria/${slug}`;
+  };
 
   const validateForm = () => {
-    let formErrors = {}
-    if (!category.name.trim()) formErrors.name = 'Por favor complete este campo.'
-    if (!category.description.trim()) formErrors.description = 'Por favor complete este campo.'
-    return formErrors
-  }
+    let formErrors = {};
+    if (!category.name.trim()) formErrors.name = 'Por favor complete este campo.';
+    if (!category.description.trim()) formErrors.description = 'Por favor complete este campo.';
+    return formErrors;
+  };
 
   const saveCategory = async (e) => {
-    e.preventDefault()
+    e.preventDefault();
 
-    const formErrors = validateForm()
+    const formErrors = validateForm();
     if (Object.keys(formErrors).length > 0) {
-      setError(formErrors)
-      return
+      setError(formErrors);
+      return;
     }
+    setLoading(true);
 
     try {
       const categoryData = {
@@ -84,11 +86,11 @@ const FormCategory = ({ type, id }) => {
         description: category.description,
         slug: category.slug,
         attachmentId: category.attachmentId
-      }
+      };
 
-      console.log('Datos enviados:', categoryData)
+      console.log('Datos enviados:', categoryData);
 
-      let response
+      let response;
 
       if (type === 'editarCategoria' && id) {
         response = await fetchData({
@@ -96,29 +98,70 @@ const FormCategory = ({ type, id }) => {
           endpoint: `/categories/${id}`,
           data: categoryData,
           headers: { Authorization: `Bearer ${token}` }
-        })
-        setSuccessMessage('Categoría actualizada correctamente')
+        });
+        Swal.fire({
+          title: '¡Éxito!',
+          text: 'Categoría actualizada correctamente',
+          icon: 'success',
+          confirmButtonText: 'Aceptar',
+          confirmButtonColor: '#A29C9B', 
+        });
       } else {
         response = await fetchData({
           method: 'post',
           endpoint: '/categories',
           data: categoryData,
           headers: { Authorization: `Bearer ${token}` }
-        })
-        setSuccessMessage('Categoría registrada correctamente')
-        setCategory(initialCategoryState)
+        });
+        Swal.fire({
+          title: '¡Éxito!',
+          text: 'Categoría registrada correctamente',
+          icon: 'success',
+          confirmButtonText: 'Aceptar',
+          confirmButtonColor: '#A29C9B', 
+        });
+        setCategory(initialCategoryState);
       }
-      await getCategories()
-      setError({})
+      await getCategories();
+      setError({});
     } catch (error) {
-      console.error('Error posting data to /categories:', error.response?.data || error.message)
-      setError({ message: error.response?.data?.message || error.message || 'Ha ocurrido un error al procesar la solicitud.' })
+      const errorMessage = error.response?.data?.message || error.message || 'Ha ocurrido un error al procesar la solicitud.';
+
+      if (errorMessage.includes('ID de archivo adjunto no válido')) {
+        Swal.fire({
+          title: 'Error',
+          text: 'Tamaño de imagen muy grande',
+          icon: 'error',
+          confirmButtonText: 'Aceptar',
+          confirmButtonColor: '#A29C9B', 
+        });
+      }else if (errorMessage.includes('Request failed with status code 403')) {
+        Swal.fire({
+           title: 'Error',
+           text: 'El servidor ha rechazado su solicitud',
+           icon: 'error',
+          confirmButtonText: 'Aceptar',
+          confirmButtonColor: '#A29C9B', 
+          
+         });
+      } else {
+        Swal.fire({
+          title: 'Error',
+          text: errorMessage,
+          icon: 'error',
+          confirmButtonText: 'Aceptar',
+          confirmButtonColor: '#A29C9B', 
+        });
+      }
+
+      setError({ message: errorMessage });
+    } finally {
+      setLoading(false);
     }
-  }
+  };
 
   return (
     <>
-      {successMessage && <div className="alert alert-success">{successMessage}</div>}
       <form className="grid grid-cols-1 md:grid-cols-2 modalInfo g-15" onSubmit={saveCategory}>
         <div className="grid col-span-1 md:col-span-2 g-5">
           <label className="txt-accent paragraph"><strong>Nombre:</strong></label>
@@ -154,11 +197,24 @@ const FormCategory = ({ type, id }) => {
               color='#fff' 
               bgColor='#A62639' 
             />
+            {loading && (
+        <div className="loading-spinner">
+          <ColorRing
+  visible={true}
+  height="80"
+  width="80"
+  ariaLabel="color-ring-loading"
+  wrapperStyle={{}}
+  wrapperClass="color-ring-wrapper"
+  colors={['#A62639', '#DB324D', '#56494E', '#A29C9B', '#511C29']}
+  />
+        </div>
+      )}
           </div>
         )}
       </form>
     </>
-  )
+  );
 }
 
-export default FormCategory
+export default FormCategory;

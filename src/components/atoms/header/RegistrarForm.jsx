@@ -70,7 +70,7 @@ const RegistrarForm = ({ closeModal }) => {
   }
 
   return (
-    <>
+    <><Spline scene="https://app.spline.design/file/0a039606-8a68-455b-8bae-abd0d06c666f" />
       <LoadingOverlay open={loading} />
       <div className="bg-gray-100 grid place-items-center p-section">
         <p className="txt-accent txt-center subtitle"><strong>Registrar</strong></p>
