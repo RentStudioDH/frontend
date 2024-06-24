@@ -16,7 +16,7 @@ export const initialState = {
   categories: [],
   user: JSON.parse(Cookies.get('user') || '{}'),
   isLoggedIn: !!Cookies.get('token'),
-  role: Cookies.get('role') || 'user',
+  role: JSON.parse(Cookies.get('user') || '{}').role || 'user',
   token: Cookies.get('token') || '',
   favs: JSON.parse(localStorage.getItem('favs')) || [],
   suggestions: [],
@@ -47,7 +47,7 @@ export const ContextProvider = ({ children }) => {
     state.theme === 'dark' ? document.body.classList.add('dark') : document.body.classList.remove('dark')
   }, [state.theme])
 
-  //FAVS
+  // FAVS
   useEffect(() => {
     localStorage.setItem('favs', JSON.stringify(state.favs))
   }, [state.favs])
@@ -143,23 +143,31 @@ export const ContextProvider = ({ children }) => {
   // Usuarios
   const urlUsers = '/public/users'
   // Login
-  const loginRequest = async (usuario) => {
+  const loginUser = async (usuario) => {
     try {
       const response = await fetchData({ method: 'post', endpoint: '/auth/login', data: usuario, requireAuth: false })
       const { token, refreshToken } = response
-      loginUser(token, refreshToken, 'user', usuario)
+      Cookies.set('token', token, { secure: true, sameSite: 'Strict' })
+      Cookies.set('refreshToken', refreshToken, { secure: true, sameSite: 'Strict' })
+      dispatch({ type: 'SET_TOKEN', payload: token })
+      const userData = await getUserData()
+      dispatch({ type: 'LOGIN_USER', payload: userData })
       return response
     } catch (error) {
       console.error('Error during login:', error)
       throw error
     }
   }
-  const loginUser = (token, refreshToken, role, user) => {
-    Cookies.set('token', token, { secure: true, sameSite: 'Strict' })
-    Cookies.set('refreshToken', refreshToken, { secure: true, sameSite: 'Strict' })
-    Cookies.set('role', role, { secure: true, sameSite: 'Strict' })
-    Cookies.set('user', JSON.stringify(user), { secure: true, sameSite: 'Strict' })
-    dispatch({ type: 'LOGIN_USER', payload: { user, token, role } })
+  // Obtener info de usuario
+  const getUserData = async () => {
+    try {
+      const userData = await fetchData({ method: 'get', endpoint: '/users/me', requireAuth: true })
+      Cookies.set('user', JSON.stringify(userData), { secure: true, sameSite: 'Strict' })
+      return userData
+    } catch (error) {
+      console.error('Error fetching user data:', error)
+      throw error
+    }
   }
   // Registro
   const registerUser = async (userData) => {
@@ -171,22 +179,10 @@ export const ContextProvider = ({ children }) => {
       throw error
     }
   }
-  // Obtener info de usuario
-  const getUserData = async () => {
-    try {
-      const userData = await fetchData({ method: 'get', endpoint: '/users/me', requireAuth: true })
-      dispatch({ type: 'SET_USER_DATA', payload: userData })
-      return userData
-    } catch (error) {
-      console.error('Error fetching user data:', error)
-      throw error
-    }
-  }
   // Logout
   const logoutUser = () => {
     Cookies.remove('token')
     Cookies.remove('refreshToken')
-    Cookies.remove('role')
     Cookies.remove('user')
     dispatch({ type: 'LOGOUT_USER' })
     window.location.reload()
@@ -238,10 +234,9 @@ export const ContextProvider = ({ children }) => {
     getCategories,
     removeCategory,
     uploadImage,
-    loginRequest,
     loginUser,
-    registerUser,
     getUserData,
+    registerUser,
     logoutUser,
     getUserReservations,
     fetchSuggestions

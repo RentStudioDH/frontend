@@ -45,13 +45,6 @@ export const reducer = (state, action) => {
 
     // Usuario y autenticación
     case 'SET_TOKEN':
-      Cookies.set('token', action.payload, { secure: true, sameSite: 'Strict' })
-      return {
-        ...state,
-        token: action.payload,
-      }
-    case 'REFRESH_TOKEN':
-      Cookies.set('token', action.payload, { secure: true, sameSite: 'Strict' })
       return {
         ...state,
         token: action.payload,
@@ -59,18 +52,13 @@ export const reducer = (state, action) => {
     case 'LOGIN_USER':
       return {
         ...state,
-        user: action.payload.user,
+        user: action.payload,
         isLoggedIn: true,
         role: action.payload.role,
-        token: action.payload.token,
       }
     case 'UPDATE_USER':
-      Cookies.set('user', JSON.stringify(action.payload), { secure: true, sameSite: 'Strict' })
       return { ...state, user: action.payload }
     case 'LOGOUT_USER':
-      Cookies.remove('token')
-      Cookies.remove('role')
-      Cookies.remove('user')
       return {
         ...state,
         user: null,
