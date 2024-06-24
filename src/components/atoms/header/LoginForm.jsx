@@ -4,6 +4,7 @@ import * as Yup from 'yup'
 import { useContextGlobal } from "../../../contexts/global.context"
 import Buttons from "../Buttons"
 import LoadingOverlay from "../LoadingOverlay.jsx"
+import { routes } from '../../../utils/routes.js'
 
 const validationSchema = Yup.object().shape({
   email: Yup.string().email('Por favor, ingrese un correo electrónico válido').required('Por favor, ingrese su correo electrónico.'),
@@ -11,10 +12,10 @@ const validationSchema = Yup.object().shape({
 })
 
 const LoginForm = ({ closeModal }) => {
+  const { loginUser } = useContextGlobal()
   const [usuario, setUsuario] = useState({ email: '', password: '' })
   const [errors, setErrors] = useState({})
   const [loading, setLoading] = useState(false)
-  const { loginRequest } = useContextGlobal()
   const navigate = useNavigate()
 
   const handleChange = ({ target }) => {
@@ -33,10 +34,10 @@ const LoginForm = ({ closeModal }) => {
     try {
       await validationSchema.validate(usuario, { abortEarly: false })
 
-      const response = await loginRequest(usuario)
+      const response = await loginUser(usuario)
 
       closeModal()
-      navigate('/admin/dashboard')
+      navigate(routes.user.profile)
     } catch (error) {
       if (error.name === 'ValidationError') {
         const newErrors = {}
