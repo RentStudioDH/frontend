@@ -2,10 +2,9 @@ import { useState, useEffect } from "react";
 import { useContextGlobal } from "../../../../contexts/global.context";
 import ListImages from "../../form/ListImages";
 import Buttons from "../../Buttons";
-import FeatureInput from "../FeatureInput";
-import Swal from 'sweetalert2';
-import { fetchData } from '../../../../utils/js/apiRequest';
-import {ColorRing} from 'react-loader-spinner'
+import Swal from "sweetalert2";
+import { fetchData } from "../../../../utils/js/apiRequest";
+import { ColorRing } from "react-loader-spinner";
 
 const FormProduct = ({ type, id }) => {
   const initialProductState = {
@@ -16,7 +15,6 @@ const FormProduct = ({ type, id }) => {
     rentType: "DAILY",
     categoryId: 0,
     attachments: [],
-    features: [],
   };
 
   const [loading, setLoading] = useState(false);
@@ -29,7 +27,7 @@ const FormProduct = ({ type, id }) => {
   const [allImagesUploaded, setAllImagesUploaded] = useState(true);
   const [initialData, setInitialData] = useState(initialProductState);
   const { token, products } = state;
-  
+
   useEffect(() => {
     getCategories();
   }, []);
@@ -41,12 +39,10 @@ const FormProduct = ({ type, id }) => {
         setProduct({
           ...productToEdit,
           attachments: productToEdit.attachments || [],
-          features: productToEdit.features || [],
         });
         setInitialData({
           ...productToEdit,
           attachments: productToEdit.attachments || [],
-          features: productToEdit.features || [],
         });
         console.log(
           "Imágenes iniciales del producto:",
@@ -100,13 +96,13 @@ const FormProduct = ({ type, id }) => {
 
   const saveProduct = async (e) => {
     e.preventDefault();
-  
+
     const formErrors = validateForm();
     if (Object.keys(formErrors).length > 0) {
       setError(formErrors);
       return;
     }
-  setLoading(true);
+    setLoading(true);
 
     try {
       const productData = {
@@ -117,97 +113,79 @@ const FormProduct = ({ type, id }) => {
         rentType: product.rentType,
         categoryId: parseInt(product.categoryId),
         attachments: product.attachments.map((image) => image.id),
-        features: product.features,
       };
-  
-      console.log('Datos enviados:', productData);
-  
+
+      console.log("Datos enviados:", productData);
+
       let response;
-  
-      if (type === 'editarProduct' && id) {
+
+      if (type === "editarProduct" && id) {
         response = await fetchData({
-          method: 'put',
+          method: "put",
           endpoint: `/products/${id}`,
           data: productData,
-          headers: { Authorization: `Bearer ${token}` }
+          headers: { Authorization: `Bearer ${token}` },
         });
         Swal.fire({
-          title: '¡Éxito!',
-          text: 'Producto actualizado correctamente',
-          icon: 'success',
-          confirmButtonText: 'Aceptar',
-          confirmButtonColor: '#A29C9B', 
+          title: "¡Éxito!",
+          text: "Producto actualizado correctamente",
+          icon: "success",
+          confirmButtonText: "Aceptar",
+          confirmButtonColor: "#A29C9B",
         });
       } else {
         response = await fetchData({
-          method: 'post',
-          endpoint: '/products',
+          method: "post",
+          endpoint: "/products",
           data: productData,
-          headers: { Authorization: `Bearer ${token}` }
+          headers: { Authorization: `Bearer ${token}` },
         });
         Swal.fire({
-          title: '¡Éxito!',
-          text: 'Producto registrado correctamente',
-          icon: 'success',
-          confirmButtonText: 'Aceptar',
-          confirmButtonColor: '#A29C9B', 
+          title: "¡Éxito!",
+          text: "Producto registrado correctamente",
+          icon: "success",
+          confirmButtonText: "Aceptar",
+          confirmButtonColor: "#A29C9B",
         });
         setProduct(initialProductState);
       }
       await getProducts();
       setError({});
     } catch (error) {
-      const errorMessage = error.response?.data?.message || error.message || 'Ha ocurrido un error al procesar la solicitud.';
-  
-      if (errorMessage.includes('ID de archivo adjunto no válido')) {
+      const errorMessage =
+        error.response?.data?.message ||
+        error.message ||
+        "Ha ocurrido un error al procesar la solicitud.";
+
+      if (errorMessage.includes("ID de archivo adjunto no válido")) {
         Swal.fire({
-          title: 'Error',
-          text: 'Tamaño de imagen muy grande',
-          icon: 'error',
-          confirmButtonText: 'Aceptar',
-          confirmButtonColor: '#A29C9B', 
+          title: "Error",
+          text: "Tamaño de imagen muy grande",
+          icon: "error",
+          confirmButtonText: "Aceptar",
+          confirmButtonColor: "#A29C9B",
         });
-      }else if (errorMessage.includes('Request failed with status code 403')) {
+      } else if (errorMessage.includes("Request failed with status code 403")) {
         Swal.fire({
-           title: 'Error',
-           text: 'El servidor ha rechazado su solicitud',
-           icon: 'error',
-          confirmButtonText: 'Aceptar',
-          confirmButtonColor: '#A29C9B', 
-         });
+          title: "Error",
+          text: "El servidor ha rechazado su solicitud",
+          icon: "error",
+          confirmButtonText: "Aceptar",
+          confirmButtonColor: "#A29C9B",
+        });
       } else {
         Swal.fire({
-          title: 'Error',
+          title: "Error",
           text: errorMessage,
-          icon: 'error',
-          confirmButtonText: 'Aceptar',
-          confirmButtonColor: '#A29C9B', 
+          icon: "error",
+          confirmButtonText: "Aceptar",
+          confirmButtonColor: "#A29C9B",
         });
       }
-  
+
       setError({ message: errorMessage });
     } finally {
       setLoading(false);
-    }
-  };
-  
-
-  const handleDeleteFeature = async (index) => {
-    const updatedFeatures = product.features.filter((_, i) => i !== index);
-
-    // Actualiza el estado del producto
-    setProduct((prevProduct) => ({
-      ...prevProduct,
-      features: updatedFeatures,
-    }));
-
-    try {
-      // Actualiza el producto utilizando el contexto global
-      await updateProduct({ ...product, features: updatedFeatures, id });
-      setError({});
-    } catch (error) {
-      console.error(error);
-      setError({ message: "Ocurrió un error al procesar la solicitud." });
     }
   };
 
@@ -254,34 +232,6 @@ const FormProduct = ({ type, id }) => {
           {error.description && (
             <p className="text-red-500 text-xs italic">{error.description}</p>
           )}
-        </div>
-
-        <div className="grid col-span-1 md:col-span-2 g-5">
-          <label className="txt-accent paragraph">
-            <strong>Características:</strong>
-          </label>
-          <FeatureInput id={id} product={product} />
-          <div className="grid mt-2">
-            {product.features.map((feature, index) => (
-              <div
-                key={index}
-                className="grid grid-flow-col place-items-start txt-accent p-2 border rounded bg-gray-100 mt-2"
-              >
-                <div className="grid">
-                  <strong>{feature.name}</strong>
-                  <p>{feature.description}</p>
-                </div>
-                <button
-                  onClick={() => handleDeleteFeature(index)}
-                  className="justify-self-end ml-4 text-red-500 "
-                >
-                  <i
-                    className={`fa-solid fa-trash txt-primary subtitle hover:brightness-50 focus:outline-none`}
-                  ></i>
-                </button>
-              </div>
-            ))}
-          </div>
         </div>
 
         <div className="grid g-5">
@@ -371,18 +321,18 @@ const FormProduct = ({ type, id }) => {
           </div>
         ) : null}
         {loading && (
-        <div className="loading-spinner">
-          <ColorRing
-  visible={true}
-  height="80"
-  width="80"
-  ariaLabel="color-ring-loading"
-  wrapperStyle={{}}
-  wrapperClass="color-ring-wrapper"
-  colors={['#A62639', '#DB324D', '#56494E', '#A29C9B', '#511C29']}
-  />
-        </div>
-      )}
+          <div className="loading-spinner">
+            <ColorRing
+              visible={true}
+              height="80"
+              width="80"
+              ariaLabel="color-ring-loading"
+              wrapperStyle={{}}
+              wrapperClass="color-ring-wrapper"
+              colors={["#A62639", "#DB324D", "#56494E", "#A29C9B", "#511C29"]}
+            />
+          </div>
+        )}
       </form>
     </>
   );
