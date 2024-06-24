@@ -103,8 +103,8 @@ const FormCategory = ({ type, id }) => {
           title: '¡Éxito!',
           text: 'Categoría actualizada correctamente',
           icon: 'success',
-          confirmButtonText: 'Aceptar',
-          confirmButtonColor: '#A29C9B', 
+          showConfirmButton: false,
+          timer: 1800
         });
       } else {
         response = await fetchData({
@@ -117,8 +117,8 @@ const FormCategory = ({ type, id }) => {
           title: '¡Éxito!',
           text: 'Categoría registrada correctamente',
           icon: 'success',
-          confirmButtonText: 'Aceptar',
-          confirmButtonColor: '#A29C9B', 
+          showConfirmButton: false,
+          timer: 1800
         });
         setCategory(initialCategoryState);
       }

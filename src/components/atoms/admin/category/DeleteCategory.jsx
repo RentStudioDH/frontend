@@ -19,8 +19,8 @@ const DeleteCategory = ({ id, closeModal }) => {
         title: '¡Éxito!',
         text: `Categoría "${categoryName}" eliminada correctamente`,
         icon: 'success',
-        confirmButtonText: 'Aceptar',
-        confirmButtonColor: '#A29C9B', 
+        showConfirmButton: false,
+        timer: 1800
       });
       closeModal();
     } catch (error) {
