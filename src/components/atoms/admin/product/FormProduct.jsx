@@ -135,8 +135,8 @@ const FormProduct = ({ type, id }) => {
           title: '¡Éxito!',
           text: 'Producto actualizado correctamente',
           icon: 'success',
-          confirmButtonText: 'Aceptar',
-          confirmButtonColor: '#A29C9B', 
+          showConfirmButton: false,
+          timer: 1800
         });
       } else {
         response = await fetchData({
@@ -149,8 +149,8 @@ const FormProduct = ({ type, id }) => {
           title: '¡Éxito!',
           text: 'Producto registrado correctamente',
           icon: 'success',
-          confirmButtonText: 'Aceptar',
-          confirmButtonColor: '#A29C9B', 
+          showConfirmButton: false,
+          timer: 1800
         });
         setProduct(initialProductState);
       }
