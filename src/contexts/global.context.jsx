@@ -4,8 +4,10 @@ import { fetchData } from '../utils/js/apiRequest'
 import Cookies from 'js-cookie'
 import { debounce } from '../utils/js/debounce'
 
+// Crear contexto global
 export const ContextGlobal = createContext()
 
+// Estado inicial
 export const initialState = {
   theme: localStorage.getItem('theme') || 'light',
   isDesktop: window.innerWidth > 767,
@@ -14,10 +16,11 @@ export const initialState = {
   categories: [],
   user: JSON.parse(Cookies.get('user') || '{}'),
   isLoggedIn: !!Cookies.get('token'),
-  role: Cookies.get('role') || 'user',
+  role: JSON.parse(Cookies.get('user') || '{}').role || 'user',
   token: Cookies.get('token') || '',
   favs: JSON.parse(localStorage.getItem('favs')) || [],
   suggestions: [],
+  lastTokenRefresh: null,
 }
 
 export const ContextProvider = ({ children }) => {
@@ -44,6 +47,11 @@ export const ContextProvider = ({ children }) => {
     state.theme === 'dark' ? document.body.classList.add('dark') : document.body.classList.remove('dark')
   }, [state.theme])
 
+  // FAVS
+  useEffect(() => {
+    localStorage.setItem('favs', JSON.stringify(state.favs))
+  }, [state.favs])
+
   // Productos
   const urlProducts = '/products'
   // Cargar productos
@@ -51,7 +59,6 @@ export const ContextProvider = ({ children }) => {
     try {
       const products = await fetchData({ method: 'get', endpoint: `/public${urlProducts}`, requireAuth: false })
       dispatch({ type: 'LIST_PRODUCTS', payload: products })
-      // console.log(products)
     } catch (error) {
       console.error('Error fetching products:', error)
     }
@@ -93,10 +100,6 @@ export const ContextProvider = ({ children }) => {
       dispatch({ type: 'REMOVE_PRODUCT', payload: productId })
     } catch (error) {
       console.error('Error removing product:', error)
-      if (error.response && error.response.status === 500) {
-        console.error('Internal Server Error:', error.response.data)
-      }
-      throw error
     }
   }
 
@@ -107,7 +110,6 @@ export const ContextProvider = ({ children }) => {
     try {
       const categories = await fetchData({ method: 'get', endpoint: `/public${urlCategories}`, requireAuth: false })
       dispatch({ type: 'LIST_CATEGORIES', payload: categories })
-      // console.log(categories)
     } catch (error) {
       console.error('Error fetching categories:', error)
     }
@@ -122,13 +124,9 @@ export const ContextProvider = ({ children }) => {
       dispatch({ type: 'REMOVE_CATEGORY', payload: categoryId })
     } catch (error) {
       console.error('Error removing category:', error)
-      if (error.response && error.response.status === 500) {
-        console.error('Internal Server Error:', error.response.data)
-      }
-      throw error
     }
   }
-  
+
   // Imágenes
   const urlAttachments = '/attachments'
   // Subir imágenes
@@ -142,32 +140,35 @@ export const ContextProvider = ({ children }) => {
     }
   }
 
+  // Usuarios
+  const urlUsers = '/public/users'
   // Login
-  const loginRequest = async (usuario) => {
+  const loginUser = async (usuario) => {
     try {
       const response = await fetchData({ method: 'post', endpoint: '/auth/login', data: usuario, requireAuth: false })
-      const { token } = response
-      loginUser(token, 'user', usuario)
+      const { token, refreshToken } = response
+      Cookies.set('token', token, { secure: true, sameSite: 'Strict' })
+      Cookies.set('refreshToken', refreshToken, { secure: true, sameSite: 'Strict' })
+      dispatch({ type: 'SET_TOKEN', payload: token })
+      const userData = await getUserData()
+      dispatch({ type: 'LOGIN_USER', payload: userData })
       return response
     } catch (error) {
       console.error('Error during login:', error)
       throw error
     }
   }
-  // Iniciar renovación del token
-  const startTokenRenewal = () => {
-    const interval = 15 * 60 * 1000 // 15 minutos
-    setInterval(async () => {
-      try {
-        await loginRequest(state.user)
-      } catch (error) {
-        console.error('Error renewing token:', error)
-      }
-    }, interval)
+  // Obtener info de usuario
+  const getUserData = async () => {
+    try {
+      const userData = await fetchData({ method: 'get', endpoint: '/users/me', requireAuth: true })
+      Cookies.set('user', JSON.stringify(userData), { secure: true, sameSite: 'Strict' })
+      return userData
+    } catch (error) {
+      console.error('Error fetching user data:', error)
+      throw error
+    }
   }
-
-  // Usuarios
-  const urlUsers = '/public/users'
   // Registro
   const registerUser = async (userData) => {
     try {
@@ -178,70 +179,30 @@ export const ContextProvider = ({ children }) => {
       throw error
     }
   }
-
-
-  //FAVS
-  useEffect(() => {
-    localStorage.setItem('favs', JSON.stringify(state.favs))
-}, [state.favs])
-
-  // User
-  const loginUser = (token, role, user) => {
-    Cookies.set('token', token, { secure: true, sameSite: 'Strict' })
-    Cookies.set('role', role, { secure: true, sameSite: 'Strict' })
-    Cookies.set('user', JSON.stringify(user), { secure: true, sameSite: 'Strict' })
-    dispatch({ type: 'LOGIN_USER', payload: { user, token, role } })
-    startTokenRenewal()
-  }
-
-  // Fetch user data
-const fetchUserData = async () => {
-  try {
-    const userData = await fetchData({ method: 'get', endpoint: '/users/me', requireAuth: true });
-    dispatch({ type: 'SET_USER_DATA', payload: userData });
-    return userData;
-  } catch (error) {
-    console.error('Error fetching user data:', error);
-    throw error;
-  }
-};
-
-
-  // const fetchUserData = async (token) => {
-  //   try {
-  //     const userData = await fetchData({ method: 'get', endpoint: '/auth/user', requireAuth: true })
-  //     localStorage.setItem('user', JSON.stringify(userData))
-  //     dispatch({ type: 'SET_USER_DATA', payload: userData })
-  //   } catch (error) {
-  //     console.error('Error fetching user data:', error)
-  //   }
-  // }
-
-  /* Logout */
+  // Logout
   const logoutUser = () => {
     Cookies.remove('token')
-    Cookies.remove('role')
+    Cookies.remove('refreshToken')
     Cookies.remove('user')
     dispatch({ type: 'LOGOUT_USER' })
+    window.location.reload()
   }
 
-  // Mostrar reservas 
+  // Reservas
   const getUserReservations = async () => {
     try {
-      const response = await fetchData({ method: 'get', endpoint: '/user/reservations', requireAuth: true });
+      const response = await fetchData({ method: 'get', endpoint: '/user/reservations', requireAuth: true })
       return response.map(reservation => ({
         ...reservation,
-        image: reservation.product.image, // Asegúrate de que la imagen está en el objeto de reserva
-      }));
+        image: reservation.product.image,
+      }))
     } catch (error) {
-      console.error('Error fetching user reservations:', error);
-      throw error;
+      console.error('Error fetching user reservations:', error)
+      throw error
     }
-  };
-  
-  
+  }
 
-  // Función para obtener sugerencias
+  // Sugerencias
   const urlSearch = '/public/products/search'
   const fetchSuggestions = useCallback(debounce(async ({ searchText, categoryId }) => {
     if (!searchText && !categoryId) {
@@ -253,9 +214,7 @@ const fetchUserData = async () => {
       query.push(`categoryId=${categoryId}`)
     }
     try {
-      console.log(`Fetching suggestions with query: ${query.join('&')}`)
       const data = await fetchData({ method: 'get', endpoint: `${urlSearch}/?${query.join('&')}`, requireAuth: false })
-      console.log('Suggestions received:', data)
       dispatch({ type: 'SET_SUGGESTIONS', payload: data })
     } catch (error) {
       console.error('Error fetching suggestions:', error)
@@ -275,13 +234,12 @@ const fetchUserData = async () => {
     getCategories,
     removeCategory,
     uploadImage,
-    loginRequest,
-    registerUser,
     loginUser,
+    getUserData,
+    registerUser,
     logoutUser,
-    fetchSuggestions,
     getUserReservations,
-    fetchUserData
+    fetchSuggestions
   }
 
   return (
