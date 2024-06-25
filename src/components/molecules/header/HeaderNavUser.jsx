@@ -49,32 +49,13 @@ const HeaderNavUser = () => {
           <i className={`txt-primary subtitle ${isMenuOpen ? "fa-solid fa-xmark" : "fa-solid fa-bars"}`}></i>
         </button>
       </div>
-      <ul className={`${state.isDesktop ? '' : (isMenuOpen ? 'bg-quaternary' : 'hidden')} w-full md:w-auto flex flex-col md:flex-row justify-between items-end lg:order-1 g-15 p-15`}>
+      <ul className={`${state.isDesktop ? 'hidden' : (isMenuOpen ? 'bg-quaternary' : 'hidden')} w-full md:w-auto flex flex-col md:flex-row justify-between items-end lg:order-1 g-15 p-15`}>
         {!state.isDesktop && 
           <>
             <li>
               <div className='flex justify-center g-15'>
                 <NavUser />
               </div>
-            </li>
-          </>
-        }
-        <li>
-          <Link to={routes.home} className="txt-tertiary paragraph" onClick={closeMenu}>Inicio</Link>
-        </li>
-        <li>
-          <Link to={routes.products} className="txt-tertiary paragraph" onClick={closeMenu}>Productos</Link>
-        </li>
-        <li>
-          <Link to='/favs' className="txt-tertiary paragraph" onClick={closeMenu}>Favoritos</Link>
-        </li>
-        {state.isLoggedIn && 
-          <>
-            <li>
-              <Link to={routes.admin.dashboard} className="txt-tertiary paragraph" onClick={closeMenu}>Admin</Link>
-            </li>
-            <li>
-              <Link to={routes.usuario.dashboard} className="txt-tertiary paragraph" onClick={closeMenu}>Mi Perfil</Link>
             </li>
           </>
         }

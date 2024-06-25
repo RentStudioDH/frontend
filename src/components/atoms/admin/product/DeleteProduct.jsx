@@ -19,8 +19,8 @@ const ModalDelete = ({ id, closeModal }) => {
         title: '¡Éxito!',
         text: `Producto "${productName}" eliminado correctamente`,
         icon: 'success',
-        confirmButtonText: 'Aceptar',
-        confirmButtonColor: '#A29C9B', 
+        showConfirmButton: false,
+        timer: 1800
       });
       closeModal();
     } catch (error) {

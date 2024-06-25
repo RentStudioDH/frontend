@@ -4,6 +4,9 @@ import * as Yup from 'yup'
 import { useContextGlobal } from "../../../contexts/global.context"
 import Buttons from "../Buttons"
 import LoadingOverlay from "../LoadingOverlay.jsx"
+import Swal from 'sweetalert2'
+import { routes } from '../../../utils/routes.js'
+
 
 const validationSchema = Yup.object().shape({
   email: Yup.string().email('Por favor, ingrese un correo electrónico válido').required('Por favor, ingrese su correo electrónico.'),
@@ -11,10 +14,10 @@ const validationSchema = Yup.object().shape({
 })
 
 const LoginForm = ({ closeModal }) => {
+  const { loginUser } = useContextGlobal()
   const [usuario, setUsuario] = useState({ email: '', password: '' })
   const [errors, setErrors] = useState({})
   const [loading, setLoading] = useState(false)
-  const { loginRequest } = useContextGlobal()
   const navigate = useNavigate()
 
   const handleChange = ({ target }) => {
@@ -33,24 +36,31 @@ const LoginForm = ({ closeModal }) => {
     try {
       await validationSchema.validate(usuario, { abortEarly: false })
 
-      const response = await loginRequest(usuario)
+      const response = await loginUser(usuario)
 
       closeModal()
-      navigate('/admin/dashboard')
+      navigate(routes.user.profile)
+      
     } catch (error) {
+      setLoading(false);
       if (error.name === 'ValidationError') {
-        const newErrors = {}
+        const newErrors = {};
         error.inner.forEach((err) => {
-          newErrors[err.path] = err.message
-        })
-        setErrors(newErrors)
+          newErrors[err.path] = err.message;
+        });
+        setErrors(newErrors);
       } else {
-        setErrors({ general: error.response?.data?.message || 'Error al iniciar sesión. Por favor, intente de nuevo.' })
+        const errorMessage = error.response?.data?.message || 'Error al iniciar sesión. Por favor, intente de nuevo.';
+        Swal.fire({
+          title: 'Error',
+          text: errorMessage,
+          icon: 'error',
+          confirmButtonText: 'Aceptar',
+          confirmButtonColor: '#A29C9B',
+        });
       }
-    } finally {
-      setLoading(false)
     }
-  }
+  };
 
   return (
     <>

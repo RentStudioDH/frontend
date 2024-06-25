@@ -4,6 +4,7 @@ import * as Yup from 'yup'
 import { useContextGlobal } from '../../../contexts/global.context'
 import Buttons from '../Buttons'
 import LoadingOverlay from '../LoadingOverlay.jsx'
+import Swal from 'sweetalert2';
 
 const validationSchema = Yup.object().shape({
   firstName: Yup.string().required('El nombre es obligatorio'),
@@ -46,31 +47,45 @@ const RegistrarForm = ({ closeModal }) => {
       const { firstName, lastName, email, password } = usuario
       const response = await registerUser({ firstName, lastName, email, password })
 
-      setSuccessMessage('Registro exitoso. Por favor, inicie sesión.')
+      Swal.fire({
+        title: '¡Éxito!',
+        text: 'Registro exitoso. Por favor, inicie sesión.',
+        icon: 'success',
+        showConfirmButton: false,
+        timer: 1800,
+      });
+
       setUsuario({
         firstName: '',
         lastName: '',
         email: '',
         password: '',
         confirmPassword: '',
-      })
+      });
     } catch (error) {
       if (error.name === 'ValidationError') {
-        const newErrors = {}
+        const newErrors = {};
         error.inner.forEach((err) => {
-          newErrors[err.path] = err.message
-        })
-        setErrors(newErrors)
+          newErrors[err.path] = err.message;
+        });
+        setErrors(newErrors);
       } else {
-        setErrors({ general: error.response?.data?.message || 'Error al registrar. Por favor, intente de nuevo.' })
+        const errorMessage = error.response?.data?.message || 'Error al registrar. Por favor, intente de nuevo.';
+        Swal.fire({
+          title: 'Error',
+          text: errorMessage,
+          icon: 'error',
+          confirmButtonText: 'Aceptar',
+          confirmButtonColor: '#A29C9B',
+        });
       }
     } finally {
-      setLoading(false)
+      setLoading(false);
     }
-  }
+  };
 
   return (
-    <><Spline scene="https://app.spline.design/file/0a039606-8a68-455b-8bae-abd0d06c666f" />
+    <>
       <LoadingOverlay open={loading} />
       <div className="bg-gray-100 grid place-items-center p-section">
         <p className="txt-accent txt-center subtitle"><strong>Registrar</strong></p>

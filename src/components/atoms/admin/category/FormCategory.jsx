@@ -148,11 +148,11 @@ const FormCategory = ({ type, id }) => {
           headers: { Authorization: `Bearer ${token}` },
         });
         Swal.fire({
-          title: "¡Éxito!",
-          text: "Categoría actualizada correctamente",
-          icon: "success",
-          confirmButtonText: "Aceptar",
-          confirmButtonColor: "#A29C9B",
+          title: '¡Éxito!',
+          text: 'Categoría actualizada correctamente',
+          icon: 'success',
+          showConfirmButton: false,
+          timer: 1800
         });
       } else {
         response = await fetchData({
@@ -162,11 +162,11 @@ const FormCategory = ({ type, id }) => {
           headers: { Authorization: `Bearer ${token}` },
         });
         Swal.fire({
-          title: "¡Éxito!",
-          text: "Categoría registrada correctamente",
-          icon: "success",
-          confirmButtonText: "Aceptar",
-          confirmButtonColor: "#A29C9B",
+          title: '¡Éxito!',
+          text: 'Categoría registrada correctamente',
+          icon: 'success',
+          showConfirmButton: false,
+          timer: 1800
         });
         setCategory(initialCategoryState);
       }
