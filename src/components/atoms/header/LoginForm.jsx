@@ -68,7 +68,7 @@ const LoginForm = ({ closeModal }) => {
     <>
       <LoadingOverlay open={loading} />
       <div>
-        <div className="spline-container" ref={splineContainerRef}>
+        <div className="spline-container">
           <Spline scene="https://prod.spline.design/7MLrAt0DvUMhQu15/scene.splinecode" />
         </div>
         <div className="form-container bg-gray-100 grid place-items-center p-section">
