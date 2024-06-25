@@ -21,6 +21,7 @@ export const initialState = {
   favs: JSON.parse(localStorage.getItem('favs')) || [],
   suggestions: [],
   lastTokenRefresh: null,
+  reservaData:[]
 }
 
 export const ContextProvider = ({ children }) => {
@@ -202,6 +203,11 @@ export const ContextProvider = ({ children }) => {
     }
   }
 
+  // Guardar informacion para detalle reserva
+  const setReservaData = (data) => {
+    dispatch({ type: 'ADD_RESERVA', payload: data })
+  }
+
   // Sugerencias
   const urlSearch = '/public/products/search'
   const fetchSuggestions = useCallback(debounce(async ({ searchText, categoryId }) => {
@@ -239,7 +245,8 @@ export const ContextProvider = ({ children }) => {
     registerUser,
     logoutUser,
     getUserReservations,
-    fetchSuggestions
+    fetchSuggestions,
+    setReservaData
   }
 
   return (

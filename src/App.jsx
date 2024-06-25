@@ -29,7 +29,7 @@ function App() {
           <Route path="/user/:user" element={<ProtectedRoute element={<User />} />} />
           <Route path="/categoria/:category" element={<Category/>} />
           <Route path="/favs" element={<Favs/>} />
-          <Route path="/reservation" element={<ReservationDetail/>} />
+          <Route path="/reservation/:id" element={<ReservationDetail/>} />
         </Routes>
         <Footer/>
       </ThemeProvider>

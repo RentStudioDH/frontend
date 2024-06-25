@@ -81,6 +81,12 @@ export const reducer = (state, action) => {
         favs: state.favs.filter(fav => fav.id !== action.payload)
       }
 
+    case "ADD_RESERVA":
+      return{
+        ...state,
+        reservaData : action.payload
+      } 
+
     default:
       return state
   }

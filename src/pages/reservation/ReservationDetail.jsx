@@ -4,20 +4,21 @@ import ProductCardReservation from '../../components/molecules/reservation/Produ
 import UserDetailsForm from '../../components/molecules/reservation/UserDetailsForm';
 import { useContextGlobal } from '../../contexts/global.context';
 import ReservaSection from '../../components/molecules/reservation/ReservaSection';
+import TusSelecciones from '../../components/molecules/reservation/TusSelecciones';
 
 const ReservationDetail = () => {
     const { state } = useContextGlobal();
     const { data, user } = state;
-
-
+    
+    
     return (
       <Container>
         <Typography>titulo</Typography>
         <ReservaSection 
           titulo="Tus selecciones" 
           icono="person" 
-          cardContent={UserDetailsForm} 
-          data={user} 
+          cardContent={TusSelecciones} 
+          data={data} 
         />
         <ReservaSection 
           titulo="Tus datos" 

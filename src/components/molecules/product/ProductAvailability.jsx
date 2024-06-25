@@ -3,6 +3,8 @@ import ReactDatePicker from 'react-datepicker'
 import 'react-datepicker/dist/react-datepicker.css'
 import { format, addDays, parseISO, isWithinInterval, eachDayOfInterval, differenceInDays } from 'date-fns'
 import { es } from 'date-fns/locale'
+import { useNavigate, useParams } from 'react-router-dom'
+import { useContextGlobal } from '../../../contexts/global.context'
 
 // Simular datos recibidos desde una API
 const occupiedDates = [
@@ -22,6 +24,11 @@ const ProductAvailability = ({ data }) => {
   const { price, rentType, stock } = data
   const [startDate, setStartDate] = useState(null)
   const [endDate, setEndDate] = useState(null)
+
+  const navigate = useNavigate()
+  const {state, getProductById, setReservaData} = useContextGlobal()
+
+
 
   const initialStock = stock - occupiedDates.length
   const [currentStock, setCurrentStock] = useState(initialStock)
@@ -87,6 +94,12 @@ const ProductAvailability = ({ data }) => {
     },
   ]
 
+  const rentarHandle = ()=>{
+    setReservaData({ startDate: startDate, endDate: endDate, dataId: data.id });
+
+    navigate('/reservation/' + data.id);
+  }
+
   return (
     <div className="bg-white shadow-lg grid br-15 p-15 g-15">
       <h2 className="txt-accent bb-primary subtitle"><strong>Disponibilidad del producto:</strong></h2>
@@ -117,7 +130,7 @@ const ProductAvailability = ({ data }) => {
               <p className="text-red-600 font-bold text-xl">No hay unidades disponibles</p>
             )}
             {currentStock > 0 && (
-              <button className="bg-red-600 text-white py-2 px-4 rounded-md">Ir a Rentar</button>
+              <button className="bg-red-600 text-white py-2 px-4 rounded-md" onClick={()=> rentarHandle()}>Ir a Rentar</button>
             )}
           </div>
           <div className='grid info g-5'>
