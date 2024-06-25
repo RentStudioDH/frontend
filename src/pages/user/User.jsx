@@ -15,14 +15,14 @@ const User = () => {
 
   const renderSectionAdmin = () => {
     switch (user) {
-      case 'MiPerfil':
-        return <SectionAdmin title="Mi Perfil" type="MiPerfil" ContainerComponent={UserPerfil} />
-      case 'Direcciones':
-        return <SectionAdmin title="Direcciones" type="Direcciones" ContainerComponent={DireccionesUsuario} />
-      case 'Reservas':
-        return <SectionAdmin title="Reservas" type="Reservas" ContainerComponent={UserReservas} />
-      case 'Favoritos':
-        return <SectionAdmin title="Favoritos" type="Favoritos" ContainerComponent={UserFavoritos} />
+      case 'perfil':
+        return <SectionAdmin title="Mi Perfil" type="perfil" ContainerComponent={UserPerfil} />
+      case 'direcciones':
+        return <SectionAdmin title="Direcciones" type="direcciones" ContainerComponent={DireccionesUsuario} />
+      case 'reservas':
+        return <SectionAdmin title="Reservas" type="reservas" ContainerComponent={UserReservas} />
+      case 'favoritos':
+        return <SectionAdmin title="Favoritos" type="favoritos" ContainerComponent={UserFavoritos} />
       default:
         return <h1>NO hay nada que mostrar</h1>
     }

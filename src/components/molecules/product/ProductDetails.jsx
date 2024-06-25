@@ -1,7 +1,7 @@
-import featuresData from "../../../utils/json/featuresData.json";
+import { useState } from "react";
 
 const ProductDetails = ({ data }) => {
-  console.log(data.features);
+  const [features, setFeatures] = useState(data.category.features || []);
   const initialFeatureCount = 4;
   const firstImage =
     data.attachments && data.attachments.length > 0
@@ -30,7 +30,7 @@ const ProductDetails = ({ data }) => {
             <strong>Características</strong>
           </h2>
           <div className="grid grid-flow-row place-items-center md:place-items-start g-5">
-            {data.features.slice(1, initialFeatureCount).map((feature) => (
+            {features.slice(0, initialFeatureCount).map((feature) => (
               <div
                 key={feature.id}
                 className="grid grid-flow-row md:grid-flow-col place-items-center g-5"

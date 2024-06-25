@@ -1,12 +1,13 @@
-import React, { useState, useRef, useEffect } from 'react';
-import { Link, useNavigate } from 'react-router-dom';
-import * as Yup from 'yup';
-import { useContextGlobal } from '../../../contexts/global.context';
-import Buttons from '../Buttons';
-import LoadingOverlay from '../LoadingOverlay.jsx';
-import Swal from 'sweetalert2';
+import { useState } from 'react'
+import { Link, useNavigate } from 'react-router-dom'
+import * as Yup from 'yup'
+import { useContextGlobal } from "../../../contexts/global.context"
+import Buttons from "../Buttons"
+import LoadingOverlay from "../LoadingOverlay.jsx"
+import Swal from 'sweetalert2'
+import { routes } from '../../../utils/routes.js'
 import Spline from '@splinetool/react-spline';
-import '../../../styles/_login.scss';
+import '../../../styles/_login.scss'
 
 const validationSchema = Yup.object().shape({
   email: Yup.string().email('Por favor, ingrese un correo electrónico válido').required('Por favor, ingrese su correo electrónico.'),
@@ -14,11 +15,12 @@ const validationSchema = Yup.object().shape({
 });
 
 const LoginForm = ({ closeModal }) => {
-  const [usuario, setUsuario] = useState({ email: '', password: '' });
-  const [errors, setErrors] = useState({});
-  const [loading, setLoading] = useState(false);
-  const { loginRequest } = useContextGlobal();
-  const navigate = useNavigate();
+
+  const { loginUser } = useContextGlobal()
+  const [usuario, setUsuario] = useState({ email: '', password: '' })
+  const [errors, setErrors] = useState({})
+  const [loading, setLoading] = useState(false)
+  const navigate = useNavigate()
 
   const handleChange = ({ target }) => {
     const { name, value } = target;
@@ -36,10 +38,11 @@ const LoginForm = ({ closeModal }) => {
     try {
       await validationSchema.validate(usuario, { abortEarly: false });
 
-      const response = await loginRequest(usuario);
+      const response = await loginUser(usuario)
 
-      closeModal(); // Cierra el modal de inicio de sesión
-      navigate('/admin/dashboard');
+      closeModal()
+      navigate(routes.user.profile)
+      
     } catch (error) {
       setLoading(false);
       if (error.name === 'ValidationError') {
