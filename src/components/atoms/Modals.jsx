@@ -93,8 +93,8 @@ const Modals = ({ id, type, visible, onClose, searchProps }) => {
         )
       case 'loginUser':
         return (
-          <div className="bg-back shadow-lg modal br-15">
-            <div className='sticky w-full bg-back flex flex-wrap justify-center modalHeader top-0 p-15 g-5 relative'>
+          <div className="bg-back shadow-lg br-15 login-modal">
+            <div className='w-full bg-back flex flex-wrap justify-center modalHeader top-0 p-15 g-5 relative'>
               <img src='/logo/logo.png' alt="logo" title="logo" width={150} height={30} loading='lazy' />
               <button className="absolute close hover:brightness-50 right-[15px]" onClick={closeModal}><i className="txt-primary fa-solid fa-xmark title"></i></button>
             </div>
