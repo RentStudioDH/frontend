@@ -4,6 +4,7 @@ import Buttons from "../Buttons"
 import Modals from "../Modals"
 import { Link } from "react-router-dom"
 import { routes, userMenuItems } from "../../../utils/routes"
+import AvatarUser from "../user/AvatarUser"
 
 const NavUser = () => {
   const { state, logoutUser } = useContextGlobal()
@@ -28,10 +29,10 @@ const NavUser = () => {
   return (
     <>
       {state.isLoggedIn ? (
-        <div className="relative">
-          <div className="flex items-center cursor-pointer" onClick={toggleDropdown}>
-            <img src={state.user.profilePicture} alt="User profile" className="w-8 h-8 rounded-full"/>
-            <span className="ml-2">{state.user.name}</span>
+        <div className={`relative ${state.isDesktop ? '' : 'grid place-items-end'}`}>
+          <div className="flex items-center g-5" onClick={toggleDropdown}>
+            <span className="txt-tertiary paragraph">{state.user.firstName}</span>
+            <AvatarUser size={40} />
           </div>
           {isDropdownVisible && (
             <div className={`relative md:absolute w-auto grid place-items-end right-0 mt-2 br-15 z-20 ${state.isDesktop ? 'bg-back shadow-lg' : 'bg-transparent'}`}>
