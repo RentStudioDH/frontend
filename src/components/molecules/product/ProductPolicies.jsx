@@ -1,17 +1,18 @@
-import { useEffect, useState } from "react"
-import { useParams } from "react-router-dom"
-import { useContextGlobal } from "../../../contexts/global.context"
+import { useEffect, useState } from "react";
+import { useParams } from "react-router-dom";
+import { useContextGlobal } from "../../../contexts/global.context";
 
 const ProductPolicies = ({ data }) => {
-  const { id } = useParams()
-  const { getProductById } = useContextGlobal()
-  const [showPolicies, setShowPolicies] = useState(false)
+  const { id } = useParams();
+  const { getProductById } = useContextGlobal();
+  const [showPolicies, setShowPolicies] = useState(false);
+  const [policies, setPolicies] = useState(data.category.policies || []);
 
   useEffect(() => {
-    if (data.policies.length !== 0) {
-      setShowPolicies(true)
+    if (policies.length !== 0) {
+      setShowPolicies(true);
     }
-  }, [id, getProductById])
+  }, [id, getProductById]);
 
   return (
     <>
@@ -21,7 +22,7 @@ const ProductPolicies = ({ data }) => {
             <strong> Reglamentos de producto:</strong>
           </h2>
           <div className="grid grid-flow-row md:grid-flow-col gap-8">
-            {data.policies.map((policy) => (
+            {policies.map((policy) => (
               <div key={policy.id} className="m-8">
                 <p className="flex items-start txt-accent paragraph pb-8">
                   <strong>{policy.title}</strong>
@@ -33,7 +34,7 @@ const ProductPolicies = ({ data }) => {
         </div>
       )}
     </>
-  )
-}
+  );
+};
 
-export default ProductPolicies
+export default ProductPolicies;

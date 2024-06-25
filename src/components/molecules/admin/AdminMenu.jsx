@@ -1,6 +1,6 @@
 import { useState } from 'react'
 import { Link } from 'react-router-dom'
-import adminData from '../../../utils/json/adminData.json'
+import { adminMenuItems } from '../../../utils/routes'
 
 const AdminMenu = () => {
   const [isMenuOpen, setOpen] = useState(false)
@@ -13,7 +13,7 @@ const AdminMenu = () => {
         <button className='p-15' onClick={isMenuOpenMenu} type="button"><i className={`txt-tertiary subtitle fa-solid ${!isMenuOpen ? "fa-arrow-left" : "fa-arrow-right"}`}></i></button>
         
         <ul className={`grid ${isMenuOpen ? 'w-full place-items-center' : 'w-auto place-items-star'} g-5`}>
-          {adminData.map( item => {
+          {adminMenuItems.map( item => {
             return <li key={item.id} className={`flex flex-col items-start ${location.pathname === item.path ? 'active' : ''}`}><Link to={item.path} className='txt-tertiary flex items-center paragraph g-5 p-15'><i className={`fa-solid ${item.icon} subtitle`}></i>{!isMenuOpen && item.label}</Link></li>
           })}
         </ul>

@@ -1,12 +1,13 @@
-import React, { useState, useRef, useEffect } from 'react';
-import { Link, useNavigate } from 'react-router-dom';
-import * as Yup from 'yup';
-import { useContextGlobal } from '../../../contexts/global.context';
-import Buttons from '../Buttons';
-import LoadingOverlay from '../LoadingOverlay.jsx';
-import Swal from 'sweetalert2';
+import { useState } from 'react'
+import { Link, useNavigate } from 'react-router-dom'
+import * as Yup from 'yup'
+import { useContextGlobal } from "../../../contexts/global.context"
+import Buttons from "../Buttons"
+import LoadingOverlay from "../LoadingOverlay.jsx"
+import Swal from 'sweetalert2'
+import { routes } from '../../../utils/routes.js'
 import Spline from '@splinetool/react-spline';
-import '../../../styles/_login.scss';
+import '../../../styles/_login.scss'
 
 const validationSchema = Yup.object().shape({
   email: Yup.string().email('Por favor, ingrese un correo electrónico válido').required('Por favor, ingrese su correo electrónico.'),
@@ -14,29 +15,12 @@ const validationSchema = Yup.object().shape({
 });
 
 const LoginForm = ({ closeModal }) => {
-  const [usuario, setUsuario] = useState({ email: '', password: '' });
-  const [errors, setErrors] = useState({});
-  const [loading, setLoading] = useState(false);
-  const { loginRequest } = useContextGlobal();
-  const navigate = useNavigate();
 
-  const splineContainerRef = useRef(null);
-
-  useEffect(() => {
-    const splineContainer = splineContainerRef.current;
-    if (!splineContainer) return;
-
-    const handleMouseMove = (event) => {
-      // Aquí puedes implementar el seguimiento del cursor para el objeto 3D
-      // Por ejemplo, actualizar la posición del objeto 3D según event.clientX y event.clientY
-    };
-
-    splineContainer.addEventListener('mousemove', handleMouseMove);
-
-    return () => {
-      splineContainer.removeEventListener('mousemove', handleMouseMove);
-    };
-  }, []); // Asegúrate de que el array de dependencias esté vacío para que se ejecute solo una vez
+  const { loginUser } = useContextGlobal()
+  const [usuario, setUsuario] = useState({ email: '', password: '' })
+  const [errors, setErrors] = useState({})
+  const [loading, setLoading] = useState(false)
+  const navigate = useNavigate()
 
   const handleChange = ({ target }) => {
     const { name, value } = target;
@@ -54,10 +38,11 @@ const LoginForm = ({ closeModal }) => {
     try {
       await validationSchema.validate(usuario, { abortEarly: false });
 
-      const response = await loginRequest(usuario);
+      const response = await loginUser(usuario)
 
-      closeModal(); // Cierra el modal de inicio de sesión
-      navigate('/admin/dashboard');
+      closeModal()
+      navigate(routes.user.profile)
+      
     } catch (error) {
       setLoading(false);
       if (error.name === 'ValidationError') {
