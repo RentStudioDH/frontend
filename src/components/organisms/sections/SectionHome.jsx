@@ -9,3 +9,5 @@ const SectionHome = ({ title, ContainerComponent, background = '', containerClas
 }
 
 export default SectionHome
+
+
