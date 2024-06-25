@@ -20,24 +20,6 @@ const LoginForm = ({ closeModal }) => {
   const { loginRequest } = useContextGlobal();
   const navigate = useNavigate();
 
-  const splineContainerRef = useRef(null);
-
-  useEffect(() => {
-    const splineContainer = splineContainerRef.current;
-    if (!splineContainer) return;
-
-    const handleMouseMove = (event) => {
-      // Aquí puedes implementar el seguimiento del cursor para el objeto 3D
-      // Por ejemplo, actualizar la posición del objeto 3D según event.clientX y event.clientY
-    };
-
-    splineContainer.addEventListener('mousemove', handleMouseMove);
-
-    return () => {
-      splineContainer.removeEventListener('mousemove', handleMouseMove);
-    };
-  }, []); // Asegúrate de que el array de dependencias esté vacío para que se ejecute solo una vez
-
   const handleChange = ({ target }) => {
     const { name, value } = target;
     setUsuario({ ...usuario, [name]: value });
@@ -83,7 +65,7 @@ const LoginForm = ({ closeModal }) => {
     <>
       <LoadingOverlay open={loading} />
       <div>
-        <div className="spline-container" ref={splineContainerRef}>
+        <div className="spline-container">
           <Spline scene="https://prod.spline.design/7MLrAt0DvUMhQu15/scene.splinecode" />
         </div>
         <div className="form-container bg-gray-100 grid place-items-center p-section">
