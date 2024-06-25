@@ -1,63 +1,46 @@
-import { Avatar, Grid, Paper, Typography, Button } from '@mui/material';
-import React, { useState, useEffect } from 'react';
-import { useContextGlobal } from '../../../contexts/global.context';
-import InfoUserPassword from './InfoUserPassword';
-import InfoUser from './InfoUser';
-import EditProfileModal from './EditProfileModal';
+import { Avatar, Grid, Paper, Button } from '@mui/material'
+import { useState, useEffect } from 'react'
+import { useContextGlobal } from '../../../contexts/global.context'
+import InfoUserPassword from './InfoUserPassword'
+import InfoUser from './InfoUser'
+import EditProfileModal from './EditProfileModal'
+import AvatarUser from './AvatarUser'
 
 const MiPerfil = () => {
-  const { state, fetchUserData } = useContextGlobal();
-  const [isModalOpen, setIsModalOpen] = useState(false);
+  const { state } = useContextGlobal()
+  const { user } = state
+  const [isModalOpen, setIsModalOpen] = useState(false)
   const [userData, setUserData] = useState({
-    firstName: '',
-    lastName: '',
-    email: '',
-    telefono: '',
-  });
-
-  useEffect(() => {
-    const loadUserData = async () => {
-      try {
-        const data = await fetchUserData();
-        setUserData(data);
-        console.log(data);
-      } catch (error) {
-        console.error('Error fetching user data:', error);
-      }
-    };
-
-    loadUserData();
-  }, []); // Array vacío asegura que se ejecute solo una vez
+    firstName: user.firstName || '',
+    lastName: user.lastName || '',
+    email: user.email || '',
+    telefono: user.telefono || '',
+    role: user.role || '',
+  })
 
   const handleOpenModal = () => {
-    setIsModalOpen(true);
-  };
+    setIsModalOpen(true)
+  }
 
   const handleCloseModal = () => {
-    setIsModalOpen(false);
-  };
+    setIsModalOpen(false)
+  }
 
   const handleSave = (newData) => {
-    setUserData(newData);
-  };
-
-    // Obtener las primeras letras del nombre y apellido
-    const getInitials = (firstName, lastName) => {
-      return `${firstName.charAt(0)}${lastName.charAt(0)}`.toUpperCase();
-    };
+    setUserData(newData)
+  }
 
   return (
     <Paper elevation={4} sx={{ padding: 2, borderRadius: '9px' }}>
+      <div className='grid grid-cols-[auto_1fr] place-items-center w-fit g-15 p-15'>
+        <AvatarUser size={70} />
+        <div className='grid h-fit'>
+          <h2 className='txt-accent subtitle'>{userData.firstName} {userData.lastName}</h2>
+          <p className='txt-tertiary paragraph'>{userData.email} <br /> <span className='legal'><strong>Role:</strong> {userData.role === 'ROLE_ADMIN' ? 'Admin' : 'User'}</span></p>
+        </div>        
+      </div>
       <Grid container spacing={2} alignItems='center'>
-        <Grid item xs={12} md={6} sx={{ textAlign: 'center' }}>
-          <Avatar sx={{ bgcolor: '#56494E', margin: 'auto' }}>
-            {getInitials(userData.firstName, userData.lastName)}
-          </Avatar>          
-          <InfoUser title='Nombre' subtitle={userData.firstName} />
-          <InfoUser title='Apellido' subtitle={userData.lastName} />
-        </Grid>
         <Grid item xs={12} md={6}>
-          <InfoUser title='Email' subtitle={userData.email} />
           <InfoUser title='Telefono' subtitle={userData.telefono} />
           <InfoUserPassword />
         </Grid>
@@ -84,7 +67,7 @@ const MiPerfil = () => {
         handleSave={handleSave}
       />
     </Paper>
-  );
-};
+  )
+}
 
-export default MiPerfil;
+export default MiPerfil
