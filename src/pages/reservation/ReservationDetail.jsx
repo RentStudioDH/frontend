@@ -1,6 +1,5 @@
 import React from 'react';
 import { Box, Grid, Button, Typography, Container, createTheme, ThemeProvider, SvgIcon } from '@mui/material';
-import ProductCardReservation from '../../components/molecules/reservation/ProductCardReservation';
 import UserDetailsForm from '../../components/molecules/reservation/UserDetailsForm';
 import { useContextGlobal } from '../../contexts/global.context';
 import ReservaSection from '../../components/molecules/reservation/ReservaSection';
@@ -30,7 +29,8 @@ const ReservationDetail = () => {
         <div className='flex items-center g-5 mb-6 mt-8'>
         <Link onClick={() => navigate(-1)}><i className="fa-solid fa-arrow-left txt-accent title"></i></Link>
         <h1 className='txt-accent title '><strong>Detalles de la reserva</strong></h1>
-      </div>
+        </div>
+
         <ReservaSection 
           titulo="Tus selecciones" 
           icono="person" 
@@ -43,18 +43,16 @@ const ReservationDetail = () => {
           cardContent={UserDetailsForm} 
           data={user} 
         />
-        <Box display='flex' >
-        <PaidRoundedIcon/>
         <ReservaSection 
           titulo="Medio de pago"
-          icono={''}  
+          icono={<PaidRoundedIcon/>}  
           cardContent={PaymentForm} 
           data={data} 
           />
-        </Box>
+
         <Box marginBottom={2} display="flex" justifyContent="center">
           <ThemeProvider theme={theme}>
-        <Button sx={{borderRadius:'1rem'}} variant="contained" color='primary'>Completar la reserva</Button>
+            <Button sx={{borderRadius:'1rem'}} variant="contained" color='primary'>Completar la reserva</Button>
           </ThemeProvider>
         </Box>
       </Container>
