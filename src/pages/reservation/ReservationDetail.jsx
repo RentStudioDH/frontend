@@ -12,6 +12,7 @@ const ReservationDetail = () => {
 
     return (
       <Container>
+        <Typography>titulo</Typography>
         <ReservaSection 
           titulo="Tus selecciones" 
           icono="person" 
@@ -27,9 +28,10 @@ const ReservationDetail = () => {
         <ReservaSection 
           titulo="Medio de pago" 
           icono="shopping_cart" 
-          cardContent={ProductCardReservation} 
+          cardContent={UserDetailsForm} 
           data={data} 
         />
+        <Button>reservar</Button>
       </Container>
     );
 }
