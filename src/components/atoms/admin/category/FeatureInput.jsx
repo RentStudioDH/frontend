@@ -2,7 +2,7 @@ import { useState } from "react";
 import StandardInput from "./StandardInput.jsx";
 import StickerModal from "./StickerModal.jsx";
 
-const FeatureInput = ({ onAddFeature }) => {
+const FeatureInput = ({ onAddFeature, onDeleteFeature }) => {
   const [showModal, setShowModal] = useState(false);
   const [selectedIcon, setSelectedIcon] = useState(null);
   const handleIconSelect = (icon) => {
