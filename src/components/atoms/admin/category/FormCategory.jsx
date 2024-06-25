@@ -250,7 +250,10 @@ const FormCategory = ({ type, id }) => {
           <label className="txt-accent paragraph">
             <strong>Características:</strong>
           </label>
-          <FeatureInput onAddFeature={handleAddFeature} />
+          <FeatureInput
+            onAddFeature={handleAddFeature}
+            onDeleteFeature={handleDeleteFeature}
+          />
           <div className="grid mt-2">
             {category.features.map((feature, index) => (
               <div
@@ -268,7 +271,10 @@ const FormCategory = ({ type, id }) => {
                   <p>{feature.description}</p>
                 </div>
                 <button
-                  onClick={() => handleDeleteFeature(index)}
+                  onClick={(e) => {
+                    e.preventDefault();
+                    handleDeleteFeature(index);
+                  }}
                   className="justify-self-end self-center ml-4 text-red-500 "
                 >
                   <i
@@ -299,7 +305,10 @@ const FormCategory = ({ type, id }) => {
                   <p>{policy.description}</p>
                 </div>
                 <button
-                  onClick={() => handleDeletePolicy(index)}
+                  onClick={(e) => {
+                    e.preventDefault();
+                    handleDeletePolicy(index);
+                  }}
                   className="justify-self-end self-center ml-4 text-red-500 "
                 >
                   <i
