@@ -1,11 +1,15 @@
 import { createContext, useContext, useEffect, useReducer, useCallback } from 'react'
+import Cookies from 'js-cookie'
 import { reducer } from '../reducers/reducer'
 import { fetchData } from '../utils/js/apiRequest'
-import Cookies from 'js-cookie'
 import { debounce } from '../utils/js/debounce'
+import { getNameInitials } from '../utils/js/getNameInitials'
 
 // Crear contexto global
 export const ContextGlobal = createContext()
+
+// Obtener datos del usuario de las cookies
+const userFromCookies = JSON.parse(Cookies.get('user') || '{}')
 
 // Estado inicial
 export const initialState = {
@@ -14,9 +18,10 @@ export const initialState = {
   data: [],
   productSelected: [],
   categories: [],
-  user: JSON.parse(Cookies.get('user') || '{}'),
+  user: userFromCookies,
+  userInitials: getNameInitials(userFromCookies.firstName || '', userFromCookies.lastName || ''),
   isLoggedIn: !!Cookies.get('token'),
-  role: JSON.parse(Cookies.get('user') || '{}').role || 'user',
+  role: userFromCookies.role || 'user',
   token: Cookies.get('token') || '',
   favs: JSON.parse(localStorage.getItem('favs')) || [],
   suggestions: [],
@@ -32,6 +37,11 @@ export const ContextProvider = ({ children }) => {
     dispatch({ type: 'SET_THEME', payload: newTheme })
   }
 
+  // Aplicar el tema oscuro o claro
+  useEffect(() => {
+    state.theme === 'dark' ? document.body.classList.add('dark') : document.body.classList.remove('dark')
+  }, [state.theme])
+
   // Escucha cambios en el tamaño de la ventana para ajustar isDesktop
   useEffect(() => {
     const handleResize = () => {
@@ -41,11 +51,6 @@ export const ContextProvider = ({ children }) => {
     window.addEventListener('resize', handleResize)
     return () => window.removeEventListener('resize', handleResize)
   }, [])
-
-  // Aplicar el tema oscuro o claro
-  useEffect(() => {
-    state.theme === 'dark' ? document.body.classList.add('dark') : document.body.classList.remove('dark')
-  }, [state.theme])
 
   // FAVS
   useEffect(() => {
@@ -151,7 +156,8 @@ export const ContextProvider = ({ children }) => {
       Cookies.set('refreshToken', refreshToken, { secure: true, sameSite: 'Strict' })
       dispatch({ type: 'SET_TOKEN', payload: token })
       const userData = await getUserData()
-      dispatch({ type: 'LOGIN_USER', payload: userData })
+      const initials = getNameInitials(userData.firstName, userData.lastName)
+      dispatch({ type: 'LOGIN_USER', payload: { user: userData, initials } })
       return response
     } catch (error) {
       console.error('Error during login:', error)

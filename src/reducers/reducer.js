@@ -52,22 +52,32 @@ export const reducer = (state, action) => {
     case 'LOGIN_USER':
       return {
         ...state,
-        user: action.payload,
+        user: action.payload.user,
+        userInitials: action.payload.initials,
         isLoggedIn: true,
-        role: action.payload.role,
+        role: action.payload.user.role,
       }
     case 'UPDATE_USER':
-      return { ...state, user: action.payload }
+      return { 
+        ...state, 
+        user: action.payload.user, 
+        userInitials: action.payload.initials 
+      }
     case 'LOGOUT_USER':
       return {
         ...state,
         user: null,
+        userInitials: '',
         isLoggedIn: false,
         role: '',
         token: '',
       }
     case 'SET_USER_DATA':
-      return { ...state, user: action.payload }
+      return { 
+        ...state, 
+        user: action.payload.user, 
+        userInitials: action.payload.initials 
+      }
 
     // Favoritos
     case 'ADD_FAV':

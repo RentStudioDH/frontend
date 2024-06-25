@@ -54,25 +54,25 @@ export const userMenuItems = [
   {
     id: 1,
     label: "Mi perfil",
-    path: "/user/perfil",
+    path: routes.user.profile,
     icon: "fa-user"
   },
   {
     id: 2,
     label: "Direcciones",
-    path: "/user/direcciones",
+    path: routes.user.directions,
     icon: "fa-map-marker-alt"
   },
   {
     id: 3,
     label: "Reservas",
-    path: "/user/reservas",
+    path: routes.user.bookings,
     icon: "fa-calendar-alt"
   },
   {
     id: 4,
     label: "Favoritos",
-    path: "/user/favoritos",
+    path: routes.user.favs,
     icon: "fa-heart"
   }
 ]

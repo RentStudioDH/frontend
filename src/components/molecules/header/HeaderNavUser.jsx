@@ -53,7 +53,7 @@ const HeaderNavUser = () => {
         {!state.isDesktop && 
           <>
             <li>
-              <div className='flex justify-center g-15'>
+              <div className='flex g-15'>
                 <NavUser />
               </div>
             </li>
