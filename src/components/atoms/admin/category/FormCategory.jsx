@@ -148,11 +148,11 @@ const FormCategory = ({ type, id }) => {
           headers: { Authorization: `Bearer ${token}` },
         });
         Swal.fire({
-          title: '¡Éxito!',
-          text: 'Categoría actualizada correctamente',
-          icon: 'success',
+          title: "¡Éxito!",
+          text: "Categoría actualizada correctamente",
+          icon: "success",
           showConfirmButton: false,
-          timer: 1800
+          timer: 1800,
         });
       } else {
         response = await fetchData({
@@ -162,11 +162,11 @@ const FormCategory = ({ type, id }) => {
           headers: { Authorization: `Bearer ${token}` },
         });
         Swal.fire({
-          title: '¡Éxito!',
-          text: 'Categoría registrada correctamente',
-          icon: 'success',
+          title: "¡Éxito!",
+          text: "Categoría registrada correctamente",
+          icon: "success",
           showConfirmButton: false,
-          timer: 1800
+          timer: 1800,
         });
         setCategory(initialCategoryState);
       }
@@ -250,23 +250,26 @@ const FormCategory = ({ type, id }) => {
           <label className="txt-accent paragraph">
             <strong>Características:</strong>
           </label>
-          <FeatureInput
-            onAddFeature={handleAddFeature}
-            onDeleteFeature={handleDeleteFeature}
-          />
+          <FeatureInput onAddFeature={handleAddFeature} />
           <div className="grid mt-2">
             {category.features.map((feature, index) => (
               <div
                 key={index}
-                className="grid grid-flow-col place-items-start txt-accent p-2 border rounded bg-gray-100 mt-2"
+                className="grid grid-flow-col grid-cols-[40px_auto_auto] txt-accent p-2 border rounded bg-gray-100 mt-2 gap-4"
               >
-                <div className="grid">
+                <div className="grid size-10 place-items-center">
+                  <i
+                    className={`fa solid fa-${feature.icon} txt-quaternary text-2xl`}
+                  ></i>
+                </div>
+
+                <div className="grid place-items-start w-full">
                   <strong>{feature.name}</strong>
                   <p>{feature.description}</p>
                 </div>
                 <button
                   onClick={() => handleDeleteFeature(index)}
-                  className="justify-self-end ml-4 text-red-500 "
+                  className="justify-self-end self-center ml-4 text-red-500 "
                 >
                   <i
                     className={`fa-solid fa-trash txt-primary subtitle hover:brightness-50 focus:outline-none`}
@@ -297,7 +300,7 @@ const FormCategory = ({ type, id }) => {
                 </div>
                 <button
                   onClick={() => handleDeletePolicy(index)}
-                  className="justify-self-end ml-4 text-red-500 "
+                  className="justify-self-end self-center ml-4 text-red-500 "
                 >
                   <i
                     className={`fa-solid fa-trash txt-primary subtitle hover:brightness-50 focus:outline-none`}

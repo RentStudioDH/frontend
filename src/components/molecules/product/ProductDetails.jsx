@@ -1,7 +1,6 @@
 import { useState } from "react";
 
 const ProductDetails = ({ data }) => {
-
   const [features, setFeatures] = useState(data.category.features || []);
   const initialFeatureCount = 4;
   const firstImage =
@@ -31,7 +30,7 @@ const ProductDetails = ({ data }) => {
             <strong>Características</strong>
           </h2>
           <div className="grid grid-flow-row place-items-center md:place-items-start g-5">
-            {features.slice(1, initialFeatureCount).map((feature) => (
+            {features.slice(0, initialFeatureCount).map((feature) => (
               <div
                 key={feature.id}
                 className="grid grid-flow-row md:grid-flow-col place-items-center g-5"
