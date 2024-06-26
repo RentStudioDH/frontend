@@ -95,7 +95,7 @@ const ProductAvailability = ({ data }) => {
   ]
 
   const rentarHandle = ()=>{
-    setReservaData({ startDate: startDate, endDate: endDate, dataId: data.id });
+    setReservaData({ startDate, endDate, id: data.id });
 
     navigate('/reservation/' + data.id);
   }

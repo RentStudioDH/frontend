@@ -1,19 +1,21 @@
 import React from 'react'
 import ProductCardReservation from './ProductCardReservation'
 import ReservationDetailsCard from './ReservationDetailsCard'
-import { Grid } from '@mui/material'
+import { Grid, Typography } from '@mui/material'
 
-const TusSelecciones = () => {
+const TusSelecciones = ({data}) => {
   return (
     <>
-        <Grid container>
-            <Grid item sx={12} sm={12}  md={6} >
+        <Grid container spacing={4}>
+            <Grid item xs={12} sm={12}  md={6} >
                 {/* Card producto */}
-                <ProductCardReservation></ProductCardReservation>
+                <Typography color={"#511C29"} variant='h6' fontWeight={"600"} marginBottom={"5px"}>Producto seleccionado</Typography>
+                <ProductCardReservation data={data}/>
             </Grid>
-            <Grid item sx={12} sm={12}  md={6}>
+            <Grid item xs={12} sm={12}  md={6}>
                 {/* Datos de la reserva */}
-                <ReservationDetailsCard></ReservationDetailsCard>
+                <Typography color={"#511C29"} variant='h6' fontWeight={"600"} marginBottom={"5px"}>Datos de la reserva</Typography>
+                <ReservationDetailsCard data={data} />
             </Grid>
 
         </Grid>  

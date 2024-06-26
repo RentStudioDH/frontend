@@ -21,7 +21,7 @@ export const initialState = {
   favs: JSON.parse(localStorage.getItem('favs')) || [],
   suggestions: [],
   lastTokenRefresh: null,
-  reservaData:[]
+  reservaData: { id: null, productData: null } 
 }
 
 export const ContextProvider = ({ children }) => {
