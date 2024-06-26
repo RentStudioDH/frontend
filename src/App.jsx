@@ -13,6 +13,7 @@ import Category from './pages/category/Category'
 import Footer from './components/organisms/Footer'
 import ProtectedRoute from './pages/ProtectedRoute'
 import Favs from './pages/admin/Favs'
+import ReservationDetail from './pages/reservation/ReservationDetail'
 
 
 function App() {
@@ -28,6 +29,7 @@ function App() {
           <Route path="/user/:user" element={<ProtectedRoute element={<User />} />} />
           <Route path="/categoria/:category" element={<Category/>} />
           <Route path="/favs" element={<Favs/>} />
+          <Route path="/reservation/:id" element={<ReservationDetail/>} />
         </Routes>
         <Footer/>
       </ThemeProvider>
