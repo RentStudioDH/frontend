@@ -170,7 +170,7 @@ const Modals = ({ id, type, visible, onClose, searchProps }) => {
       case "search":
         return (
           <div className="relative bg-back shadow-lg modal br-15">
-            <div className="sticky w-full bg-back flex flex-wrap justify-between modalHeader top-0 p-15 g-5">
+            <div className="sticky w-full bg-back flex justify-between items-start modalHeader top-0 p-15 g-5">
               <h3 className="txt-accent bb-primary title">
                 <strong>{searchProps.title}</strong>
               </h3>
