@@ -1,21 +1,18 @@
 import { useState } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
+import Swal from 'sweetalert2'
 import * as Yup from 'yup'
 import { useContextGlobal } from "../../../contexts/global.context"
 import Buttons from "../Buttons"
 import LoadingOverlay from "../LoadingOverlay.jsx"
-import Swal from 'sweetalert2'
 import { routes } from '../../../utils/routes.js'
-import Spline from '@splinetool/react-spline';
-import '../../../styles/_login.scss'
 
 const validationSchema = Yup.object().shape({
   email: Yup.string().email('Por favor, ingrese un correo electrónico válido').required('Por favor, ingrese su correo electrónico.'),
   password: Yup.string().required('Por favor, ingrese su contraseña.'),
-});
+})
 
 const LoginForm = ({ closeModal }) => {
-
   const { loginUser } = useContextGlobal()
   const [usuario, setUsuario] = useState({ email: '', password: '' })
   const [errors, setErrors] = useState({})
@@ -23,20 +20,20 @@ const LoginForm = ({ closeModal }) => {
   const navigate = useNavigate()
 
   const handleChange = ({ target }) => {
-    const { name, value } = target;
-    setUsuario({ ...usuario, [name]: value });
+    const { name, value } = target
+    setUsuario({ ...usuario, [name]: value })
 
     if (errors[name]) {
-      setErrors({ ...errors, [name]: '' });
+      setErrors({ ...errors, [name]: '' })
     }
-  };
+  }
 
   const handleSubmit = async (e) => {
-    e.preventDefault();
-    setErrors({}); // Limpiar errores previos
-    setLoading(true);
+    e.preventDefault()
+    setErrors({})
+    setLoading(true)
     try {
-      await validationSchema.validate(usuario, { abortEarly: false });
+      await validationSchema.validate(usuario, { abortEarly: false })
 
       const response = await loginUser(usuario)
 
@@ -44,39 +41,38 @@ const LoginForm = ({ closeModal }) => {
       navigate(routes.user.profile)
       
     } catch (error) {
-      setLoading(false);
+      setLoading(false)
       if (error.name === 'ValidationError') {
-        const newErrors = {};
+        const newErrors = {}
         error.inner.forEach((err) => {
-          newErrors[err.path] = err.message;
-        });
-        setErrors(newErrors);
+          newErrors[err.path] = err.message
+        })
+        setErrors(newErrors)
       } else {
-        const errorMessage = error.response?.data?.message || 'Error al iniciar sesión. Por favor, intente de nuevo.';
+        const errorMessage = error.response?.data?.message || 'Error al iniciar sesión. Por favor, intente de nuevo.'
         Swal.fire({
           title: 'Error',
           text: errorMessage,
           icon: 'error',
           confirmButtonText: 'Aceptar',
           confirmButtonColor: '#A29C9B',
-        });
+        })
       }
     }
-  };
+  }
 
   return (
     <>
-      <LoadingOverlay open={loading} />
-      <div>
-        <div className="spline-container">
-          <Spline scene="https://prod.spline.design/7MLrAt0DvUMhQu15/scene.splinecode" />
+      <div className='relative grid md:grid-cols-2 place-items-center'>
+        <div className="spline">
+          <spline-viewer url="https://prod.spline.design/SgM8MS9Xcq7zjBYR/scene.splinecode" events-target="global" />
         </div>
-        <div className="form-container bg-gray-100 grid place-items-center p-section">
+        <div className="bg-gray-100 w-full grid place-items-center p-15 form-container">
           <p className="txt-accent txt-center subtitle"><strong>Iniciar sesión</strong></p>
           <form className="grid g-15" onSubmit={handleSubmit}>
             <div className="grid g-5 form-input">
               <label htmlFor="email" className="txt-tertiary paragraph">E-mail</label>
-              <input className={`bg-back block w-full border' ${errors.email ? 'border-red-500' : 'border-gray-300'} txt-tertiary paragraph rounded-lg focus:ring-red-500 focus:border-red-500 p-2`} placeholder="Ingresa tu correo electrónico" type="email" name="email" id="email" role="email" onChange={handleChange} />
+              <input className={`bg-back block w-full border ${errors.email ? 'border-red-500' : 'border-gray-300'} txt-tertiary paragraph rounded-lg focus:ring-red-500 focus:border-red-500 p-2`} placeholder="Ingresa tu correo electrónico" type="email" name="email" id="email" role="email" onChange={handleChange} />
               {errors.email && <p className="text-red-500 legal">{errors.email}</p>}
             </div>
             <div className="grid g-5 form-input">
@@ -102,8 +98,9 @@ const LoginForm = ({ closeModal }) => {
             </div>}
         </div>
       </div>
+      <LoadingOverlay open={loading} />
     </>
-  );
-};
+  )
+}
 
-export default LoginForm;
+export default LoginForm
