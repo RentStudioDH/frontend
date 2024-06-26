@@ -9,7 +9,7 @@ const ReservationDetailsCard = ({ data }) => {
       <Card style={{ height: '15rem' }}>
         <CardContent>
           <Typography variant="body1" color={"#511C29"}>
-            Datos de reserva no disponibles.
+            No se seleccionó una fecha disponible correctamente para la reserva.
           </Typography>
         </CardContent>
       </Card>

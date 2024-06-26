@@ -9,7 +9,7 @@ const PaymentForm = () => {
         <Typography variant="h6" color={"#511C29"} fontWeight={"600"} marginBottom={"1rem"}>
         ¿Cómo te gustaría pagar?
         </Typography>
-        <Grid container spacing={2}>
+        <Grid container spacing={5}>
           <Grid item xs={12}>
             <TextField label="Titular de la Tarjeta" fullWidth variant="outlined" />
           </Grid>

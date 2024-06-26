@@ -53,11 +53,11 @@ const ReservationDetail = () => {
 
   return (
     <Container>
-      <div className='flex items-center g-5 mb-6 mt-8'>
+      <div className='flex items-center g-5 mb-10 mt-8'>
         <Link onClick={() => navigate(-1)}>
           <i className="fa-solid fa-arrow-left txt-accent title"></i>
         </Link>
-        <h1 className='txt-accent title '><strong>Detalles de la reserva</strong></h1>
+        <h1 className='txt-accent title'><strong>Detalles de la reserva</strong></h1>
       </div>
 
       <ReservaSection

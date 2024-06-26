@@ -14,7 +14,7 @@ const UserDetailsForm = ({ data }) => {
       <Typography variant="h6" marginBottom={"1rem"} color={"#511C29"} fontWeight={"600"}>
         Datos de contacto
       </Typography>
-      <Grid container spacing={2}>
+      <Grid container spacing={5}>
         <Grid item xs={12} sm={6}>
           <TextField
             label="Nombre"
@@ -53,7 +53,7 @@ const UserDetailsForm = ({ data }) => {
             label="Teléfono"
             fullWidth
             variant="outlined"
-            value="user no tiene este atributo"
+            value="USER NO TIENE ESTE ATRIBUTO AUN"
             InputProps={{
               readOnly: true,
             }}
@@ -64,7 +64,7 @@ const UserDetailsForm = ({ data }) => {
             label="País"
             fullWidth
             variant="outlined"
-            value="user no tiene este atributo"
+            value="USER NO TIENE ESTE ATRIBUTO AUN"
             InputProps={{
               readOnly: true,
             }}
@@ -75,7 +75,7 @@ const UserDetailsForm = ({ data }) => {
             label="Dirección de Entrega"
             fullWidth
             variant="outlined"
-            value="user no tiene este atributo"
+            value="USER NO TIENE ESTE ATRIBUTO AUN"
             InputProps={{
               readOnly: true,
             }}
@@ -83,8 +83,14 @@ const UserDetailsForm = ({ data }) => {
         </Grid>
       </Grid>
       <Box mt={2} display="flex" justifyContent="flex-end">
-        <Button variant="contained" color="primary" onClick={handleOpen}>
-          Editar
+        <Button variant="text" sx={{
+          color: "#A62639", 
+          fontWeight: "600",
+          '&:hover': {
+            color: "#8C1C2E", // Mantener el mismo color al pasar el cursor
+          },
+        }} onClick={handleOpen}>
+          Editar datos
         </Button>
       </Box>
 
@@ -111,7 +117,13 @@ const UserDetailsForm = ({ data }) => {
             </Grid>
           </Grid>
           <Box mt={2} display="flex" justifyContent="flex-end">
-            <Button variant="contained" color="primary" onClick={handleClose}>
+            <Button variant="contained"   sx={{
+          bgcolor: "#A62639", 
+          fontWeight: "600",
+          '&:hover': {
+            bgcolor: "#8C1C2E", // Mantener el mismo color al pasar el cursor
+          },
+        }} onClick={handleClose}>
               Guardar
             </Button>
           </Box>
