@@ -1,33 +1,33 @@
-import { useEffect, useState } from "react";
-import FormProduct from "./admin/product/FormProduct";
-import LoginForm from "./header/LoginForm";
-import RegistrarForm from "./header/RegistrarForm";
-import DeleteProduct from "./admin/product/DeleteProduct";
-import FormCategory from "./admin/category/FormCategory";
-import DeleteCategory from "./admin/category/DeleteCategory";
-import SearchText from "../molecules/search/SearchText";
-import SearchDate from "../molecules/search/SearchDate";
-import SearchCategory from "../molecules/search/SearchCategory";
+import { useEffect, useState } from "react"
+import FormProduct from "./admin/product/FormProduct"
+import DeleteProduct from "./admin/product/DeleteProduct"
+import LoginForm from "./header/LoginForm"
+import RegistrarForm from "./header/RegistrarForm"
+import FormCategory from "./admin/category/FormCategory"
+import DeleteCategory from "./admin/category/DeleteCategory"
+import SearchText from "../molecules/search/SearchText"
+import SearchDate from "../molecules/search/SearchDate"
+import SearchCategory from "../molecules/search/SearchCategory"
 
 const Modals = ({ id, type, visible, onClose, searchProps }) => {
-  const [isVisible, setIsVisible] = useState(visible);
+  const [isVisible, setIsVisible] = useState(visible)
 
   useEffect(() => {
-    setIsVisible(visible);
-  }, [visible]);
+    setIsVisible(visible)
+  }, [visible])
 
   const closeModal = () => {
-    setIsVisible(false);
-    onClose();
-  };
+    setIsVisible(false)
+    onClose()
+  }
 
   const renderModal = () => {
     if (!type) {
-      return <div>¿Qué tipo de modal necesitas?</div>;
+      return <div>¿Qué tipo de modal necesitas?</div>
     }
 
     if ((type === "editarProduct" || type === "editarCategoria") && !id) {
-      return <div>No hay información para mostrar.</div>;
+      return <div>No hay información para mostrar.</div>
     }
 
     switch (type) {
@@ -38,16 +38,13 @@ const Modals = ({ id, type, visible, onClose, searchProps }) => {
               <h3 className="txt-accent bb-primary title">
                 <strong>Nuevo producto</strong>
               </h3>
-              <button
-                className="close hover:brightness-50"
-                onClick={closeModal}
-              >
+              <button className="close hover:brightness-50" onClick={closeModal}>
                 <i className="txt-primary fa-solid fa-xmark title"></i>
               </button>
             </div>
             <FormProduct type={type} />
           </div>
-        );
+        )
       case "editarProduct":
         return (
           <div className="bg-back shadow-lg modal br-15">
@@ -55,16 +52,13 @@ const Modals = ({ id, type, visible, onClose, searchProps }) => {
               <h3 className="txt-accent bb-primary title">
                 <strong>Editar producto</strong>
               </h3>
-              <button
-                className="close hover:brightness-50"
-                onClick={closeModal}
-              >
+              <button className="close hover:brightness-50" onClick={closeModal}>
                 <i className="txt-primary fa-solid fa-xmark title"></i>
               </button>
             </div>
             <FormProduct type={type} id={id} />
           </div>
-        );
+        )
       case "eliminarProduct":
         return (
           <div className="bg-back shadow-lg modal br-15">
@@ -72,16 +66,13 @@ const Modals = ({ id, type, visible, onClose, searchProps }) => {
               <h3 className="txt-accent bb-primary title">
                 <strong>Eliminar producto</strong>
               </h3>
-              <button
-                className="close hover:brightness-50"
-                onClick={closeModal}
-              >
+              <button className="close hover:brightness-50" onClick={closeModal}>
                 <i className="txt-primary fa-solid fa-xmark title"></i>
               </button>
             </div>
             <DeleteProduct type={type} id={id} closeModal={closeModal} />
           </div>
-        );
+        )
       case "crearCategoria":
         return (
           <div className="bg-back shadow-lg modal br-15">
@@ -89,16 +80,14 @@ const Modals = ({ id, type, visible, onClose, searchProps }) => {
               <h3 className="txt-accent bb-primary title">
                 <strong>Nueva categoría</strong>
               </h3>
-              <button
-                className="close hover:brightness-50"
-                onClick={closeModal}
+              <button className="close hover:brightness-50" onClick={closeModal}
               >
                 <i className="txt-primary fa-solid fa-xmark title"></i>
               </button>
             </div>
             <FormCategory type={type} />
           </div>
-        );
+        )
       case "editarCategoria":
         return (
           <div className="bg-back shadow-lg modal br-15">
@@ -106,16 +95,14 @@ const Modals = ({ id, type, visible, onClose, searchProps }) => {
               <h3 className="txt-accent bb-primary title">
                 <strong>Editar categoría</strong>
               </h3>
-              <button
-                className="close hover:brightness-50"
-                onClick={closeModal}
+              <button className="close hover:brightness-50" onClick={closeModal}
               >
                 <i className="txt-primary fa-solid fa-xmark title"></i>
               </button>
             </div>
             <FormCategory type={type} id={id} />
           </div>
-        );
+        )
       case "eliminarCategoria":
         return (
           <div className="bg-back shadow-lg modal br-15">
@@ -123,50 +110,39 @@ const Modals = ({ id, type, visible, onClose, searchProps }) => {
               <h3 className="txt-accent bb-primary title">
                 <strong>Eliminar categoría</strong>
               </h3>
-              <button
-                className="close hover:brightness-50"
-                onClick={closeModal}
-              >
+              <button className="close hover:brightness-50" onClick={closeModal}>
                 <i className="txt-primary fa-solid fa-xmark title"></i>
               </button>
             </div>
             <DeleteCategory type={type} id={id} closeModal={closeModal} />
           </div>
-        );
+        )
       case "loginUser":
         return (
-
-          <div className="bg-back shadow-lg br-15 login-modal">
-            <div className='w-full bg-back flex flex-wrap justify-center modalHeader top-0 p-15 g-5 relative'>
-              <img src='/logo/logo.png' alt="logo" title="logo" width={150} height={30} loading='lazy' />
-              <button className="absolute close hover:brightness-50 right-[15px]" onClick={closeModal}><i className="txt-primary fa-solid fa-xmark title"></i></button>
-
+          <div className="bg-back shadow-lg br-15 modal">
+            <div className="sticky w-full bg-back flex flex-wrap justify-center modalHeader top-0 p-15 g-5">
+              <img src="/logo/logo.png" alt="logo" title="logo" width={150} height={30} loading="lazy" />
+              <button className="absolute close hover:brightness-50 right-[15px]" onClick={closeModal}
+              >
+                <i className="txt-primary fa-solid fa-xmark title"></i>
+              </button>
             </div>
             <LoginForm type={type} closeModal={closeModal} />
           </div>
-        );
+        )
       case "registrarUser":
         return (
           <div className="bg-back shadow-lg modal br-15">
             <div className="sticky w-full bg-back flex flex-wrap justify-center modalHeader top-0 p-15 g-5 relative">
-              <img
-                src="/logo/logo.png"
-                alt="logo"
-                title="logo"
-                width={150}
-                height={30}
-                loading="lazy"
+              <img src="/logo/logo.png" alt="logo" title="logo" width={150} height={30} loading="lazy"
               />
-              <button
-                className="absolute close hover:brightness-50 right-[15px]"
-                onClick={closeModal}
-              >
+              <button className="absolute close hover:brightness-50 right-[15px]" onClick={closeModal}>
                 <i className="txt-primary fa-solid fa-xmark title"></i>
               </button>
             </div>
             <RegistrarForm type={type} />
           </div>
-        );
+        )
       case "search":
         return (
           <div className="relative bg-back shadow-lg modal br-15">
@@ -174,47 +150,35 @@ const Modals = ({ id, type, visible, onClose, searchProps }) => {
               <h3 className="txt-accent bb-primary title">
                 <strong>{searchProps.title}</strong>
               </h3>
-              <button
-                className="close hover:brightness-50"
-                onClick={closeModal}
-              >
+              <button className="close hover:brightness-50" onClick={closeModal}>
                 <i className="txt-primary fa-solid fa-xmark title"></i>
               </button>
             </div>
-            <form
-              onSubmit={searchProps.handleSearch}
-              className="grid search p-search g-15"
-            >
+            <form onSubmit={searchProps.handleSearch} className="grid search p-search g-15">
               <SearchText onSearchTextChange={searchProps.setSearchText} />
               <SearchDate onDatesChange={searchProps.setDates} />
-              <SearchCategory
-                onSelectCategory={searchProps.setSelectedCategory}
-                categories={searchProps.categories}
-              />
-              <button
-                type="submit"
-                className="p-2 w-fit m-auto bg-primary text-white rounded-full"
-              >
-                <i className="fa-solid fa-magnifying-glass"></i>{" "}
+              <SearchCategory onSelectCategory={searchProps.setSelectedCategory} categories={searchProps.categories} />
+              <button type="submit" className="p-2 flex w-fit m-auto bg-primary text-white rounded-full g-5">
+                <i className="fa-solid fa-magnifying-glass"></i>
                 {searchProps.buttonText}
               </button>
             </form>
           </div>
-        );
+        )
       default:
-        return <div>Tipo no soportado.</div>;
+        return <div>Tipo no soportado.</div>
     }
-  };
+  }
 
   if (!isVisible) {
-    return null;
+    return null
   }
 
   return (
     <section className="fixed left-0 top-0 w-screen h-screen grid place-items-center cont-modal bg-black bg-opacity-50">
       {renderModal()}
     </section>
-  );
-};
+  )
+}
 
-export default Modals;
+export default Modals
