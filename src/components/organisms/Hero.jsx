@@ -7,7 +7,7 @@ const Hero = () => {
     return (
         <div className="hero">
             <video className="hero-video" autoPlay muted loop>
-                <source src="/camera.mp4" type="video/mp4" />
+                <source src="/camera.webm" type="video/mp4" />
                 Tu navegador no soporta el elemento de video.
             </video>
             <div className="hero-content">
