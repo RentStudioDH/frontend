@@ -6,7 +6,7 @@ import SearchText from '../../molecules/search/SearchText'
 import SearchDate from '../../molecules/search/SearchDate'
 import SearchCategory from '../../molecules/search/SearchCategory'
 
-const FormSearch = ({ title }) => {
+const FormSearch = ({ title, type }) => {
   const { state, fetchSuggestions } = useContextGlobal()
   const { categories, isDesktop } = state
   const navigate = useNavigate()
@@ -58,7 +58,7 @@ const FormSearch = ({ title }) => {
 
   return (
     <div className="grid place-items-center g-15">
-      <h2 className='txt-primary text-center bigtitle'><strong>{title}</strong></h2>
+      <h2 className={`${type === 'hero' ? 'text-white' : 'txt-primary'} text-center bigtitle`}><strong>{title}</strong></h2>
       {isDesktop ? (
         <form onSubmit={handleSearch} className="flex bg-white search p-search g-5">
           <SearchText onSearchTextChange={setSearchText} />

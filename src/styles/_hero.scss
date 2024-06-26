@@ -1,50 +1,11 @@
-.hero {
-    position: relative;
-    width: 100%;
-    height: 60vh;
-    overflow: hidden;
-}
-
-.hero-video {
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    width: 100%;
-    height: 100%;
+.cont-hero {
+  video {
     object-fit: cover;
-    transform: translate(-50%, -50%);
-    z-index: 0;
-}
-
-.hero-content {
-    position: relative;
+  }
+  .info {
     z-index: 2;
-    color: white;
-    text-align: center;
-    padding-top: 12%;
-
+    .bigtitle {
+      text-shadow: 0 0 20px rgba(255, 255, 255, .3);
+    }
+  }
 }
-
-.hero::after {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background: rgba(0, 0, 0, 0.5); /* Superposición oscura */
-    z-index: 1;
-}
-
-.hero-title {
-  font-size: 1.7rem; /* Tamaño de fuente, ajusta según necesites */
-  text-align: center; /* Centrar el texto si es necesario */
-  margin: 0; /* Elimina el margen por defecto del h1 */
-  color: #ffffff; /* Color del texto (blanco en este caso) */
-  text-shadow: 0 0 20px rgba(255, 255, 255, 0.7); /* Color blanco con opacidad para simular iluminación dentro de las letras */
-}
-
-  
-
-  
-  
