@@ -95,7 +95,13 @@ export const reducer = (state, action) => {
       return{
         ...state,
         reservaData : action.payload
-      } 
+      }
+  
+    case 'SET_RESERVATION_COST':
+    return {
+      ...state,
+      totalReservationCost: action.payload,
+    };
 
     default:
       return state

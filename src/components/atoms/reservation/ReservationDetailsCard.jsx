@@ -1,12 +1,17 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { Card, CardContent, Typography } from '@mui/material';
+import { useContextGlobal } from '../../../contexts/global.context';
 
 const ReservationDetailsCard = ({ data }) => {
+
+  const { setReservationCost } = useContextGlobal();
+  const { startDate, endDate } = data;
+
 
   // Validación de datos
   if (!data || !data.startDate || !data.endDate) {
     return (
-      <Card style={{ height: '15rem' }}>
+      <Card style={{ height: '16rem', marginBottom: 2, boxShadow: 3, paddingY: "5px" }}>
         <CardContent>
           <Typography variant="body1" color={"#511C29"}>
             No se seleccionó una fecha disponible correctamente para la reserva.
@@ -19,7 +24,7 @@ const ReservationDetailsCard = ({ data }) => {
   // Validación de fecha de devolución posterior a fecha de entrega
   if (data.startDate > data.endDate) {
     return (
-      <Card style={{ height: '15rem' }}>
+      <Card style={{ height: '16rem', marginBottom: 2, boxShadow: 3, paddingY: "5px" }}>
         <CardContent>
           <Typography variant="body1" color={"#511C29"}>
             La fecha de devolución debe ser posterior a la fecha de entrega.
@@ -29,7 +34,6 @@ const ReservationDetailsCard = ({ data }) => {
     );
   }
 
-  const { startDate, endDate } = data;
 
   // Calcular duración total en días
   const calculateTotalDays = () => {
@@ -40,19 +44,23 @@ const ReservationDetailsCard = ({ data }) => {
 
   // Calcular total a pagar
   const calculateTotalPayment = () => {
-    // Aquí puedes implementar la lógica para calcular el total a pagar
-    // Por ejemplo, multiplicar la duración total en días por un precio base, etc.
     const totalDays = calculateTotalDays();
     const pricePerDay = data.productData ? data.productData.price : 0; // Obtener el precio por día del producto
-    const totalPayment = totalDays * pricePerDay; // Ejemplo de cálculo básico
-    return `$${totalPayment.toFixed(2)}`; // Formatear el total a pagar
+    const totalPayment = totalDays * pricePerDay;
+    const totalPaymentFixed = totalPayment.toFixed(2)
+    return `$${totalPaymentFixed}`; // Formatear el total a pagar
   };
 
   const totalDays = calculateTotalDays();
   const totalPayment = calculateTotalPayment();
 
+  useEffect(() => {
+    setReservationCost(totalPayment); // Actualizar el costo de la reserva en el contexto global
+  }, [totalPayment, setReservationCost]); 
+
+
   return (
-    <Card style={{ height: '15rem' }}>
+    <Card style={{ height: '16rem', marginBottom: 2, boxShadow: 3, paddingY: "5px" }}>
       <CardContent style={{ display: 'flex', flexDirection: 'column', justifyContent: 'space-around', height: '100%', padding: '3rem' }}>
         <Typography variant="body1" color={"#511C29"}>
           <strong>Fecha de Entrega:</strong> {`${startDate.getDate()}/${startDate.getMonth() + 1}/${startDate.getFullYear()}`}
