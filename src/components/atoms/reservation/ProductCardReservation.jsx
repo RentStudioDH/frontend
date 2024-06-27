@@ -21,7 +21,7 @@ const ProductCardReservation = () => {
         };
 
         fetchData();
-    }, [reservaData.id, getProductById, setReservaData]);
+    }, [reservaData.id]);
 
     if (!productData) {
         return (

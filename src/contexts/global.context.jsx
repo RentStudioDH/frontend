@@ -21,7 +21,8 @@ export const initialState = {
   favs: JSON.parse(localStorage.getItem('favs')) || [],
   suggestions: [],
   lastTokenRefresh: null,
-  reservaData: { id: null, productData: null } 
+  reservaData: { id: null, productData: null },
+  totalReservationCost: 0, 
 }
 
 export const ContextProvider = ({ children }) => {
@@ -208,6 +209,11 @@ export const ContextProvider = ({ children }) => {
     dispatch({ type: 'ADD_RESERVA', payload: data })
   }
 
+  // Función para actualizar el costo total de la reserva
+  const setReservationCost = (cost) => {
+    dispatch({ type: 'SET_RESERVATION_COST', payload: cost });
+  };
+
   // Sugerencias
   const urlSearch = '/public/products/search'
   const fetchSuggestions = useCallback(debounce(async ({ searchText, categoryId }) => {
@@ -246,7 +252,8 @@ export const ContextProvider = ({ children }) => {
     logoutUser,
     getUserReservations,
     fetchSuggestions,
-    setReservaData
+    setReservaData,
+    setReservationCost
   }
 
   return (
