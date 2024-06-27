@@ -6,7 +6,7 @@ const ReservationDetailsCard = ({ data }) => {
   // Validación de datos
   if (!data || !data.startDate || !data.endDate) {
     return (
-      <Card style={{ height: '15rem' }}>
+      <Card style={{ height: '16rem', marginBottom: 2, height: '16rem', boxShadow: 3, paddingY: "5px" }}>
         <CardContent>
           <Typography variant="body1" color={"#511C29"}>
             No se seleccionó una fecha disponible correctamente para la reserva.
@@ -19,7 +19,7 @@ const ReservationDetailsCard = ({ data }) => {
   // Validación de fecha de devolución posterior a fecha de entrega
   if (data.startDate > data.endDate) {
     return (
-      <Card style={{ height: '15rem' }}>
+      <Card style={{ height: '16rem', marginBottom: 2, height: '16rem', boxShadow: 3, paddingY: "5px" }}>
         <CardContent>
           <Typography variant="body1" color={"#511C29"}>
             La fecha de devolución debe ser posterior a la fecha de entrega.
@@ -40,11 +40,9 @@ const ReservationDetailsCard = ({ data }) => {
 
   // Calcular total a pagar
   const calculateTotalPayment = () => {
-    // Aquí puedes implementar la lógica para calcular el total a pagar
-    // Por ejemplo, multiplicar la duración total en días por un precio base, etc.
     const totalDays = calculateTotalDays();
     const pricePerDay = data.productData ? data.productData.price : 0; // Obtener el precio por día del producto
-    const totalPayment = totalDays * pricePerDay; // Ejemplo de cálculo básico
+    const totalPayment = totalDays * pricePerDay; 
     return `$${totalPayment.toFixed(2)}`; // Formatear el total a pagar
   };
 
@@ -52,7 +50,7 @@ const ReservationDetailsCard = ({ data }) => {
   const totalPayment = calculateTotalPayment();
 
   return (
-    <Card style={{ height: '15rem' }}>
+    <Card style={{ height: '16rem', marginBottom: 2, height: '16rem', boxShadow: 3, paddingY: "5px" }}>
       <CardContent style={{ display: 'flex', flexDirection: 'column', justifyContent: 'space-around', height: '100%', padding: '3rem' }}>
         <Typography variant="body1" color={"#511C29"}>
           <strong>Fecha de Entrega:</strong> {`${startDate.getDate()}/${startDate.getMonth() + 1}/${startDate.getFullYear()}`}

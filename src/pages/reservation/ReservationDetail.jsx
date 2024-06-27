@@ -1,14 +1,13 @@
 import React from 'react';
 import { Box, Button, Container, createTheme, ThemeProvider, Typography } from '@mui/material';
-import UserDetailsForm from '../../components/molecules/reservation/UserDetailsForm';
 import { useContextGlobal } from '../../contexts/global.context';
-import ReservaSection from '../../components/molecules/reservation/ReservaSection';
-import TusSelecciones from '../../components/molecules/reservation/TusSelecciones';
-import PaymentForm from '../../components/molecules/reservation/PaymentForm';
-import PaidRoundedIcon from '@mui/icons-material/PaidRounded';
 import { Link, useNavigate } from 'react-router-dom';
 import ErrorOutlineIcon from '@mui/icons-material/ErrorOutline';
-import ProductIcon from '@mui/icons-material/LocalOffer'; // Importar ícono de producto
+
+import UserDetailsForm from '../../components/molecules/reservation/UserDetailsForm';
+import TusSelecciones from '../../components/molecules/reservation/TusSelecciones';
+import PaymentForm from '../../components/atoms/reservation/PaymentForm';
+import ReservaSection from '../../components/organisms/sections/ReservaSection';
 
 const ReservationDetail = () => {
   const { state } = useContextGlobal();
@@ -62,19 +61,19 @@ const ReservationDetail = () => {
 
       <ReservaSection
         titulo="Tus selecciones"
-        icono={<ProductIcon />} // Utilizar el ícono de producto importado
+        icono="LocalOfferIcon" // Utilizar el nombre del ícono de producto importado
         cardContent={TusSelecciones}
         data={reservaData}
       />
       <ReservaSection
         titulo="Tus datos"
-        icono="person"
+        icono="PersonIcon"
         cardContent={UserDetailsForm}
         data={user}
       />
       <ReservaSection
         titulo="Medio de pago"
-        icono={<PaidRoundedIcon />}
+        icono="PaidRoundedIcon"
         cardContent={PaymentForm}
         data={data}
       />
