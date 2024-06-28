@@ -20,6 +20,7 @@ export const initialState = {
   categories: [],
   user: userFromCookies,
   userInitials: getNameInitials(userFromCookies.firstName || '', userFromCookies.lastName || ''),
+  users: [],
   isLoggedIn: !!Cookies.get('token'),
   role: userFromCookies.role || 'user',
   token: Cookies.get('token') || '',
@@ -195,6 +196,18 @@ export const ContextProvider = ({ children }) => {
     dispatch({ type: 'LOGOUT_USER' })
     window.location.reload()
   }
+  // Obtener cantidad de usuarios
+  const getUsers = async () => {
+    try {
+      const users = await fetchData({ method: 'get', endpoint: '/users', requireAuth: true })
+      dispatch({ type: 'SET_USERS', payload: users })
+    } catch (error) {
+      console.error('Error fetching users:', error)
+    }
+  }
+  useEffect(() => {
+    getUsers()
+  }, [])
 
   // Reservas
   const getUserReservations = async () => {

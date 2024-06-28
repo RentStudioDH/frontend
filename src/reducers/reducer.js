@@ -78,6 +78,8 @@ export const reducer = (state, action) => {
         user: action.payload.user, 
         userInitials: action.payload.initials 
       }
+    case 'SET_USERS':
+      return { ...state, users: action.payload }
 
     // Favoritos
     case 'ADD_FAV':
@@ -91,17 +93,17 @@ export const reducer = (state, action) => {
         favs: state.favs.filter(fav => fav.id !== action.payload)
       }
 
+    // Reserva
     case "ADD_RESERVA":
       return{
         ...state,
         reservaData : action.payload
       }
-  
     case 'SET_RESERVATION_COST':
-    return {
-      ...state,
-      totalReservationCost: action.payload,
-    };
+      return {
+        ...state,
+        totalReservationCost: action.payload,
+      }
 
     default:
       return state

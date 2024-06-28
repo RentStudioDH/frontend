@@ -92,6 +92,13 @@ const Cards = ({ type, data, openModal }) => {
             </button>               
           </div>
         )
+      case 'adminDash':
+        return (
+          <Link className={`group bg-accent grid h-full hover:shadow-lg card ${type} br-15 p-15 g-15`} to={data.link}>
+            <h3 className="text-white bigtitle bb-primary"><strong>{data.number}</strong></h3>
+            <p className="text-white subtitle group-hover:font-bold">{data.title}</p>
+          </Link>
+        )
       case 'adminListProduct':
         return (
           <tr className="bg-white hover:bg-accent txt-quaternary border-b paragraph">
@@ -132,6 +139,26 @@ const Cards = ({ type, data, openModal }) => {
             </td>
           </tr>
         )
+        case 'adminListUser':
+          return (
+            <tr className="bg-white hover:bg-accent txt-quaternary border-b paragraph">
+              <td className="w-4 p-15">
+                <div className="flex items-center">
+                  <input id={`checkbox-table-search-${data.id}`} type="checkbox" className="w-4 h-4 txt-primary bg-white border-gray-300 rounded focus:ring-blue-500 focus:ring-2" />
+                  <label htmlFor={`checkbox-table-search-${data.id}`} className="sr-only">checkbox</label>
+                </div>
+              </td>
+              <th scope="row" className="p-15">#{data.id}</th>
+              <td className="p-15">{data.firstName} {data.lastName} <br /> <span className='legal'>{data.email}</span></td>
+              <td className="p-15">
+                <label className="inline-flex items-center cursor-pointer g-5">
+                  <input type="checkbox" value="" className="sr-only peer"/>
+                  <div className="relative w-9 h-5 bg-gray-200  rounded-full peer peer-checked:after:translate-x-full rtl:peer-checked:after:-translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:start-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-4 after:w-4 after:transition-all peer-checked:bg-blue-600"></div>
+                  <span className="txt-tertiary group-checked:font-bold">Editor</span>
+                </label>
+              </td>
+            </tr>
+          )
       case 'error-admin':
         return (
           <section className='w-full grid place-items-center p-8'>
