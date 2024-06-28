@@ -5,6 +5,7 @@ import Buttons from "../../Buttons";
 import Swal from "sweetalert2";
 import { fetchData } from "../../../../utils/js/apiRequest";
 import { ColorRing } from "react-loader-spinner";
+import FeatureSelection from "./FeatureSelection";
 
 const FormProduct = ({ type, id }) => {
   const initialProductState = {
@@ -27,6 +28,8 @@ const FormProduct = ({ type, id }) => {
   const [allImagesUploaded, setAllImagesUploaded] = useState(true);
   const [initialData, setInitialData] = useState(initialProductState);
   const { token, products } = state;
+  const [features, setFeatures] = useState([]);
+  const [selectedFeatures, setSelectedFeatures] = useState([]);
 
   useEffect(() => {
     getCategories();
@@ -65,6 +68,32 @@ const FormProduct = ({ type, id }) => {
   const onAllImagesUploaded = (status) => {
     if (type !== "editarProduct") {
       setAllImagesUploaded(status);
+    }
+  };
+
+  const handleCategoryChange = (e) => {
+    const categoryId = parseInt(e.target.value);
+    setProduct((prevProduct) => ({ ...prevProduct, categoryId }));
+    // Filtrar las features correspondientes a la categoría seleccionada
+    const selectedCategory = categories.find(
+      (category) => category.id === categoryId
+    );
+    if (selectedCategory) {
+      setFeatures(selectedCategory.features || []);
+    }
+  };
+
+  const handleFeatureSelect = (featureId) => {
+    // Manejar la selección de features
+    if (selectedFeatures.includes(featureId)) {
+      setSelectedFeatures((prevSelectedFeatures) =>
+        prevSelectedFeatures.filter((id) => id !== featureId)
+      );
+    } else {
+      setSelectedFeatures((prevSelectedFeatures) => [
+        ...prevSelectedFeatures,
+        featureId,
+      ]);
     }
   };
 
@@ -112,6 +141,7 @@ const FormProduct = ({ type, id }) => {
         price: parseFloat(product.price),
         rentType: product.rentType,
         categoryId: parseInt(product.categoryId),
+        featureIds: selectedFeatures,
         attachments: product.attachments.map((image) => image.id),
       };
 
@@ -127,11 +157,11 @@ const FormProduct = ({ type, id }) => {
           headers: { Authorization: `Bearer ${token}` },
         });
         Swal.fire({
-          title: '¡Éxito!',
-          text: 'Producto actualizado correctamente',
-          icon: 'success',
+          title: "¡Éxito!",
+          text: "Producto actualizado correctamente",
+          icon: "success",
           showConfirmButton: false,
-          timer: 1800
+          timer: 1800,
         });
       } else {
         response = await fetchData({
@@ -141,11 +171,11 @@ const FormProduct = ({ type, id }) => {
           headers: { Authorization: `Bearer ${token}` },
         });
         Swal.fire({
-          title: '¡Éxito!',
-          text: 'Producto registrado correctamente',
-          icon: 'success',
+          title: "¡Éxito!",
+          text: "Producto registrado correctamente",
+          icon: "success",
           showConfirmButton: false,
-          timer: 1800
+          timer: 1800,
         });
         setProduct(initialProductState);
       }
@@ -286,7 +316,7 @@ const FormProduct = ({ type, id }) => {
           <select
             name="categoryId"
             value={product.categoryId}
-            onChange={handleInputChange}
+            onChange={handleCategoryChange}
             className="w-full p-2 border rounded bg-white txt-tertiary"
           >
             <option value="">Seleccione una categoría</option>
@@ -300,6 +330,13 @@ const FormProduct = ({ type, id }) => {
             <p className="text-red-500 text-xs italic">{error.categoryId}</p>
           )}
         </div>
+
+        <FeatureSelection
+          features={features}
+          selectedFeatures={selectedFeatures}
+          onFeatureSelect={handleFeatureSelect}
+        />
+
         <span className="bg-base col-span-1 md:col-span-2 grid w-full h-px"></span>
         <div className="col-span-1 md:col-span-2 grid g-5">
           <ListImages
