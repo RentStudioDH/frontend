@@ -1,4 +1,5 @@
 import { useState } from "react";
+import ShareButton from "../share/ShareButton";
 
 const ProductDetails = ({ data }) => {
   const [features, setFeatures] = useState(data.features || []);
@@ -53,13 +54,17 @@ const ProductDetails = ({ data }) => {
           </div>
         </div>
       </div>
-      <div className="br-15 image shadow-lg">
+      <div className="br-15 image shadow-lg relative">
+        <div className="absolute top-2 right-2 z-1">
+          <ShareButton product={data} /> {/* Renderiza el botón de compartir */}
+        </div>
         <img
           src={firstImage}
           alt={data.title}
           width={450}
           height={450}
           loading="lazy"
+          className="block"
         />
       </div>
     </>
