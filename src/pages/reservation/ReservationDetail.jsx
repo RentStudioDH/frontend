@@ -126,7 +126,7 @@ const validarDatos = ()=>{
       title: 'Oops...',
       text: 'Por favor completa todos los datos requeridos.',
       confirmButtonText: 'Entendido',
-      confirmButtonColor: '#511C29'
+      confirmButtonColor: '#A62639'
     }).then(() => {
       setShowErrorModal(false);
     });
