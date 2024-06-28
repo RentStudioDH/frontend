@@ -3,6 +3,8 @@ const FeatureSelection = ({ features, selectedFeatures, onFeatureSelect }) => {
     onFeatureSelect(featureId);
   };
 
+  //Características
+
   return (
     <div className="grid col-span-2 g-5 txt-primary mt-2">
       <label className="txt-accent paragraph">
