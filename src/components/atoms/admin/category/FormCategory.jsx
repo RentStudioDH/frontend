@@ -77,10 +77,20 @@ const FormCategory = ({ type, id }) => {
 
   const validateForm = () => {
     let formErrors = {};
-    if (!category.name.trim())
+
+    if (!category.name.trim()) {
       formErrors.name = "Por favor complete este campo.";
-    if (!category.description.trim())
+    } else if (category.name.length > 30) {
+      formErrors.name = "El nombre no puede tener más de 30 caracteres";
+    }
+
+    if (!category.description.trim()) {
       formErrors.description = "Por favor complete este campo.";
+    } else if (category.description.length > 300) {
+      formErrors.description =
+        "La descripción no puede tener más de 300 caracteres";
+    }
+
     return formErrors;
   };
 
@@ -254,28 +264,29 @@ const FormCategory = ({ type, id }) => {
             onAddFeature={handleAddFeature}
             onDeleteFeature={handleDeleteFeature}
           />
-          <div className="grid mt-2">
+          <div className="grid mt-2 grid-cols-1 md:grid-cols-1 gap-4">
             {category.features.map((feature, index) => (
               <div
                 key={index}
-                className="grid grid-flow-col grid-cols-[40px_auto_auto] txt-accent p-2 border rounded bg-gray-100 mt-2 gap-4"
+                className="flex flex-wrap items-center p-2 border rounded bg-gray-100 mt-0 gap-4"
               >
-                <div className="grid size-10 place-items-center">
+                <div className="w-10 flex-shrink-0 flex justify-center">
                   <i
                     className={`fa solid fa-${feature.icon} txt-quaternary text-2xl`}
                   ></i>
                 </div>
-
-                <div className="grid place-items-start w-full">
-                  <strong>{feature.name}</strong>
-                  <p>{feature.description}</p>
+                <div className="flex-1 min-w-0">
+                  <strong className="block txt-primary">{feature.name}</strong>
+                  <p className="break-words txt-tertiary mt-1">
+                    {feature.description}
+                  </p>
                 </div>
                 <button
                   onClick={(e) => {
                     e.preventDefault();
                     handleDeleteFeature(index);
                   }}
-                  className="justify-self-end self-center ml-4 text-red-500 "
+                  className="text-red-500 ml-auto"
                 >
                   <i
                     className={`fa-solid fa-trash txt-primary subtitle hover:brightness-50 focus:outline-none`}
@@ -294,15 +305,17 @@ const FormCategory = ({ type, id }) => {
             onAddPolicy={handleAddPolicy}
             onDeletePolicy={handleDeletePolicy}
           />
-          <div className="grid mt-2">
+          <div className="grid mt-2 grid-cols-1 md:grid-cols-1 gap-4">
             {category.policies.map((policy, index) => (
               <div
                 key={index}
-                className="grid grid-flow-col place-items-start txt-accent p-2 border rounded bg-gray-100 mt-2"
+                className="flex flex-wrap items-center p-2 border rounded bg-gray-100 mt-0 gap-4"
               >
-                <div className="grid">
-                  <strong>{policy.title}</strong>
-                  <p>{policy.description}</p>
+                <div className="flex-1 min-w-0">
+                  <strong className="block txt-primary">{policy.title}</strong>
+                  <p className="break-words  txt-tertiary mt-1">
+                    {policy.description}
+                  </p>
                 </div>
                 <button
                   onClick={(e) => {

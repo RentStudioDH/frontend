@@ -330,12 +330,14 @@ const FormProduct = ({ type, id }) => {
             <p className="text-red-500 text-xs italic">{error.categoryId}</p>
           )}
         </div>
-
-        <FeatureSelection
-          features={features}
-          selectedFeatures={selectedFeatures}
-          onFeatureSelect={handleFeatureSelect}
-        />
+        {console.log(product.categoryId)}
+        {product.categoryId != 0 && (
+          <FeatureSelection
+            features={features}
+            selectedFeatures={selectedFeatures}
+            onFeatureSelect={handleFeatureSelect}
+          />
+        )}
 
         <span className="bg-base col-span-1 md:col-span-2 grid w-full h-px"></span>
         <div className="col-span-1 md:col-span-2 grid g-5">
