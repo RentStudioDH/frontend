@@ -1,10 +1,12 @@
 import { useState, useEffect } from 'react'
 import ReactDatePicker from 'react-datepicker'
 import 'react-datepicker/dist/react-datepicker.css'
-import { format, addDays, parseISO, isWithinInterval, eachDayOfInterval, differenceInDays } from 'date-fns'
+import { format, parseISO, isWithinInterval, eachDayOfInterval, differenceInDays } from 'date-fns'
 import { es } from 'date-fns/locale'
-import { useNavigate, useParams } from 'react-router-dom'
+import { useNavigate } from 'react-router-dom'
 import { useContextGlobal } from '../../../contexts/global.context'
+import Swal from 'sweetalert2'
+import Modals from '../../atoms/Modals'
 
 // Simular datos recibidos desde una API
 const occupiedDates = [
@@ -24,11 +26,11 @@ const ProductAvailability = ({ data }) => {
   const { price, rentType, stock } = data
   const [startDate, setStartDate] = useState(null)
   const [endDate, setEndDate] = useState(null)
+  const [isModalVisible, setIsModalVisible] = useState(false) // Estado para controlar la visibilidad del modal
+  const [modalType, setModalType] = useState('loginUser') // Tipo de modal a mostrar
 
   const navigate = useNavigate()
-  const {state, getProductById, setReservaData} = useContextGlobal()
-
-
+  const { state, setReservaData } = useContextGlobal()
 
   const initialStock = stock - occupiedDates.length
   const [currentStock, setCurrentStock] = useState(initialStock)
@@ -45,7 +47,6 @@ const ProductAvailability = ({ data }) => {
     setEndDate(end)
   }
 
-  // Cálculo del costo total y la cantidad de días seleccionados
   const calculateTotalRent = () => {
     if (!startDate || !endDate) return { total: 0, daysSelected: 0 }
     const daysSelected = differenceInDays(endDate, startDate) + 1
@@ -70,7 +71,6 @@ const ProductAvailability = ({ data }) => {
 
   const { total, daysSelected } = calculateTotalRent()
 
-  // Filtrar fechas según el tipo de renta
   const filterDate = (date) => {
     if (isOccupied(date) || date < new Date()) return false
     if (rentType === 'DAILY') return true
@@ -85,7 +85,6 @@ const ProductAvailability = ({ data }) => {
     }
   }, [startDate, endDate])
 
-  // Separar fechas individuales y expandir rangos
   const rangeDates = occupiedDates.flatMap(range => eachDayOfInterval({ start: range.start, end: range.end }))
 
   const highlightWithRanges = [
@@ -94,10 +93,27 @@ const ProductAvailability = ({ data }) => {
     },
   ]
 
-  const rentarHandle = ()=>{
-    setReservaData({ startDate, endDate, id: data.id });
+  const rentarHandle = () => {
+    if (state.isLoggedIn) {
+      if (startDate && endDate) {
+        setReservaData({ startDate, endDate, id: data.id })
+        navigate('/reservation/' + data.id)
+      } else {
+        Swal.fire({
+          icon: 'warning',
+          title: 'Fechas incompletas',
+          text: 'Debe agregar una fecha disponible para continuar con la reserva.',
+          confirmButtonText: 'Entendido',
+          confirmButtonColor: "#A62639"
+        })
+      }
+    } else {
+      setIsModalVisible(true)
+    }
+  }
 
-    navigate('/reservation/' + data.id);
+  const closeModal = () => {
+    setIsModalVisible(false)
   }
 
   return (
@@ -130,7 +146,7 @@ const ProductAvailability = ({ data }) => {
               <p className="text-red-600 font-bold text-xl">No hay unidades disponibles</p>
             )}
             {currentStock > 0 && (
-              <button className="bg-red-600 text-white py-2 px-4 rounded-md" onClick={()=> rentarHandle()}>Ir a Rentar</button>
+              <button className="bg-red-600 text-white py-2 px-4 rounded-md" onClick={rentarHandle}>Ir a Rentar</button>
             )}
           </div>
           <div className='grid info g-5'>
@@ -143,6 +159,9 @@ const ProductAvailability = ({ data }) => {
           </div>
         </div>
       </div>
+      {isModalVisible && (
+        <Modals type={modalType} visible={isModalVisible} onClose={closeModal} />
+      )}
     </div>
   )
 }
