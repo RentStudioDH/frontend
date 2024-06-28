@@ -36,7 +36,7 @@ const handleCompleteReservation = () => {
       startDate: `${startDate.getDate()}/${startDate.getMonth() + 1}/${startDate.getFullYear()}`,
       endDate: `${endDate.getDate()}/${endDate.getMonth() + 1}/${endDate.getFullYear()}`,
       totalReservationCost: totalReservationCost,
-      informacionDePago: data.paymentInfo 
+      informacionDePago: data.paymentInfo // aun no se hizo esta logica de pago desde el back
     });
 
     // Validar datos antes de mostrar el modal
@@ -48,11 +48,12 @@ const handleCompleteReservation = () => {
 };
 
 const validarDatos = ()=>{
-  if ("condition") {
-    // chequear que la informacion del usuario y direccion del mismo este completa
+  if (reservaDataPost.totalReservationCost != "" && reservaDataPost.informacionDePago != "") {
+    //TODO chequear que la informacion del usuario y direccion del mismo este completa
           // chequear que la informacion del pago este completa
+          return true
   }
-  return true
+  return false
 }
 
 
@@ -124,7 +125,8 @@ const validarDatos = ()=>{
       icon: 'error',
       title: 'Oops...',
       text: 'Por favor completa todos los datos requeridos.',
-      confirmButtonText: 'Entendido'
+      confirmButtonText: 'Entendido',
+      confirmButtonColor: '#511C29'
     }).then(() => {
       setShowErrorModal(false);
     });
@@ -134,9 +136,9 @@ const validarDatos = ()=>{
     <Container>
       <div className='flex items-center g-5 mb-10 mt-8'>
         <Link onClick={() => navigate(-1)}>
-          <i className="fa-solid fa-arrow-left txt-accent title"></i>
+          <i className="fa-solid fa-arrow-left txt-accent title "></i>
         </Link>
-        <h1 className='txt-accent title'><strong>Detalles de la reserva</strong></h1>
+        <h1 className='txt-accent title ml-3'><strong>Detalles de la reserva</strong></h1>
       </div>
 
       <ReservaSection
