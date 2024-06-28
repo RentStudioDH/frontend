@@ -143,15 +143,15 @@ const ProductAvailability = ({ data }) => {
             <p className="txt-tertiary paragraph">Costo total <span className='legal'>(DíasxPrecio)</span>: <strong className='txt-primary'>${total}</strong></p>
             <p className="txt-quaternary paragraph">Stock disponible: {currentStock}</p>
             {currentStock === 0 && (
-              <p className="text-red-600 font-bold text-xl">No hay unidades disponibles</p>
+              <p style={{ backgroundColor: '#56494E', color:"white" }} className=" font-bold text-xl py-2 px-4">No hay unidades disponibles</p>
             )}
             {currentStock > 0 && (
-              <button className="bg-red-600 text-white py-2 px-4 rounded-md" onClick={rentarHandle}>Ir a Rentar</button>
+              <button style={{ backgroundColor: '#A62639', color:"white" }} className=" text-white py-2 px-4 rounded-md" onClick={rentarHandle}>Ir a Rentar</button>
             )}
           </div>
           <div className='grid info g-5'>
             <div className='flex items-center dato-disponible g-5'>
-              <p className='txt-tertiary legal'>Fechas disponibles</p>
+              <p  className='txt-tertiary legal'>Fechas disponibles</p>
             </div>
             <div className='flex items-center dato-ocupado g-5'>
               <p className='txt-tertiary legal'>Fechas ocupadas</p>
