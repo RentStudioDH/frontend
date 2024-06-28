@@ -1,7 +1,7 @@
 import { useState } from "react";
 
 const ProductDetails = ({ data }) => {
-  const [features, setFeatures] = useState(data.category.features || []);
+  const [features, setFeatures] = useState(data.features || []);
   const initialFeatureCount = 4;
   const firstImage =
     data.attachments && data.attachments.length > 0

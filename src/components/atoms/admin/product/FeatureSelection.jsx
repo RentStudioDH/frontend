@@ -4,7 +4,7 @@ const FeatureSelection = ({ features, selectedFeatures, onFeatureSelect }) => {
   };
 
   return (
-    <div className="grid col-span-2 g-5 txt-primary">
+    <div className="grid col-span-2 g-5 txt-primary mt-2">
       <label className="txt-accent paragraph">
         <strong>Características:</strong>
       </label>
@@ -12,7 +12,7 @@ const FeatureSelection = ({ features, selectedFeatures, onFeatureSelect }) => {
         {features.map((feature) => (
           <div
             key={feature.id}
-            className="grid grid-flow-col grid-cols-[40px_auto] p-2 border hover:bg-[#C6C6C6] rounded bg-gray-100 mt-2 gap-6"
+            className="grid grid-flow-col grid-cols-[40px_auto] p-2 border hover:bg-[#e8d8ff] rounded bg-gray-100 mt-2 gap-6"
           >
             <div className="grid place-items-center">
               <input
