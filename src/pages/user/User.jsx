@@ -1,12 +1,12 @@
 import { useParams } from "react-router-dom"
 import { useContextGlobal } from "../../contexts/global.context"
 import SectionAdmin from "../../components/organisms/sections/SectionAdmin"
-import Cards from "../../components/atoms/Cards"
-import UserMenu from "../../components/molecules/user/UserMenu"
 import UserPerfil from "../../components/molecules/user/UserPerfil"
 import DireccionesUsuario from "../../components/atoms/user/DireccionesUsuario"
 import UserReservas from "../../components/molecules/user/UserReservas"
 import UserFavoritos from "../../components/molecules/user/UserFavoritos"
+import Cards from "../../components/atoms/Cards"
+import SidebarMenu from "../../components/organisms/SidebarMenu"
 
 const User = () => {
   const { state } = useContextGlobal()
@@ -31,7 +31,7 @@ const User = () => {
     <main className="flex">
       {isDesktop ? (
         <>
-          <UserMenu />
+          <SidebarMenu />
           { renderSectionAdmin() }
         </>
       ) : (

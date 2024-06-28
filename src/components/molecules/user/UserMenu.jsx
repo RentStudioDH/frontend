@@ -1,8 +1,11 @@
 import { useState } from 'react'
 import { Link } from 'react-router-dom'
 import { userMenuItems } from '../../../utils/routes'
+import { useContextGlobal } from '../../../contexts/global.context'
 
 const UserMenu = () => {
+  const { state } = useContextGlobal()
+  console.log(state.role);
   const [isMenuOpen, setOpen] = useState(false)
   const isMenuOpenMenu = () => {
     setOpen(!isMenuOpen)
