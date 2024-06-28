@@ -5,6 +5,7 @@ import { format, addDays, parseISO, isWithinInterval, eachDayOfInterval, differe
 import { es } from 'date-fns/locale'
 import { useNavigate, useParams } from 'react-router-dom'
 import { useContextGlobal } from '../../../contexts/global.context'
+import Swal from 'sweetalert2';
 
 // Simular datos recibidos desde una API
 const occupiedDates = [
@@ -94,10 +95,19 @@ const ProductAvailability = ({ data }) => {
     },
   ]
 
-  const rentarHandle = ()=>{
-    setReservaData({ startDate, endDate, id: data.id });
-
-    navigate('/reservation/' + data.id);
+  const rentarHandle = () => {
+    if (startDate != null && endDate != null) {
+      setReservaData({ startDate, endDate, id: data.id });
+      navigate('/reservation/' + data.id);
+    } else {
+      Swal.fire({
+        icon: 'warning',
+        title: 'Fechas incompletas',
+        text: 'Debe agregar una fecha disponible para continuar con la reserva.',
+        confirmButtonText: 'Entendido',
+        confirmButtonColor: "#511C29"
+      });
+    }
   }
 
   return (
