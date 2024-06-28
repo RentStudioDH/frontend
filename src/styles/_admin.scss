@@ -12,6 +12,12 @@
   }
 }
 
+details[open] {
+  summary {
+    margin-bottom: 15px;
+  }
+}
+
 .loading-spinner {
   position: fixed;
   top: 50%;

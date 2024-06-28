@@ -28,7 +28,7 @@ export const adminMenuItems = [
     id: 1,
     label: "Dashboard",
     path: routes.admin.dashboard,
-    icon: "fa-house"
+    icon: "fa-chart-area"
   },
   {
     id: 2,
@@ -55,7 +55,7 @@ export const userMenuItems = [
     id: 1,
     label: "Mi perfil",
     path: routes.user.profile,
-    icon: "fa-user"
+    icon: "fa-id-badge"
   },
   {
     id: 2,

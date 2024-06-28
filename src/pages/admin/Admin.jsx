@@ -5,7 +5,7 @@ import AdminDashboard from "../../components/molecules/admin/AdminDashboard"
 import AdminProducts from "../../components/molecules/admin/AdminProducts"
 import AdminCategories from "../../components/molecules/admin/AdminCategories"
 import AdminPermissions from "../../components/molecules/admin/AdminPermissions"
-import AdminMenu from "../../components/molecules/admin/AdminMenu"
+import SidebarMenu from "../../components/organisms/SidebarMenu"
 import Cards from "../../components/atoms/Cards"
 
 const Admin = () => {
@@ -32,7 +32,7 @@ const Admin = () => {
     <main className="flex">
       {isDesktop ? (
         <>
-          <AdminMenu />
+          <SidebarMenu />
           { renderSectionAdmin() }
         </>
       ) : (
