@@ -1,7 +1,10 @@
 import React from 'react';
 import WhatsAppIcon from '@mui/icons-material/WhatsApp';
 
-const WhatsAppButton = ({ phoneNumber }) => {
+const WhatsAppButton = () => {
+
+  const phoneNumber = "123456789"
+
   const handleClick = () => {
     const whatsappLink = `https://wa.me/${phoneNumber}`;
     window.open(whatsappLink, '_blank');

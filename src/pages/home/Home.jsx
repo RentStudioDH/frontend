@@ -12,7 +12,7 @@ const Home = () => {
       <SectionHome title='Beneficios' ContainerComponent={HomeBenefits} background='bg-white' containerClass='grid' />
       <SectionHome title='Productos recomendados' ContainerComponent={HomeRecommended} containerClass='grid' />
       <SectionHome ContainerComponent={HomeCategories} background='bg-white' containerClass='flex cont-category' />
-      <WhatsAppButton phoneNumber={"123456789"}/>
+      <WhatsAppButton/>
     </main>
   )
 }
