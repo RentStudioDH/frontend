@@ -23,9 +23,8 @@ const ListCategories = () => {
   );
 
   const countProductsByCategory = (categoryId) => {
-    return products.filter((product) => product.category.id === categoryId)
-      .length;
-  };
+    return products.filter((product) => product.category.id === categoryId).length
+  }
 
   const openModal = (type, id) => {
     setModalType(type);
@@ -53,9 +52,7 @@ const ListCategories = () => {
   return (
     <div className="bg-white relative overflow-x-auto shadow-lg br-15">
       <div className="p-15">
-        <label htmlFor="table-search" className="sr-only">
-          Buscar
-        </label>
+        <label htmlFor="table-search" className="sr-only">Buscar</label>
         <div className="relative flex items-center">
           <div className="absolute inset-y-0 rtl:inset-r-0 start-0 flex items-center ps-3 pointer-events-none">
             <i className="fa-solid fa-magnifying-glass txt-primary"></i>
@@ -64,7 +61,7 @@ const ListCategories = () => {
             type="text"
             id="table-search"
             className="block ps-10 pt-1 pb-1 paragraph txt-tertiary border border-gray-300 br-15 w-80 bg-base focus:ring-blue-500 focus:border-blue-500"
-            placeholder="Buscar"
+            placeholder="Buscar por categoria"
           />
         </div>
       </div>
