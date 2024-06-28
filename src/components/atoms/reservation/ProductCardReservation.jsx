@@ -1,11 +1,12 @@
 import React, { useEffect, useState } from 'react';
-import { Card, CardContent, CardMedia, Typography, Rating } from '@mui/material';
+import { Card, CardContent, CardMedia, Typography, Rating, useMediaQuery, CircularProgress, Box } from '@mui/material';
 import { useContextGlobal } from '../../../contexts/global.context';
 
 const ProductCardReservation = () => {
     const { state, getProductById, setReservaData } = useContextGlobal();
     const { reservaData } = state;
     const [productData, setProductData] = useState(null);
+    const isMobile = useMediaQuery(theme => theme.breakpoints.down('sm'));
 
     useEffect(() => {
         const fetchData = async () => {
@@ -20,10 +21,14 @@ const ProductCardReservation = () => {
         };
 
         fetchData();
-    }, [reservaData.id, getProductById, setReservaData]);
+    }, [reservaData.id]);
 
     if (!productData) {
-        return <div>Loading...</div>;
+        return (
+            <Box sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center', height: '100%' }}>
+                <CircularProgress />
+            </Box>
+        );
     }
 
     const firstImage = productData.attachments && productData.attachments.length > 0
@@ -31,24 +36,40 @@ const ProductCardReservation = () => {
         : 'https://digitalhouse-e7-pi.s3.amazonaws.com/-Rhd-l2yWTj6iEqg7EhN9Q%3D%3D.png';
 
     return (
-        <Card style={{ display: 'flex', marginBottom: '16px', height: '15rem' }}>
+        <Card sx={{ 
+            display: 'flex', 
+            flexDirection: isMobile ? 'column' : 'row', 
+            marginBottom: 2, 
+            height: isMobile ? 'auto' : '16rem', 
+            boxShadow: 3, 
+            paddingY: '5px' 
+        }}>
             <CardMedia
                 component="img"
-                style={{ width: "40%" }}
+                sx={{ width: isMobile ? '100%' : '40%', height: isMobile ? 'auto' : '100%' }}
                 image={firstImage}
                 alt={productData.name}
             />
-            <CardContent style={{ display: 'flex', flexDirection: 'column', justifyContent: 'space-between', height: '100%' }}>
+            <CardContent sx={{ 
+                display: 'flex', 
+                flexDirection: 'column', 
+                justifyContent: 'space-between', 
+                height: isMobile ? 'auto' : '100%' 
+            }}>
                 <div>
                     <Rating name="read-only" value={productData.rating || 4} readOnly />
                     <Typography variant="h5" fontWeight={500} color="#511C29" component="div">
                         {productData.name}
                     </Typography>
-                    <Typography variant="body1" color="#A29C9B">
+                    <Typography
+                        variant="body1"
+                        color="#A29C9B"
+                        sx={{ maxHeight: '6rem', overflowY: 'auto' }}
+                    >
                         {productData.description}
                     </Typography>
                 </div>
-                <Typography variant="body1" fontWeight={500} color="#511C29" style={{ marginTop: '16px' }}>
+                <Typography variant="body1" fontWeight={500} color="#511C29" sx={{ marginTop: 2 }}>
                     Precio por día: ${productData.price}
                 </Typography>
             </CardContent>
