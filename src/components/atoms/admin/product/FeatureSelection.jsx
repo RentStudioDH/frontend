@@ -3,7 +3,7 @@ const FeatureSelection = ({ features, selectedFeatures, onFeatureSelect }) => {
     onFeatureSelect(featureId);
   };
 
-  //Características
+  //Características en el Producto
 
   return (
     <div className="grid col-span-2 g-5 txt-primary mt-2">
