@@ -57,7 +57,7 @@ const PaymentForm = () => {
               InputLabelProps={{ shrink: true }}
             />
           </Grid>
-          <Grid item xs={6}>
+          <Grid item xs={12} sm={6}>
             <TextField
               select
               label="Tipo de Tarjeta"
@@ -72,7 +72,7 @@ const PaymentForm = () => {
               <MenuItem value="credito">Crédito</MenuItem>
             </TextField>
           </Grid>
-          <Grid item xs={6}>
+          <Grid item xs={12} sm={6}>
             <TextField
               label="Número de Tarjeta"
               fullWidth
@@ -83,7 +83,7 @@ const PaymentForm = () => {
               InputLabelProps={{ shrink: true }}
             />
           </Grid>
-          <Grid item xs={6}>
+          <Grid item xs={12} sm={6}>
             <TextField
               label="Fecha de Caducidad (MM/YY)"
               fullWidth
@@ -94,7 +94,7 @@ const PaymentForm = () => {
               InputLabelProps={{ shrink: true }}
             />
           </Grid>
-          <Grid item xs={6}>
+          <Grid item xs={12} sm={6}>
             <TextField
               label="Código de Seguridad"
               fullWidth
