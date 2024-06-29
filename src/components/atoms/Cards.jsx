@@ -14,6 +14,7 @@ const Cards = ({ type, data, openModal }) => {
   }
 
   const isFavorite = state.favs.some(fav => fav.id === data.id)
+  const isLoggedIn = state.isLoggedIn;
 
   const renderCard = () => {
     if (!type) {
@@ -48,49 +49,42 @@ const Cards = ({ type, data, openModal }) => {
         )
       case 'product':
         return (
-          <div>
-            <Link className={`bg-white grid h-full card ${type} br-15`} key={data.id} to={'/producto/' + data.id} >
-              <div className='image'>
-                <img src={firstImage} alt={data.name} loading='lazy' width={210} height={210} />
-              </div>
-              <div className='flex flex-col justify-between info p-15 g-10'>
-                <div className='flex flex-col details g-5'>
-                  <h3 className="txt-primary subtitle"><strong>{data.name}</strong></h3>
-                  <p className="txt-tertiary paragraph">{data.description}</p>
-                </div>
-                <div className='flex flex-col rent g-10'>
-                  <p className="txt-primary paragraph" id='price'><strong>${data.price} / {data.rentType}</strong></p>
-                  <Buttons text='Cotizar' bColor='#A62639' color='#fff' bgColor='#A62639' />
-                </div>
-              </div>
-            </Link>
+    <div className="product-card">
+      <Link className={`bg-white grid h-full card ${type} br-15`} key={data.id} to={'/producto/' + data.id}>
+        <div className='image relative'>
+          <img src={firstImage} alt={data.name} loading='lazy' width={210} height={210} />
+          {isLoggedIn && (
             <button
-              onClick={() => handleToggleFav(data)}
+              className="favorite-button absolute top-2 right-2 z-10"
+              onClick={(e) => {
+                e.preventDefault();
+                handleToggleFav(data);
+              }}
               style={{
-                position:'relative',
-                bottom: '24%',
-                left: '44%',
-                zIndex:0,
-                display: 'flex',
-                alignItems: 'center',
-                justifyContent: 'center',
-                padding: '10px',
-                backgroundColor: isFavorite ? '#A62639' : '#f5f5f5',
+                backgroundColor: isFavorite ? '#A62639' : 'transparent',
+                color: isFavorite ? '#fff' : '#A62639',
+                padding: '5px',
+                borderRadius: '50%',
                 border: 'none',
                 cursor: 'pointer',
-                color: isFavorite ? '#fff' : '#A62639',
-                marginTop: '10px',
-                  
-                }}
-                >
-              <i className={`fa fa-heart`} style={{
-                marginRight: '5px',
-                color: isFavorite ? '#fff' : '#A62639',
-                fill: isFavorite ? '#fff' : 'none'
-                }}></i>
-              {isFavorite ? 'Eliminar de tus favoritos' : 'Agregar a Favoritos'}
-            </button>               
+              }}
+            >
+              <i className="fa fa-heart" style={{ fontSize: '1.3rem' }} />
+            </button>
+          )}
+        </div>
+        <div className="flex flex-col justify-between info p-15 g-10">
+          <div className='flex flex-col details g-5'>
+            <h3 className="txt-primary subtitle"><strong>{data.name}</strong></h3>
+            <p className="txt-tertiary paragraph">{data.description}</p>
           </div>
+          <div className='flex flex-col rent g-10'>
+            <p className="txt-primary paragraph" id='price'><strong>${data.price} / {data.rentType}</strong></p>
+            <Buttons text='Cotizar' bColor='#A62639' color='#fff' bgColor='#A62639' />
+          </div>
+        </div>
+      </Link>
+    </div>
         )
       case 'adminDash':
         return (
