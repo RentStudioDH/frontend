@@ -27,8 +27,26 @@ export const initialState = {
   favs: JSON.parse(localStorage.getItem('favs')) || [],
   suggestions: [],
   lastTokenRefresh: null,
-  reservaData: { id: null, productData: null },
-  totalReservationCost: 0, 
+  reservaData: {
+    id: null,
+    productData: null,
+    startDate: '',
+    endDate: '',
+    nombre: '',
+    direccion: '',
+    telefono: '',
+    metodoPago: '',
+    totalReservationCost: 0,
+  },
+  totalReservationCost: 0,
+  paymentInfo: {
+    cardHolder: '',
+    cardType: '',
+    cardNumber: '',
+    expirationDate: '',
+    securityCode: '',
+  },
+  
 }
 
 export const ContextProvider = ({ children }) => {

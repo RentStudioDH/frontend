@@ -13,12 +13,14 @@ import Swal from 'sweetalert2';
 
 const ReservationDetail = () => {
   const { state } = useContextGlobal();
-  const { data, user, reservaData,totalReservationCost } = state;
-  const {startDate, endDate} = reservaData
+  const { user, reservaData, totalReservationCost, paymentInfo } = state;
+  const { startDate, endDate } = reservaData;
   const navigate = useNavigate();
 
   const [showSummaryModal, setShowSummaryModal] = useState(false);
   const [showErrorModal, setShowErrorModal] = useState(false);
+  const [errorMessages, setErrorMessages] = useState([]);
+
   const [reservaDataPost, setReservaDataPost] = useState({
     productId: reservaData.id,
     userId: user.id,
@@ -26,41 +28,41 @@ const ReservationDetail = () => {
     endDate: "",
     totalReservationCost: "",
     informacionDePago: ""
-  })
+  });
 
-  // Guardar datos de la reserva
-const handleCompleteReservation = () => {
-    // Actualizar los datos de reserva a enviar
+  const handleCompleteReservation = () => {
     setReservaDataPost({
       ...reservaDataPost,
       startDate: `${startDate.getDate()}/${startDate.getMonth() + 1}/${startDate.getFullYear()}`,
       endDate: `${endDate.getDate()}/${endDate.getMonth() + 1}/${endDate.getFullYear()}`,
       totalReservationCost: totalReservationCost,
-      informacionDePago: data.paymentInfo // aun no se hizo esta logica de pago desde el back
+      informacionDePago: paymentInfo
     });
 
-    // Validar datos antes de mostrar el modal
     if (validarDatos()) {
-      setShowSummaryModal(true); // Mostrar modal de resumen si los datos son válidos
+      setShowSummaryModal(true);
     } else {
-      setShowErrorModal(true); // Mostrar modal de error si los datos no son válidos
+      setShowErrorModal(true);
     }
-};
+  };
 
-const validarDatos = ()=>{
-  if (reservaDataPost.totalReservationCost != "" && reservaDataPost.informacionDePago != "") {
-    //TODO chequear que la informacion del usuario y direccion del mismo este completa
-          // chequear que la informacion del pago este completa
-          return true
-  }
-  return false
-}
+  const validarDatos = () => {
+    const errors = [];
+    if (!user.firstName) errors.push('Nombre es obligatorio.');
+    if (!user.lastName) errors.push('Apellido es obligatorio.');
+    if (!user.email) errors.push('Email es obligatorio.');
+    if (!user.address || !user.address.country) errors.push('País es obligatorio.');
+    if (!user.address || !user.address.street) errors.push('Dirección de Entrega es obligatoria.');
+    if (!user.address || !user.address.city) errors.push('Ciudad es obligatoria.');
+    if (!user.address || !user.address.state) errors.push('Provincia/Estado es obligatorio.');
+    if (!user.address || !user.address.zip) errors.push('Código Postal es obligatorio.');
+    if (!reservaDataPost.informacionDePago) errors.push('La información de pago es obligatoria.');
 
+    setErrorMessages(errors);
+    return errors.length === 0;
+  };
 
-  // Function to confirm reservation after showing summary
   const confirmReservation = () => {
-    // Send reservaDataPost to backend or perform final actions
-    // Navigate to confirmation page or perform further actions
     setShowSummaryModal(false);
     Swal.fire({
       icon: 'success',
@@ -71,16 +73,15 @@ const validarDatos = ()=>{
         <p>Redirigiendo a la página de Mis Reservas...</p>
       `,
       showConfirmButton: true,
-      confirmButtonColor: '#511C29', // Color del botón de confirmación
+      confirmButtonColor: '#511C29',
       confirmButtonText: 'Ir a Mis Reservas',
-      allowOutsideClick: false, // Evita que se cierre haciendo clic fuera del modal
+      allowOutsideClick: false,
     }).then((result) => {
       if (result.isConfirmed) {
         navigate('/user/reservas');
       }
     });
   };
-
 
   const theme = createTheme({
     palette: {
@@ -90,7 +91,6 @@ const validarDatos = ()=>{
     },
   });
 
-  // Validación de carga de datos de reserva
   if (reservaData.id == null) {
     return (
       <Container>
@@ -118,13 +118,11 @@ const validarDatos = ()=>{
     );
   }
 
-
-  // Modal for showing error on incomplete data
   const renderErrorModal = () => {
     Swal.fire({
       icon: 'error',
       title: 'Oops...',
-      text: 'Por favor completa todos los datos requeridos.',
+      html: `<ul>${errorMessages.map((msg, index) => `<li key=${index}>${msg}</li>`).join('')}</ul>`,
       confirmButtonText: 'Entendido',
       confirmButtonColor: '#A62639'
     }).then(() => {
@@ -143,7 +141,7 @@ const validarDatos = ()=>{
 
       <ReservaSection
         titulo="Tus selecciones"
-        icono="LocalOfferIcon" // Utilizar el nombre del ícono de producto importado
+        icono="LocalOfferIcon"
         cardContent={TusSelecciones}
         data={reservaData}
       />
@@ -157,7 +155,6 @@ const validarDatos = ()=>{
         titulo="Medio de pago"
         icono="PaidRoundedIcon"
         cardContent={PaymentForm}
-        data={data}
       />
 
       <Box marginBottom={2} display="flex" justifyContent="center">
@@ -166,20 +163,19 @@ const validarDatos = ()=>{
         </ThemeProvider>
       </Box>
 
-            {/* Modal for reservation summary */}
-            <ReservationSummaryModal
+      <ReservationSummaryModal
         show={showSummaryModal}
         onHide={() => setShowSummaryModal(false)}
-        reservaDataPost={reservaDataPost}
         confirmReservation={confirmReservation}
+        reservaDataPost={reservaDataPost} // pasamos los datos de la reserva
+        user={user}
+        totalReservationCost={totalReservationCost}
+        paymentInfo={paymentInfo}
       />
 
-      {/* Modal for validation error */}
-      {showErrorModal &&
-        renderErrorModal()
-      }
+      {showErrorModal && renderErrorModal()}
     </Container>
   );
-}
+};
 
 export default ReservationDetail;

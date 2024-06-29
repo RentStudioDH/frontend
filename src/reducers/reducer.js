@@ -105,24 +105,33 @@ export const reducer = (state, action) => {
         totalReservationCost: action.payload,
       }
 
-      case 'UPDATE_USER':
-        return {
-          ...state,
-          user: {
-            ...state.user,
-            address: action.payload.address,
-          },
-        };
+    case 'UPDATE_USER':
+      return {
+        ...state,
+        user: {
+          ...state.user,
+          address: action.payload.address,
+        },
+      };
 
-        case 'UPDATE_USER_DATA':
-          return {
-            ...state,
-            user: {
-              ...state.user,
-              ...action.payload,
-            },
-          };  
-    
+    case 'UPDATE_USER_DATA':
+      return {
+        ...state,
+        user: {
+          ...state.user,
+          ...action.payload,
+        },
+      };  
+
+    case 'UPDATE_PAYMENT_INFO':
+      return {
+        ...state,
+        paymentInfo: {
+          ...state.paymentInfo,
+          ...action.payload,
+        },
+      };
+      
     default:
       return state
   }
