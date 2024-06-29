@@ -220,7 +220,10 @@ const updateUserAddress = async (userId, updatedUser) => {
   }
 };
 
-
+  // Función para actualizar los datos del usuario
+  const updateUserData = (userData) => {
+    dispatch({ type: 'UPDATE_USER_DATA', payload: userData });
+  };
 
 
   // Reservas
@@ -281,6 +284,7 @@ const updateUserAddress = async (userId, updatedUser) => {
     uploadImage,
     loginUser,
     updateUserAddress ,
+    updateUserData ,
     getUserData,
     registerUser,
     logoutUser,

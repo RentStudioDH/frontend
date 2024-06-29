@@ -86,10 +86,26 @@ const ReservationSummaryModal = ({ show, onHide, reservaDataPost, confirmReserva
         </Box>
 
         <Box mt={2} display="flex" justifyContent="space-between">
-          <Button variant="outlined" color="secondary" onClick={onHide}>
+          <Button variant="outlined"
+              sx={{
+                color: "#A62639",
+                borderColor: "#A62639",
+                fontWeight: "600",
+                '&:hover': {
+                  color: "#8C1C2E",
+                  borderColor: "#8C1C2E",
+                },
+              }} onClick={onHide}>
             Cancelar
           </Button>
-          <Button variant="contained" sx={{ bgcolor: "#511C29" }} onClick={confirmReservation}>
+          <Button variant="contained"
+              sx={{
+                bgcolor: "#A62639",
+                fontWeight: "600",
+                '&:hover': {
+                  bgcolor: "#8C1C2E",
+                },
+              }} onClick={confirmReservation}>
             Confirmar Reserva
           </Button>
         </Box>
