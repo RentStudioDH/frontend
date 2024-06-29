@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Paper, Typography, Grid, TextField, Button, Modal, Box } from '@mui/material';
 
 const UserDetailsForm = ({ data }) => {
@@ -8,6 +8,9 @@ const UserDetailsForm = ({ data }) => {
   const handleClose = () => setOpen(false);
 
   // TODO : el boton de guardar deberia cambiar los datos
+  useEffect(()=>{
+  console.log(data);
+  },[data])
 
   return (
     <Paper elevation={3} sx={{ padding: 3, margin: 2, borderRadius: '1rem' }}>

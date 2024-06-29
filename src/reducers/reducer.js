@@ -105,6 +105,15 @@ export const reducer = (state, action) => {
         totalReservationCost: action.payload,
       }
 
+      case 'UPDATE_USER':
+        return {
+          ...state,
+          user: {
+            ...state.user,
+            address: action.payload.address,
+          },
+        };
+    
     default:
       return state
   }

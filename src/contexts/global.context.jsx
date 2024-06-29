@@ -208,6 +208,20 @@ export const ContextProvider = ({ children }) => {
   useEffect(() => {
     getUsers()
   }, [])
+// Actualizar dirección del usuario
+const updateUserAddress = async (userId, updatedUser) => {
+  try {
+    const response = await fetchData({ method: 'put', endpoint: `/users/${userId}`, data: updatedUser, requireAuth: true });
+    dispatch({ type: 'UPDATE_USER_ADDRESS', payload: response });
+    Cookies.set('user', JSON.stringify(response), { secure: true, sameSite: 'Strict' });
+  } catch (error) {
+    console.error('Error updating user address:', error);
+    throw error;
+  }
+};
+
+
+
 
   // Reservas
   const getUserReservations = async () => {
@@ -266,6 +280,7 @@ export const ContextProvider = ({ children }) => {
     removeCategory,
     uploadImage,
     loginUser,
+    updateUserAddress ,
     getUserData,
     registerUser,
     logoutUser,
