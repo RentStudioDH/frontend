@@ -99,11 +99,6 @@ const ReservationDetail = () => {
         },
         requireAuth: true,
       });
-
-      if (response.status !== 200) {
-        throw new Error("Failed to confirm reservation");
-      }
-
       Swal.fire({
         icon: "success",
         title: "¡Producto Reservado con Éxito!",
@@ -129,7 +124,6 @@ const ReservationDetail = () => {
       });
     }
   };
-
   if (reservaData.id == null) {
     return <ReservationError />;
   }
