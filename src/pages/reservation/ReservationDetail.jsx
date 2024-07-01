@@ -99,7 +99,6 @@ const ReservationDetail = () => {
         },
         requireAuth: true,
       });
-
       Swal.fire({
         icon: "success",
         title: "¡Producto Reservado con Éxito!",
@@ -125,10 +124,9 @@ const ReservationDetail = () => {
       });
     }
   };
-  /*
   if (reservaData.id == null) {
     return <ReservationError />;
-  }*/
+  }
 
   return (
     <Container>

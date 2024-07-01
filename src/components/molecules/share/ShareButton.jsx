@@ -1,56 +1,43 @@
-import React, { useState } from 'react';
-import { Button, Modal, Box, List, ListItem, ListItemButton, ListItemIcon, ListItemText } from '@mui/material';
-import ShareIcon from '@mui/icons-material/Share';
-import FacebookIcon from '@mui/icons-material/Facebook';
-import TwitterIcon from '@mui/icons-material/Twitter';
-import WhatsAppIcon from '@mui/icons-material/WhatsApp';
+import { useState } from 'react'
+import { Button, Modal, Box, List, ListItem, ListItemButton, ListItemIcon, ListItemText } from '@mui/material'
+import ShareIcon from '@mui/icons-material/Share'
+import FacebookIcon from '@mui/icons-material/Facebook'
+import TwitterIcon from '@mui/icons-material/Twitter'
+import WhatsAppIcon from '@mui/icons-material/WhatsApp'
 
 const ShareButton = ({ product }) => {
-  const [openModal, setOpenModal] = useState(false);
+  const [openModal, setOpenModal] = useState(false)
 
   const handleShare = () => {
-    setOpenModal(true);
-  };
+    setOpenModal(true)
+  }
 
   const handleCloseModal = () => {
-    setOpenModal(false);
-  };
+    setOpenModal(false)
+  }
 
-  const shareUrl = window.location.href; // URL del producto
-  const title = product.name; // Nombre del producto
-  const description = product.description; // Descripción del producto
+  const shareUrl = window.location.href // URL del producto
+  const title = product.name // Nombre del producto
+  const description = product.description // Descripción del producto
 
   const handleFacebookShare = () => {
-    const facebookUrl = `https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(shareUrl)}`;
-    window.open(facebookUrl, '_blank');
-  };
+    const facebookUrl = `https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(shareUrl)}`
+    window.open(facebookUrl, '_blank')
+  }
 
   const handleTwitterShare = () => {
-    const twitterUrl = `https://twitter.com/intent/tweet?text=${encodeURIComponent(title)}&url=${encodeURIComponent(shareUrl)}`;
-    window.open(twitterUrl, '_blank');
-  };
+    const twitterUrl = `https://twitter.com/intent/tweet?text=${encodeURIComponent(title)}&url=${encodeURIComponent(shareUrl)}`
+    window.open(twitterUrl, '_blank')
+  }
 
   const handleWhatsAppShare = () => {
-    const whatsappUrl = `https://wa.me/?text=${encodeURIComponent(`${title}\n${description}\n${shareUrl}`)}`;
-    window.open(whatsappUrl, '_blank');
-  };
+    const whatsappUrl = `https://wa.me/?text=${encodeURIComponent(`${title}\n${description}\n${shareUrl}`)}`
+    window.open(whatsappUrl, '_blank')
+  }
 
   return (
     <>
-      <Button
-        variant="contained"
-        sx={{
-          bgcolor: "#A62639",
-          color: "white",
-          '&:hover': {
-            bgcolor: "#8C1D31", // Color de fondo al pasar el cursor sobre el botón
-          },
-        }}
-        startIcon={<ShareIcon />}
-        onClick={handleShare}
-      >
-        Compartir
-      </Button>
+      <i onClick={handleShare} className="cursor-pointer txt-primary hover:txt-secondary fa-solid fa-share-nodes title"></i>
 
       <Modal
         open={openModal}
@@ -74,7 +61,7 @@ const ShareButton = ({ product }) => {
             borderRadius: "1rem"
           }}
         >
-          <h2 id="modal-title" className="font-semibold text-white bg-red-800 p-2 rounded-md flex justify-center items-center">Compartir en redes sociales</h2>
+          <h2 id="modal-title" className="font-semibold txt-accent p-15 flex justify-center items-center">Compartir en redes sociales</h2>
           <List>
             <ListItem disablePadding >
               <ListItemButton onClick={handleFacebookShare}>
@@ -104,7 +91,7 @@ const ShareButton = ({ product }) => {
         </Box>
       </Modal>
     </>
-  );
-};
+  )
+}
 
-export default ShareButton;
+export default ShareButton
