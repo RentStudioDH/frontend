@@ -10,6 +10,7 @@ import ReservationSummaryModal from '../../components/atoms/reservation/Reservat
 import Swal from 'sweetalert2';
 import ReservationError from '../../components/atoms/reservation/errorModals/ReservationError'; 
 import ErrorModal from '../../components/atoms/reservation/errorModals/ErrorModal'; 
+import { fetchData } from '../../utils/js/apiRequest';
 
 const formatDate = (date) => {
   const d = new Date(date);
@@ -90,18 +91,16 @@ const ReservationDetail = () => {
     setShowSummaryModal(false);
 
     try {
-      const response = await fetch('/reservations', {
+      const response = await fetchData({
         method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-          'Authorization': `Bearer ${token}`
-        },
-        body: JSON.stringify({
+        endpoint: '/reservations',
+        data: {
           productId: reservaDataPost.productId,
           startDate: reservaDataPost.startDate,
           endDate: reservaDataPost.endDate,
           payment: reservaDataPost.informacionDePago
-        })
+        },
+        requireAuth: true,
       });
 
       if (!response.ok) {
