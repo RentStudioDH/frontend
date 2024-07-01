@@ -10,30 +10,22 @@ const UserReservas = () => {
   const [reservations, setReservations] = useState([]);
   const navigate = useNavigate(); // Hook para la navegación
 
-  // Datos de demostración
-  const demoReservations = [
-    { id: 1, name: 'Cámara Fotográfica Digital de 48mp', date: '2023-07-15', image: 'https://picsum.photos/id/870/200/300?grayscale&blur=2' },
-    { id: 2, name: 'Paragua Reflector Para Fotografía Negro Plateado 83cm', date: '2023-07-20', image: 'https://picsum.photos/id/870/200/300?grayscale&blur=2' },
-    { id: 3, name: 'Paragua Reflector Para Fotografía Negro Plateado 83cm', date: '2023-08-05', image: 'https://picsum.photos/id/870/200/300?grayscale&blur=2' },
-  ];
-
-  // Simula la carga de datos al montar el componente
+  
   useEffect(() => {
-    setReservations(demoReservations);
+    const fetchReservations = async () => {
+      try {
+        const response = await fetch('/reservations/my');
+        if (!response.ok) {
+          throw new Error('Error fetching reservations');
+        }
+        const data = await response.json();
+        setReservations(data);
+      } catch (error) {
+        console.error("Error fetching reservations:", error);
+      }
+    };
+    fetchReservations();
   }, []);
-
-  // Cuando la lógica en el back esté implementada debería usarse este fetch
-  // useEffect(() => {
-  //   const fetchReservations = async () => {
-  //     try {
-  //       const response = await getUserReservations();
-  //       setReservations(response);
-  //     } catch (error) {
-  //       console.error("Error fetching reservations:", error);
-  //     }
-  //   };
-  //   fetchReservations();
-  // }, [getUserReservations]);
 
   const handleReservationClick = (reservationId) => {
     // Navegar al detalle de la reserva
@@ -61,7 +53,7 @@ const UserReservas = () => {
 
             {/* Dos columnas de reservas anteriores */}
             <Grid container spacing={2}>
-              {reservations.slice(1).map((reservation, index) => (
+              {reservations.slice(1).map((reservation) => (
                 <Grid item xs={12} sm={6} key={reservation.id}>
                   <ReservaCard 
                     reservation={reservation} 

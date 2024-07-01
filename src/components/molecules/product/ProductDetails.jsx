@@ -1,5 +1,6 @@
 import { useState } from "react";
 import ShareButton from "../share/ShareButton";
+import { Rating } from "@mui/material";
 
 const ProductDetails = ({ data }) => {
   const [features, setFeatures] = useState(data.features || []);
@@ -67,6 +68,7 @@ const ProductDetails = ({ data }) => {
           className="block"
         />
       </div>
+        <Rating name="read-only" value={data.rating || 4} readOnly />
     </>
   );
 };
