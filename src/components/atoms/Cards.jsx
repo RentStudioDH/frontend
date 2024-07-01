@@ -1,7 +1,7 @@
 import { Link } from 'react-router-dom'
 import { useContextGlobal } from '../../contexts/global.context'
 
-const Cards = ({ type, data, openModal }) => {
+const Cards = ({ type, data, openModal, isEditor, onRoleChange }) => {
   const { state, toggleFav } = useContextGlobal()
   const { favs, isLoggedIn, isDesktop } = state
   const isFav = favs.includes(data.id)
@@ -37,6 +37,12 @@ const Cards = ({ type, data, openModal }) => {
     )
   }
 
+  const handleRoleChange = (event) => {
+    const newRole = event.target.checked ? 'ROLE_EDITOR' : 'ROLE_USER'
+    console.log(`Cambiando rol del usuario ${data.id} a ${newRole}`);
+    onRoleChange(data.id, newRole)
+  }
+
   const renderCard = () => {
     if (!type) {
       return <div>No hay información para mostrar.</div>
@@ -44,7 +50,7 @@ const Cards = ({ type, data, openModal }) => {
 
     const firstImage = data.attachments && data.attachments.length > 0 ? data.attachments[0].url : 'https://digitalhouse-e7-pi.s3.amazonaws.com/-Rhd-l2yWTj6iEqg7EhN9Q%3D%3D.png'
 
-    if ((type === 'benefit' || type === 'category' || type === 'product' || type === 'adminListProduct' ||type ==='favorite') && !data) {
+    if ((type === 'benefit' || type === 'category' || type === 'product' || type === 'adminListProduct' || type === 'favorite') && !data) {
       return <div>No hay información para mostrar.</div>
     }
 
@@ -166,8 +172,8 @@ const Cards = ({ type, data, openModal }) => {
             <td className="p-15">{data.firstName} {data.lastName} <br /> <span className='legal'>{data.email}</span></td>
             <td className="p-15">
               <label className="inline-flex items-center cursor-pointer g-5">
-                <input type="checkbox" value="" className="sr-only peer"/>
-                <div className="relative w-9 h-5 bg-gray-200  rounded-full peer peer-checked:after:translate-x-full rtl:peer-checked:after:-translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:start-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-4 after:w-4 after:transition-all peer-checked:bg-blue-600"></div>
+                <input type="checkbox" checked={isEditor} onChange={handleRoleChange} className="sr-only peer" />
+                <div className="relative w-9 h-5 bg-gray-200 rounded-full peer peer-checked:after:translate-x-full rtl:peer-checked:after:-translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:start-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-4 after:w-4 after:transition-all peer-checked:bg-blue-600"></div>
                 <span className="txt-tertiary group-checked:font-bold">Editor</span>
               </label>
             </td>

@@ -1,5 +1,5 @@
-import { Avatar, Grid, Paper, Button } from '@mui/material'
-import { useState, useEffect } from 'react'
+import { Grid, Paper, Button } from '@mui/material'
+import { useState } from 'react'
 import { useContextGlobal } from '../../../contexts/global.context'
 import InfoUserPassword from './InfoUserPassword'
 import InfoUser from './InfoUser'
@@ -35,8 +35,8 @@ const MiPerfil = () => {
       <div className='grid grid-cols-[auto_1fr] place-items-center w-fit g-15 p-15'>
         <AvatarUser size={70} />
         <div className='grid h-fit'>
-          <h2 className='txt-accent subtitle'>{userData.firstName} {userData.lastName}</h2>
-          <p className='txt-tertiary paragraph'>{userData.email} <br /> <span className='legal'><strong>Role:</strong> {userData.role === 'ROLE_ADMIN' ? 'Admin' : 'User'}</span></p>
+          <h2 className='txt-accent subtitle'><strong>{userData.firstName} {userData.lastName}</strong></h2>
+          <p className='txt-tertiary paragraph'>{userData.email} <br /> <span className='legal'><strong>Role:</strong> {userData.role === 'ROLE_ADMIN' ? 'Admin' : userData.role === 'ROLE_USER' ? 'User' : 'Editor'}</span></p>
         </div>        
       </div>
       <Grid container spacing={2} alignItems='center'>

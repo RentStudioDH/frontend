@@ -251,10 +251,22 @@ export const ContextProvider = ({ children }) => {
       throw error
     }
   }
-
   // Función para actualizar los datos del usuario
   const updateUserData = (userData) => {
     dispatch({ type: 'UPDATE_USER_DATA', payload: userData })
+  }
+  const updateUserRole = async (userId, role) => {
+    try {
+      const response = await fetchData({
+        method: 'put',
+        endpoint: `/users/${userId}`,
+        data: { role }, // Correct body format
+        requireAuth: true
+      });
+      dispatch({ type: 'UPDATE_USER_ROLE', payload: { userId, role: response.role } });
+    } catch (error) {
+      console.error('Error updating user role:', error);
+    }
   }
 
 
@@ -319,6 +331,7 @@ export const ContextProvider = ({ children }) => {
     loginUser,
     updateUserAddress,
     updateUserData,
+    updateUserRole,
     getUserData,
     registerUser,
     logoutUser,

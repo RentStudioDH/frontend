@@ -120,7 +120,6 @@ export const reducer = (state, action) => {
           address: action.payload.address,
         },
       }
-
     case 'UPDATE_USER_DATA':
       return {
         ...state,
@@ -129,7 +128,13 @@ export const reducer = (state, action) => {
           ...action.payload,
         },
       }  
-
+    case 'UPDATE_USER_ROLE':
+      return {
+        ...state,
+        users: state.users.map(user =>
+          user.id === action.payload.userId ? { ...user, role: action.payload.role } : user
+        ),
+      }
     case 'UPDATE_PAYMENT_INFO':
       return {
         ...state,
