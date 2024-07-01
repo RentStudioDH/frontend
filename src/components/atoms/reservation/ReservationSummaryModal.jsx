@@ -2,10 +2,8 @@ import React from 'react';
 import { Box, Button, Paper, Typography, Divider } from '@mui/material';
 import ProductCardReservation from './ProductCardReservation';
 
-const ReservationSummaryModal = ({ show, onHide, reservaDataPost, confirmReservation }) => {
+const ReservationSummaryModal = ({ show, onHide, reservaDataPost, confirmReservation,user,totalReservationCost }) => {
   if (!show) return null;
-
-
   return (
     <Box
       sx={{
@@ -19,7 +17,7 @@ const ReservationSummaryModal = ({ show, onHide, reservaDataPost, confirmReserva
         alignItems: 'center',
         zIndex: 9999,
         bgcolor: 'rgba(0, 0, 0, 0.5)', // Fondo oscuro semitransparente
-        backdropFilter: 'blur(4px)', // Efecto de desenfoque del fondo (opcional, requiere soporte de navegador)
+        backdropFilter: 'blur(4px)', 
         overflow: 'auto', // Permite hacer scroll si el contenido es largo
       }}
     >
@@ -29,10 +27,10 @@ const ReservationSummaryModal = ({ show, onHide, reservaDataPost, confirmReserva
           boxShadow: 24,
           p: 4,
           maxWidth: 600,
-          width: '90%', // Ancho del modal ajustable
-          position: 'relative', // Asegura que el Paper se posicione correctamente
+          width: '90%', 
+          position: 'relative', 
           borderRadius: "20px",
-          maxHeight: '80vh', // Altura máxima del Paper
+          maxHeight: '80vh', 
           overflowY: 'auto', // Habilita el scroll vertical si es necesario
         }}
       >
@@ -49,7 +47,6 @@ const ReservationSummaryModal = ({ show, onHide, reservaDataPost, confirmReserva
           <ProductCardReservation data={reservaDataPost} />
         </Box>
 
-        {/* Divider */}
         <Divider />
 
         {/* Fechas de Entrega y Devolución */}
@@ -57,31 +54,27 @@ const ReservationSummaryModal = ({ show, onHide, reservaDataPost, confirmReserva
           <Typography variant="body1" sx={{ color: "#511C29" }}>
             <p><strong>Fecha de Entrega:</strong> {reservaDataPost.startDate}</p>
             <p><strong>Fecha de Devolución:</strong> {reservaDataPost.endDate}</p>
-            {/* Calcular y mostrar Duración Total si es necesario */}
-            {/* <p><strong>Duración Total:</strong> {calculateDuration(reservaDataPost.startDate, reservaDataPost.endDate)}</p> */}
           </Typography>
         </Box>
 
-        {/* Divider */}
         <Divider />
 
         {/* Datos del Usuario */}
         <Box mt={2}>
           <Typography variant="body1" sx={{ color: "#511C29" }}>
-            <p><strong>Nombre Completo:</strong> {reservaDataPost.nombre}</p>
-            <p><strong>Dirección de Entrega:</strong> {reservaDataPost.direccion}</p>
-            <p><strong>Teléfono de Contacto:</strong> {reservaDataPost.telefono}</p>
+            <p><strong>Nombre Completo:</strong> {`${user.firstName} ${user.lastName}`}</p>
+            <p><strong>Dirección de Entrega:</strong> {`${user.address.country} - ${user.address.state} - ${user.address.street}`}</p>
+            <p><strong>Email:</strong> {user.email}</p>
           </Typography>
         </Box>
 
-        {/* Divider */}
         <Divider />
 
         {/* Método de Pago y Total a Pagar */}
         <Box mt={2}>
           <Typography variant="body1" sx={{ color: "#511C29" }}>
-            <p><strong>Método de Pago:</strong> {reservaDataPost.metodoPago}</p>
-            <p><strong>Total a Pagar:</strong> {reservaDataPost.totalReservationCost}</p>
+            <p><strong>Método de Pago:</strong> {reservaDataPost.informacionDePago.cardType}</p>
+            <p><strong>Total a Pagar:</strong> {totalReservationCost}</p>
           </Typography>
         </Box>
 
