@@ -119,7 +119,7 @@ const ProductAvailability = ({ data }) => {
   return (
     <div className="bg-white shadow-lg grid br-15 p-15 g-15">
       <h2 className="txt-accent bb-primary subtitle"><strong>Disponibilidad del producto:</strong></h2>
-      <div className="flex flex-col md:flex-row gap-4">
+      <div className="w-fit flex flex-col md:flex-row g-15">
         <ReactDatePicker
           selected={startDate}
           onChange={handleChange}
