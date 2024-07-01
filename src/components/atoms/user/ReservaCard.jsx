@@ -19,7 +19,7 @@ const ReservaCard = ({ reservation, onClick }) => {
           {reservation.name}
         </Typography>
         <Typography variant="body1" color="text.secondary" sx={{ marginTop: 1 }}>
-          Fecha: {reservation.date}
+          Fecha: {reservation.creationDateTime}
         </Typography>
       </Box>
       <Button 

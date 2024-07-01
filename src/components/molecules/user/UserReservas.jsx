@@ -4,6 +4,7 @@ import { Paper, Typography, Grid, Link } from '@mui/material';
 import CameraIcon from '@mui/icons-material/CameraAlt'; 
 import ReservaCard from '../../atoms/user/ReservaCard';
 import { Link as RouterLink, useNavigate } from 'react-router-dom'; 
+import { fetchData } from '../../../utils/js/apiRequest';
 
 const UserReservas = () => {
   const { state, getUserReservations } = useContextGlobal();
@@ -14,18 +15,19 @@ const UserReservas = () => {
   useEffect(() => {
     const fetchReservations = async () => {
       try {
-        const response = await fetch('/reservations/my');
-        if (!response.ok) {
-          throw new Error('Error fetching reservations');
-        }
-        const data = await response.json();
-        setReservations(data);
+        const response = await fetchData({
+          method: "GET",
+          endpoint: "https://apidh.jackmoon.dev/reservations/my",
+          requireAuth: true,
+        });
+        setReservations(response);
+        console.log(response);
       } catch (error) {
         console.error("Error fetching reservations:", error);
       }
     };
     fetchReservations();
-  }, []);
+  }, [state.token]);
 
   const handleReservationClick = (reservationId) => {
     // Navegar al detalle de la reserva
