@@ -171,6 +171,9 @@ const UserDetailsForm = ({ data }) => {
             onChange={handleChange}
             error={!!errors.city}
             helperText={errors.city}
+            InputProps={{
+              readOnly: true,
+            }}
           />
         </Grid>
         <Grid item xs={12} sm={6}>
@@ -183,6 +186,9 @@ const UserDetailsForm = ({ data }) => {
             onChange={handleChange}
             error={!!errors.state}
             helperText={errors.state}
+            InputProps={{
+              readOnly: true,
+            }}
           />
         </Grid>
         <Grid item xs={12} sm={6}>
@@ -195,6 +201,9 @@ const UserDetailsForm = ({ data }) => {
             onChange={handleChange}
             error={!!errors.zip}
             helperText={errors.zip}
+            InputProps={{
+              readOnly: true,
+            }}
           />
         </Grid>
       </Grid>
