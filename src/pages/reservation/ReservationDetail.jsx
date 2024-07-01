@@ -31,7 +31,7 @@ const theme = createTheme({
 
 const ReservationDetail = () => {
   const { state, setReservaData } = useContextGlobal();
-  const { user, reservaData, totalReservationCost, paymentInfo, token } = state;
+  const { user, reservaData, totalReservationCost, paymentInfo } = state;
   const { startDate, endDate } = reservaData;
   const navigate = useNavigate();
 
@@ -93,7 +93,7 @@ const ReservationDetail = () => {
     try {
       const response = await fetchData({
         method: 'POST',
-        endpoint: 'apidh/reservations',
+        endpoint: 'https://apidh.jackmoon.dev/reservations',
         data: {
           productId: reservaDataPost.productId,
           startDate: reservaDataPost.startDate,
