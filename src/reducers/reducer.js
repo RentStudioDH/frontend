@@ -56,6 +56,7 @@ export const reducer = (state, action) => {
         userInitials: action.payload.initials,
         isLoggedIn: true,
         role: action.payload.user.role,
+        favs: JSON.parse(localStorage.getItem('favs')) || [], // Cargar favs desde localStorage al loguear
       }
     case 'UPDATE_USER':
       return { 
@@ -71,6 +72,7 @@ export const reducer = (state, action) => {
         isLoggedIn: false,
         role: '',
         token: '',
+        favs: [], // Limpiar favs al desloguear
       }
     case 'SET_USER_DATA':
       return { 
@@ -82,6 +84,11 @@ export const reducer = (state, action) => {
       return { ...state, users: action.payload }
 
     // Favoritos
+    case 'SET_FAVS':
+      return {
+        ...state, 
+        favs: action.payload
+      }
     case 'ADD_FAV':
       return {
         ...state, 
@@ -90,7 +97,7 @@ export const reducer = (state, action) => {
     case 'REMOVE_FAV':
       return {
         ...state,
-        favs: state.favs.filter(fav => fav.id !== action.payload)
+        favs: state.favs.filter(fav => fav !== action.payload)
       }
 
     // Reserva
@@ -112,7 +119,7 @@ export const reducer = (state, action) => {
           ...state.user,
           address: action.payload.address,
         },
-      };
+      }
 
     case 'UPDATE_USER_DATA':
       return {
@@ -121,7 +128,7 @@ export const reducer = (state, action) => {
           ...state.user,
           ...action.payload,
         },
-      };  
+      }  
 
     case 'UPDATE_PAYMENT_INFO':
       return {
@@ -130,7 +137,7 @@ export const reducer = (state, action) => {
           ...state.paymentInfo,
           ...action.payload,
         },
-      };
+      }
       
     default:
       return state

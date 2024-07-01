@@ -24,9 +24,9 @@ export const initialState = {
   isLoggedIn: !!Cookies.get('token'),
   role: userFromCookies.role || 'user',
   token: Cookies.get('token') || '',
+  lastTokenRefresh: null,
   favs: JSON.parse(localStorage.getItem('favs')) || [],
   suggestions: [],
-  lastTokenRefresh: null,
   reservaData: {
     id: null,
     productData: null,
@@ -46,7 +46,6 @@ export const initialState = {
     expirationDate: '',
     securityCode: '',
   },
-  
 }
 
 export const ContextProvider = ({ children }) => {
@@ -77,6 +76,18 @@ export const ContextProvider = ({ children }) => {
   useEffect(() => {
     localStorage.setItem('favs', JSON.stringify(state.favs))
   }, [state.favs])
+  // Manejo de favoritos
+  const toggleFav = (productId) => {
+    const isFav = state.favs.includes(productId)
+    let newFavs = []
+    if (isFav) {
+      newFavs = state.favs.filter(fav => fav !== productId)
+    } else {
+      newFavs = [...state.favs, productId]
+    }
+    dispatch({ type: 'SET_FAVS', payload: newFavs })
+    localStorage.setItem('favs', JSON.stringify(newFavs))
+  }
 
   // Productos
   const urlProducts = '/products'
@@ -216,6 +227,7 @@ export const ContextProvider = ({ children }) => {
   }
   // Obtener cantidad de usuarios
   const getUsers = async () => {
+    if (!state.isLoggedIn) return
     try {
       const users = await fetchData({ method: 'get', endpoint: '/users', requireAuth: true })
       dispatch({ type: 'SET_USERS', payload: users })
@@ -224,28 +236,31 @@ export const ContextProvider = ({ children }) => {
     }
   }
   useEffect(() => {
-    getUsers()
-  }, [])
-// Actualizar dirección del usuario
-const updateUserAddress = async (userId, updatedUser) => {
-  try {
-    const response = await fetchData({ method: 'put', endpoint: `/users/${userId}`, data: updatedUser, requireAuth: true });
-    dispatch({ type: 'UPDATE_USER_ADDRESS', payload: response });
-    Cookies.set('user', JSON.stringify(response), { secure: true, sameSite: 'Strict' });
-  } catch (error) {
-    console.error('Error updating user address:', error);
-    throw error;
+    if (state.isLoggedIn) {
+      getUsers()
+    }
+  }, [state.isLoggedIn])
+  // Actualizar dirección del usuario
+  const updateUserAddress = async (userId, updatedUser) => {
+    try {
+      const response = await fetchData({ method: 'put', endpoint: `/users/${userId}`, data: updatedUser, requireAuth: true })
+      dispatch({ type: 'UPDATE_USER_ADDRESS', payload: response })
+      Cookies.set('user', JSON.stringify(response), { secure: true, sameSite: 'Strict' })
+    } catch (error) {
+      console.error('Error updating user address:', error)
+      throw error
+    }
   }
-};
 
   // Función para actualizar los datos del usuario
   const updateUserData = (userData) => {
-    dispatch({ type: 'UPDATE_USER_DATA', payload: userData });
-  };
+    dispatch({ type: 'UPDATE_USER_DATA', payload: userData })
+  }
 
 
   // Reservas
   const getUserReservations = async () => {
+    if (!state.isLoggedIn) return
     try {
       const response = await fetchData({ method: 'get', endpoint: '/user/reservations', requireAuth: true })
       return response.map(reservation => ({
@@ -265,8 +280,8 @@ const updateUserAddress = async (userId, updatedUser) => {
 
   // Función para actualizar el costo total de la reserva
   const setReservationCost = (cost) => {
-    dispatch({ type: 'SET_RESERVATION_COST', payload: cost });
-  };
+    dispatch({ type: 'SET_RESERVATION_COST', payload: cost })
+  }
 
   // Sugerencias
   const urlSearch = '/public/products/search'
@@ -292,6 +307,7 @@ const updateUserAddress = async (userId, updatedUser) => {
     state,
     dispatch,
     toggleTheme,
+    toggleFav,
     getProducts,
     getProductById,
     addProduct,
@@ -301,15 +317,15 @@ const updateUserAddress = async (userId, updatedUser) => {
     removeCategory,
     uploadImage,
     loginUser,
-    updateUserAddress ,
-    updateUserData ,
+    updateUserAddress,
+    updateUserData,
     getUserData,
     registerUser,
     logoutUser,
     getUserReservations,
     fetchSuggestions,
     setReservaData,
-    setReservationCost
+    setReservationCost,
   }
 
   return (

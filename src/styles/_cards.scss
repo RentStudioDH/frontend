@@ -61,12 +61,10 @@
   }
 }
 
-@media (min-width: 640px) {
+@media (min-width: 900px) {
   .cont-products {
     grid-template-columns: repeat(2, minmax(250px, 1fr));
   }
-}
-@media (min-width: 900px) {
   .product {
     grid-template-columns: 35% 1fr;
     grid-template-rows: auto;
