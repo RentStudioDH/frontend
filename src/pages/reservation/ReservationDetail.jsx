@@ -2,18 +2,35 @@ import React, { useState } from 'react';
 import { Box, Button, Container, createTheme, ThemeProvider, Typography } from '@mui/material';
 import { useContextGlobal } from '../../contexts/global.context';
 import { Link, useNavigate } from 'react-router-dom';
-import ErrorOutlineIcon from '@mui/icons-material/ErrorOutline';
-
 import UserDetailsForm from '../../components/molecules/reservation/UserDetailsForm';
 import TusSelecciones from '../../components/molecules/reservation/TusSelecciones';
 import PaymentForm from '../../components/atoms/reservation/PaymentForm';
 import ReservaSection from '../../components/organisms/sections/ReservaSection';
-import ReservationSummaryModal from '../../components/atoms/reservation/ReservationSummaryModal ';
+import ReservationSummaryModal from '../../components/atoms/reservation/ReservationSummaryModal';
 import Swal from 'sweetalert2';
+import ReservationError from '../../components/atoms/reservation/errorModals/ReservationError'; 
+import ErrorModal from '../../components/atoms/reservation/errorModals/ErrorModal'; 
+
+const formatDate = (date) => {
+  const d = new Date(date);
+  const month = (d.getMonth() + 1).toString().padStart(2, '0');
+  const day = d.getDate().toString().padStart(2, '0');
+  const year = d.getFullYear();
+  return `${year}-${month}-${day}`;
+};
+
+const theme = createTheme({
+  palette: {
+    primary: {
+      main: '#A62639',
+    }
+  },
+});
+
 
 const ReservationDetail = () => {
-  const { state } = useContextGlobal();
-  const { user, reservaData, totalReservationCost, paymentInfo } = state;
+  const { state, setReservaData } = useContextGlobal();
+  const { user, reservaData, totalReservationCost, paymentInfo, token } = state;
   const { startDate, endDate } = reservaData;
   const navigate = useNavigate();
 
@@ -24,27 +41,29 @@ const ReservationDetail = () => {
   const [reservaDataPost, setReservaDataPost] = useState({
     productId: reservaData.id,
     userId: user.id,
-    startDate: "",
-    endDate: "",
+    startDate: formatDate(startDate),
+    endDate: formatDate(endDate),
     totalReservationCost: "",
     informacionDePago: ""
   });
 
   const handleCompleteReservation = () => {
-    setReservaDataPost({
-      ...reservaDataPost,
-      startDate: `${startDate.getDate()}/${startDate.getMonth() + 1}/${startDate.getFullYear()}`,
-      endDate: `${endDate.getDate()}/${endDate.getMonth() + 1}/${endDate.getFullYear()}`,
-      totalReservationCost: totalReservationCost,
-      informacionDePago: paymentInfo
-    });
-
-    if (validarDatos()) {
+    // Validar los datos antes de proceder
+    const isValid = validarDatos();
+    if (isValid) {
+      setReservaDataPost({
+        ...reservaDataPost,
+        informacionDePago: paymentInfo
+      });
+      
+      // Mostrar el modal de resumen de reserva
       setShowSummaryModal(true);
     } else {
+      // Mostrar el modal de error si los datos no son válidos
       setShowErrorModal(true);
     }
   };
+  
 
   const validarDatos = () => {
     const errors = [];
@@ -56,79 +75,73 @@ const ReservationDetail = () => {
     if (!user.address || !user.address.city) errors.push('Ciudad es obligatoria.');
     if (!user.address || !user.address.state) errors.push('Provincia/Estado es obligatorio.');
     if (!user.address || !user.address.zip) errors.push('Código Postal es obligatorio.');
-    if (!reservaDataPost.informacionDePago) errors.push('La información de pago es obligatoria.');
-
+    
+    // Validar información de pago
+    if (!paymentInfo.cardNumber) errors.push('Número de tarjeta es obligatorio.');
+    if (!paymentInfo.expirationDate) errors.push('Fecha de vencimiento es obligatoria.');
+    if (!paymentInfo.securityCode) errors.push('Codigo de seguridad es obligatorio.');
+  
     setErrorMessages(errors);
     return errors.length === 0;
   };
+  
 
-  const confirmReservation = () => {
+  const confirmReservation = async () => {
     setShowSummaryModal(false);
-    Swal.fire({
-      icon: 'success',
-      title: '¡Producto Reservado con Éxito!',
-      html: `
-        <p style="color: #7a7a7a">${reservaData.productData.name}</p>
-        <br>
-        <p>Redirigiendo a la página de Mis Reservas...</p>
-      `,
-      showConfirmButton: true,
-      confirmButtonColor: '#511C29',
-      confirmButtonText: 'Ir a Mis Reservas',
-      allowOutsideClick: false,
-    }).then((result) => {
-      if (result.isConfirmed) {
-        navigate('/user/reservas');
+
+    try {
+      console.log(reservaDataPost);
+      const response = await fetch('/reservations', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': `Bearer ${token}`
+        },
+        body: JSON.stringify({
+          productId: reservaDataPost.productId,
+          startDate: reservaDataPost.startDate,
+          endDate: reservaDataPost.endDate,
+          payment: reservaDataPost.informacionDePago
+        })
+      });
+
+      if (!response.ok) {
+        throw new Error('Failed to confirm reservation');
       }
-    });
+
+
+      Swal.fire({
+        icon: 'success',
+        title: '¡Producto Reservado con Éxito!',
+        html: `
+          <p style="color: #7a7a7a">${reservaData.productData.name}</p>
+          <br>
+          <p>Redirigiendo a la página de Mis Reservas...</p>
+        `,
+        showConfirmButton: true,
+        confirmButtonColor: '#511C29',
+        confirmButtonText: 'Ir a Mis Reservas',
+        allowOutsideClick: false,
+      }).then((result) => {
+        if (result.isConfirmed) {
+          navigate('/user/reservas');
+        }
+      });
+
+    } catch (error) {
+      Swal.fire({
+        icon: 'error',
+        title: 'Oops...',
+        text: 'Hubo un problema al confirmar la reserva. Por favor, inténtalo nuevamente más tarde.',
+      });
+    }
   };
 
-  const theme = createTheme({
-    palette: {
-      primary: {
-        main: '#A62639',
-      }
-    },
-  });
+
 
   if (reservaData.id == null) {
-    return (
-      <Container>
-        <div className='flex items-center g-5 mb-6 mt-8'>
-          <Link onClick={() => navigate(-1)}>
-            <i className="fa-solid fa-arrow-left txt-accent title"></i>
-          </Link>
-          <h1 className='txt-accent title '><strong>Detalles de la reserva</strong></h1>
-        </div>
-        <Box display="flex" flexDirection={"column"} justifyContent="center" alignItems="center" minHeight="50vh" textAlign="center">
-          <ErrorOutlineIcon color="error" style={{ fontSize: 100, marginBottom: '1rem' }} />
-          <Typography variant="h5" color="textPrimary" gutterBottom>
-            ¡Oops! Parece que hubo un problema.
-          </Typography>
-          <Typography variant="body1" color="textSecondary">
-            Los datos de la reserva no fueron cargados con éxito. Por favor, inténtalo nuevamente más tarde.
-          </Typography>
-          <Box marginTop={4}>
-            <Button variant="contained" sx={{bgcolor:"#A62639"}} onClick={() => navigate(-1)}>
-              Volver
-            </Button>
-          </Box>
-        </Box>
-      </Container>
-    );
+    return <ReservationError />;
   }
-
-  const renderErrorModal = () => {
-    Swal.fire({
-      icon: 'error',
-      title: 'Oops...',
-      html: `<ul>${errorMessages.map((msg, index) => `<li key=${index}>${msg}</li>`).join('')}</ul>`,
-      confirmButtonText: 'Entendido',
-      confirmButtonColor: '#A62639'
-    }).then(() => {
-      setShowErrorModal(false);
-    });
-  };
 
   return (
     <Container>
@@ -167,13 +180,13 @@ const ReservationDetail = () => {
         show={showSummaryModal}
         onHide={() => setShowSummaryModal(false)}
         confirmReservation={confirmReservation}
-        reservaDataPost={reservaDataPost} // pasamos los datos de la reserva
+        reservaDataPost={reservaDataPost}
         user={user}
         totalReservationCost={totalReservationCost}
         paymentInfo={paymentInfo}
       />
 
-      {showErrorModal && renderErrorModal()}
+      {showErrorModal && <ErrorModal errorMessages={errorMessages} onClose={() => setShowErrorModal(false)} />}
     </Container>
   );
 };
