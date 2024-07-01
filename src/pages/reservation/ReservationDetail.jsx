@@ -90,7 +90,6 @@ const ReservationDetail = () => {
     setShowSummaryModal(false);
 
     try {
-      console.log(reservaDataPost);
       const response = await fetch('/reservations', {
         method: 'POST',
         headers: {
