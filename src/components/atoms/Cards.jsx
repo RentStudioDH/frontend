@@ -1,20 +1,41 @@
 import { Link } from 'react-router-dom'
-import Buttons from './Buttons'
 import { useContextGlobal } from '../../contexts/global.context'
 
 const Cards = ({ type, data, openModal }) => {
-  const { state, dispatch } = useContextGlobal()
+  const { state, toggleFav } = useContextGlobal()
+  const { favs, isLoggedIn, isDesktop } = state
+  const isFav = favs.includes(data.id)
 
-  const handleToggleFav = (item) => {
-    if (isFavorite) {
-      dispatch({ type: 'REMOVE_FAV', payload: item.id })
-    } else {
-      dispatch({ type: 'ADD_FAV', payload: item })
+  const truncateText = (text, wordLimit) => {
+    const words = text.split(' ')
+    if (words.length > wordLimit) {
+      return words.slice(0, wordLimit).join(' ') + ' ...'
     }
+    return text
   }
 
-  const isFavorite = state.favs.some(fav => fav.id === data.id)
-  const isLoggedIn = state.isLoggedIn;
+  const renderFeatures = (features) => {
+    if (!features || features.length === 0) return null
+
+    const maxVisibleFeatures = 5
+    const visibleFeatures = features.slice(0, maxVisibleFeatures)
+    const remainingFeaturesCount = features.length - maxVisibleFeatures
+
+    return (
+      <div className="inline-flex flex-wrap items-center g-15 group">
+        {visibleFeatures.map(feature => (
+          <span key={feature.id} className="cursor-pointer">
+            <i className={`fa-solid fa-${feature.icon} txt-primary text-center paragraph`}></i>
+          </span>
+        ))}
+        {remainingFeaturesCount > 0 && (
+          <span className="cursor-pointer">
+            +{remainingFeaturesCount}
+          </span>
+        )}
+      </div>
+    )
+  }
 
   const renderCard = () => {
     if (!type) {
@@ -49,42 +70,41 @@ const Cards = ({ type, data, openModal }) => {
         )
       case 'product':
         return (
-    <div className="product-card">
-      <Link className={`bg-white grid h-full card ${type} br-15`} key={data.id} to={'/producto/' + data.id}>
-        <div className='image relative'>
-          <img src={firstImage} alt={data.name} loading='lazy' width={210} height={210} />
-          {isLoggedIn && (
-            <button
-              className="favorite-button absolute top-2 right-2 z-10"
-              onClick={(e) => {
-                e.preventDefault();
-                handleToggleFav(data);
-              }}
-              style={{
-                backgroundColor: isFavorite ? '#A62639' : 'transparent',
-                color: isFavorite ? '#fff' : '#A62639',
-                padding: '5px',
-                borderRadius: '50%',
-                border: 'none',
-                cursor: 'pointer',
-              }}
-            >
-              <i className="fa fa-heart" style={{ fontSize: '1.3rem' }} />
-            </button>
-          )}
-        </div>
-        <div className="flex flex-col justify-between info p-15 g-10">
-          <div className='flex flex-col details g-5'>
-            <h3 className="txt-primary subtitle"><strong>{data.name}</strong></h3>
-            <p className="txt-tertiary paragraph">{data.description}</p>
+          <div className="relative flex w-full flex-col md:flex-row rounded-lg bg-white bg-clip-border text-gray-700 shadow-lg br-15">
+            <div className="w-auto md:w-[30%] relative overflow-hidden shadow-lg br-15 bg-blue-gray-500 bg-clip-border shadow-blue-gray-500/40 m-[15px]">
+              <img src={firstImage} alt={data.name} className="w-full h-[200px] md:h-full object-cover" />
+              <div className="absolute inset-0 w-full h-full to-bg-black-10 bg-gradient-to-tr from-transparent via-transparent to-black/60"></div>
+            </div>
+            <div className="w-full md:w-[70%] flex flex-col justify-between p-15 g-15">
+              <div className='grid g-5'>
+                <h3 className="flex justify-between txt-primary subtitle g-5"><strong>{truncateText(data.name, 4)}</strong> {isLoggedIn && <i onClick={() => toggleFav(data.id)} className={`${!isDesktop && 'absolute top-[30px] right-[30px]'} fa-${isFav ? 'solid' : 'regular' } fa-heart cursor-pointer txt-primary subtitle`}></i>}</h3>
+                <p className="txt-tertiary paragraph">{truncateText(data.description, 15)}</p>
+                <p className="flex items-center txt-tertiary paragraph g-5"><i className="text-yellow-500 fa-solid fa-star"></i>5.0</p>
+                <p className="txt-primary subtitle" id='price'><strong>${data.price} / {data.rentType}</strong></p>
+              </div>
+              {renderFeatures(data.features)}
+              <Link className='h-fit txt-accent text-right paragraph hover:txt-primary' to={'/producto/' + data.id}><strong>Ver más <i className="fa-solid fa-chevron-right legal"></i></strong></Link>
+            </div>
           </div>
-          <div className='flex flex-col rent g-10'>
-            <p className="txt-primary paragraph" id='price'><strong>${data.price} / {data.rentType}</strong></p>
-            <Buttons text='Cotizar' bColor='#A62639' color='#fff' bgColor='#A62639' />
+        )
+      case 'productRecomended':
+        return (
+          <div className="relative flex w-full flex-col md:flex-row rounded-lg bg-white bg-clip-border text-gray-700 shadow-lg br-15">
+            <div className="w-auto md:w-[30%] relative overflow-hidden shadow-lg br-15 bg-blue-gray-500 bg-clip-border shadow-blue-gray-500/40 m-[15px]">
+              <img src={firstImage} alt={data.name} className="w-full h-[200px] md:h-full object-cover" />
+              <div className="absolute inset-0 w-full h-full to-bg-black-10 bg-gradient-to-tr from-transparent via-transparent to-black/60"></div>
+            </div>
+            <div className="w-full md:w-[70%] flex flex-col justify-between p-15 g-15">
+              <div className='grid g-5'>
+                <h3 className="flex justify-between txt-primary subtitle g-5"><strong>{truncateText(data.name, 4)}</strong> {isLoggedIn && <i className={`${!isDesktop && 'absolute top-[30px] right-[30px]'} fa-${isFav ? 'solid' : 'regular' } fa-heart txt-primary subtitle`}></i>}</h3>
+                <p className="txt-tertiary paragraph">{truncateText(data.description, 15)}</p>
+                <p className="flex items-center txt-tertiary paragraph g-5"><i className="text-yellow-500 fa-solid fa-star"></i>5.0</p>
+                <p className="txt-primary subtitle" id='price'><strong>${data.price} / {data.rentType}</strong></p>
+              </div>
+              {renderFeatures(data.features)}
+              <Link className='h-fit txt-accent text-right paragraph hover:txt-primary' to={'/producto/' + data.id}><strong>Ver más <i className="fa-solid fa-chevron-right legal"></i></strong></Link>
+            </div>
           </div>
-        </div>
-      </Link>
-    </div>
         )
       case 'adminDash':
         return (
@@ -133,26 +153,26 @@ const Cards = ({ type, data, openModal }) => {
             </td>
           </tr>
         )
-        case 'adminListUser':
-          return (
-            <tr className="bg-white hover:bg-accent txt-quaternary border-b paragraph">
-              <td className="w-4 p-15">
-                <div className="flex items-center">
-                  <input id={`checkbox-table-search-${data.id}`} type="checkbox" className="w-4 h-4 txt-primary bg-white border-gray-300 rounded focus:ring-blue-500 focus:ring-2" />
-                  <label htmlFor={`checkbox-table-search-${data.id}`} className="sr-only">checkbox</label>
-                </div>
-              </td>
-              <th scope="row" className="p-15">#{data.id}</th>
-              <td className="p-15">{data.firstName} {data.lastName} <br /> <span className='legal'>{data.email}</span></td>
-              <td className="p-15">
-                <label className="inline-flex items-center cursor-pointer g-5">
-                  <input type="checkbox" value="" className="sr-only peer"/>
-                  <div className="relative w-9 h-5 bg-gray-200  rounded-full peer peer-checked:after:translate-x-full rtl:peer-checked:after:-translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:start-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-4 after:w-4 after:transition-all peer-checked:bg-blue-600"></div>
-                  <span className="txt-tertiary group-checked:font-bold">Editor</span>
-                </label>
-              </td>
-            </tr>
-          )
+      case 'adminListUser':
+        return (
+          <tr className="bg-white hover:bg-accent txt-quaternary border-b paragraph">
+            <td className="w-4 p-15">
+              <div className="flex items-center">
+                <input id={`checkbox-table-search-${data.id}`} type="checkbox" className="w-4 h-4 txt-primary bg-white border-gray-300 rounded focus:ring-blue-500 focus:ring-2" />
+                <label htmlFor={`checkbox-table-search-${data.id}`} className="sr-only">checkbox</label>
+              </div>
+            </td>
+            <th scope="row" className="p-15">#{data.id}</th>
+            <td className="p-15">{data.firstName} {data.lastName} <br /> <span className='legal'>{data.email}</span></td>
+            <td className="p-15">
+              <label className="inline-flex items-center cursor-pointer g-5">
+                <input type="checkbox" value="" className="sr-only peer"/>
+                <div className="relative w-9 h-5 bg-gray-200  rounded-full peer peer-checked:after:translate-x-full rtl:peer-checked:after:-translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:start-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-4 after:w-4 after:transition-all peer-checked:bg-blue-600"></div>
+                <span className="txt-tertiary group-checked:font-bold">Editor</span>
+              </label>
+            </td>
+          </tr>
+        )
       case 'error-admin':
         return (
           <section className='w-full grid place-items-center p-8'>

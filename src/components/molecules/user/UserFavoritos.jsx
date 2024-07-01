@@ -1,64 +1,65 @@
-import React, { useState } from 'react';
-import { useContextGlobal } from "../../../contexts/global.context";
-import { Typography, Grid, Pagination, Paper } from '@mui/material';
-import Cards from '../../atoms/Cards';
-import CameraIcon from '@mui/icons-material/CameraAlt';
+import { useEffect, useState } from 'react'
+import { useContextGlobal } from "../../../contexts/global.context"
+import Cards from '../../atoms/Cards'
 
-const UserFavoritos = () => {
-  const { state } = useContextGlobal();
-  const [currentPage, setCurrentPage] = useState(1);
-  const itemsPerPage = 3; // Número de elementos por página
-  const favorites = state.favs;
+const UserFavoritos = ({ title }) => {
+  const { state } = useContextGlobal()
+  const { favs, data } = state
+  const [currentIndex, setCurrentIndex] = useState(0)
+  const [favProducts, setFavProducts] = useState([])
+  console.log(favs)
 
-  // Calcular el número total de páginas
-  const totalPages = Math.ceil(favorites.length / itemsPerPage);
+  useEffect(() => {
+    const favoriteProducts = data.filter(product => favs.includes(product.id))
+    setFavProducts(favoriteProducts)
+  }, [favs, data])
 
-  // Obtener los elementos para la página actual
-  const currentItems = favorites.slice(
-    (currentPage - 1) * itemsPerPage,
-    currentPage * itemsPerPage
-  );
+  const handleNext = () => {
+    setCurrentIndex((prevIndex) => {
+      const nextIndex = prevIndex + 1
+      if (nextIndex >= favProducts.length - 1) {
+        return 0
+      }
+      return nextIndex
+    })
+  }
 
-  const handlePageChange = (event, value) => {
-    setCurrentPage(value);
-  };
+  const handlePrev = () => {
+    setCurrentIndex((prevIndex) => {
+      const nextIndex = prevIndex - 1
+      if (nextIndex < 0) {
+        return favProducts.length - 2
+      }
+      return nextIndex
+    })
+  }
 
+  console.log(favProducts)
   return (
-    <div>
-      <Typography variant="h4" component="h1" sx={{ color: "#56494E", marginBottom: 2 }}>
-        <strong>Favoritos</strong>
-      </Typography>
-      <Paper elevation={4} sx={{ padding: 2, borderRadius: "9px" }}>
-        {favorites.length > 0 ? (
-          <>
-            <Grid container spacing={4} direction="column">
-              {currentItems.map((item) => (
-                <Grid item key={item.id}>
-                  <Cards type="product" data={item} />
-                </Grid>
-              ))}
-            </Grid>
-            <Pagination
-              count={totalPages}
-              page={currentPage}
-              onChange={handlePageChange}
-              sx={{ marginTop: 3, justifyContent: 'center', display: 'flex' }}
-            />
-          </>
-        ) : (
-          <div style={{ textAlign: 'center', padding: '20px' }}>
-            <CameraIcon style={{ fontSize: 100, color: '#ccc' }} />
-            <Typography variant="h6" component="p" sx={{ marginTop: 2 }}>
-              No se encontraron favoritos.
-            </Typography>
-            <Typography variant="body1" component="p" sx={{ marginTop: 1 }}>
-              ¡Agrega tus productos favoritos para verlos aquí!
-            </Typography>
+    <>
+      <h1 className="txt-accent bigtitle"><strong>{title}</strong></h1>
+      {favProducts.length > 0 ? (
+        <div className="relative px-[30px]">
+          <div className="relative flex g-15">
+            {favProducts.slice(currentIndex, currentIndex + 2).map((product) => (
+              <Cards key={product.id} type="product" data={product} />
+            ))}
+            {favProducts.length > 2 && (
+              <>
+                <i className="cursor-pointer absolute right-[-30px] top-[50%] txt-accent title fa-solid fa-chevron-right" onClick={handleNext}></i>
+                <i className="cursor-pointer absolute left-[-30px] top-[50%] txt-accent title fa-solid fa-chevron-left" onClick={handlePrev}></i>
+              </>
+            )}
           </div>
-        )}
-      </Paper>
-    </div>
-  );
-};
+        </div>
+      ) : (
+        <div className="bg-white grid place-items-center rounded-lg shadow-md p-15 g-5">
+          <h2 className="txt-accent subtitle"><strong>Aún no tienes productos favoritos</strong></h2>
+          <p className="txt-tertiary">¡Explora nuestros productos y agrega tus favoritos para encontrarlos aquí fácilmente!</p>
+        </div>
+      )}
+    </>
+  )
+}
 
-export default UserFavoritos;
+export default UserFavoritos
