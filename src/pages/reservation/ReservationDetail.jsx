@@ -93,7 +93,7 @@ const ReservationDetail = () => {
     try {
       const response = await fetchData({
         method: 'POST',
-        endpoint: '/reservations',
+        endpoint: 'apidh/reservations',
         data: {
           productId: reservaDataPost.productId,
           startDate: reservaDataPost.startDate,
