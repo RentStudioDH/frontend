@@ -8,6 +8,7 @@ import AvatarUser from "../user/AvatarUser"
 
 const NavUser = () => {
   const { state, logoutUser } = useContextGlobal()
+  const { isLoggedIn, user, isDesktop } = state
   const [isModalVisible, setIsModalVisible] = useState(false)
   const [modalType, setModalType] = useState('')
   const [isDropdownVisible, setIsDropdownVisible] = useState(false)
@@ -28,21 +29,21 @@ const NavUser = () => {
 
   return (
     <>
-      {state.isLoggedIn ? (
-        <div className={`relative ${state.isDesktop ? '' : 'grid place-items-end'}`}>
+      {isLoggedIn ? (
+        <div className={`relative ${isDesktop ? '' : 'grid place-items-end'}`}>
           <div className="flex items-center g-5" onClick={toggleDropdown}>
-            <span className="txt-tertiary paragraph">{state.user.firstName}</span>
+            <span className="txt-tertiary paragraph">{user.firstName}</span>
             <AvatarUser size={40} />
           </div>
           {isDropdownVisible && (
-            <div className={`relative md:absolute w-auto grid place-items-end right-0 mt-2 br-15 z-20 ${state.isDesktop ? 'bg-back shadow-lg' : 'bg-transparent'}`}>
+            <div className={`relative md:absolute w-auto grid place-items-end right-0 mt-2 br-15 z-20 ${isDesktop ? 'bg-back shadow-lg' : 'bg-transparent'}`}>
               <Link className="txt-tertiary paragraph md:px-4 py-2 hover:brightness-75" to={routes.user.profile} onClick={toggleDropdown}>{userMenuItems[0].label}</Link>
-              {state.user.role === "ROLE_ADMIN" && (
-                <Link className="txt-tertiary paragraph md:px-4 py-2 hover:brightness-75" to={routes.admin.dashboard} onClick={toggleDropdown}>Administrador</Link>
+              {user.role !== 'ROLE_USER' && (
+                <Link className="txt-tertiary paragraph md:px-4 py-2 hover:brightness-75" to={routes.admin.dashboard} onClick={toggleDropdown}>Administrar</Link>
               )}
               <Link className="txt-tertiary paragraph md:px-4 py-2 hover:brightness-75" to={routes.user.favs} onClick={toggleDropdown}>{userMenuItems[3].label}</Link>
               <Link className="txt-tertiary paragraph md:px-4 py-2 hover:brightness-75" to={routes.products} onClick={toggleDropdown}>Productos</Link>
-              {state.isDesktop && (
+              {isDesktop && (
                 <Buttons text={<strong>Logout</strong>} onClick={logoutUser} bColor='transparent' color='#A62639' bgColor='transparent' />
               )}
             </div>
