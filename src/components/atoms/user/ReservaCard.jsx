@@ -1,10 +1,12 @@
 import React, { useEffect, useState } from 'react';
 import { Paper, Typography, Box, Button } from '@mui/material';
 import { useContextGlobal } from '../../../contexts/global.context';
+import { useNavigate } from 'react-router-dom';
 
 const ReservaCard = ({ reservation, onClick }) => {
   const { getProductById } = useContextGlobal();
   const [productData, setProductData] = useState(null);
+  const navigate = useNavigate();
 
   useEffect(() => {
     const fetchData = async () => {
@@ -19,16 +21,23 @@ const ReservaCard = ({ reservation, onClick }) => {
     fetchData();
   }, [reservation, getProductById]);
 
+  const handleReservationClick = (id) => {
+    navigate(`/producto/${id}`);
+  };
+
   const firstImage =
     productData?.attachments?.length > 0
       ? productData.attachments[0].url
       : 'https://digitalhouse-e7-pi.s3.amazonaws.com/-Rhd-l2yWTj6iEqg7EhN9Q%3D%3D.png';
 
+  const formattedDate = new Date(reservation.creationDateTime).toLocaleDateString();
+
+
   return (
     <Paper 
       elevation={3} 
       sx={{ display: 'flex', alignItems: 'center', marginBottom: 2, cursor: 'pointer' }}
-      onClick={() => onClick(reservation.id)}
+      onClick={() => handleReservationClick(reservation.productId)}
     >
       <Box 
         component="img"
@@ -37,11 +46,14 @@ const ReservaCard = ({ reservation, onClick }) => {
         alt={productData?.attachments?.[0]?.fileName || 'Default Image'}
       />
       <Box sx={{ display: 'flex', flexDirection: 'column', padding: 2, width: '50%' }}>
-        <Typography variant="h4" component="div" color={"#511C29"}>
+        <Typography variant="h6" component="div" color={"#511C29"}>
           {productData?.name || 'Loading...'}
         </Typography>
         <Typography variant="body1" color="text.secondary" sx={{ marginTop: 1 }}>
-          Fecha: {reservation.creationDateTime}
+        <strong>Fecha de cuando se realizó la reserva:</strong> {formattedDate}
+        </Typography>
+        <Typography variant="body1" color="text.secondary" sx={{ marginTop: 1 }}>
+        <strong>Total:</strong> $ {reservation.amount}
         </Typography>
       </Box>
       <Button 
