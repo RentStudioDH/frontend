@@ -40,10 +40,6 @@ const MiPerfil = () => {
         </div>        
       </div>
       <Grid container spacing={2} alignItems='center'>
-        <Grid item xs={12} md={6}>
-          <InfoUser title='Telefono' subtitle={userData.telefono} />
-          <InfoUserPassword />
-        </Grid>
         <Grid item xs={12} sx={{ display: 'flex', justifyContent: { xs: 'center', md: 'flex-end' }, marginTop: 2 }}>
           <Button
             variant='contained'
