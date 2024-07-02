@@ -1,4 +1,6 @@
-import { useState } from "react"
+import { useState } from "react";
+import ShareButton from "../share/ShareButton";
+import { Rating } from "@mui/material";
 
 const ProductDetails = ({ data }) => {
   const [features, setFeatures] = useState(data.features || [])
@@ -36,6 +38,7 @@ const ProductDetails = ({ data }) => {
       <div className="br-15 image shadow-lg relative">
         <img src={firstImage} alt={data.title} width={450} height={450} loading="lazy" className="block" />
       </div>
+        <Rating name="read-only" value={data.rating || 4} readOnly />
     </>
   )
 }
