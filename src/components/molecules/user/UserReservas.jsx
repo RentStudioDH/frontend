@@ -24,7 +24,6 @@ const UserReservas = () => {
           requireAuth: true,
         });
         setReservations(response);
-        console.log(response);
       } catch (error) {
         console.error("Error fetching reservations:", error);
       }
@@ -32,9 +31,7 @@ const UserReservas = () => {
     fetchReservations();
   }, [state.token]);
 
-  const handleReservationClick = (reservationId) => {
-    navigate(`/producto/${reservationId}`);
-  };
+
 
   const handlePageChange = (newPage) => {
     setCurrentPage(newPage);
@@ -59,7 +56,6 @@ const UserReservas = () => {
                 <Grid item xs={12} key={reservation.id}>
                   <ReservaCard 
                     reservation={reservation} 
-                    onClick={handleReservationClick}
                   />
                 </Grid>
               ))}
@@ -84,16 +80,16 @@ const UserReservas = () => {
                 Anterior
               </Button>
               <Button
-                        variant="contained" 
-                        sx={{ 
-                          bgcolor: "#A62639", 
-                          color: "white",
-                          alignSelf: 'flex-end',
-                          margin: 2,
-                          '&:hover': {
-                            bgcolor: "#A62639" // Mantén el mismo color al hacer hover
-                          } 
-                        }} 
+                variant="contained" 
+                sx={{ 
+                  bgcolor: "#A62639", 
+                  color: "white",
+                  alignSelf: 'flex-end',
+                  margin: 2,
+                  '&:hover': {
+                    bgcolor: "#A62639" // Mantén el mismo color al hacer hover
+                  } 
+                }} 
                 disabled={(currentPage + 1) * ITEMS_PER_PAGE >= reservations.length}
                 onClick={() => handlePageChange(currentPage + 1)}
               >
