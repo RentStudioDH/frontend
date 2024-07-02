@@ -7,7 +7,6 @@ const UserFavoritos = ({ title }) => {
   const { favs, data } = state
   const [currentIndex, setCurrentIndex] = useState(0)
   const [favProducts, setFavProducts] = useState([])
-  console.log(favs)
 
   useEffect(() => {
     const favoriteProducts = data.filter(product => favs.includes(product.id))

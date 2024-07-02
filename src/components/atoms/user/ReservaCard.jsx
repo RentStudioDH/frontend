@@ -61,6 +61,12 @@ const ReservaCard = ({ reservation, onClick }) => {
           <strong>Fecha de cuando se realizó la reserva:</strong> {formattedDate}
         </Typography>
         <Typography variant="body1" color="text.secondary" sx={{ marginTop: 1 }}>
+          <strong>Fecha de Entrega:</strong> {reservation.startDate}
+        </Typography>
+        <Typography variant="body1" color="text.secondary" sx={{ marginTop: 1 }}>
+          <strong>Fecha de Devolución:</strong> {reservation.endDate}
+        </Typography>
+        <Typography variant="body1" color="text.secondary" sx={{ marginTop: 1 }}>
           <strong>Total:</strong> $ {reservation.amount}
         </Typography>
       </Box>
