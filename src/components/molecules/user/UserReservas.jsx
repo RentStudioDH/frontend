@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { useContextGlobal } from "../../../contexts/global.context";
-import { Paper, Typography, Grid, Link, Button } from '@mui/material';
+import { Paper, Typography, Grid, Link, Button, CircularProgress } from '@mui/material';
 import CameraIcon from '@mui/icons-material/CameraAlt'; 
 import ReservaCard from '../../atoms/user/ReservaCard';
 import { Link as RouterLink, useNavigate } from 'react-router-dom'; 
@@ -13,6 +13,7 @@ const UserReservas = () => {
   const { state } = useContextGlobal();
   const [reservations, setReservations] = useState([]);
   const [currentPage, setCurrentPage] = useState(0);
+  const [loading, setLoading] = useState(true); // Estado para controlar la carga
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -24,14 +25,13 @@ const UserReservas = () => {
           requireAuth: true,
         });
         setReservations(response);
+        setLoading(false); // Cambia el estado a false cuando se completó la carga
       } catch (error) {
         console.error("Error fetching reservations:", error);
       }
     };
     fetchReservations();
   }, [state.token]);
-
-
 
   const handlePageChange = (newPage) => {
     setCurrentPage(newPage);
@@ -48,7 +48,11 @@ const UserReservas = () => {
         <strong>Reservas</strong>
       </Typography>
       <Paper elevation={4} sx={{ padding: 2, borderRadius: "9px", minHeight: "25rem" }}>
-        {reservations.length > 0 ? (
+        {loading ? ( // Mostrar el spinner mientras se cargan los datos
+          <Box sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center', height: '100%' }}>
+            <CircularProgress />
+          </Box>
+        ) : reservations.length > 0 ? (
           <>
             {/* Mostrar las reservas paginadas */}
             <Grid container spacing={2}>
