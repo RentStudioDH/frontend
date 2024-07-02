@@ -7,37 +7,55 @@ import { useNavigate } from 'react-router-dom'
 import { useContextGlobal } from '../../../contexts/global.context'
 import Swal from 'sweetalert2'
 import Modals from '../../atoms/Modals'
-
-// Simular datos recibidos desde una API
-const occupiedDates = [
-  { start: parseISO('2024-06-15'), end: parseISO('2024-06-16') },
-  { start: parseISO('2024-06-20'), end: parseISO('2024-06-22') },
-  { start: parseISO('2024-06-25'), end: parseISO('2024-06-26') },
-  { start: parseISO('2024-07-01'), end: parseISO('2024-07-02') },
-  { start: parseISO('2024-07-05'), end: parseISO('2024-07-06') },
-  { start: parseISO('2024-07-10'), end: parseISO('2024-07-12') },
-  { start: parseISO('2024-07-15'), end: parseISO('2024-07-16') },
-  { start: parseISO('2024-07-20'), end: parseISO('2024-07-22') },
-  { start: parseISO('2024-07-25'), end: parseISO('2024-07-26') },
-  { start: parseISO('2024-08-01'), end: parseISO('2024-08-02') },
-]
+import { fetchData } from '../../../utils/js/apiRequest'
 
 const ProductAvailability = ({ data }) => {
-  const { price, rentType, stock } = data
+  const { price, rentType, stock, id } = data
   const [startDate, setStartDate] = useState(null)
   const [endDate, setEndDate] = useState(null)
-  const [isModalVisible, setIsModalVisible] = useState(false) // Estado para controlar la visibilidad del modal
-  const [modalType, setModalType] = useState('loginUser') // Tipo de modal a mostrar
+  const [isModalVisible, setIsModalVisible] = useState(false)
+  const [modalType, setModalType] = useState('loginUser')
+  const [occupiedDates, setOccupiedDates] = useState([])
+  const [currentStock, setCurrentStock] = useState(stock)
 
   const navigate = useNavigate()
   const { state, setReservaData } = useContextGlobal()
 
-  const initialStock = stock - occupiedDates.length
-  const [currentStock, setCurrentStock] = useState(initialStock)
+  const fetchOccupiedDates = async () => {
+    try {
+      const response = await fetchData({
+        method: 'get',
+        endpoint: `/public/products/${id}/availability`,
+        requireAuth: false,
+      })
+      console.log(response)  // Verifica la estructura de la respuesta
+
+      const dates = response.occupiedDates.map(range => ({
+        startDate: parseISO(range.startDate),
+        endDate: parseISO(range.endDate),
+      }))
+      setOccupiedDates(dates)
+    } catch (error) {
+      console.error('Error fetching occupied dates:', error)
+    }
+  }
+
+  useEffect(() => {
+    fetchOccupiedDates()
+  }, [id])
+
+  useEffect(() => {
+    const calculateStock = () => {
+      const availableStock = stock - occupiedDates.length
+      setCurrentStock(availableStock)
+    }
+
+    calculateStock()
+  }, [occupiedDates, stock])
 
   const isOccupied = (date) => {
     return occupiedDates.some((range) => {
-      return isWithinInterval(date, { start: range.start, end: range.end })
+      return isWithinInterval(date, { start: range.startDate, end: range.endDate })
     })
   }
 
@@ -79,13 +97,11 @@ const ProductAvailability = ({ data }) => {
     return true
   }
 
-  useEffect(() => {
-    if (startDate && endDate) {
-      setCurrentStock((prevStock) => (prevStock > 0 ? prevStock - 1 : 0))
-    }
-  }, [startDate, endDate])
-
-  const rangeDates = occupiedDates.flatMap(range => eachDayOfInterval({ start: range.start, end: range.end }))
+  const rangeDates = occupiedDates.flatMap(range => {
+    const start = range.startDate
+    const end = range.endDate
+    return eachDayOfInterval({ start, end })
+  })
 
   const highlightWithRanges = [
     {
@@ -142,16 +158,16 @@ const ProductAvailability = ({ data }) => {
             <p className="txt-quaternary paragraph">Días seleccionados: {daysSelected}</p>
             <p className="txt-tertiary paragraph">Costo total <span className='legal'>(DíasxPrecio)</span>: <strong className='txt-primary'>${total}</strong></p>
             <p className="txt-quaternary paragraph">Stock disponible: {currentStock}</p>
-            {currentStock === 0 && (
-              <p style={{ backgroundColor: '#56494E', color:"white" }} className=" font-bold text-xl py-2 px-4">No hay unidades disponibles</p>
+            {currentStock <= 0 && (
+              <p style={{ backgroundColor: '#56494E', color: "white" }} className="font-bold text-xl py-2 px-4">No hay unidades disponibles</p>
             )}
             {currentStock > 0 && (
-              <button style={{ backgroundColor: '#A62639', color:"white" }} className=" text-white py-2 px-4 rounded-md" onClick={rentarHandle}>Ir a Rentar</button>
+              <button style={{ backgroundColor: '#A62639', color: "white" }} className="text-white py-2 px-4 rounded-md" onClick={rentarHandle}>Ir a Rentar</button>
             )}
           </div>
           <div className='grid info g-5'>
             <div className='flex items-center dato-disponible g-5'>
-              <p  className='txt-tertiary legal'>Fechas disponibles</p>
+              <p className='txt-tertiary legal'>Fechas disponibles</p>
             </div>
             <div className='flex items-center dato-ocupado g-5'>
               <p className='txt-tertiary legal'>Fechas ocupadas</p>
